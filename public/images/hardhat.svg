@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 227.61233 247.39489"
+   version="1.1"
+   id="svg182"
+   sodipodi:docname="hardhat.svg"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   width="227.61234"
+   height="247.39488"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs186" />
+  <sodipodi:namedview
+     id="namedview184"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="2.6512199"
+     inkscape:cx="112.0239"
+     inkscape:cy="74.682603"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g180" />
+  <g
+     transform="matrix(1.3533,0,0,1.3533,-93.14412,-81.298686)"
+     id="g180">
+    <path
+       d="m 108.589,118.999 0.265,-1.351 c 5.547,-28.1446 30.426,-48.5736 59.164,-48.5736 27.852,0 53.231,21.336 59.137,49.6596 0.047,0.695 0.844,12.304 0.863,12.594 v 5.589 H 90.6556 Z m -8.215,-4.523 -14.8786,14.781 -16.668,16.649 H 237.018 v -14.887 c 0,0 -0.808,-11.777 -0.875,-12.75 0,-0.012 0.004,-0.02 0.004,-0.031 0,-0.098 -0.023,-0.203 -0.031,-0.305 l -0.023,-0.398 -0.028,-0.153 c -0.007,-0.054 -0.004,-0.101 -0.011,-0.156 -0.008,-0.024 -0.02,-0.043 -0.028,-0.066 v -0.012 c -6.66,-32.5386 -35.898,-57.0736 -68.011,-57.0736 -32.528,0 -60.707,22.8 -67.641,54.4016"
+       fill-rule="evenodd"
+       id="path160" />
+    <path
+       d="m 127.956,157.14 c -2.508,0 -4.543,2.035 -4.543,4.543 0,2.508 2.035,4.547 4.543,4.547 2.508,0 4.547,-2.035 4.547,-4.547 0,-2.512 -2.035,-4.543 -4.547,-4.543 z m 97.469,-3.926 0.851,9.778 c -0.226,42.77 -28.148,76.719 -70.879,79.832 l -21.132,0.059 c -10.825,0.004 -19.602,-8.766 -19.606,-19.59 l -0.016,-26.426 -14.273,-2.161 c -2.441,-0.796 -3.6051,-0.793 -3.9957,-3.429 -0.0937,-0.645 0.3555,-2.09 0.5703,-2.668 0,0 0.5664,-1.739 1.5235,-4.614 l 11.0389,-30.781 h 115.918"
+       fill-rule="evenodd"
+       id="path162" />
+  </g>
+</svg>

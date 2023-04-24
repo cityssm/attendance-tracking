@@ -1,0 +1,64 @@
+<%- include('_header'); -%>
+
+<h1 class="title is-1">
+  <%= configFunctions.getProperty("application.applicationName") %>
+</h1>
+
+<div class="columns">
+  <div class="column">
+    <div class="columns is-desktop">
+      <div class="column">
+        <div class="card is-hover-container">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <span class="fa-layers fa-4x fa-fw">
+                  <i class="fas fa-fw fa-phone" aria-hidden="true"></i>
+                </span>
+              </div>
+              <a class="media-content" href="<%= urlPrefix %>/callOuts">
+                <h2 class="title is-4 is-marginless has-text-link">
+                  Call Outs
+                </h2>
+                <p>
+                  View and maintain the call out log.<br />
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% if (user.isAdmin) { %>
+      <h2 class="title is-3">Administrator Tools</h2>
+      
+      <div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
+                <i class="fas fa-users"></i>
+                <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+              </span>
+            </div>
+            <a class="media-content" href="<%= urlPrefix %>/admin/users">
+              <h2 class="title is-4 is-marginless has-text-link">
+                User Management
+              </h2>
+              <p>
+                Manage users and permissions.
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include('_footerA'); -%>
+
+<script src="<%= urlPrefix %>/javascripts/dashboard.min.js"></script>
+
+<%- include('_footerB'); -%>

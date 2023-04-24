@@ -1,0 +1,11 @@
+{
+  "events": {
+    "start": "cls || clear"
+  },
+  "ignore": [
+    "cypress/*",
+    "data/sessions/*",
+    "public/javascripts/*",
+    "public-typescript/*"
+  ]
+}
