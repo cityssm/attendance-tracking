@@ -11,7 +11,7 @@
     <%= configFunctions.getProperty("application.applicationName") %>
   </title>
 
-  <link rel="icon" href="<%= urlPrefix + configFunctions.getProperty("application.logoURL") %>" />
+  <link rel="icon" href="<%= urlPrefix + configFunctions.getProperty("application.smallLogoURL") %>" />
 
   <link rel="stylesheet" href="<%= urlPrefix %>/stylesheets/style.css" />
 </head>
@@ -23,7 +23,7 @@
       <div class="navbar-brand">
         <a class="navbar-item" href="<%= urlPrefix %>/dashboard">
           <img class="mr-3"
-            src="<%= urlPrefix + configFunctions.getProperty("application.logoURL") %>"
+            src="<%= urlPrefix + configFunctions.getProperty("application.smallLogoURL") %>"
             alt=""
             height="28" />
           <strong><%= configFunctions.getProperty("application.applicationName") %></strong>
@@ -37,11 +37,11 @@
 
       <div class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item" href="<%= urlPrefix %>/callOuts" accesskey="1">
+          <a class="navbar-item" href="<%= urlPrefix %>/attendance">
             <span class="icon mr-1">
-              <i class="fas fa-phone" aria-hidden="true"></i>
+              <i class="fas fa-user-check" aria-hidden="true"></i>
             </span>
-            <span>Call Outs</span>
+            <span>Attendance</span>
           </a>
 
           <div class="navbar-item has-dropdown">
@@ -52,6 +52,13 @@
               </span>
             </a>
             <div class="navbar-dropdown">
+              <a class="navbar-item" href="<%= urlPrefix %>/reports">
+                <span class="icon mr-1">
+                    <i class="fas fa-fw fa-file" aria-hidden="true"></i>
+                </span>
+                <span>Reports</span>
+              </a>
+              <hr class="navbar-divider" />
               <a class="navbar-item" href="https://cityssm.github.io/monty/docs"
                   target="_blank"
                   accesskey="h"

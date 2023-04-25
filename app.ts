@@ -14,6 +14,7 @@ import FileStore from 'session-file-store'
 
 import routerLogin from './routes/login.js'
 import routerDashboard from './routes/dashboard.js'
+import routerAttendance from './routes/attendance.js'
 
 import * as configFunctions from './helpers/functions.config.js'
 import * as dateTimeFns from '@cityssm/utils-datetime'
@@ -202,6 +203,7 @@ app.get(urlPrefix + '/', sessionChecker, (_request, response) => {
 })
 
 app.use(urlPrefix + '/dashboard', sessionChecker, routerDashboard)
+app.use(urlPrefix + '/attendance', sessionChecker, routerAttendance)
 
 if (configFunctions.getProperty('session.doKeepAlive')) {
   app.all(urlPrefix + '/keepAlive', (_request, response) => {

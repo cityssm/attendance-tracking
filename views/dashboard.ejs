@@ -4,50 +4,32 @@
   <%= configFunctions.getProperty("application.applicationName") %>
 </h1>
 
-<div class="columns">
+<div class="columns is-desktop">
   <div class="column">
-    <div class="columns is-desktop">
-      <div class="column">
-        <div class="card is-hover-container">
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <span class="fa-layers fa-4x fa-fw">
-                  <i class="fas fa-fw fa-phone" aria-hidden="true"></i>
-                </span>
-              </div>
-              <a class="media-content" href="<%= urlPrefix %>/callOuts">
-                <h2 class="title is-4 is-marginless has-text-link">
-                  Call Outs
-                </h2>
-                <p>
-                  View and maintain the call out log.<br />
-                </p>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <% if (user.isAdmin) { %>
-      <h2 class="title is-3">Administrator Tools</h2>
-      
+    <% if (configFunctions.includeAttendance()) { %>
       <div class="card">
         <div class="card-content">
           <div class="media">
             <div class="media-left">
               <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
-                <i class="fas fa-users"></i>
-                <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+                <i class="fas fa-user-check"></i>
+                <i class="fas fa-hard-hat" data-fa-transform="shrink-7 up-9 left-3" data-fa-glow></i>
               </span>
             </div>
-            <a class="media-content" href="<%= urlPrefix %>/admin/users">
+            <a class="media-content" href="<%= urlPrefix %>/attendance">
               <h2 class="title is-4 is-marginless has-text-link">
-                User Management
+                Employee Attendance
               </h2>
               <p>
-                Manage users and permissions.
+                <% if (configFunctions.getProperty('features.attendance.absences')) { %>
+                  Track absence requests.
+                <% } %>
+                <% if (configFunctions.getProperty('features.attendance.returnsToWork')) { %>
+                  Record return to work notices.
+                <% } %>
+                <% if (configFunctions.getProperty('features.attendance.callOuts')) { %>
+                  Manage employee call outs.
+                <% } %>
               </p>
             </a>
           </div>
@@ -55,7 +37,71 @@
       </div>
     <% } %>
   </div>
+  <div class="column">
+    <div class="card">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+            <i class="fas fa-4x fa-fw fa-file" aria-hidden="true"></i>
+          </div>
+          <a class="media-content" href="<%= urlPrefix %>/reports">
+            <h2 class="title is-4 is-marginless has-text-link">
+              Report Library
+            </h2>
+            <p>Produce reports and export data.</p>
+          </a>
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+            <i class="fas fa-4x fa-fw fa-question-circle" aria-hidden="true"></i>
+          </div>
+          <a class="media-content" href="https://cityssm.github.io/monty/docs" target="_blank" rel="noopener noreferrer">
+            <h2 class="title is-4 is-marginless has-text-link">
+              Help
+            </h2>
+            <p>
+              Instructions on how to use this application.
+            </p>
+          </a>
+        </div>
+        <a class="button is-fullwidth is-link is-light has-tooltip-bottom" data-tooltip="Latest Updates, Issue Tracker, Say Hello"
+          href="https://github.com/cityssm/monty" target="_blank" rel="noreferrer">
+          <span class="icon">
+            <i class="fab fa-github" aria-hidden="true"></i>
+          </span>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
+
+<% if (user.isAdmin) { %>
+  <h2 class="title is-3">Administrator Tools</h2>
+  
+  <div class="card">
+    <div class="card-content">
+      <div class="media">
+        <div class="media-left">
+          <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
+            <i class="fas fa-users"></i>
+            <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+          </span>
+        </div>
+        <a class="media-content" href="<%= urlPrefix %>/admin/users">
+          <h2 class="title is-4 is-marginless has-text-link">
+            User Maintenance
+          </h2>
+          <p>
+            Manage users and permissions.
+          </p>
+        </a>
+      </div>
+    </div>
+  </div>
+<% } %>
 
 <%- include('_footerA'); -%>
 

@@ -1,0 +1,36 @@
+<%- include('_header'); -%>
+
+<div class="columns">
+  <div class="column is-2">
+    <aside class="menu">
+      <ul class="menu-list">
+        <% if (configFunctions.getProperty('features.attendance.absences')) { %>
+          <li>
+            <a>Absence Requests</a>
+          </li>
+        <% } %>
+        <% if (configFunctions.getProperty('features.attendance.callOuts')) { %>
+          <li>
+            <a>Call Outs</a>
+          </li>
+        <% } %>
+        <% if (configFunctions.getProperty('features.attendance.returnsToWork')) { %>
+          <li>
+            <a>Return to Work</a>
+          </li>
+        <% } %>
+      </ul>
+    </aside>
+  </div>
+  <div class="column">
+    <h1 class="title is-1">
+      Employee Attendance
+    </h1>
+  </div>
+</div>
+
+<%- include('_footerA'); -%>
+
+<script src="<%= urlPrefix %>/javascripts/attendance.min.js"></script>
+
+<%- include('_footerB'); -%>

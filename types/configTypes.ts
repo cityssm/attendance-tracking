@@ -2,8 +2,21 @@
 import type { config as MSSQLConfig } from 'mssql'
 
 export interface Config {
-  application: ConfigApplication
-  session: ConfigSession
+  application: {
+    applicationName?: string
+    backgroundURL?: string
+    bigLogoURL?: string
+    smallLogoURL?: string
+    httpPort?: number
+    userDomain?: string
+    maximumProcesses?: number
+  }
+  session: {
+    cookieName?: string
+    secret?: string
+    maxAgeMillis?: number
+    doKeepAlive?: boolean
+  }
   reverseProxy: {
     disableCompression?: boolean
     disableEtag?: boolean
@@ -25,27 +38,18 @@ export interface Config {
     workOrderOpenDate?: string
     workOrderCloseDate?: string
   }
+  features: {
+    attendance?: {
+      absences?: boolean
+      returnsToWork?: boolean
+      callOuts?: boolean
+    }
+  }
   settings: {
     printPdf: {
       contentDisposition?: 'attachment' | 'inline'
     }
   }
-}
-
-interface ConfigApplication {
-  applicationName?: string
-  backgroundURL?: string
-  logoURL?: string
-  httpPort?: number
-  userDomain?: string
-  maximumProcesses?: number
-}
-
-interface ConfigSession {
-  cookieName?: string
-  secret?: string
-  maxAgeMillis?: number
-  doKeepAlive?: boolean
 }
 
 export interface ConfigActiveDirectory {

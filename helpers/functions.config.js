@@ -3,7 +3,8 @@ import { config } from '../data/config.js';
 const configFallbackValues = new Map();
 configFallbackValues.set('application.applicationName', 'MonTY');
 configFallbackValues.set('application.backgroundURL', '/images/truck-background.jpg');
-configFallbackValues.set('application.logoURL', '/images/hardhat.svg');
+configFallbackValues.set('application.bigLogoURL', '/images/monty-big.svg');
+configFallbackValues.set('application.smallLogoURL', '/images/monty-small.svg');
 configFallbackValues.set('application.httpPort', 7000);
 configFallbackValues.set('application.maximumProcesses', 4);
 configFallbackValues.set('reverseProxy.disableCompression', false);
@@ -13,6 +14,9 @@ configFallbackValues.set('session.cookieName', 'monty-user-sid');
 configFallbackValues.set('session.secret', 'cityssm/monty');
 configFallbackValues.set('session.maxAgeMillis', 60 * 60 * 1000);
 configFallbackValues.set('session.doKeepAlive', false);
+configFallbackValues.set('features.attendance.absences', true);
+configFallbackValues.set('features.attendance.callOuts', true);
+configFallbackValues.set('features.attendance.returnsToWork', true);
 export function getProperty(propertyName) {
     const propertyNameSplit = propertyName.split('.');
     let currentObject = config;
@@ -24,6 +28,11 @@ export function getProperty(propertyName) {
         return configFallbackValues.get(propertyName);
     }
     return currentObject;
+}
+export function includeAttendance() {
+    return (getProperty('features.attendance.absences') ||
+        getProperty('features.attendance.callOuts') ||
+        getProperty('features.attendance.returnsToWork'));
 }
 export const keepAliveMillis = getProperty('session.doKeepAlive')
     ? Math.max(getProperty('session.maxAgeMillis') / 2, getProperty('session.maxAgeMillis') - 10 * 60 * 1000)

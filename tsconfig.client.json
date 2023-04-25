@@ -11,7 +11,14 @@
     "skipLibCheck": true,
     "strictNullChecks": true
   },
-  "files": ["public-typescript/main.ts", "public-typescript/dashboard.ts"],
+  "files": [
+    "public-typescript/main.ts",
+    "public-typescript/dashboard.ts",
+    "public-typescript/attendance.ts",
+    "public-typescript/attendance.absences.ts",
+    "public-typescript/attendance.callOuts.ts",
+    "public-typescript/attendance.returnsToWork.ts"
+  ],
   "compileOnSave": true,
   "buildOnSave": true
 }

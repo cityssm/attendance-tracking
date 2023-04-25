@@ -20,7 +20,8 @@ configFallbackValues.set(
   'application.backgroundURL',
   '/images/truck-background.jpg'
 )
-configFallbackValues.set('application.logoURL', '/images/hardhat.svg')
+configFallbackValues.set('application.bigLogoURL', '/images/monty-big.svg')
+configFallbackValues.set('application.smallLogoURL', '/images/monty-small.svg')
 configFallbackValues.set('application.httpPort', 7000)
 configFallbackValues.set('application.maximumProcesses', 4)
 
@@ -33,13 +34,18 @@ configFallbackValues.set('session.secret', 'cityssm/monty')
 configFallbackValues.set('session.maxAgeMillis', 60 * 60 * 1000)
 configFallbackValues.set('session.doKeepAlive', false)
 
+configFallbackValues.set('features.attendance.absences', true)
+configFallbackValues.set('features.attendance.callOuts', true)
+configFallbackValues.set('features.attendance.returnsToWork', true)
+
 /*
  * Set up function overloads
  */
 
 export function getProperty(propertyName: 'application.applicationName'): string
 
-export function getProperty(propertyName: 'application.logoURL'): string
+export function getProperty(propertyName: 'application.bigLogoURL'): string
+export function getProperty(propertyName: 'application.smallLogoURL'): string
 export function getProperty(propertyName: 'application.httpPort'): number
 export function getProperty(propertyName: 'application.userDomain'): string
 
@@ -64,12 +70,20 @@ export function getProperty(propertyName: 'session.maxAgeMillis'): number
 export function getProperty(propertyName: 'session.secret'): string
 
 export function getProperty(
+  propertyName: 'features.attendance.absences'
+): boolean
+export function getProperty(
+  propertyName: 'features.attendance.callOuts'
+): boolean
+export function getProperty(
+  propertyName: 'features.attendance.returnsToWork'
+): boolean
+
+export function getProperty(
   propertyName: 'settings.printPdf.contentDisposition'
 ): 'attachment' | 'inline'
 
-export function getProperty(
-  propertyName: 'mssql'
-): MSSQLConfig
+export function getProperty(propertyName: 'mssql'): MSSQLConfig
 
 export function getProperty(propertyName: string): unknown {
   const propertyNameSplit = propertyName.split('.')
@@ -86,6 +100,14 @@ export function getProperty(propertyName: string): unknown {
   }
 
   return currentObject
+}
+
+export function includeAttendance(): boolean {
+  return (
+    getProperty('features.attendance.absences') ||
+    getProperty('features.attendance.callOuts') ||
+    getProperty('features.attendance.returnsToWork')
+  )
 }
 
 export const keepAliveMillis = getProperty('session.doKeepAlive')
