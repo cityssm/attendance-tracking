@@ -1,4 +1,4 @@
-<div style="text-align:center">
+<div align="center">
 <img src="public/images/monty-small.svg" alt="Monty" style="height:200px" />
 
 # MonTY
