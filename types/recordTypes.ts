@@ -10,13 +10,33 @@ export interface Record {
 }
 
 /*
+ * EMPLOYEES
+ */
+
+export interface Employee extends Record {
+  employeeNumber: string
+  employeeSurname: string
+  employeeGivenName: string
+  userName?: string
+  workContact1?: string
+  workContact2?: string
+  homeContact1?: string
+  homeContact2?: string
+  jobTitle?: string
+  department?: string
+  seniorityDateTime?: Date
+  isSynced?: boolean
+  syncDateTime?: Date
+  isActive?: boolean
+}
+
+/*
  * USER TYPES
  */
 
 export interface User extends Record {
   userName: string
   canLogin: boolean
-  canUpdate: boolean
   isAdmin: boolean
 }
 

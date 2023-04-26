@@ -1,5 +1,6 @@
 import '../helpers/polyfills.js';
 import cluster from 'node:cluster';
+import { fork } from 'node:child_process';
 import os from 'node:os';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -44,4 +45,9 @@ if (process.env.STARTUP_TEST === 'true') {
         debug('Killing processes');
         process.exit(0);
     }, 10000);
+}
+else {
+    if (configFunctions.getProperty('features.employees.avantiSync')) {
+        fork('./tasks/avantiEmployeeSync.js');
+    }
 }

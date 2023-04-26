@@ -12,8 +12,8 @@ export async function getUser(userName: string): Promise<User | undefined> {
     .request()
     .input('userName', userName).query(`SELECT top 1
       userName,
-      canLogin, canUpdate, isAdmin
-      FROM Monty.Users
+      canLogin, isAdmin
+      FROM MonTY.Users
       where userName = @userName
       and recordDelete_dateTime is null`)
 

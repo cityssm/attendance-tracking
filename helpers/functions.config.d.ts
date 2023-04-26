@@ -1,6 +1,7 @@
 import './polyfills.js';
 import type * as configTypes from '../types/configTypes';
 import type { config as MSSQLConfig } from 'mssql';
+import type { Configuration as AvantiConfig } from '@cityssm/avanti-api';
 export declare function getProperty(propertyName: 'application.applicationName'): string;
 export declare function getProperty(propertyName: 'application.bigLogoURL'): string;
 export declare function getProperty(propertyName: 'application.smallLogoURL'): string;
@@ -18,7 +19,10 @@ export declare function getProperty(propertyName: 'session.secret'): string;
 export declare function getProperty(propertyName: 'features.attendance.absences'): boolean;
 export declare function getProperty(propertyName: 'features.attendance.callOuts'): boolean;
 export declare function getProperty(propertyName: 'features.attendance.returnsToWork'): boolean;
+export declare function getProperty(propertyName: 'features.employees.avantiSync'): boolean;
 export declare function getProperty(propertyName: 'settings.printPdf.contentDisposition'): 'attachment' | 'inline';
 export declare function getProperty(propertyName: 'mssql'): MSSQLConfig;
+export declare function getProperty(propertyName: 'settings.avantiSync.config'): AvantiConfig;
+export declare function getProperty(propertyName: 'settings.avantiSync.locationCodes'): string[];
 export declare function includeAttendance(): boolean;
 export declare const keepAliveMillis: number;

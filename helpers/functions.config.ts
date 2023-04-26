@@ -9,6 +9,8 @@ import type * as configTypes from '../types/configTypes'
 // eslint-disable-next-line node/no-extraneous-import
 import type { config as MSSQLConfig } from 'mssql'
 
+import type { Configuration as AvantiConfig } from '@cityssm/avanti-api'
+
 /*
  * SET UP FALLBACK VALUES
  */
@@ -37,6 +39,8 @@ configFallbackValues.set('session.doKeepAlive', false)
 configFallbackValues.set('features.attendance.absences', true)
 configFallbackValues.set('features.attendance.callOuts', true)
 configFallbackValues.set('features.attendance.returnsToWork', true)
+
+configFallbackValues.set('features.employees.avantiSync', false)
 
 /*
  * Set up function overloads
@@ -80,10 +84,17 @@ export function getProperty(
 ): boolean
 
 export function getProperty(
+  propertyName: 'features.employees.avantiSync'
+): boolean
+
+export function getProperty(
   propertyName: 'settings.printPdf.contentDisposition'
 ): 'attachment' | 'inline'
 
 export function getProperty(propertyName: 'mssql'): MSSQLConfig
+
+export function getProperty(propertyName: 'settings.avantiSync.config'): AvantiConfig
+export function getProperty(propertyName: 'settings.avantiSync.locationCodes'): string[]
 
 export function getProperty(propertyName: string): unknown {
   const propertyNameSplit = propertyName.split('.')

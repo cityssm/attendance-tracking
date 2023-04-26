@@ -1,4 +1,5 @@
 import type { config as MSSQLConfig } from 'mssql';
+import type { Configuration as AvantiConfig } from '@cityssm/avanti-api';
 export interface Config {
     application: {
         applicationName?: string;
@@ -18,7 +19,7 @@ export interface Config {
     reverseProxy: {
         disableCompression?: boolean;
         disableEtag?: boolean;
-        urlPrefix?: string;
+        urlPrefix?: `/${string}`;
     };
     activeDirectory?: ConfigActiveDirectory;
     mssql?: MSSQLConfig;
@@ -42,10 +43,17 @@ export interface Config {
             returnsToWork?: boolean;
             callOuts?: boolean;
         };
+        employees?: {
+            avantiSync?: boolean;
+        };
     };
     settings: {
         printPdf: {
             contentDisposition?: 'attachment' | 'inline';
+        };
+        avantiSync?: {
+            config: AvantiConfig;
+            locationCodes?: string[];
         };
     };
 }

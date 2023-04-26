@@ -6,7 +6,6 @@
 ⭐ UNDER DEVELOPMENT ⭐
 </div>
 
-
 An application built for Public Works departments to
 "**MON**itor and **T**rack **Y**our":
 
