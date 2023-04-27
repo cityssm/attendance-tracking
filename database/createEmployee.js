@@ -70,5 +70,5 @@ export async function createEmployee(employee, requestSession) {
         .input('record_userName', requestSession.user?.userName)
         .input('record_dateTime', new Date())
         .query(insertSQL);
-    return result.rowsAffected > 0;
+    return result.rowsAffected[0] > 0;
 }

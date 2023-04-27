@@ -6,7 +6,7 @@
 
 <div class="columns is-desktop">
   <div class="column">
-    <% if (configFunctions.includeAttendance()) { %>
+    <% if (configFunctions.includeAttendance() && permissionFunctions.hasAttendance(user)) { %>
       <div class="card">
         <div class="card-content">
           <div class="media">
@@ -21,13 +21,13 @@
                 Employee Attendance
               </h2>
               <p>
-                <% if (configFunctions.getProperty('features.attendance.absences')) { %>
+                <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
                   Track absence requests.
                 <% } %>
-                <% if (configFunctions.getProperty('features.attendance.returnsToWork')) { %>
+                <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
                   Record return to work notices.
                 <% } %>
-                <% if (configFunctions.getProperty('features.attendance.callOuts')) { %>
+                <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
                   Manage employee call outs.
                 <% } %>
               </p>

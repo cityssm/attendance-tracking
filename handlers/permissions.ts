@@ -40,29 +40,3 @@ export function adminPostHandler(
 
   response.status(forbiddenStatus).json(forbiddenJSON)
 }
-
-export function updateGetHandler(
-  request: Request,
-  response: Response,
-  next: NextFunction
-): void {
-  if (userFunctions.userCanUpdate(request)) {
-    next()
-    return
-  }
-
-  response.redirect(forbiddenRedirectURL)
-}
-
-export function updatePostHandler(
-  request: Request,
-  response: Response,
-  next: NextFunction
-): void {
-  if (userFunctions.userCanUpdate(request)) {
-    next()
-    return
-  }
-
-  response.status(forbiddenStatus).json(forbiddenJSON)
-}

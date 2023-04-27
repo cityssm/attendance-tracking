@@ -10,4 +10,3 @@ export interface APIRequest {
     };
 }
 export declare function userIsAdmin(request: UserRequest): boolean;
-export declare function userCanUpdate(request: UserRequest): boolean;

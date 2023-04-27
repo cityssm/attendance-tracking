@@ -27,7 +27,7 @@
   "homepage": "https://github.com/cityssm/monty#readme",
   "private": true,
   "dependencies": {
-    "@cityssm/avanti-api": "^0.2.2",
+    "@cityssm/avanti-api": "^0.4.0",
     "@cityssm/bulma-js": "^0.4.0",
     "@cityssm/bulma-webapp-js": "^1.5.0",
     "@cityssm/expressjs-server-js": "^2.3.3",

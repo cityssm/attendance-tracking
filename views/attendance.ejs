@@ -4,17 +4,17 @@
   <div class="column is-2">
     <aside class="menu">
       <ul class="menu-list">
-        <% if (configFunctions.getProperty('features.attendance.absences')) { %>
+        <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
           <li>
             <a>Absence Requests</a>
           </li>
         <% } %>
-        <% if (configFunctions.getProperty('features.attendance.callOuts')) { %>
+        <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
           <li>
             <a>Call Outs</a>
           </li>
         <% } %>
-        <% if (configFunctions.getProperty('features.attendance.returnsToWork')) { %>
+        <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
           <li>
             <a>Return to Work</a>
           </li>

@@ -46,5 +46,5 @@ export async function updateEmployee(
       where employeeNumber = @employeeNumber
       and recordDelete_dateTime is null`)
 
-  return (result.rowsAffected as unknown as number) > 0
+  return result.rowsAffected[0] > 0
 }

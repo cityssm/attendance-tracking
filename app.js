@@ -11,6 +11,7 @@ import FileStore from 'session-file-store';
 import routerLogin from './routes/login.js';
 import routerDashboard from './routes/dashboard.js';
 import routerAttendance from './routes/attendance.js';
+import * as permissionFunctions from './helpers/functions.permissions.js';
 import * as configFunctions from './helpers/functions.config.js';
 import * as dateTimeFns from '@cityssm/utils-datetime';
 import * as stringFns from '@cityssm/expressjs-server-js/stringFns.js';
@@ -92,6 +93,7 @@ app.use((request, response, next) => {
     response.locals.buildNumber = version;
     response.locals.user = request.session.user;
     response.locals.csrfToken = request.csrfToken();
+    response.locals.permissionFunctions = permissionFunctions;
     response.locals.configFunctions = configFunctions;
     response.locals.dateTimeFunctions = dateTimeFns;
     response.locals.stringFunctions = stringFns;
@@ -103,7 +105,15 @@ app.get(urlPrefix + '/', sessionChecker, (_request, response) => {
     response.redirect(urlPrefix + '/dashboard');
 });
 app.use(urlPrefix + '/dashboard', sessionChecker, routerDashboard);
-app.use(urlPrefix + '/attendance', sessionChecker, routerAttendance);
+if (configFunctions.includeAttendance()) {
+    app.use(urlPrefix + '/attendance', sessionChecker, (request, response, next) => {
+        if (permissionFunctions.hasAttendance(request.session.user)) {
+            next();
+            return;
+        }
+        response.redirect(`${urlPrefix}/dashboard?error=accessDenied`);
+    }, routerAttendance);
+}
 if (configFunctions.getProperty('session.doKeepAlive')) {
     app.all(urlPrefix + '/keepAlive', (_request, response) => {
         response.json(true);

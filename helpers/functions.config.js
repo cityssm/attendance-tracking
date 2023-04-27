@@ -18,6 +18,7 @@ configFallbackValues.set('features.attendance.absences', true);
 configFallbackValues.set('features.attendance.callOuts', true);
 configFallbackValues.set('features.attendance.returnsToWork', true);
 configFallbackValues.set('features.employees.avantiSync', false);
+configFallbackValues.set('settings.avantiSync.locationCodes', []);
 export function getProperty(propertyName) {
     const propertyNameSplit = propertyName.split('.');
     let currentObject = config;

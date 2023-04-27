@@ -89,5 +89,5 @@ export async function createEmployee(
     .input('record_dateTime', new Date())
     .query(insertSQL)
 
-  return (result.rowsAffected as unknown as number) > 0
+  return result.rowsAffected[0] > 0
 }

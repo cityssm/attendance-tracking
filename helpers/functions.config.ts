@@ -42,6 +42,8 @@ configFallbackValues.set('features.attendance.returnsToWork', true)
 
 configFallbackValues.set('features.employees.avantiSync', false)
 
+configFallbackValues.set('settings.avantiSync.locationCodes', [])
+
 /*
  * Set up function overloads
  */
@@ -93,8 +95,12 @@ export function getProperty(
 
 export function getProperty(propertyName: 'mssql'): MSSQLConfig
 
-export function getProperty(propertyName: 'settings.avantiSync.config'): AvantiConfig
-export function getProperty(propertyName: 'settings.avantiSync.locationCodes'): string[]
+export function getProperty(
+  propertyName: 'settings.avantiSync.config'
+): AvantiConfig
+export function getProperty(
+  propertyName: 'settings.avantiSync.locationCodes'
+): string[]
 
 export function getProperty(propertyName: string): unknown {
   const propertyNameSplit = propertyName.split('.')

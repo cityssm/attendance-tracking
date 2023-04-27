@@ -4,6 +4,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import type { Employee } from '../types/recordTypes'
+import { getEmployeeProperties } from './getEmployeeProperties.js'
 
 export async function getEmployee(
   employeeNumber: string
@@ -12,7 +13,7 @@ export async function getEmployee(
 
   const employeeResult: IResult<Employee> = await pool
     .request()
-    .input('employeeNumber', employeeNumber).query(`SELECT
+    .input('employeeNumber', employeeNumber).query(`select
       employeeNumber, employeeSurname, employeeGivenName,
       userName,
       workContact1, workContact2, homeContact1, homeContact2,
@@ -20,12 +21,17 @@ export async function getEmployee(
       seniorityDateTime,
       isSynced, syncDateTime,
       isActive
-      FROM MonTY.Employees
+      from MonTY.Employees
       where employeeNumber = @employeeNumber
       and recordDelete_dateTime is null`)
 
   if (employeeResult.recordset.length > 0) {
     const employee = employeeResult.recordset[0]
+
+    employee.employeeProperties = await getEmployeeProperties(
+      employee.employeeNumber
+    )
+
     return employee
   }
 }
