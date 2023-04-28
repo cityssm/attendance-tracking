@@ -44,6 +44,9 @@ async function doSync() {
             continue;
         }
         const currentEmployee = await getEmployee(avantiEmployee.empNo);
+        if (currentEmployee !== undefined && !(currentEmployee.isSynced ?? false)) {
+            continue;
+        }
         const newEmployee = {
             employeeNumber: avantiEmployee.empNo,
             employeeSurname: avantiEmployee.surname ?? '',
@@ -84,42 +87,39 @@ async function doSync() {
                 newEmployee.homeContact2 = homeContacts[1];
             }
         }
-        if (!currentEmployee) {
-            await createEmployee(newEmployee, partialSession);
-        }
-        else if (currentEmployee.isSynced ?? false) {
-            await updateEmployee(newEmployee, partialSession);
-        }
-        await deleteEmployeeProperties(newEmployee.employeeNumber, partialSession);
+        currentEmployee === undefined
+            ? await createEmployee(newEmployee, partialSession)
+            : await updateEmployee(newEmployee, true, partialSession);
+        await deleteEmployeeProperties(newEmployee.employeeNumber, true, partialSession);
         if (avantiEmployeePersonalResponse.success) {
             const avantiEmployeePersonal = avantiEmployeePersonalResponse.response;
             await setEmployeeProperty({
                 employeeNumber: newEmployee.employeeNumber,
                 propertyName: 'position',
                 propertyValue: avantiEmployeePersonal.position ?? ''
-            }, partialSession);
+            }, true, partialSession);
             await setEmployeeProperty({
                 employeeNumber: newEmployee.employeeNumber,
                 propertyName: 'payGroup',
                 propertyValue: avantiEmployeePersonal.payGroup ?? ''
-            }, partialSession);
+            }, true, partialSession);
             await setEmployeeProperty({
                 employeeNumber: newEmployee.employeeNumber,
                 propertyName: 'location',
                 propertyValue: avantiEmployeePersonal.location ?? ''
-            }, partialSession);
+            }, true, partialSession);
             await setEmployeeProperty({
                 employeeNumber: newEmployee.employeeNumber,
                 propertyName: 'workGroup',
                 propertyValue: avantiEmployeePersonal.workGroup ?? ''
-            }, partialSession);
+            }, true, partialSession);
             for (let otherTextIndex = 1; otherTextIndex <= 20; otherTextIndex += 1) {
                 if (avantiEmployeePersonal[`otherText${otherTextIndex}`] !== '') {
                     await setEmployeeProperty({
                         employeeNumber: newEmployee.employeeNumber,
                         propertyName: `otherText${otherTextIndex}`,
                         propertyValue: avantiEmployeePersonal[`otherText${otherTextIndex}`]
-                    }, partialSession);
+                    }, true, partialSession);
                 }
             }
         }

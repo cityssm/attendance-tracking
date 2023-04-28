@@ -16,6 +16,7 @@ export interface Employee extends RecordUserNameDateTime {
     workContact2?: string;
     homeContact1?: string;
     homeContact2?: string;
+    syncContacts?: boolean;
     jobTitle?: string;
     department?: string;
     seniorityDateTime?: Date;
@@ -28,6 +29,21 @@ export interface EmployeeProperty extends RecordUserNameDateTime {
     employeeNumber?: string;
     propertyName: string;
     propertyValue: string;
+    isSynced?: boolean;
+}
+export interface CallOutList extends RecordUserNameDateTime {
+    listId: string;
+    listName: string;
+    listDescription?: string;
+    sortKeyFunction?: string;
+    eligibilityFunction?: string;
+    callOutListMembersCount?: number;
+    callOutListMembers?: CallOutListMember[];
+}
+export interface CallOutListMember extends Partial<Employee>, RecordUserNameDateTime {
+    employeeNumber: string;
+    sortKey?: string;
+    isNext: boolean;
 }
 export interface User extends RecordUserNameDateTime {
     userName: string;

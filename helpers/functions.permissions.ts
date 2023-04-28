@@ -24,6 +24,9 @@ export function hasAttendance(user: User): boolean {
   )
 }
 
-export function hasPermission(user: User, permissionKey: string): boolean {
+export function hasPermission(
+  user: User,
+  permissionKey: keyof typeof availablePermissionValues
+): boolean {
   return (user.permissions?.[permissionKey] ?? 'false') === 'true'
 }

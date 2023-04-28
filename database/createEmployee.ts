@@ -21,7 +21,7 @@ export async function createEmployee(
   let insertSQL = `insert into MonTY.Employees (
       employeeNumber, employeeSurname, employeeGivenName,
       userName,
-      workContact1, workContact2, homeContact1, homeContact2,
+      workContact1, workContact2, homeContact1, homeContact2, syncContacts,
       jobTitle, department,
       seniorityDateTime,
       isSynced, syncDateTime,
@@ -29,7 +29,7 @@ export async function createEmployee(
       recordCreate_userName, recordCreate_dateTime, recordUpdate_userName, recordUpdate_dateTime)
     values (@employeeNumber, @employeeSurname, @employeeGivenName,
       @userName,
-      @workContact1, @workContact2, @homeContact1, @homeContact2,
+      @workContact1, @workContact2, @homeContact1, @homeContact2, @syncContacts,
       @jobTitle, @department,
       @seniorityDateTime,
       @isSynced, @syncDateTime,
@@ -55,6 +55,7 @@ export async function createEmployee(
       workContact2 = @workContact2,
       homeContact1 = @homeContact1,
       homeContact2 = @homeContact2,
+      syncContacts = @syncContacts,
       jobTitle = @jobTitle,
       department = @department,
       seniorityDateTime = @seniorityDateTime,
@@ -79,6 +80,7 @@ export async function createEmployee(
     .input('workContact2', employee.workContact2)
     .input('homeContact1', employee.homeContact1)
     .input('homeContact2', employee.homeContact2)
+    .input('syncContacts', employee.syncContacts ?? false)
     .input('jobTitle', employee.jobTitle)
     .input('department', employee.department)
     .input('seniorityDateTime', employee.seniorityDateTime)

@@ -1,5 +1,6 @@
 import type { config as MSSQLConfig } from 'mssql';
 import type { Configuration as AvantiConfig } from '@cityssm/avanti-api';
+import type { Employee } from './recordTypes';
 export interface Config {
     application: {
         applicationName?: string;
@@ -55,6 +56,8 @@ export interface Config {
             config: AvantiConfig;
             locationCodes?: string[];
         };
+        employeeSortKeyFunctions?: ConfigEmployeeSortKeyFunction[];
+        employeeEligibilityFunctions?: ConfigEmployeeEligibilityFunction[];
     };
 }
 export interface ConfigActiveDirectory {
@@ -62,4 +65,12 @@ export interface ConfigActiveDirectory {
     baseDN: string;
     username: string;
     password: string;
+}
+export interface ConfigEmployeeSortKeyFunction {
+    functionName: string;
+    sortKeyFunction: (employee: Employee) => string;
+}
+export interface ConfigEmployeeEligibilityFunction {
+    functionName: string;
+    eligibilityFunction: (employee: Employee) => boolean;
 }

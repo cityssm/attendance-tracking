@@ -1,16 +1,19 @@
 import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-export async function setEmployeeProperty(employeeProperty, requestSession) {
+export async function setEmployeeProperty(employeeProperty, isSyncUpdate, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let result = await pool
         .request()
         .input('propertyValue', employeeProperty.propertyValue)
+        .input('isSyncUpdate', isSyncUpdate)
+        .input('isSynced', employeeProperty.isSynced ?? false)
         .input('record_userName', requestSession.user?.userName)
         .input('record_dateTime', new Date())
         .input('employeeNumber', employeeProperty.employeeNumber)
         .input('propertyName', employeeProperty.propertyName)
         .query(`update MonTY.EmployeeProperties
-      set propertyValue = @propertyValue,
+      set propertyValue = case when @isSyncUpdate = 1 and isSynced = 0 then propertyValue else @propertyValue end,
+      isSynced = case when @isSyncUpdate = 1 and isSynced = 0 then isSynced else @isSynced end,
       recordUpdate_userName = @record_userName,
       recordUpdate_dateTime = @record_dateTime,
       recordDelete_userName = null,
@@ -23,12 +26,13 @@ export async function setEmployeeProperty(employeeProperty, requestSession) {
             .input('employeeNumber', employeeProperty.employeeNumber)
             .input('propertyName', employeeProperty.propertyName)
             .input('propertyValue', employeeProperty.propertyValue)
+            .input('isSynced', employeeProperty.isSynced ?? false)
             .input('record_userName', requestSession.user?.userName)
             .input('record_dateTime', new Date())
             .query(`insert into MonTY.EmployeeProperties
-        (employeeNumber, propertyName, propertyValue,
+        (employeeNumber, propertyName, propertyValue, isSynced,
           recordCreate_userName, recordCreate_dateTime, recordUpdate_userName, recordUpdate_dateTime)
-        values (@employeeNumber, @propertyName, @propertyValue,
+        values (@employeeNumber, @propertyName, @propertyValue, isSynced,
           @record_userName, @record_dateTime, @record_userName, @record_dateTime)`);
     }
     return result.rowsAffected[0] > 0;

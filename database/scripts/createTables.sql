@@ -12,7 +12,7 @@ create table MonTY.Users (
 	recordUpdate_userName varchar(20) not null default CURRENT_USER,
 	recordUpdate_dateTime datetime2 not null default getdate(),
 	recordDelete_userName varchar(20),
-	recordDelete_datetime datetime2
+	recordDelete_dateTime datetime2
 )
 GO
 
@@ -40,6 +40,7 @@ create table MonTY.Employees (
 	workContact2 varchar(100),
 	homeContact1 varchar(100),
 	homeContact2 varchar(100),
+	syncContacts bit not null default 0,
 	jobTitle nvarchar(100),
 	department nvarchar(100),
 	seniorityDateTime datetime2,
@@ -51,7 +52,7 @@ create table MonTY.Employees (
 	recordUpdate_userName varchar(20) not null default CURRENT_USER,
 	recordUpdate_dateTime datetime2 not null default getdate(),
 	recordDelete_userName varchar(20),
-	recordDelete_datetime datetime2
+	recordDelete_dateTime datetime2
 )
 GO
 
@@ -59,12 +60,13 @@ create table MonTY.EmployeeProperties (
 	employeeNumber varchar(20) not null,
 	propertyName varchar(100) not null,
 	propertyValue nvarchar(500),
+	isSynced bit not null default 0,
 	recordCreate_userName varchar(20) not null default CURRENT_USER,
 	recordCreate_dateTime datetime2 not null default getdate(),
 	recordUpdate_userName varchar(20) not null default CURRENT_USER,
 	recordUpdate_dateTime datetime2 not null default getdate(),
 	recordDelete_userName varchar(20),
-	recordDelete_datetime datetime2,
+	recordDelete_dateTime datetime2,
 	primary key (employeeNumber, propertyName),
 	foreign key (employeeNumber) references MonTY.Employees (employeeNumber) on update cascade on delete cascade
 )
@@ -75,6 +77,7 @@ GO
 create table MonTY.CallOutLists (
 	listId bigint primary key identity,
 	listName varchar(100) not null,
+	listDescription varchar(500),
 	sortKeyFunction varchar(100),
 	eligibilityFunction varchar(100),
 	recordCreate_userName varchar(20) not null default CURRENT_USER,
@@ -82,7 +85,7 @@ create table MonTY.CallOutLists (
 	recordUpdate_userName varchar(20) not null default CURRENT_USER,
 	recordUpdate_dateTime datetime2 not null default getdate(),
 	recordDelete_userName varchar(20),
-	recordDelete_datetime datetime2
+	recordDelete_dateTime datetime2
 )
 GO
 
@@ -96,7 +99,7 @@ create table MonTY.CallOutListMembers (
 	recordUpdate_userName varchar(20) not null default CURRENT_USER,
 	recordUpdate_dateTime datetime2 not null default getdate(),
 	recordDelete_userName varchar(20),
-	recordDelete_datetime datetime2,
+	recordDelete_dateTime datetime2,
 	primary key (listId, employeeNumber),
 	foreign key (listId) references MonTY.CallOutLists (listId) on update cascade on delete no action,
 	foreign key (employeeNumber) references MonTY.Employees (employeeNumber) on update cascade on delete no action
@@ -116,7 +119,7 @@ create table MonTY.CallOutResponseTypes (
 	recordUpdate_userName varchar(20) not null default CURRENT_USER,
 	recordUpdate_dateTime datetime2 not null default getdate(),
 	recordDelete_userName varchar(20),
-	recordDelete_datetime datetime2
+	recordDelete_dateTime datetime2
 )
 GO
 
@@ -133,7 +136,7 @@ create table MonTY.CallOutRecords (
 	recordUpdate_userName varchar(20) not null default CURRENT_USER,
 	recordUpdate_dateTime datetime2 not null default getdate(),
 	recordDelete_userName varchar(20),
-	recordDelete_datetime datetime2,
+	recordDelete_dateTime datetime2,
 	foreign key (listId) references MonTY.CallOutLists (listId) on update cascade on delete no action,
 	foreign key (employeeNumber) references MonTY.Employees (employeeNumber) on update cascade on delete no action,
 	foreign key (responseTypeId) references MonTY.CallOutResponseTypes (responseTypeId) on update cascade on delete no action

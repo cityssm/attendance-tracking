@@ -11,4 +11,4 @@ export declare const availablePermissionValues: {
     'attendance.returnsToWork.canManage': string[];
 };
 export declare function hasAttendance(user: User): boolean;
-export declare function hasPermission(user: User, permissionKey: string): boolean;
+export declare function hasPermission(user: User, permissionKey: keyof typeof availablePermissionValues): boolean;

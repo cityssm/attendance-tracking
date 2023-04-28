@@ -72,6 +72,10 @@ async function doSync(): Promise<void> {
 
     const currentEmployee = await getEmployee(avantiEmployee.empNo)
 
+    if (currentEmployee !== undefined && !(currentEmployee.isSynced ?? false)) {
+      continue
+    }
+
     const newEmployee: Employee = {
       employeeNumber: avantiEmployee.empNo,
       employeeSurname: avantiEmployee.surname ?? '',
@@ -138,15 +142,15 @@ async function doSync(): Promise<void> {
       }
     }
 
-    if (!currentEmployee) {
-      // Create the record
-      await createEmployee(newEmployee, partialSession)
-    } else if (currentEmployee.isSynced ?? false) {
-      // Syncing on, update the employee
-      await updateEmployee(newEmployee, partialSession)
-    }
+    currentEmployee === undefined
+      ? await createEmployee(newEmployee, partialSession)
+      : await updateEmployee(newEmployee, true, partialSession)
 
-    await deleteEmployeeProperties(newEmployee.employeeNumber, partialSession)
+    await deleteEmployeeProperties(
+      newEmployee.employeeNumber,
+      true,
+      partialSession
+    )
 
     if (avantiEmployeePersonalResponse.success) {
       const avantiEmployeePersonal = avantiEmployeePersonalResponse.response
@@ -157,6 +161,7 @@ async function doSync(): Promise<void> {
           propertyName: 'position',
           propertyValue: avantiEmployeePersonal.position ?? ''
         },
+        true,
         partialSession
       )
 
@@ -166,6 +171,7 @@ async function doSync(): Promise<void> {
           propertyName: 'payGroup',
           propertyValue: avantiEmployeePersonal.payGroup ?? ''
         },
+        true,
         partialSession
       )
 
@@ -175,6 +181,7 @@ async function doSync(): Promise<void> {
           propertyName: 'location',
           propertyValue: avantiEmployeePersonal.location ?? ''
         },
+        true,
         partialSession
       )
 
@@ -184,6 +191,7 @@ async function doSync(): Promise<void> {
           propertyName: 'workGroup',
           propertyValue: avantiEmployeePersonal.workGroup ?? ''
         },
+        true,
         partialSession
       )
 
@@ -197,6 +205,7 @@ async function doSync(): Promise<void> {
                 `otherText${otherTextIndex}`
               ] as string
             },
+            true,
             partialSession
           )
         }

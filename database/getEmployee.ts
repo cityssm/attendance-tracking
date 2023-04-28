@@ -16,7 +16,7 @@ export async function getEmployee(
     .input('employeeNumber', employeeNumber).query(`select
       employeeNumber, employeeSurname, employeeGivenName,
       userName,
-      workContact1, workContact2, homeContact1, homeContact2,
+      workContact1, workContact2, homeContact1, homeContact2, syncContacts,
       jobTitle, department,
       seniorityDateTime,
       isSynced, syncDateTime,

@@ -1,6 +1,6 @@
 import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-export async function deleteEmployeeProperties(employeeNumber, requestSession) {
+export async function deleteEmployeeProperties(employeeNumber, isSyncUpdate, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     const result = await pool
         .request()
@@ -10,6 +10,7 @@ export async function deleteEmployeeProperties(employeeNumber, requestSession) {
       set recordDelete_userName = @record_userName,
       recordDelete_dateTime = @record_dateTime
       where employeeNumber = @employeeNumber
-      and recordDelete_dateTime is not null`);
+      and recordDelete_dateTime is not null
+      ${isSyncUpdate ? ' and isSynced = 1' : ''}`);
     return result.rowsAffected[0];
 }

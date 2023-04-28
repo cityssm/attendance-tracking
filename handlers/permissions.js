@@ -1,8 +1,8 @@
 import * as configFunctions from '../helpers/functions.config.js';
 import * as userFunctions from '../helpers/functions.user.js';
 const urlPrefix = configFunctions.getProperty('reverseProxy.urlPrefix');
-const forbiddenStatus = 403;
-const forbiddenJSON = {
+export const forbiddenStatus = 403;
+export const forbiddenJSON = {
     success: false,
     message: 'Forbidden'
 };

@@ -5,7 +5,7 @@ export async function getEmployeeProperties(employeeNumber) {
     const propertyResult = await pool
         .request()
         .input('employeeNumber', employeeNumber).query(`select
-      propertyName, propertyValue
+      propertyName, propertyValue, isSynced
       from MonTY.EmployeeProperties
       where employeeNumber = @employeeNumber
       and recordDelete_dateTime is null`);

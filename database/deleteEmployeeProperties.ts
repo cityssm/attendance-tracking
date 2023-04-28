@@ -6,6 +6,7 @@ import type * as recordTypes from '../types/recordTypes'
 
 export async function deleteEmployeeProperties(
   employeeNumber: string,
+  isSyncUpdate: boolean,
   requestSession: recordTypes.PartialSession
 ): Promise<number> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
@@ -18,7 +19,8 @@ export async function deleteEmployeeProperties(
       set recordDelete_userName = @record_userName,
       recordDelete_dateTime = @record_dateTime
       where employeeNumber = @employeeNumber
-      and recordDelete_dateTime is not null`)
+      and recordDelete_dateTime is not null
+      ${isSyncUpdate ? ' and isSynced = 1' : ''}`)
 
   return result.rowsAffected[0]
 }
