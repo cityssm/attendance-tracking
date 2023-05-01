@@ -27,7 +27,7 @@ export async function authenticate(userName, password) {
 }
 const safeRedirects = new Set([
     '/admin/users',
-    '/callouts'
+    '/attendance'
 ]);
 export function getSafeRedirectURL(possibleRedirectURL = '') {
     const urlPrefix = configFunctions.getProperty('reverseProxy.urlPrefix');

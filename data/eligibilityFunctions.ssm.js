@@ -1,5 +1,12 @@
 export const employeeEligibilityFunctions = [
     {
+        functionName: 'Operator - All Job Classes',
+        eligibilityFunction(employee) {
+            const jobTitle = (employee.jobTitle ?? '').toLowerCase();
+            return jobTitle.startsWith('operator ');
+        }
+    },
+    {
         functionName: 'Operator - JC 6',
         eligibilityFunction(employee) {
             const jobTitle = (employee.jobTitle ?? '').toLowerCase();

@@ -42,7 +42,7 @@ export async function authenticate(
 
 const safeRedirects = new Set([
   '/admin/users',
-  '/callouts'
+  '/attendance'
 ])
 
 export function getSafeRedirectURL(possibleRedirectURL = ''): string {
