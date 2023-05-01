@@ -44,6 +44,9 @@ configFallbackValues.set('features.employees.avantiSync', false)
 
 configFallbackValues.set('settings.avantiSync.locationCodes', [])
 
+configFallbackValues.set('settings.employeeEligibilityFunctions', [])
+configFallbackValues.set('settings.employeeSortKeyFunctions', [])
+
 /*
  * Set up function overloads
  */
@@ -89,10 +92,6 @@ export function getProperty(
   propertyName: 'features.employees.avantiSync'
 ): boolean
 
-export function getProperty(
-  propertyName: 'settings.printPdf.contentDisposition'
-): 'attachment' | 'inline'
-
 export function getProperty(propertyName: 'mssql'): MSSQLConfig
 
 export function getProperty(
@@ -101,6 +100,18 @@ export function getProperty(
 export function getProperty(
   propertyName: 'settings.avantiSync.locationCodes'
 ): string[]
+
+export function getProperty(
+  propertyName: 'settings.printPdf.contentDisposition'
+): 'attachment' | 'inline'
+
+export function getProperty(
+  propertyName: 'settings.employeeEligibilityFunctions'
+): configTypes.ConfigEmployeeEligibilityFunction[]
+
+export function getProperty(
+  propertyName: 'settings.employeeSortKeyFunctions'
+): configTypes.ConfigEmployeeSortKeyFunction[]
 
 export function getProperty(propertyName: string): unknown {
   const propertyNameSplit = propertyName.split('.')

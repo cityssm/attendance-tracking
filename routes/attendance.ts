@@ -11,6 +11,7 @@ import * as permissionFunctions from '../helpers/functions.permissions.js'
 import handler_attendance from '../handlers/attendance-get/attendance.js'
 
 import handler_doCreateCallOutList from '../handlers/attendance-post/doCreateCallOutList.js'
+import handler_doUpdateCallOutList from '../handlers/attendance-post/doUpdateCallOutList.js'
 
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js'
 
@@ -58,6 +59,12 @@ router.post(
   '/doCreateCallOutList',
   callOutsManagePostHandler,
   handler_doCreateCallOutList as RequestHandler
+)
+
+router.post(
+  '/doUpdateCallOutList',
+  callOutsManagePostHandler,
+  handler_doUpdateCallOutList as RequestHandler
 )
 
 export default router

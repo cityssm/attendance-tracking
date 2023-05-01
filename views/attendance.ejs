@@ -77,6 +77,9 @@
 <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
   <script>
     exports.callOutLists = <%- JSON.stringify(callOutLists) %>;
+    exports.employeeEligibilityFunctionNames = <%- JSON.stringify(employeeEligibilityFunctionNames) %>;
+    exports.employeeSortKeyFunctionNames = <%- JSON.stringify(employeeSortKeyFunctionNames) %>;
+
     exports.callOutsCanUpdate = <%= permissionFunctions.hasPermission(user, 'attendance.callOuts.canUpdate') ? 'true' : 'false' %>;
     exports.callOutsCanManage = <%= permissionFunctions.hasPermission(user, 'attendance.callOuts.canManage') ? 'true' : 'false' %>;
   </script>

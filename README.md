@@ -4,6 +4,7 @@
 # MonTY
 
 ⭐ UNDER DEVELOPMENT ⭐
+
 </div>
 
 An application built for Public Works departments to
@@ -18,3 +19,15 @@ An application built for Public Works departments to
   Enable as many features, or as few as you need.
 
 - **Sync employees** with payroll systems.
+
+## Prerequisities
+
+- **NodeJS 14 or better** to run the application.
+
+- **Active Directory** for authentication.
+
+- **SQL Server** for database storage.
+
+### Optional
+
+- **Avanti** payroll system for employee synchronization.

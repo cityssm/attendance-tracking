@@ -20,9 +20,11 @@ export declare function getProperty(propertyName: 'features.attendance.absences'
 export declare function getProperty(propertyName: 'features.attendance.callOuts'): boolean;
 export declare function getProperty(propertyName: 'features.attendance.returnsToWork'): boolean;
 export declare function getProperty(propertyName: 'features.employees.avantiSync'): boolean;
-export declare function getProperty(propertyName: 'settings.printPdf.contentDisposition'): 'attachment' | 'inline';
 export declare function getProperty(propertyName: 'mssql'): MSSQLConfig;
 export declare function getProperty(propertyName: 'settings.avantiSync.config'): AvantiConfig;
 export declare function getProperty(propertyName: 'settings.avantiSync.locationCodes'): string[];
+export declare function getProperty(propertyName: 'settings.printPdf.contentDisposition'): 'attachment' | 'inline';
+export declare function getProperty(propertyName: 'settings.employeeEligibilityFunctions'): configTypes.ConfigEmployeeEligibilityFunction[];
+export declare function getProperty(propertyName: 'settings.employeeSortKeyFunctions'): configTypes.ConfigEmployeeSortKeyFunction[];
 export declare function includeAttendance(): boolean;
 export declare const keepAliveMillis: number;

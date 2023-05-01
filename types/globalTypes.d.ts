@@ -3,4 +3,5 @@ export interface MonTY {
     setUnsavedChanges: () => void;
     clearUnsavedChanges: () => void;
     hasUnsavedChanges: () => boolean;
+    initializeMenuTabs: (menuTabElements: NodeListOf<HTMLAnchorElement>, tabContainerElements: NodeListOf<HTMLElement>) => void;
 }

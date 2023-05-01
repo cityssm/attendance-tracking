@@ -15,10 +15,12 @@
           <aside class="menu">
             <ul class="menu-list">
               <li>
-                <a href="#tab--callOuts-details">List Details</a>
+                <a class="is-active" href="#tab--callOuts-details">
+                  List Details
+                </a>
               </li>
               <li>
-                <a class="is-active" href="#tab--callOuts-members">
+                <a href="#tab--callOuts-members">
                   Members
                 </a>
               </li>
@@ -32,8 +34,68 @@
         </div>
         <div class="column">
           <div class="tabs-container">
-            <article class="is-hidden" id="tab--callOuts-details"></article>
-            <article id="tab--callOuts-members"></article>
+            <article id="tab--callOuts-details">
+              <form id="form--callOutListEdit">
+                <input id="callOutListEdit--listId" name="listId" type="hidden" />
+                <fieldset disabled>
+                  <div class="field">
+                    <label class="label" for="callOutListEdit--listName">List Name</label>
+                    <div class="control">
+                      <input class="input" id="callOutListEdit--listName" name="listName" type="text" maxlength="100" required />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label" for="callOutListEdit--listDescription">List Description</label>
+                    <div class="control">
+                      <textarea class="textarea" id="callOutListEdit--listDescription" name="listDescription" maxlength="500"></textarea>
+                    </div>
+                  </div>
+                  <div class="columns">
+                    <div class="column">
+                      <div class="field">
+                        <label class="label" for="callOutListEdit--eligibilityFunction">Eligibility Function</label>
+                        <div class="control">
+                          <div class="select is-fullwidth">
+                            <select id="callOutListEdit--eligibilityFunction" name="eligibilityFunction">
+                              <option value="">(All Employees Eligible)</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="field">
+                        <label class="label" for="callOutListEdit--sortKeyFunction">Sort Key Function</label>
+                        <div class="control">
+                          <div class="select is-fullwidth">
+                            <select id="callOutListEdit--sortKeyFunction" name="sortKeyFunction">
+                              <option value="">(Default Sort)</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="has-text-right is-hidden" id="callOutListEdit--updateButtons">
+                    <button class="button is-success" type="submit">
+                      <span class="icon is-small">
+                        <i class="fas fa-save" aria-hidden="true"></i>
+                      </span>
+                      <span>Update Call Out List</span>
+                    </button>
+                  </p>
+                </fieldset>
+                <p class="has-text-right is-hidden" id="callOutListEdit--unlockButtons">
+                  <button class="button is-primary" type="button">
+                    <span class="icon is-small">
+                      <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                    </span>
+                    <span>Switch To Edit Mode</span>
+                  </button>
+                </p>
+              </form>
+            </article>
+            <article class="is-hidden" id="tab--callOuts-members"></article>
             <article class="is-hidden" id="tab--callOuts-memberManagement"></article>
           </div>
         </div>
