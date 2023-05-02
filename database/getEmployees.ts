@@ -5,12 +5,14 @@ import * as configFunctions from '../helpers/functions.config.js'
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import type { ConfigEmployeeEligibilityFunction } from '../types/configTypes'
 import type { Employee } from '../types/recordTypes'
 import { getEmployeeProperties } from './getEmployeeProperties.js'
 
 interface GetEmployeesFilters {
-  eligibilityFunctionName?: string
+  eligibilityFunction?: {
+    functionName: string
+    employeePropertyName: string
+  }
   isActive?: boolean
 }
 
@@ -53,31 +55,31 @@ export async function getEmployees(
   let employees = result.recordset as Employee[]
 
   if (
-    Object.hasOwn(filters, 'eligibilityFunctionName') ||
+    Object.hasOwn(filters, 'eligibilityFunction') ||
     Object.hasOwn(options, 'includeProperties')
   ) {
-    let eligibilityFunction: ConfigEmployeeEligibilityFunction | undefined
+    for (const employee of employees) {
+      employee.employeeProperties = await getEmployeeProperties(
+        employee.employeeNumber
+      )
+    }
 
-    if ((filters.eligibilityFunctionName ?? '') !== '') {
-      eligibilityFunction = configFunctions
+    if ((filters.eligibilityFunction?.functionName ?? '') !== '') {
+      const eligibilityFunction = configFunctions
         .getProperty('settings.employeeEligibilityFunctions')
         .find((possibleFunction) => {
           return (
-            possibleFunction.functionName === filters.eligibilityFunctionName
+            possibleFunction.functionName ===
+            filters.eligibilityFunction?.functionName
           )
         })
 
       if (eligibilityFunction !== undefined) {
-        employees = employees.filter((element) =>
-          eligibilityFunction?.eligibilityFunction(element)
-        )
-      }
-    }
-
-    if (options.includeProperties ?? false) {
-      for (const employee of employees) {
-        employee.employeeProperties = await getEmployeeProperties(
-          employee.employeeNumber
+        employees = employees.filter((possibleEmployee) =>
+          eligibilityFunction?.eligibilityFunction(
+            possibleEmployee,
+            filters.eligibilityFunction?.employeePropertyName
+          )
         )
       }
     }

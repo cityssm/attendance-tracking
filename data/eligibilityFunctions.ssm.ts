@@ -1,7 +1,23 @@
+import '../helpers/polyfills.js'
+
 import type { ConfigEmployeeEligibilityFunction } from '../types/configTypes'
 
 export const employeeEligibilityFunctions: ConfigEmployeeEligibilityFunction[] =
   [
+    {
+      functionName: 'Has Property',
+      eligibilityFunction(employee, employeePropertyName) {
+        const propertyNameLower = employeePropertyName?.toLowerCase()
+
+        return (
+          employee.employeeProperties?.some((possibleProperty) => {
+            return (
+              possibleProperty.propertyName.toLowerCase() === propertyNameLower
+            )
+          }) ?? false
+        )
+      }
+    },
     {
       functionName: 'Operator - All Job Classes',
       eligibilityFunction(employee) {

@@ -1,7 +1,10 @@
 import '../helpers/polyfills.js';
 import type { Employee } from '../types/recordTypes';
 interface GetEmployeesFilters {
-    eligibilityFunctionName?: string;
+    eligibilityFunction?: {
+        functionName: string;
+        employeePropertyName: string;
+    };
     isActive?: boolean;
 }
 interface GetEmployeesOptions {

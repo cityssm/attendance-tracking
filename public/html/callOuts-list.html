@@ -1,6 +1,6 @@
 <div class="modal" role="dialog" aria-label="Call Out List View">
   <div class="modal-background"></div>
-  <div class="modal-card" style="width:900px">
+  <div class="modal-card" style="width:1000px">
     <div class="modal-card-head">
       <h3 class="modal-card-title">Call Out List View</h3>
       <button
@@ -15,12 +15,12 @@
           <aside class="menu">
             <ul class="menu-list">
               <li>
-                <a class="is-active" href="#tab--callOuts-details">
+                <a href="#tab--callOuts-details">
                   List Details
                 </a>
               </li>
               <li>
-                <a href="#tab--callOuts-members">
+                <a class="is-active" href="#tab--callOuts-members">
                   Members
                 </a>
               </li>
@@ -34,7 +34,7 @@
         </div>
         <div class="column">
           <div class="tabs-container">
-            <article id="tab--callOuts-details">
+            <article class="is-hidden" id="tab--callOuts-details">
               <form id="form--callOutListEdit">
                 <input id="callOutListEdit--listId" name="listId" type="hidden" />
                 <fieldset disabled>
@@ -76,6 +76,14 @@
                       </div>
                     </div>
                   </div>
+                  <div class="field">
+                    <label class="label" for="callOutListEdit--employeePropertyName">
+                      Employee Property Name
+                    </label>
+                    <div class="control">
+                      <input class="input" id="callOutListEdit--employeePropertyName" name="employeePropertyName" type="text" maxlength="100" list="datalist--employeePropertyNames" />
+                    </div>
+                  </div>
                   <p class="has-text-right is-hidden" id="callOutListEdit--updateButtons">
                     <button class="button is-success" type="submit">
                       <span class="icon is-small">
@@ -95,8 +103,13 @@
                 </p>
               </form>
             </article>
-            <article class="is-hidden" id="tab--callOuts-members">
-              <div id="container--callOutListMembers"></div>
+            <article id="tab--callOuts-members">
+              <div id="container--callOutListMembers">
+                <div class="has-text-centered">
+                  <i class="fas fa-4x fa-spin fa-cog has-text-grey" aria-hidden="true"></i><br />
+                  <em>Loading members</em>
+                </div>
+              </div>
             </article>
             <article class="is-hidden" id="tab--callOuts-memberManagement">
               <div class="columns is-mobile">
@@ -104,13 +117,21 @@
                   <h2 class="title is-4">
                     Available Employees
                   </h2>
-                  <div id="container--callOutListAvailableEmployees"></div>
+                  <div id="container--callOutListAvailableEmployees">
+                    <div class="has-text-centered">
+                      <i class="fas fa-4x fa-spin fa-cog has-text-grey" aria-hidden="true"></i>
+                    </div>
+                  </div>
                 </div>
                 <div class="column">
                   <h2 class="title is-4">
                     Current Members
                   </h2>
-                  <div id="container--callOutListCurrentMembers"></div>
+                  <div id="container--callOutListCurrentMembers">
+                    <div class="has-text-centered">
+                      <i class="fas fa-4x fa-spin fa-cog has-text-grey" aria-hidden="true"></i>
+                    </div>
+                  </div>
                 </div>
               </div>
             </article>

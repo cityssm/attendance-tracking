@@ -68,9 +68,9 @@ export interface ConfigActiveDirectory {
 }
 export interface ConfigEmployeeSortKeyFunction {
     functionName: string;
-    sortKeyFunction: (employee: Employee) => string;
+    sortKeyFunction: (employee: Employee, employeePropertyName?: string) => string;
 }
 export interface ConfigEmployeeEligibilityFunction {
     functionName: string;
-    eligibilityFunction: (employee: Employee) => boolean;
+    eligibilityFunction: (employee: Employee, employeePropertyName?: string) => boolean;
 }

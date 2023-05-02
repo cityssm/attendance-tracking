@@ -1,4 +1,14 @@
+import '../helpers/polyfills.js';
 export const employeeEligibilityFunctions = [
+    {
+        functionName: 'Has Property',
+        eligibilityFunction(employee, employeePropertyName) {
+            const propertyNameLower = employeePropertyName?.toLowerCase();
+            return (employee.employeeProperties?.some((possibleProperty) => {
+                return (possibleProperty.propertyName.toLowerCase() === propertyNameLower);
+            }) ?? false);
+        }
+    },
     {
         functionName: 'Operator - All Job Classes',
         eligibilityFunction(employee) {

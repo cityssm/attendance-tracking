@@ -5,14 +5,18 @@ import * as permissionFunctions from '../../helpers/functions.permissions.js'
 
 import type * as recordTypes from '../../types/recordTypes'
 import { getCallOutLists } from '../../database/getCallOutLists.js'
+import { getEmployeePropertyNames } from '../../database/getEmployeePropertyNames.js'
+import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js'
 
 export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
   let callOutLists: recordTypes.CallOutList[] = []
+  let callOutResponseTypes: recordTypes.CallOutResponseType[] = []
   const employeeEligibilityFunctionNames: string[] = []
   const employeeSortKeyFunctionNames: string[] = []
+  let employeePropertyNames: string[] = []
 
   if (configFunctions.getProperty('features.attendance.callOuts')) {
     if (
@@ -22,6 +26,15 @@ export async function handler(
       )
     ) {
       callOutLists = await getCallOutLists()
+    }
+
+    if (
+      permissionFunctions.hasPermission(
+        request.session.user!,
+        'attendance.callOuts.canUpdate'
+      )
+    ) {
+      callOutResponseTypes = await getCallOutResponseTypes()
     }
 
     if (
@@ -45,14 +58,18 @@ export async function handler(
       for (const sortKeyFunction of employeeSortKeyFunctions) {
         employeeSortKeyFunctionNames.push(sortKeyFunction.functionName)
       }
+
+      employeePropertyNames = await getEmployeePropertyNames()
     }
   }
 
   response.render('attendance', {
     headTitle: 'Employee Attendance',
     callOutLists,
+    callOutResponseTypes,
     employeeEligibilityFunctionNames,
-    employeeSortKeyFunctionNames
+    employeeSortKeyFunctionNames,
+    employeePropertyNames
   })
 }
 

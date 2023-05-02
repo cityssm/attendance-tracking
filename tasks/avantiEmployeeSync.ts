@@ -70,146 +70,164 @@ async function doSync(): Promise<void> {
       continue
     }
 
-    const currentEmployee = await getEmployee(avantiEmployee.empNo)
+    try {
+      const currentEmployee = await getEmployee(avantiEmployee.empNo)
 
-    if (currentEmployee !== undefined && !(currentEmployee.isSynced ?? false)) {
-      continue
-    }
+      if (
+        currentEmployee !== undefined &&
+        !(currentEmployee.isSynced ?? false)
+      ) {
+        continue
+      }
 
-    const newEmployee: Employee = {
-      employeeNumber: avantiEmployee.empNo,
-      employeeSurname: avantiEmployee.surname ?? '',
-      employeeGivenName: avantiEmployee.givenName ?? '',
-      jobTitle: avantiEmployee.positionName ?? '',
-      isSynced: true,
-      syncDateTime,
-      isActive: true
-    }
+      debug(`Processing ${avantiEmployee.empNo}...`)
 
-    const avantiEmployeePersonalResponse = await avanti.getEmployeePersonalInfo(
-      avantiEmployee.empNo
-    )
+      const newEmployee: Employee = {
+        employeeNumber: avantiEmployee.empNo,
+        employeeSurname: avantiEmployee.surname ?? '',
+        employeeGivenName: avantiEmployee.givenName ?? '',
+        jobTitle: avantiEmployee.positionName ?? '',
+        isSynced: true,
+        syncDateTime,
+        isActive: true
+      }
 
-    if (avantiEmployeePersonalResponse.success) {
-      const avantiEmployeePersonal = avantiEmployeePersonalResponse.response
+      const avantiEmployeePersonalResponse =
+        await avanti.getEmployeePersonalInfo(avantiEmployee.empNo)
 
-      newEmployee.seniorityDateTime = new Date(
-        avantiEmployeePersonal.seniorityDate
-      )
+      if (avantiEmployeePersonalResponse.success) {
+        const avantiEmployeePersonal = avantiEmployeePersonalResponse.response
 
-      newEmployee.userName = avantiEmployeePersonal.userName?.toLowerCase()
+        newEmployee.seniorityDateTime = new Date(
+          avantiEmployeePersonal.seniorityDate
+        )
 
-      const workContacts: string[] = []
-      const homeContacts: string[] = []
+        newEmployee.userName = avantiEmployeePersonal.userName?.toLowerCase()
 
-      for (const phoneTypeIndex of [1, 2, 3, 4]) {
-        if (
-          avanti.lookups.phoneTypes[
-            avantiEmployeePersonal[`phoneType${phoneTypeIndex}`]
-          ].isPhone &&
-          (avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`] ?? '') !== ''
-        ) {
+        const workContacts: string[] = []
+        const homeContacts: string[] = []
+
+        for (const phoneTypeIndex of [1, 2, 3, 4]) {
           if (
             avanti.lookups.phoneTypes[
               avantiEmployeePersonal[`phoneType${phoneTypeIndex}`]
-            ].isWork
+            ].isPhone &&
+            (avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`] ?? '') !==
+              ''
           ) {
-            workContacts.push(
-              avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`]
-            )
-          } else {
-            homeContacts.push(
-              avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`]
+            if (
+              avanti.lookups.phoneTypes[
+                avantiEmployeePersonal[`phoneType${phoneTypeIndex}`]
+              ].isWork
+            ) {
+              workContacts.push(
+                avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`]
+              )
+            } else {
+              homeContacts.push(
+                avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`]
+              )
+            }
+          }
+        }
+
+        if (workContacts[0] !== undefined) {
+          newEmployee.workContact1 = workContacts[0]
+        }
+
+        if (workContacts[1] !== undefined) {
+          newEmployee.workContact2 = workContacts[1]
+        }
+
+        if (homeContacts[0] !== undefined) {
+          newEmployee.homeContact1 = homeContacts[0]
+        }
+
+        if (homeContacts[1] !== undefined) {
+          newEmployee.homeContact2 = homeContacts[1]
+        }
+      }
+
+      currentEmployee === undefined
+        ? await createEmployee(newEmployee, partialSession)
+        : await updateEmployee(newEmployee, true, partialSession)
+
+      await deleteEmployeeProperties(
+        newEmployee.employeeNumber,
+        true,
+        partialSession
+      )
+
+      if (avantiEmployeePersonalResponse.success) {
+        const avantiEmployeePersonal = avantiEmployeePersonalResponse.response
+
+        await setEmployeeProperty(
+          {
+            employeeNumber: newEmployee.employeeNumber,
+            propertyName: 'position',
+            propertyValue: avantiEmployeePersonal.position ?? '',
+            isSynced: true
+          },
+          true,
+          partialSession
+        )
+
+        await setEmployeeProperty(
+          {
+            employeeNumber: newEmployee.employeeNumber,
+            propertyName: 'payGroup',
+            propertyValue: avantiEmployeePersonal.payGroup ?? '',
+            isSynced: true
+          },
+          true,
+          partialSession
+        )
+
+        await setEmployeeProperty(
+          {
+            employeeNumber: newEmployee.employeeNumber,
+            propertyName: 'location',
+            propertyValue: avantiEmployeePersonal.location ?? '',
+            isSynced: true
+          },
+          true,
+          partialSession
+        )
+
+        await setEmployeeProperty(
+          {
+            employeeNumber: newEmployee.employeeNumber,
+            propertyName: 'workGroup',
+            propertyValue: avantiEmployeePersonal.workGroup ?? '',
+            isSynced: true
+          },
+          true,
+          partialSession
+        )
+
+        for (
+          let otherTextIndex = 1;
+          otherTextIndex <= 20;
+          otherTextIndex += 1
+        ) {
+          if (avantiEmployeePersonal[`otherText${otherTextIndex}`] !== '') {
+            await setEmployeeProperty(
+              {
+                employeeNumber: newEmployee.employeeNumber,
+                propertyName: `otherText${otherTextIndex}`,
+                propertyValue: avantiEmployeePersonal[
+                  `otherText${otherTextIndex}`
+                ] as string,
+                isSynced: true
+              },
+              true,
+              partialSession
             )
           }
         }
       }
-
-      if (workContacts[0] !== undefined) {
-        newEmployee.workContact1 = workContacts[0]
-      }
-
-      if (workContacts[1] !== undefined) {
-        newEmployee.workContact2 = workContacts[1]
-      }
-
-      if (homeContacts[0] !== undefined) {
-        newEmployee.homeContact1 = homeContacts[0]
-      }
-
-      if (homeContacts[1] !== undefined) {
-        newEmployee.homeContact2 = homeContacts[1]
-      }
-    }
-
-    currentEmployee === undefined
-      ? await createEmployee(newEmployee, partialSession)
-      : await updateEmployee(newEmployee, true, partialSession)
-
-    await deleteEmployeeProperties(
-      newEmployee.employeeNumber,
-      true,
-      partialSession
-    )
-
-    if (avantiEmployeePersonalResponse.success) {
-      const avantiEmployeePersonal = avantiEmployeePersonalResponse.response
-
-      await setEmployeeProperty(
-        {
-          employeeNumber: newEmployee.employeeNumber,
-          propertyName: 'position',
-          propertyValue: avantiEmployeePersonal.position ?? ''
-        },
-        true,
-        partialSession
-      )
-
-      await setEmployeeProperty(
-        {
-          employeeNumber: newEmployee.employeeNumber,
-          propertyName: 'payGroup',
-          propertyValue: avantiEmployeePersonal.payGroup ?? ''
-        },
-        true,
-        partialSession
-      )
-
-      await setEmployeeProperty(
-        {
-          employeeNumber: newEmployee.employeeNumber,
-          propertyName: 'location',
-          propertyValue: avantiEmployeePersonal.location ?? ''
-        },
-        true,
-        partialSession
-      )
-
-      await setEmployeeProperty(
-        {
-          employeeNumber: newEmployee.employeeNumber,
-          propertyName: 'workGroup',
-          propertyValue: avantiEmployeePersonal.workGroup ?? ''
-        },
-        true,
-        partialSession
-      )
-
-      for (let otherTextIndex = 1; otherTextIndex <= 20; otherTextIndex += 1) {
-        if (avantiEmployeePersonal[`otherText${otherTextIndex}`] !== '') {
-          await setEmployeeProperty(
-            {
-              employeeNumber: newEmployee.employeeNumber,
-              propertyName: `otherText${otherTextIndex}`,
-              propertyValue: avantiEmployeePersonal[
-                `otherText${otherTextIndex}`
-              ] as string
-            },
-            true,
-            partialSession
-          )
-        }
-      }
+    } catch (error) {
+      debug(error)
     }
   }
 

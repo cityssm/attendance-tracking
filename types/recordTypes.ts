@@ -51,14 +51,25 @@ export interface CallOutList extends RecordUserNameDateTime {
   listDescription?: string
   sortKeyFunction?: string
   eligibilityFunction?: string
+  employeePropertyName?: string
   callOutListMembersCount?: number
   callOutListMembers?: CallOutListMember[]
 }
 
-export interface CallOutListMember extends Partial<Employee>, RecordUserNameDateTime {
+export interface CallOutListMember extends Employee, RecordUserNameDateTime {
+  listId: string
   employeeNumber: string
   sortKey?: string
   isNext: boolean
+  sortKeyFunction?: string
+  employeePropertyName?: string
+}
+
+export interface CallOutResponseType extends RecordUserNameDateTime {
+  responseTypeId: number
+  responseType: string
+  isSuccessful: boolean
+  orderNumber?: number
 }
 
 /*

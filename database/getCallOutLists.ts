@@ -10,7 +10,7 @@ export async function getCallOutLists(): Promise<CallOutList[]> {
 
   const propertyResult: IResult<CallOutList> = await pool.request()
     .query(`select l.listId, l.listName, l.listDescription,
-      l.sortKeyFunction, l.eligibilityFunction,
+      l.sortKeyFunction, l.eligibilityFunction, l.employeePropertyName,
       count(m.employeeNumber) as callOutListMembersCount
       from MonTY.CallOutLists l
       left join MonTY.CallOutListMembers m
@@ -19,7 +19,7 @@ export async function getCallOutLists(): Promise<CallOutList[]> {
         and m.employeeNumber in (select employeeNumber from MonTY.Employees where isActive = 1 and recordDelete_dateTime is null)
       where l.recordDelete_dateTime is null
       group by l.listId, l.listName, l.listDescription,
-        l.sortKeyFunction, l.eligibilityFunction
+        l.sortKeyFunction, l.eligibilityFunction, l.employeePropertyName
       order by listName`)
 
   return propertyResult.recordset

@@ -14,7 +14,10 @@ export async function handler(
     request.session
   )
 
-  const callOutListMembers = await getCallOutListMembers(request.body.listId)
+  const callOutListMembers = await getCallOutListMembers(
+    { listId: request.body.listId },
+    {}
+  )
 
   response.json({
     success,

@@ -43,85 +43,98 @@ async function doSync() {
         if (!avantiEmployee.empNo || !(avantiEmployee.active ?? false)) {
             continue;
         }
-        const currentEmployee = await getEmployee(avantiEmployee.empNo);
-        if (currentEmployee !== undefined && !(currentEmployee.isSynced ?? false)) {
-            continue;
-        }
-        const newEmployee = {
-            employeeNumber: avantiEmployee.empNo,
-            employeeSurname: avantiEmployee.surname ?? '',
-            employeeGivenName: avantiEmployee.givenName ?? '',
-            jobTitle: avantiEmployee.positionName ?? '',
-            isSynced: true,
-            syncDateTime,
-            isActive: true
-        };
-        const avantiEmployeePersonalResponse = await avanti.getEmployeePersonalInfo(avantiEmployee.empNo);
-        if (avantiEmployeePersonalResponse.success) {
-            const avantiEmployeePersonal = avantiEmployeePersonalResponse.response;
-            newEmployee.seniorityDateTime = new Date(avantiEmployeePersonal.seniorityDate);
-            newEmployee.userName = avantiEmployeePersonal.userName?.toLowerCase();
-            const workContacts = [];
-            const homeContacts = [];
-            for (const phoneTypeIndex of [1, 2, 3, 4]) {
-                if (avanti.lookups.phoneTypes[avantiEmployeePersonal[`phoneType${phoneTypeIndex}`]].isPhone &&
-                    (avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`] ?? '') !== '') {
-                    if (avanti.lookups.phoneTypes[avantiEmployeePersonal[`phoneType${phoneTypeIndex}`]].isWork) {
-                        workContacts.push(avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`]);
+        try {
+            const currentEmployee = await getEmployee(avantiEmployee.empNo);
+            if (currentEmployee !== undefined &&
+                !(currentEmployee.isSynced ?? false)) {
+                continue;
+            }
+            debug(`Processing ${avantiEmployee.empNo}...`);
+            const newEmployee = {
+                employeeNumber: avantiEmployee.empNo,
+                employeeSurname: avantiEmployee.surname ?? '',
+                employeeGivenName: avantiEmployee.givenName ?? '',
+                jobTitle: avantiEmployee.positionName ?? '',
+                isSynced: true,
+                syncDateTime,
+                isActive: true
+            };
+            const avantiEmployeePersonalResponse = await avanti.getEmployeePersonalInfo(avantiEmployee.empNo);
+            if (avantiEmployeePersonalResponse.success) {
+                const avantiEmployeePersonal = avantiEmployeePersonalResponse.response;
+                newEmployee.seniorityDateTime = new Date(avantiEmployeePersonal.seniorityDate);
+                newEmployee.userName = avantiEmployeePersonal.userName?.toLowerCase();
+                const workContacts = [];
+                const homeContacts = [];
+                for (const phoneTypeIndex of [1, 2, 3, 4]) {
+                    if (avanti.lookups.phoneTypes[avantiEmployeePersonal[`phoneType${phoneTypeIndex}`]].isPhone &&
+                        (avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`] ?? '') !==
+                            '') {
+                        if (avanti.lookups.phoneTypes[avantiEmployeePersonal[`phoneType${phoneTypeIndex}`]].isWork) {
+                            workContacts.push(avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`]);
+                        }
+                        else {
+                            homeContacts.push(avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`]);
+                        }
                     }
-                    else {
-                        homeContacts.push(avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`]);
+                }
+                if (workContacts[0] !== undefined) {
+                    newEmployee.workContact1 = workContacts[0];
+                }
+                if (workContacts[1] !== undefined) {
+                    newEmployee.workContact2 = workContacts[1];
+                }
+                if (homeContacts[0] !== undefined) {
+                    newEmployee.homeContact1 = homeContacts[0];
+                }
+                if (homeContacts[1] !== undefined) {
+                    newEmployee.homeContact2 = homeContacts[1];
+                }
+            }
+            currentEmployee === undefined
+                ? await createEmployee(newEmployee, partialSession)
+                : await updateEmployee(newEmployee, true, partialSession);
+            await deleteEmployeeProperties(newEmployee.employeeNumber, true, partialSession);
+            if (avantiEmployeePersonalResponse.success) {
+                const avantiEmployeePersonal = avantiEmployeePersonalResponse.response;
+                await setEmployeeProperty({
+                    employeeNumber: newEmployee.employeeNumber,
+                    propertyName: 'position',
+                    propertyValue: avantiEmployeePersonal.position ?? '',
+                    isSynced: true
+                }, true, partialSession);
+                await setEmployeeProperty({
+                    employeeNumber: newEmployee.employeeNumber,
+                    propertyName: 'payGroup',
+                    propertyValue: avantiEmployeePersonal.payGroup ?? '',
+                    isSynced: true
+                }, true, partialSession);
+                await setEmployeeProperty({
+                    employeeNumber: newEmployee.employeeNumber,
+                    propertyName: 'location',
+                    propertyValue: avantiEmployeePersonal.location ?? '',
+                    isSynced: true
+                }, true, partialSession);
+                await setEmployeeProperty({
+                    employeeNumber: newEmployee.employeeNumber,
+                    propertyName: 'workGroup',
+                    propertyValue: avantiEmployeePersonal.workGroup ?? '',
+                    isSynced: true
+                }, true, partialSession);
+                for (let otherTextIndex = 1; otherTextIndex <= 20; otherTextIndex += 1) {
+                    if (avantiEmployeePersonal[`otherText${otherTextIndex}`] !== '') {
+                        await setEmployeeProperty({
+                            employeeNumber: newEmployee.employeeNumber,
+                            propertyName: `otherText${otherTextIndex}`,
+                            propertyValue: avantiEmployeePersonal[`otherText${otherTextIndex}`],
+                            isSynced: true
+                        }, true, partialSession);
                     }
                 }
             }
-            if (workContacts[0] !== undefined) {
-                newEmployee.workContact1 = workContacts[0];
-            }
-            if (workContacts[1] !== undefined) {
-                newEmployee.workContact2 = workContacts[1];
-            }
-            if (homeContacts[0] !== undefined) {
-                newEmployee.homeContact1 = homeContacts[0];
-            }
-            if (homeContacts[1] !== undefined) {
-                newEmployee.homeContact2 = homeContacts[1];
-            }
         }
-        currentEmployee === undefined
-            ? await createEmployee(newEmployee, partialSession)
-            : await updateEmployee(newEmployee, true, partialSession);
-        await deleteEmployeeProperties(newEmployee.employeeNumber, true, partialSession);
-        if (avantiEmployeePersonalResponse.success) {
-            const avantiEmployeePersonal = avantiEmployeePersonalResponse.response;
-            await setEmployeeProperty({
-                employeeNumber: newEmployee.employeeNumber,
-                propertyName: 'position',
-                propertyValue: avantiEmployeePersonal.position ?? ''
-            }, true, partialSession);
-            await setEmployeeProperty({
-                employeeNumber: newEmployee.employeeNumber,
-                propertyName: 'payGroup',
-                propertyValue: avantiEmployeePersonal.payGroup ?? ''
-            }, true, partialSession);
-            await setEmployeeProperty({
-                employeeNumber: newEmployee.employeeNumber,
-                propertyName: 'location',
-                propertyValue: avantiEmployeePersonal.location ?? ''
-            }, true, partialSession);
-            await setEmployeeProperty({
-                employeeNumber: newEmployee.employeeNumber,
-                propertyName: 'workGroup',
-                propertyValue: avantiEmployeePersonal.workGroup ?? ''
-            }, true, partialSession);
-            for (let otherTextIndex = 1; otherTextIndex <= 20; otherTextIndex += 1) {
-                if (avantiEmployeePersonal[`otherText${otherTextIndex}`] !== '') {
-                    await setEmployeeProperty({
-                        employeeNumber: newEmployee.employeeNumber,
-                        propertyName: `otherText${otherTextIndex}`,
-                        propertyValue: avantiEmployeePersonal[`otherText${otherTextIndex}`]
-                    }, true, partialSession);
-                }
-            }
+        catch (error) {
+            debug(error);
         }
     }
     const employeesDeleted = await deleteMissingSyncedEmployees(syncDateTime, partialSession);

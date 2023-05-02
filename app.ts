@@ -95,6 +95,13 @@ if (urlPrefix !== '') {
 app.use(urlPrefix, express.static(path.join('public')))
 
 app.use(
+  '/favicon.ico',
+  express.static(
+    path.join('public', 'favicon.ico')
+  )
+)
+
+app.use(
   urlPrefix + '/lib/cityssm-bulma-js/bulma-js.js',
   express.static(
     path.join('node_modules', '@cityssm', 'bulma-js', 'dist', 'bulma-js.js')

@@ -21,8 +21,8 @@ export async function setEmployeeProperty(
     .input('employeeNumber', employeeProperty.employeeNumber)
     .input('propertyName', employeeProperty.propertyName)
     .query(`update MonTY.EmployeeProperties
-      set propertyValue = case when @isSyncUpdate = 1 and isSynced = 0 then propertyValue else @propertyValue end,
-      isSynced = case when @isSyncUpdate = 1 and isSynced = 0 then isSynced else @isSynced end,
+      set propertyValue = case when (@isSyncUpdate = 1 and isSynced = 0 and recordDelete_dateTime is null) then propertyValue else @propertyValue end,
+      isSynced = case when (@isSyncUpdate = 1 and isSynced = 0 and recordDelete_dateTime is null) then isSynced else @isSynced end,
       recordUpdate_userName = @record_userName,
       recordUpdate_dateTime = @record_dateTime,
       recordDelete_userName = null,
@@ -42,7 +42,7 @@ export async function setEmployeeProperty(
       .query(`insert into MonTY.EmployeeProperties
         (employeeNumber, propertyName, propertyValue, isSynced,
           recordCreate_userName, recordCreate_dateTime, recordUpdate_userName, recordUpdate_dateTime)
-        values (@employeeNumber, @propertyName, @propertyValue, isSynced,
+        values (@employeeNumber, @propertyName, @propertyValue, @isSynced,
           @record_userName, @record_dateTime, @record_userName, @record_dateTime)`)
   }
 

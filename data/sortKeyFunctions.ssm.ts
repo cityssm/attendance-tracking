@@ -15,6 +15,21 @@ export const employeeSortKeyFunctions: ConfigEmployeeSortKeyFunction[] = [
     }
   },
   {
+    functionName: 'Property Value',
+    sortKeyFunction(employee, employeePropertyName) {
+      const propertyNameLower = employeePropertyName?.toLowerCase()
+
+      const property = employee.employeeProperties?.find((possibleProperty) => {
+        return possibleProperty.propertyName.toLowerCase() === propertyNameLower
+      })
+
+      if (property === undefined) {
+        return ''
+      }
+      return property.propertyValue
+    }
+  },
+  {
     functionName: 'Alphabetical',
     sortKeyFunction(employee) {
       return `${employee.employeeSurname.toLowerCase()} ${employee.employeeGivenName.toLowerCase()} ${

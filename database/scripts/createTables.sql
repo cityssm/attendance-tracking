@@ -80,6 +80,7 @@ create table MonTY.CallOutLists (
 	listDescription varchar(500),
 	sortKeyFunction varchar(100),
 	eligibilityFunction varchar(100),
+	employeePropertyName varchar(100),
 	recordCreate_userName varchar(20) not null default CURRENT_USER,
 	recordCreate_dateTime datetime2 not null default getdate(),
 	recordUpdate_userName varchar(20) not null default CURRENT_USER,
@@ -121,6 +122,22 @@ create table MonTY.CallOutResponseTypes (
 	recordDelete_userName varchar(20),
 	recordDelete_dateTime datetime2
 )
+GO
+
+insert into MonTY.CallOutResponseTypes (responseType, isSuccessful, orderNumber)
+values ('Yes', 1, 1)
+GO
+
+insert into MonTY.CallOutResponseTypes (responseType, isSuccessful, orderNumber)
+values ('Not Available', 0, 2)
+GO
+
+insert into MonTY.CallOutResponseTypes (responseType, isSuccessful, orderNumber)
+values ('No Answer', 0, 3)
+GO
+
+insert into MonTY.CallOutResponseTypes (responseType, isSuccessful, orderNumber)
+values ('Refused', 0, 4)
 GO
 
 create table MonTY.CallOutRecords (

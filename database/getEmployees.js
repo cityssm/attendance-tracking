@@ -25,22 +25,20 @@ export async function getEmployees(filters, options) {
             : ' order by employeeNumber';
     const result = await request.query(sql);
     let employees = result.recordset;
-    if (Object.hasOwn(filters, 'eligibilityFunctionName') ||
+    if (Object.hasOwn(filters, 'eligibilityFunction') ||
         Object.hasOwn(options, 'includeProperties')) {
-        let eligibilityFunction;
-        if ((filters.eligibilityFunctionName ?? '') !== '') {
-            eligibilityFunction = configFunctions
+        for (const employee of employees) {
+            employee.employeeProperties = await getEmployeeProperties(employee.employeeNumber);
+        }
+        if ((filters.eligibilityFunction?.functionName ?? '') !== '') {
+            const eligibilityFunction = configFunctions
                 .getProperty('settings.employeeEligibilityFunctions')
                 .find((possibleFunction) => {
-                return (possibleFunction.functionName === filters.eligibilityFunctionName);
+                return (possibleFunction.functionName ===
+                    filters.eligibilityFunction?.functionName);
             });
             if (eligibilityFunction !== undefined) {
-                employees = employees.filter((element) => eligibilityFunction?.eligibilityFunction(element));
-            }
-        }
-        if (options.includeProperties ?? false) {
-            for (const employee of employees) {
-                employee.employeeProperties = await getEmployeeProperties(employee.employeeNumber);
+                employees = employees.filter((possibleEmployee) => eligibilityFunction?.eligibilityFunction(possibleEmployee, filters.eligibilityFunction?.employeePropertyName));
             }
         }
     }

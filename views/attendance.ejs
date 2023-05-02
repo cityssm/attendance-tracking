@@ -66,6 +66,12 @@
   </div>
 </div>
 
+<datalist id="datalist--employeePropertyNames">
+  <% for (const propertyName of employeePropertyNames) { %>
+  <option value="<%= propertyName %>" />
+  <% } %>
+</datalist>
+
 <%- include('_footerA'); -%>
 
 <script src="<%= urlPrefix %>/javascripts/attendance.min.js"></script>
@@ -77,6 +83,7 @@
 <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
   <script>
     exports.callOutLists = <%- JSON.stringify(callOutLists) %>;
+    exports.callOutResponseTypes = <%- JSON.stringify(callOutResponseTypes) %>;
     exports.employeeEligibilityFunctionNames = <%- JSON.stringify(employeeEligibilityFunctionNames) %>;
     exports.employeeSortKeyFunctionNames = <%- JSON.stringify(employeeSortKeyFunctionNames) %>;
 

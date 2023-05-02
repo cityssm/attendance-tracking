@@ -14,7 +14,8 @@ export async function handler(
 ): Promise<void> {
   const listId = request.body.listId
 
-  const callOutListMembers = await getCallOutListMembers(listId)
+  const callOutListMembers = await getCallOutListMembers({ listId }, {})
+
   let availableEmployees: recordTypes.Employee[] = []
 
   if (
@@ -26,11 +27,12 @@ export async function handler(
   ) {
     const callOutList = await getCallOutList(listId)
 
-    const eligibilityFunctionName = callOutList?.eligibilityFunction ?? ''
-
     availableEmployees = await getEmployees(
       {
-        eligibilityFunctionName,
+        eligibilityFunction: {
+          functionName: callOutList?.eligibilityFunction ?? '',
+          employeePropertyName: callOutList?.employeePropertyName ?? ''
+        },
         isActive: true
       },
       {

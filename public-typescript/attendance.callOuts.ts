@@ -25,6 +25,9 @@ declare const cityssm: cityssmGlobal
     '#callOuts--searchResults'
   ) as HTMLElement
 
+  let currentListId = ''
+  let currentCallOutListMembers: recordTypes.CallOutListMember[] = []
+
   function renderCallOutLists(): void {
     const panelElement = document.createElement('div')
     panelElement.className = 'panel'
@@ -83,7 +86,36 @@ declare const cityssm: cityssmGlobal
     }
   }
 
+  function openCallOutListMember(employeeNumber: string): void {
+    const callOutList = callOutLists.find((possibleCallOutList) => {
+      return possibleCallOutList.listId === currentListId
+    })
+
+    const callOutListMember = currentCallOutListMembers.find(
+      (possibleMember) => {
+        return possibleMember.employeeNumber === employeeNumber
+      }
+    )
+
+    cityssm.openHtmlModal('callOuts-member', {
+      onshow(modalElement) {}
+    })
+  }
+
+  function openCallOutListMemberByClick(clickEvent: MouseEvent): void {
+    clickEvent.preventDefault()
+
+    const anchorElement = clickEvent.currentTarget as HTMLAnchorElement
+
+    const employeeNumber = anchorElement.dataset.employeeNumber!
+
+    openCallOutListMember(employeeNumber)
+  }
+
   function openCallOutList(listId: string): void {
+    currentListId = listId
+    currentCallOutListMembers = []
+
     const callOutList = callOutLists.find((possibleCallOutList) => {
       return possibleCallOutList.listId === listId
     }) as recordTypes.CallOutList
@@ -103,6 +135,10 @@ declare const cityssm: cityssmGlobal
         return
       }
 
+      const submitButtonElement = (formEvent.currentTarget as HTMLFormElement).querySelector('button[type="submit"]') as HTMLButtonElement
+      submitButtonElement.disabled = true
+      submitButtonElement.classList.add('is-loading')
+
       cityssm.postJSON(
         MonTY.urlPrefix + '/attendance/doUpdateCallOutList',
         formEvent.currentTarget,
@@ -110,7 +146,12 @@ declare const cityssm: cityssmGlobal
           const responseJSON = rawResponseJSON as {
             success: boolean
             callOutLists?: recordTypes.CallOutList[]
+            callOutListMembers?: recordTypes.CallOutListMember[]
+            availableEmployees?: recordTypes.Employee[]
           }
+
+          submitButtonElement.disabled = false
+          submitButtonElement.classList.remove('is-loading')
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -126,6 +167,11 @@ declare const cityssm: cityssmGlobal
                 '#callOutListEdit--listName'
               ) as HTMLInputElement
             ).value
+
+            currentCallOutListMembers = responseJSON.callOutListMembers!
+            availableEmployees = responseJSON.availableEmployees!
+            renderCallOutListMembers()
+            renderAvailableEmployees()
 
             callOutLists = responseJSON.callOutLists!
             renderCallOutLists()
@@ -216,6 +262,12 @@ declare const cityssm: cityssmGlobal
         sortKeyFunctionElement.append(optionElement)
       }
 
+      ;(
+        callOutListModalElement.querySelector(
+          '#callOutListEdit--employeePropertyName'
+        ) as HTMLInputElement
+      ).value = callOutList.employeePropertyName ?? ''
+
       if (canManage) {
         const unlockButtonsContainerElement =
           callOutListModalElement.querySelector(
@@ -244,7 +296,6 @@ declare const cityssm: cityssmGlobal
       }
     }
 
-    let callOutListMembers: recordTypes.CallOutListMember[] = []
     let callOutListMemberEmployeeNumbers: string[] = []
     let availableEmployees: recordTypes.Employee[] = []
 
@@ -267,7 +318,7 @@ declare const cityssm: cityssmGlobal
           }
 
           if (responseJSON.success) {
-            callOutListMembers = responseJSON.callOutListMembers!
+            currentCallOutListMembers = responseJSON.callOutListMembers!
             renderCallOutListMembers()
             renderAvailableEmployees()
           } else {
@@ -301,7 +352,7 @@ declare const cityssm: cityssmGlobal
             }
 
             if (responseJSON.success) {
-              callOutListMembers = responseJSON.callOutListMembers!
+              currentCallOutListMembers = responseJSON.callOutListMembers!
               renderCallOutListMembers()
               renderAvailableEmployees()
             } else {
@@ -388,7 +439,7 @@ declare const cityssm: cityssmGlobal
 
       callOutListMemberEmployeeNumbers = []
 
-      if (callOutListMembers.length === 0) {
+      if (currentCallOutListMembers.length === 0) {
         callOutListMembersContainer.innerHTML = `<div class="message is-warning">
             <p class="message-body">The "${callOutList.listName}" call out list does not include any active employees.</p>
           </div>`
@@ -410,20 +461,37 @@ declare const cityssm: cityssmGlobal
         currentPanelElement.className = 'panel'
       }
 
-      for (const member of callOutListMembers) {
+      for (const member of currentCallOutListMembers) {
         // Member List
 
         const panelBlockElement = document.createElement('a')
-        panelBlockElement.className = 'panel-block'
+        panelBlockElement.className = 'panel-block is-block'
         panelBlockElement.href = '#'
         panelBlockElement.dataset.employeeNumber = member.employeeNumber
 
-        panelBlockElement.innerHTML = `<span class="panel-icon">
-          <i class="fas fa-user" aria-hidden="true"></i>
-          </span>
-          <div>
-            <strong>${member.employeeSurname!}, ${member.employeeGivenName!}</strong>
+        panelBlockElement.innerHTML = `<div class="columns is-mobile">
+          <div class="column is-narrow">
+            <i class="fas fa-user" aria-hidden="true"></i>
+          </div>
+          <div class="column">
+            <strong>${member.employeeSurname}, ${
+          member.employeeGivenName
+        }</strong><br />
+            <span class="is-size-7">${member.employeeNumber}</span>
+          </div>
+          <div class="column">
+            <span class="is-size-7 has-tooltip-left" data-tooltip="Sort Key">
+              <i class="fas fa-sort-alpha-down" aria-hidden="true"></i> ${
+                member.sortKey ?? ''
+              }
+            </span>
+          </div>
           </div>`
+
+        panelBlockElement.addEventListener(
+          'click',
+          openCallOutListMemberByClick
+        )
 
         panelElement.append(panelBlockElement)
 
@@ -445,7 +513,7 @@ declare const cityssm: cityssmGlobal
           <i class="fas fa-minus" aria-hidden="true"></i>
           </span>
           <div>
-            <strong>${member.employeeSurname!}, ${member.employeeGivenName!}</strong>
+            <strong>${member.employeeSurname}, ${member.employeeGivenName}</strong>
           </div>`
 
         currentPanelBlockElement.addEventListener(
@@ -496,7 +564,7 @@ declare const cityssm: cityssmGlobal
               availableEmployees: recordTypes.Employee[]
             }
 
-            callOutListMembers = responseJSON.callOutListMembers
+            currentCallOutListMembers = responseJSON.callOutListMembers
             availableEmployees = responseJSON.availableEmployees
 
             renderCallOutListMembers()
@@ -509,6 +577,13 @@ declare const cityssm: cityssmGlobal
           modalElement.querySelectorAll('.menu a'),
           modalElement.querySelectorAll('.tabs-container > article')
         )
+
+        cityssm.enableNavBlocker()
+      },
+      onhidden() {
+        cityssm.disableNavBlocker()
+        currentListId = ''
+        currentCallOutListMembers = []
       }
     })
   }

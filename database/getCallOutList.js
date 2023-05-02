@@ -6,7 +6,7 @@ export async function getCallOutList(listId) {
         .request()
         .input('listId', listId)
         .query(`select l.listId, l.listName, l.listDescription,
-      l.sortKeyFunction, l.eligibilityFunction,
+      l.sortKeyFunction, l.eligibilityFunction, l.employeePropertyName,
       count(m.employeeNumber) as callOutListMembersCount
       from MonTY.CallOutLists l
       left join MonTY.CallOutListMembers m
@@ -16,7 +16,7 @@ export async function getCallOutList(listId) {
       where l.recordDelete_dateTime is null
       and l.listId = @listId
       group by l.listId, l.listName, l.listDescription,
-        l.sortKeyFunction, l.eligibilityFunction`);
+        l.sortKeyFunction, l.eligibilityFunction, l.employeePropertyName`);
     if (listResult.recordset.length > 0) {
         return listResult.recordset[0];
     }
