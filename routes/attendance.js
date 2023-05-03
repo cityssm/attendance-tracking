@@ -7,7 +7,16 @@ import handler_doUpdateCallOutList from '../handlers/attendance-post/doUpdateCal
 import handler_doGetCallOutListMembers from '../handlers/attendance-post/doGetCallOutListMembers.js';
 import handler_doAddCallOutListMember from '../handlers/attendance-post/doAddCallOutListMember.js';
 import handler_doDeleteCallOutListMember from '../handlers/attendance-post/doDeleteCallOutListMember.js';
+import handler_doGetCallOutRecords from '../handlers/attendance-post/doGetCallOutRecords.js';
+import handler_doAddCallOutRecord from '../handlers/attendance-post/doAddCallOutRecord.js';
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js';
+function callOutsViewPostHandler(request, response, next) {
+    if (permissionFunctions.hasPermission(request.session.user, 'attendance.callOuts.canView')) {
+        next();
+        return;
+    }
+    response.status(forbiddenStatus).json(forbiddenJSON);
+}
 function callOutsUpdatePostHandler(request, response, next) {
     if (permissionFunctions.hasPermission(request.session.user, 'attendance.callOuts.canUpdate')) {
         next();
@@ -27,8 +36,10 @@ router.get('/', handler_attendance);
 if (configFunctions.getProperty('features.attendance.callOuts')) {
     router.post('/doCreateCallOutList', callOutsManagePostHandler, handler_doCreateCallOutList);
     router.post('/doUpdateCallOutList', callOutsManagePostHandler, handler_doUpdateCallOutList);
-    router.post('/doGetCallOutListMembers', handler_doGetCallOutListMembers);
+    router.post('/doGetCallOutListMembers', callOutsViewPostHandler, handler_doGetCallOutListMembers);
     router.post('/doAddCallOutListMember', callOutsManagePostHandler, handler_doAddCallOutListMember);
     router.post('/doDeleteCallOutListMember', callOutsManagePostHandler, handler_doDeleteCallOutListMember);
+    router.post('/doGetCallOutRecords', callOutsViewPostHandler, handler_doGetCallOutRecords);
+    router.post('/doAddCallOutRecord', callOutsUpdatePostHandler, handler_doAddCallOutRecord);
 }
 export default router;

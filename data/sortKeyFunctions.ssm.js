@@ -3,10 +3,9 @@ export const employeeSortKeyFunctions = [
     {
         functionName: 'Seniority Date',
         sortKeyFunction(employee) {
-            const seniorityDateString = employee.seniorityDateTime === undefined
+            return employee.seniorityDateTime === undefined
                 ? '9999-99-99'
                 : dateTimeFunctions.dateToString(employee.seniorityDateTime);
-            return `${seniorityDateString} ${employee.employeeNumber}`;
         }
     },
     {

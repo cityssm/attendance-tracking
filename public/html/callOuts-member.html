@@ -10,7 +10,150 @@
       ></button>
     </div>
     <section class="modal-card-body">
+      <div class="columns">
+        <div class="column is-5">
+          <p class="mb-4">
+            <strong>Call Out List Name</strong><br />
+            <span id="callOutListMember--listName">-</span>
+          </p>
+          <div class="columns mb-0">
+            <div class="column">
+              <p>
+                <strong>Employee Name</strong><br />
+                <span id="callOutListMember--employeeName">-</span>
+              </p>
+            </div>
+            <div class="column">
+              <p>
+                <strong>Employee Number</strong><br />
+                <span id="callOutListMember--employeeNumber">-</span>
+              </p>
+            </div>
+          </div>
+          <div class="columns">
+            <div class="column">
+              <p>
+                <strong>Sort Key</strong><br />
+                <span id="callOutListMember--sortKey">-</span>
+              </p>
+            </div>
+            <div class="column">
+              <p>
+                <strong>Position</strong><br />
+                <span id="callOutListMember--listPosition">-</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="tabs is-boxed">
+            <ul>
+              <li class="is-active">
+                <a href="#tab--callNow">Call Now</a>
+              </li>
+              <li>
+                <a href="#tab--recentCalls">Recent Call History</a>
+              </li>
+            </ul>
+          </div>
+          <div class="tabs-container">
+            <div id="tab--callNow">
+              <div class="columns is-mobile">
+                <div class="column">
+                  <p>
+                    <strong>Work Contact 1</strong><br />
+                    <i class="fas fa-briefcase" aria-hidden="true"></i>
+                    <span id="callOutListMember--workContact1">-</span>
+                  </p>
+                  <p>
+                    <strong>Work Contact 2</strong><br />
+                    <i class="fas fa-briefcase" aria-hidden="true"></i>
+                    <span id="callOutListMember--workContact2">-</span>
+                  </p>
+                </div>
+                <div class="column">
+                  <p>
+                    <strong>Home Contact 1</strong><br />
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                    <span id="callOutListMember--homeContact1">-</span>
+                  </p>
+                  <p>
+                    <strong>Home Contact 2</strong><br />
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                    <span id="callOutListMember--homeContact2">-</span>
+                  </p>
 
+                </div>
+              </div>
+              <form id="form--callOutRecordAdd">
+                <input id="callOutRecordAdd--listId" name="listId" type="hidden" />
+                <input id="callOutRecordAdd--employeeNumber" name="employeeNumber" type="hidden" />
+
+                <div class="message is-info is-small">
+                  <p class="message-body">
+                    Leave the date and time blank to use the current date and time.
+                  </p>
+                </div>
+                <div class="columns is-mobile">
+                  <div class="column">
+                    <div class="field">
+                      <label class="label" for="callOutRecordAdd--callOutDateString">Call Out Date</label>
+                      <div class="control">
+                        <input class="input" id="callOutRecordAdd--callOutDateString" name="callOutDateString" type="date" placeholder="Current Date" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <div class="field">
+                      <label class="label" for="callOutRecordAdd--callOutTimeString">Call Out Time</label>
+                      <div class="control">
+                        <input class="input" id="callOutRecordAdd--callOutTimeString" name="callOutTimeString" type="time" placeholder="Current Time" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="columns is-mobile">
+                  <div class="column">
+                    <div class="field">
+                      <label class="label">Shift Hours</label>
+                      <div class="control">
+                        <input class="input" id="callOutRecordAdd--callOutHours" name="callOutHours" type="number" min="0.25" max="24" step="0.25" onwheel="return false" required />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="column">
+                    <div class="field">
+                      <label class="label" for="callOutRecordAdd--responseTypeId">Response</label>
+                      <div class="control">
+                        <div class="select is-fullwidth">
+                          <select id="callOutRecordAdd--responseTypeId" name="responseTypeId" required>
+                            <option value="">(Select a Response)</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label" for="callOutRecordAdd--recordComment">Comment</label>
+                  <div class="control">
+                    <textarea class="textarea" id="callOutRecordAdd--recordComment" name="recordComment"></textarea>
+                  </div>
+                </div>
+                <p class="has-text-right">
+                  <button class="button is-success" type="submit">
+                    <span class="icon is-small"><i class="fas fa-save" aria-hidden="true"></i></span>
+                    <span>Record Call Out</span>
+                  </button>
+                </p>
+              </form>
+            </div>
+            <div class="is-hidden" id="tab--recentCalls">
+              <div id="container--callOutRecords"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
     <div class="modal-card-foot is-justify-content-space-between">
       <div class="field is-grouped mb-0">

@@ -21,6 +21,7 @@ configFallbackValues.set('features.employees.avantiSync', false);
 configFallbackValues.set('settings.avantiSync.locationCodes', []);
 configFallbackValues.set('settings.employeeEligibilityFunctions', []);
 configFallbackValues.set('settings.employeeSortKeyFunctions', []);
+configFallbackValues.set('settings.recentDays', 10);
 export function getProperty(propertyName) {
     const propertyNameSplit = propertyName.split('.');
     let currentObject = config;

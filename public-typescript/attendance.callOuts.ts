@@ -14,6 +14,10 @@ declare const cityssm: cityssmGlobal
   let callOutLists = exports.callOutLists as recordTypes.CallOutList[]
   delete exports.callOutLists
 
+  const callOutResponseTypes =
+    exports.callOutResponseTypes as recordTypes.CallOutResponseType[]
+  delete exports.callOutResponseTypes
+
   const canUpdate = exports.callOutsCanUpdate as boolean
   const canManage = exports.callOutsCanManage as boolean
 
@@ -89,16 +93,210 @@ declare const cityssm: cityssmGlobal
   function openCallOutListMember(employeeNumber: string): void {
     const callOutList = callOutLists.find((possibleCallOutList) => {
       return possibleCallOutList.listId === currentListId
-    })
+    })!
+
+    let callOutListMemberPosition = 0
 
     const callOutListMember = currentCallOutListMembers.find(
-      (possibleMember) => {
-        return possibleMember.employeeNumber === employeeNumber
+      (possibleMember, possibleIndex) => {
+        if (possibleMember.employeeNumber === employeeNumber) {
+          callOutListMemberPosition = possibleIndex + 1
+          return true
+        }
+
+        return false
       }
-    )
+    )!
+
+    let callOutMemberModalElement: HTMLElement
+
+    let callOutRecords: recordTypes.CallOutRecord[]
+
+    function addCallOutRecord(formEvent: SubmitEvent): void {
+      formEvent.preventDefault()
+
+      const formElement = formEvent.currentTarget as HTMLFormElement
+
+      cityssm.postJSON(
+        MonTY.urlPrefix + '/attendance/doAddCallOutRecord',
+        formElement,
+        (rawResponseJSON) => {
+          const responseJSON = rawResponseJSON as {
+            success: boolean
+            recordId: string
+            callOutRecords: recordTypes.CallOutRecord[]
+          }
+
+          if (responseJSON.success) {
+            bulmaJS.alert({
+              message: 'Call out recorded successfully.',
+              contextualColorName: 'success'
+            })
+
+            formElement.reset()
+
+            callOutRecords = responseJSON.callOutRecords
+            renderCallOutRecords()
+          }
+        }
+      )
+    }
+
+    function renderCallOutRecords(): void {
+      const callOutRecordsContainerElement =
+        callOutMemberModalElement.querySelector(
+          '#container--callOutRecords'
+        ) as HTMLElement
+
+      if (callOutRecords.length === 0) {
+        callOutRecordsContainerElement.innerHTML = `<div class="message is-info">
+          <p class="message-body">There are no recent call outs to show.</p>
+          </div>`
+
+        return
+      }
+
+      const panelElement = document.createElement('div')
+      panelElement.className = 'panel'
+
+      for (const record of callOutRecords) {
+        const panelBlockElement = document.createElement('div')
+        panelBlockElement.className = 'panel-block'
+
+        panelElement.append(panelBlockElement)
+      }
+
+      callOutRecordsContainerElement.innerHTML = ''
+      callOutRecordsContainerElement.append(panelElement)
+    }
 
     cityssm.openHtmlModal('callOuts-member', {
-      onshow(modalElement) {}
+      onshow(modalElement) {
+        callOutMemberModalElement = modalElement
+
+        const employeeName =
+          callOutListMember.employeeGivenName +
+          ', ' +
+          callOutListMember.employeeSurname
+
+        ;(
+          modalElement.querySelector('.modal-card-title') as HTMLElement
+        ).textContent = employeeName
+        ;(
+          modalElement.querySelector(
+            '#callOutListMember--listName'
+          ) as HTMLElement
+        ).textContent = callOutList.listName
+        ;(
+          modalElement.querySelector(
+            '#callOutListMember--employeeName'
+          ) as HTMLElement
+        ).textContent = employeeName
+        ;(
+          modalElement.querySelector(
+            '#callOutListMember--employeeNumber'
+          ) as HTMLElement
+        ).textContent = callOutListMember.employeeNumber
+        ;(
+          modalElement.querySelector(
+            '#callOutListMember--sortKey'
+          ) as HTMLElement
+        ).textContent = callOutListMember.sortKey ?? ''
+        ;(
+          modalElement.querySelector(
+            '#callOutListMember--listPosition'
+          ) as HTMLElement
+        ).textContent = `${callOutListMemberPosition} / ${currentCallOutListMembers.length}`
+
+        if (canUpdate) {
+          ;(
+            modalElement.querySelector(
+              '#callOutListMember--workContact1'
+            ) as HTMLElement
+          ).textContent = callOutListMember.workContact1 ?? ''
+          ;(
+            modalElement.querySelector(
+              '#callOutListMember--workContact2'
+            ) as HTMLElement
+          ).textContent = callOutListMember.workContact2 ?? ''
+          ;(
+            modalElement.querySelector(
+              '#callOutListMember--homeContact1'
+            ) as HTMLElement
+          ).textContent = callOutListMember.homeContact1 ?? ''
+          ;(
+            modalElement.querySelector(
+              '#callOutListMember--homeContact2'
+            ) as HTMLElement
+          ).textContent = callOutListMember.homeContact2 ?? ''
+        } else {
+          modalElement
+            .querySelector('a[href$="tab--callNow"]')
+            ?.closest('li')
+            ?.remove()
+          modalElement.querySelector('#tab--callNow')?.remove()
+
+          modalElement
+            .querySelector('a[href$="tab--recentCalls"]')
+            ?.closest('li')
+            ?.classList.add('is-active')
+          modalElement
+            .querySelector('#tab--recentCalls')
+            ?.classList.remove('is-hidden')
+        }
+
+        cityssm.postJSON(
+          MonTY.urlPrefix + '/attendance/doGetCallOutRecords',
+          {
+            listId: callOutList.listId,
+            employeeNumber
+          },
+          (rawResponseJSON) => {
+            callOutRecords = (
+              rawResponseJSON as { callOutRecords: recordTypes.CallOutRecord[] }
+            ).callOutRecords
+
+            renderCallOutRecords()
+          }
+        )
+      },
+      onshown(modalElement, closeModalFunction) {
+        bulmaJS.toggleHtmlClipped()
+        bulmaJS.init(modalElement)
+
+        if (canUpdate) {
+          ;(
+            modalElement.querySelector(
+              '#callOutRecordAdd--listId'
+            ) as HTMLInputElement
+          ).value = callOutList.listId
+          ;(
+            modalElement.querySelector(
+              '#callOutRecordAdd--employeeNumber'
+            ) as HTMLInputElement
+          ).value = callOutListMember.employeeNumber
+
+          const responseTypeElement = modalElement.querySelector(
+            '#callOutRecordAdd--responseTypeId'
+          ) as HTMLSelectElement
+
+          for (const responseType of callOutResponseTypes) {
+            const optionElement = document.createElement('option')
+            optionElement.value = responseType.responseTypeId.toString()
+            optionElement.textContent = responseType.responseType
+            responseTypeElement.append(optionElement)
+          }
+
+          ;(
+            modalElement.querySelector(
+              '#form--callOutRecordAdd'
+            ) as HTMLFormElement
+          ).addEventListener('submit', addCallOutRecord)
+        }
+      },
+      onhidden() {
+        bulmaJS.toggleHtmlClipped()
+      }
     })
   }
 
@@ -135,7 +333,9 @@ declare const cityssm: cityssmGlobal
         return
       }
 
-      const submitButtonElement = (formEvent.currentTarget as HTMLFormElement).querySelector('button[type="submit"]') as HTMLButtonElement
+      const submitButtonElement = (
+        formEvent.currentTarget as HTMLFormElement
+      ).querySelector('button[type="submit"]') as HTMLButtonElement
       submitButtonElement.disabled = true
       submitButtonElement.classList.add('is-loading')
 
@@ -573,6 +773,8 @@ declare const cityssm: cityssmGlobal
         )
       },
       onshown(modalElement, closeModalFunction) {
+        bulmaJS.toggleHtmlClipped()
+
         MonTY.initializeMenuTabs(
           modalElement.querySelectorAll('.menu a'),
           modalElement.querySelectorAll('.tabs-container > article')
@@ -581,7 +783,10 @@ declare const cityssm: cityssmGlobal
         cityssm.enableNavBlocker()
       },
       onhidden() {
+        bulmaJS.toggleHtmlClipped()
+
         cityssm.disableNavBlocker()
+
         currentListId = ''
         currentCallOutListMembers = []
       }

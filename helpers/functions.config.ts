@@ -47,6 +47,8 @@ configFallbackValues.set('settings.avantiSync.locationCodes', [])
 configFallbackValues.set('settings.employeeEligibilityFunctions', [])
 configFallbackValues.set('settings.employeeSortKeyFunctions', [])
 
+configFallbackValues.set('settings.recentDays', 10)
+
 /*
  * Set up function overloads
  */
@@ -112,6 +114,8 @@ export function getProperty(
 export function getProperty(
   propertyName: 'settings.employeeSortKeyFunctions'
 ): configTypes.ConfigEmployeeSortKeyFunction[]
+
+export function getProperty(propertyName: 'settings.recentDays'): number
 
 export function getProperty(propertyName: string): unknown {
   const propertyNameSplit = propertyName.split('.')

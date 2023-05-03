@@ -55,6 +55,15 @@ export interface CallOutResponseType extends RecordUserNameDateTime {
     isSuccessful: boolean;
     orderNumber?: number;
 }
+export interface CallOutRecord extends Partial<CallOutResponseType>, Partial<CallOutList>, Partial<Employee>, RecordUserNameDateTime {
+    recordId: string;
+    listId: string;
+    employeeNumber: string;
+    callOutDateTime: Date;
+    callOutHours: number;
+    responseTypeId: number;
+    recordComment?: string;
+}
 export interface User extends RecordUserNameDateTime {
     userName: string;
     canLogin: boolean;

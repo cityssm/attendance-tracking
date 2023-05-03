@@ -58,6 +58,7 @@ export interface Config {
         };
         employeeSortKeyFunctions?: ConfigEmployeeSortKeyFunction[];
         employeeEligibilityFunctions?: ConfigEmployeeEligibilityFunction[];
+        recentDays?: number;
     };
 }
 export interface ConfigActiveDirectory {

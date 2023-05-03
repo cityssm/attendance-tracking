@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/indent */
+
 import { type availablePermissionValues } from '../helpers/functions.permissions'
 
 export interface RecordUserNameDateTime {
@@ -70,6 +72,20 @@ export interface CallOutResponseType extends RecordUserNameDateTime {
   responseType: string
   isSuccessful: boolean
   orderNumber?: number
+}
+
+export interface CallOutRecord
+  extends Partial<CallOutResponseType>,
+    Partial<CallOutList>,
+    Partial<Employee>,
+    RecordUserNameDateTime {
+  recordId: string // bigint
+  listId: string // bigint
+  employeeNumber: string
+  callOutDateTime: Date
+  callOutHours: number
+  responseTypeId: number
+  recordComment?: string
 }
 
 /*

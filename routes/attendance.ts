@@ -17,7 +17,28 @@ import handler_doGetCallOutListMembers from '../handlers/attendance-post/doGetCa
 import handler_doAddCallOutListMember from '../handlers/attendance-post/doAddCallOutListMember.js'
 import handler_doDeleteCallOutListMember from '../handlers/attendance-post/doDeleteCallOutListMember.js'
 
+import handler_doGetCallOutRecords from '../handlers/attendance-post/doGetCallOutRecords.js'
+import handler_doAddCallOutRecord from '../handlers/attendance-post/doAddCallOutRecord.js'
+
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js'
+
+function callOutsViewPostHandler(
+  request: Request,
+  response: Response,
+  next: NextFunction
+): void {
+  if (
+    permissionFunctions.hasPermission(
+      request.session.user!,
+      'attendance.callOuts.canView'
+    )
+  ) {
+    next()
+    return
+  }
+
+  response.status(forbiddenStatus).json(forbiddenJSON)
+}
 
 function callOutsUpdatePostHandler(
   request: Request,
@@ -78,6 +99,7 @@ if (configFunctions.getProperty('features.attendance.callOuts')) {
 
   router.post(
     '/doGetCallOutListMembers',
+    callOutsViewPostHandler,
     handler_doGetCallOutListMembers as RequestHandler
   )
 
@@ -91,6 +113,18 @@ if (configFunctions.getProperty('features.attendance.callOuts')) {
     '/doDeleteCallOutListMember',
     callOutsManagePostHandler,
     handler_doDeleteCallOutListMember as RequestHandler
+  )
+
+  router.post(
+    '/doGetCallOutRecords',
+    callOutsViewPostHandler,
+    handler_doGetCallOutRecords as RequestHandler
+  )
+
+  router.post(
+    '/doAddCallOutRecord',
+    callOutsUpdatePostHandler,
+    handler_doAddCallOutRecord as RequestHandler
   )
 }
 
