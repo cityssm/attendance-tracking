@@ -4,7 +4,8 @@
   </h2>
   <ul class="menu-list">
     <li>
-      <a href="<%= urlPrefix %>/admin/employees">
+      <a <%- ((headTitle === 'Employee Maintenance') ? ' class="is-active"' : '') %>
+        href="<%= urlPrefix %>/admin/employees">
         Employee Maintenance
       </a>
     </li>

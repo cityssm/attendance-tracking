@@ -5,12 +5,71 @@
     <%- include('_admin.menu.ejs') %>
   </div>
   <div class="column">
-
-
+    <nav class="breadcrumb">
+      <ul>
+        <li class="is-active">
+          <a href="#">
+            Administration
+          </a>
+        </li>
+        <li class="is-active">
+          <a href="#" aria-current="page">
+            <span>Employee Maintenance</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <h1 class="title is-1">
+      Employee Maintenance
+    </h1>
+    <div class="box">
+      <form id="form--employeeSearch">
+        <div class="columns">
+          <div class="column is-8">
+            <div class="field">
+              <div class="control has-icons-left">
+                <input class="input" id="employeeSearch--employeeNameNumber" name="employeeNameNumber" type="text"
+                  placeholder="Search by Employee Number and Name" aria-label="Employee number and name" />
+                <span class="icon is-small is-left">
+                  <i class="fas fa-search" aria-hidden="true"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <div class="control has-icons-left">
+                <div class="select is-fullwidth">
+                  <select id="employeeSearch--isActive" name="isActive" aria-label="Active Status">
+                    <option value="">(All Active Statuses)</option>
+                    <option value="1" selected>Active Only</option>
+                    <option value="0">Inactive Only</option>
+                  </select>
+                </div>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-filter" aria-hidden="true"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="container--employees"></div>
   </div>
 </div>
 
+<datalist id="datalist--employeePropertyNames">
+  <% for (const propertyName of employeePropertyNames) { %>
+  <option value="<%= propertyName %>" />
+  <% } %>
+</datalist>
+
 <%- include('_footerA'); -%>
+
+<script>
+  exports.employees = <%- JSON.stringify(employees) %>;
+</script>
 
 <script src="<%= urlPrefix %>/javascripts/admin.employees.min.js"></script>
 

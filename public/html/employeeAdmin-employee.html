@@ -1,0 +1,42 @@
+<div class="modal" role="dialog" aria-label="Employee View">
+  <div class="modal-background"></div>
+  <div class="modal-card" style="width:1000px">
+    <div class="modal-card-head">
+      <h3 class="modal-card-title">Employee View</h3>
+      <button
+        class="delete is-close-modal-button"
+        aria-label="close"
+        type="button"
+      ></button>
+    </div>
+    <section class="modal-card-body">
+      <div class="columns">
+        <div class="column is-3">
+          <aside class="menu">
+            <ul class="menu-list">
+              <li>
+                <a class="is-active" href="#tab--employeeDetails">
+                  Employee Details
+                </a>
+              </li>
+              <li>
+                <a href="#tab--employeeProperties">
+                  Properties
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
+        <div class="column">
+          <div class="tabs-container">
+            <article id="tab--employeeDetails">details</article>
+            <article class="is-hidden" id="tab--employeeProperties">properties</article>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="modal-card-foot justify-right">
+      <button class="button is-close-modal-button" type="button">Close</button>
+    </div>
+  </div>
+</div>
