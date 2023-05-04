@@ -82,7 +82,7 @@ export interface CallOutRecord
   recordId: string // bigint
   listId: string // bigint
   employeeNumber: string
-  callOutDateTime: Date
+  callOutDateTime: string | Date
   callOutHours: number
   responseTypeId: number
   recordComment?: string

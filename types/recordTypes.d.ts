@@ -59,7 +59,7 @@ export interface CallOutRecord extends Partial<CallOutResponseType>, Partial<Cal
     recordId: string;
     listId: string;
     employeeNumber: string;
-    callOutDateTime: Date;
+    callOutDateTime: string | Date;
     callOutHours: number;
     responseTypeId: number;
     recordComment?: string;

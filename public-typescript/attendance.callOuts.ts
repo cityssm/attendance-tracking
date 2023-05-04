@@ -95,12 +95,12 @@ declare const cityssm: cityssmGlobal
       return possibleCallOutList.listId === currentListId
     })!
 
-    let callOutListMemberPosition = 0
+    let callOutListMemberIndex = 0
 
     const callOutListMember = currentCallOutListMembers.find(
       (possibleMember, possibleIndex) => {
         if (possibleMember.employeeNumber === employeeNumber) {
-          callOutListMemberPosition = possibleIndex + 1
+          callOutListMemberIndex = possibleIndex
           return true
         }
 
@@ -143,15 +143,29 @@ declare const cityssm: cityssmGlobal
     }
 
     function renderCallOutRecords(): void {
+      // Tag Count
+
+      callOutMemberModalElement.querySelector(
+        '#tag--recentCalls'
+      )!.textContent = callOutRecords.length.toString()
+
+      // Data
+
       const callOutRecordsContainerElement =
         callOutMemberModalElement.querySelector(
           '#container--callOutRecords'
         ) as HTMLElement
 
+      const callOutDateTimeMaxElement = callOutMemberModalElement.querySelector(
+        '#callOutListMember--callOutDateTimeMax'
+      ) as HTMLElement
+
       if (callOutRecords.length === 0) {
         callOutRecordsContainerElement.innerHTML = `<div class="message is-info">
           <p class="message-body">There are no recent call outs to show.</p>
           </div>`
+
+        callOutDateTimeMaxElement.textContent = '(No Recent Call Outs)'
 
         return
       }
@@ -159,9 +173,43 @@ declare const cityssm: cityssmGlobal
       const panelElement = document.createElement('div')
       panelElement.className = 'panel'
 
-      for (const record of callOutRecords) {
+      for (const [index, record] of callOutRecords.entries()) {
+        const callOutDateTime = new Date(record.callOutDateTime)
+
+        if (index === 0) {
+          callOutDateTimeMaxElement.innerHTML = `${
+            record.isSuccessful!
+              ? '<i class="fas fa-fw fa-check has-text-success" aria-label="Yes"></i>'
+              : '<i class="fas fa-fw fa-times has-text-danger" aria-label="No"></i>'
+          }
+            ${callOutDateTime.toLocaleDateString()} ${callOutDateTime.toLocaleTimeString()}`
+        }
+
         const panelBlockElement = document.createElement('div')
         panelBlockElement.className = 'panel-block'
+
+        panelBlockElement.classList.add(
+          record.isSuccessful!
+            ? 'has-background-success-light'
+            : 'has-background-danger-light'
+        )
+
+        panelBlockElement.innerHTML = `<div class="columns">
+          <div class="column is-narrow">
+            ${
+              record.isSuccessful!
+                ? '<i class="fas fa-fw fa-check has-text-success" aria-label="Yes"></i>'
+                : '<i class="fas fa-fw fa-times has-text-danger" aria-label="No"></i>'
+            }
+          </div>
+          <div class="column">
+            ${callOutDateTime.toLocaleDateString()} ${callOutDateTime.toLocaleTimeString()}<br />
+            <span class="is-size-7">
+              <strong>${record.responseType ?? '(No Response)'}</strong><br />
+              ${record.recordComment ?? ''}
+            </span>
+          </div>
+          </div>`
 
         panelElement.append(panelBlockElement)
       }
@@ -175,9 +223,9 @@ declare const cityssm: cityssmGlobal
         callOutMemberModalElement = modalElement
 
         const employeeName =
-          callOutListMember.employeeGivenName +
+          callOutListMember.employeeSurname +
           ', ' +
-          callOutListMember.employeeSurname
+          callOutListMember.employeeGivenName
 
         ;(
           modalElement.querySelector('.modal-card-title') as HTMLElement
@@ -206,7 +254,9 @@ declare const cityssm: cityssmGlobal
           modalElement.querySelector(
             '#callOutListMember--listPosition'
           ) as HTMLElement
-        ).textContent = `${callOutListMemberPosition} / ${currentCallOutListMembers.length}`
+        ).textContent = `${callOutListMemberIndex + 1} / ${
+          currentCallOutListMembers.length
+        }`
 
         if (canUpdate) {
           ;(
@@ -292,6 +342,38 @@ declare const cityssm: cityssmGlobal
               '#form--callOutRecordAdd'
             ) as HTMLFormElement
           ).addEventListener('submit', addCallOutRecord)
+        }
+
+        const nextButtonElement = modalElement.querySelector(
+          '#callOutListMember--next'
+        ) as HTMLButtonElement
+
+        if (callOutListMemberIndex + 1 === currentCallOutListMembers.length) {
+          nextButtonElement.disabled = true
+        } else {
+          nextButtonElement.addEventListener('click', () => {
+            const nextEmployeeNumber =
+              currentCallOutListMembers[callOutListMemberIndex + 1]
+                .employeeNumber
+            closeModalFunction()
+            openCallOutListMember(nextEmployeeNumber)
+          })
+        }
+
+        const previousButtonElement = modalElement.querySelector(
+          '#callOutListMember--previous'
+        ) as HTMLButtonElement
+
+        if (callOutListMemberIndex === 0) {
+          previousButtonElement.disabled = true
+        } else {
+          previousButtonElement.addEventListener('click', () => {
+            const previousEmployeeNumber =
+              currentCallOutListMembers[callOutListMemberIndex - 1]
+                .employeeNumber
+            closeModalFunction()
+            openCallOutListMember(previousEmployeeNumber)
+          })
         }
       },
       onhidden() {

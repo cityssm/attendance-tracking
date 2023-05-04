@@ -17,6 +17,7 @@
     "public-typescript/attendance.ts",
     "public-typescript/attendance.absences.ts",
     "public-typescript/attendance.callOuts.ts",
+    "public-typescript/attendance.employees.ts",
     "public-typescript/attendance.returnsToWork.ts"
   ],
   "compileOnSave": true,

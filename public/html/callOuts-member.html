@@ -30,7 +30,7 @@
               </p>
             </div>
           </div>
-          <div class="columns">
+          <div class="columns mb-0">
             <div class="column">
               <p>
                 <strong>Sort Key</strong><br />
@@ -44,6 +44,10 @@
               </p>
             </div>
           </div>
+          <p>
+            <strong>Last Called</strong><br />
+            <span id="callOutListMember--callOutDateTimeMax">-</span>
+          </p>
         </div>
         <div class="column">
           <div class="tabs is-boxed">
@@ -52,7 +56,10 @@
                 <a href="#tab--callNow">Call Now</a>
               </li>
               <li>
-                <a href="#tab--recentCalls">Recent Call History</a>
+                <a href="#tab--recentCalls">
+                  Recent Call History
+                  <span class="tag ml-2" id="tag--recentCalls">-</span>
+                </a>
               </li>
             </ul>
           </div>
@@ -114,10 +121,15 @@
                 </div>
                 <div class="columns is-mobile">
                   <div class="column">
-                    <div class="field">
-                      <label class="label">Shift Hours</label>
+                    <label class="label">Shift Hours</label>
+                    <div class="field has-addons">
                       <div class="control">
-                        <input class="input" id="callOutRecordAdd--callOutHours" name="callOutHours" type="number" min="0.25" max="24" step="0.25" onwheel="return false" required />
+                        <input class="input has-text-right" id="callOutRecordAdd--callOutHours" name="callOutHours" type="number" min="0.25" max="24" step="0.25" onwheel="return false" required />
+                      </div>
+                      <div class="control">
+                        <span class="button is-static">
+                          hours
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -158,7 +170,7 @@
     <div class="modal-card-foot is-justify-content-space-between">
       <div class="field is-grouped mb-0">
         <div class="control">
-          <button class="button" type="button">
+          <button class="button" id="callOutListMember--previous" type="button">
             <span class="icon is-small">
               <i class="fas fa-chevron-up" aria-hidden="true"></i>
             </span>
@@ -168,7 +180,7 @@
           </button>
         </div>
         <div class="control">
-          <button class="button" type="button">
+          <button class="button" id="callOutListMember--next" type="button">
             <span class="icon is-small">
               <i class="fas fa-chevron-down" aria-hidden="true"></i>
             </span>

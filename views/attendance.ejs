@@ -3,32 +3,39 @@
 <div class="columns">
   <div class="column is-2">
     <aside class="menu" id="menu--attendance">
-      <h2 class="menu-label">
-        Employee Attendance
-      </h2>
-      <ul class="menu-list">
-        <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
-          <li>
-            <a href="#tab--absences">
-              Absence Requests
-            </a>
-          </li>
-        <% } %>
-        <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
+      <% if ((configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) || (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView'))) { %>
+        <h2 class="menu-label">
+          Incoming
+        </h2>
+        <ul class="menu-list">
+          <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
+            <li>
+              <a href="#tab--absences">
+                Absence Requests
+              </a>
+            </li>
+          <% } %>
+          <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
+            <li>
+              <a href="#tab--returnsToWork">
+                Returns to Work
+              </a>
+            </li>
+          <% } %>
+        </ul>
+      <% } %>
+      <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
+        <h2 class="menu-label">
+          Outgoing
+        </h2>
+        <ul class="menu-list">
           <li>
             <a class="is-active" href="#tab--callOuts">
-              Call Outs
+              Call Out Lists
             </a>
           </li>
-        <% } %>
-        <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
-          <li>
-            <a href="#tab--returnsToWork">
-              Returns to Work
-            </a>
-          </li>
-        <% } %>
-      </ul>
+        </ul>
+      <% } %>
       <h2 class="menu-label">
         Reporting
       </h2>
@@ -73,21 +80,7 @@
         </article>
       <% } %>
       <article class="is-hidden" id="tab--employees">
-        <nav class="breadcrumb">
-          <ul>
-            <li class="is-active">
-              <a href="#" aria-current="page">
-                Employee Attendance
-              </a>
-            </li>
-            <li class="is-active">
-              <a href="#">
-                <span>Employees</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <h1 class="title is-1">Employees</h1>
+        <%- include('_attendance.employees.ejs'); -%>
       </article>
     </div>
   </div>
@@ -102,6 +95,7 @@
 <%- include('_footerA'); -%>
 
 <script src="<%= urlPrefix %>/javascripts/attendance.min.js"></script>
+<script src="<%= urlPrefix %>/javascripts/attendance.employees.min.js"></script>
 
 <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
   <script src="<%= urlPrefix %>/javascripts/attendance.absences.min.js"></script>

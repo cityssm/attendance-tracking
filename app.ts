@@ -15,6 +15,7 @@ import FileStore from 'session-file-store'
 import routerLogin from './routes/login.js'
 import routerDashboard from './routes/dashboard.js'
 import routerAttendance from './routes/attendance.js'
+import routerAdmin from './routes/admin.js'
 
 import * as permissionFunctions from './helpers/functions.permissions.js'
 import * as configFunctions from './helpers/functions.config.js'
@@ -228,6 +229,20 @@ if (configFunctions.includeAttendance()) {
     routerAttendance
   )
 }
+
+app.use(
+  urlPrefix + '/admin',
+  sessionChecker,
+  (request, response, next) => {
+    if (request.session.user?.isAdmin ?? false) {
+      next()
+      return
+    }
+
+    response.redirect(`${urlPrefix}/dashboard?error=accessDenied`)
+  },
+  routerAdmin
+)
 
 if (configFunctions.getProperty('session.doKeepAlive')) {
   app.all(urlPrefix + '/keepAlive', (_request, response) => {
