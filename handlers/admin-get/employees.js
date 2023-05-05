@@ -1,7 +1,9 @@
 import { getEmployees } from '../../database/getEmployees.js';
 import { getEmployeePropertyNames } from '../../database/getEmployeePropertyNames.js';
 export async function handler(request, response) {
-    const employees = await getEmployees({}, {
+    const employees = await getEmployees({
+        isActive: 'all'
+    }, {
         orderBy: 'name'
     });
     const employeePropertyNames = await getEmployeePropertyNames();

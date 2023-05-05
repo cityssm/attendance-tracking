@@ -1,12 +1,14 @@
 import type { Request, Response } from 'express'
 
+import { updateEmployee } from '../../database/updateEmployee.js'
 import { getEmployees } from '../../database/getEmployees.js'
-import { getEmployeePropertyNames } from '../../database/getEmployeePropertyNames.js'
 
 export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
+  const success = await updateEmployee(request.body, false, request.session)
+
   const employees = await getEmployees(
     {
       isActive: 'all'
@@ -16,12 +18,9 @@ export async function handler(
     }
   )
 
-  const employeePropertyNames = await getEmployeePropertyNames()
-
-  response.render('admin.employees.ejs', {
-    headTitle: 'Employee Maintenance',
-    employees,
-    employeePropertyNames
+  response.json({
+    success,
+    employees
   })
 }
 

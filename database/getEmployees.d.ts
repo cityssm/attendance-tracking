@@ -5,7 +5,7 @@ interface GetEmployeesFilters {
         functionName: string;
         employeePropertyName: string;
     };
-    isActive?: boolean;
+    isActive?: boolean | 'all';
 }
 interface GetEmployeesOptions {
     includeProperties?: boolean;

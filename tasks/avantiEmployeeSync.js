@@ -56,6 +56,7 @@ async function doSync() {
                 employeeGivenName: avantiEmployee.givenName ?? '',
                 jobTitle: avantiEmployee.positionName ?? '',
                 isSynced: true,
+                syncContacts: true,
                 syncDateTime,
                 isActive: true
             };

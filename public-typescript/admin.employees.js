@@ -11,14 +11,55 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const employee = unfilteredEmployees.find((possibleEmployee) => {
             return possibleEmployee.employeeNumber === employeeNumber;
         });
+        function updateEmployee(formEvent) {
+            formEvent.preventDefault();
+            cityssm.postJSON(MonTY.urlPrefix + '/admin/doUpdateEmployee', formEvent.currentTarget, (rawResponseJSON) => {
+                const responseJSON = rawResponseJSON;
+                if (responseJSON.success) {
+                    bulmaJS.alert({
+                        message: 'Employee updated successfully.',
+                        contextualColorName: 'success'
+                    });
+                    unfilteredEmployees = responseJSON.employees;
+                    refreshFilteredEmployees();
+                }
+            });
+        }
         cityssm.openHtmlModal('employeeAdmin-employee', {
             onshow(modalElement) {
+                var _a, _b, _c, _d, _e, _f, _g;
                 ;
                 modalElement.querySelector('.modal-card-title').textContent =
                     employee.employeeSurname + ', ' + employee.employeeGivenName;
+                modalElement.querySelector('#employeeEdit--employeeNumber').value = employee.employeeNumber;
+                modalElement.querySelector('#employeeEdit--employeeNumberSpan').textContent = employee.employeeNumber;
+                modalElement.querySelector('#employeeEdit--isActive').value = employee.isActive ? '1' : '0';
+                modalElement.querySelector('#employeeEdit--isSynced').value = employee.isSynced ? '1' : '0';
+                modalElement.querySelector('#employeeEdit--employeeSurname').value = employee.employeeSurname;
+                modalElement.querySelector('#employeeEdit--employeeGivenName').value = employee.employeeGivenName;
+                modalElement.querySelector('#employeeEdit--jobTitle').value = (_a = employee.jobTitle) !== null && _a !== void 0 ? _a : '';
+                modalElement.querySelector('#employeeEdit--department').value = (_b = employee.department) !== null && _b !== void 0 ? _b : '';
+                if (((_c = employee.seniorityDateTime) !== null && _c !== void 0 ? _c : '') !== '') {
+                    ;
+                    modalElement.querySelector('#employeeEdit--seniorityDateTime').valueAsDate = new Date(employee.seniorityDateTime);
+                }
+                // Contact Information
+                ;
+                modalElement.querySelector('#employeeEdit--syncContacts').value = employee.syncContacts ? '1' : '0';
+                modalElement.querySelector('#employeeEdit--workContact1').value = (_d = employee.workContact1) !== null && _d !== void 0 ? _d : '';
+                modalElement.querySelector('#employeeEdit--workContact2').value = (_e = employee.workContact2) !== null && _e !== void 0 ? _e : '';
+                modalElement.querySelector('#employeeEdit--homeContact1').value = (_f = employee.homeContact1) !== null && _f !== void 0 ? _f : '';
+                modalElement.querySelector('#employeeEdit--homeContact2').value = (_g = employee.homeContact2) !== null && _g !== void 0 ? _g : '';
             },
             onshown(modalElement, closeModalFunction) {
+                var _a;
+                bulmaJS.toggleHtmlClipped();
                 MonTY.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('.tabs-container > article'));
+                (_a = modalElement
+                    .querySelector('#form--employeeEdit')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', updateEmployee);
+            },
+            onremoved() {
+                bulmaJS.toggleHtmlClipped();
             }
         });
     }
@@ -105,8 +146,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         renderEmployees();
     }
-    function resetOffsetAndFilterEmployees() {
-        offset = 0;
+    function refreshFilteredEmployees() {
         filteredEmployees = unfilteredEmployees.filter((possibleEmployee) => {
             if ((isActiveSearchElement.value === '1' && !possibleEmployee.isActive) ||
                 (isActiveSearchElement.value === '0' && possibleEmployee.isActive)) {
@@ -129,6 +169,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
             return true;
         });
         renderEmployees();
+    }
+    function resetOffsetAndFilterEmployees() {
+        offset = 0;
+        refreshFilteredEmployees();
     }
     // Initialize page
     resetOffsetAndFilterEmployees();

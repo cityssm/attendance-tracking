@@ -29,7 +29,7 @@ export interface Employee extends RecordUserNameDateTime {
   syncContacts?: boolean
   jobTitle?: string
   department?: string
-  seniorityDateTime?: Date
+  seniorityDateTime?: string | Date
   isSynced?: boolean
   syncDateTime?: Date
   isActive?: boolean

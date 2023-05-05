@@ -23,18 +23,129 @@ declare const cityssm: cityssmGlobal
       return possibleEmployee.employeeNumber === employeeNumber
     })!
 
+    function updateEmployee(formEvent: Event): void {
+      formEvent.preventDefault()
+
+      cityssm.postJSON(
+        MonTY.urlPrefix + '/admin/doUpdateEmployee',
+        formEvent.currentTarget,
+        (rawResponseJSON) => {
+          const responseJSON = rawResponseJSON as {
+            success: boolean
+            employees: recordTypes.Employee[]
+          }
+
+          if (responseJSON.success) {
+            bulmaJS.alert({
+              message: 'Employee updated successfully.',
+              contextualColorName: 'success'
+            })
+
+            unfilteredEmployees = responseJSON.employees
+            refreshFilteredEmployees()
+          }
+        }
+      )
+    }
+
     cityssm.openHtmlModal('employeeAdmin-employee', {
       onshow(modalElement) {
         ;(
           modalElement.querySelector('.modal-card-title') as HTMLElement
         ).textContent =
           employee.employeeSurname + ', ' + employee.employeeGivenName
+        ;(
+          modalElement.querySelector(
+            '#employeeEdit--employeeNumber'
+          ) as HTMLInputElement
+        ).value = employee.employeeNumber
+        ;(
+          modalElement.querySelector(
+            '#employeeEdit--employeeNumberSpan'
+          ) as HTMLElement
+        ).textContent = employee.employeeNumber
+        ;(
+          modalElement.querySelector(
+            '#employeeEdit--isActive'
+          ) as HTMLSelectElement
+        ).value = employee.isActive! ? '1' : '0'
+
+        // Main Details
+        ;(
+          modalElement.querySelector(
+            '#employeeEdit--isSynced'
+          ) as HTMLSelectElement
+        ).value = employee.isSynced! ? '1' : '0'
+        ;(
+          modalElement.querySelector(
+            '#employeeEdit--employeeSurname'
+          ) as HTMLInputElement
+        ).value = employee.employeeSurname
+        ;(
+          modalElement.querySelector(
+            '#employeeEdit--employeeGivenName'
+          ) as HTMLInputElement
+        ).value = employee.employeeGivenName
+        ;(
+          modalElement.querySelector(
+            '#employeeEdit--jobTitle'
+          ) as HTMLInputElement
+        ).value = employee.jobTitle ?? ''
+        ;(
+          modalElement.querySelector(
+            '#employeeEdit--department'
+          ) as HTMLInputElement
+        ).value = employee.department ?? ''
+
+        if ((employee.seniorityDateTime ?? '') !== '') {
+          ;(
+            modalElement.querySelector(
+              '#employeeEdit--seniorityDateTime'
+            ) as HTMLInputElement
+          ).valueAsDate = new Date(employee.seniorityDateTime!)
+        }
+
+        // Contact Information
+        ;(
+          modalElement.querySelector(
+            '#employeeEdit--syncContacts'
+          ) as HTMLSelectElement
+        ).value = employee.syncContacts! ? '1' : '0'
+        ;(
+          modalElement.querySelector(
+            '#employeeEdit--workContact1'
+          ) as HTMLInputElement
+        ).value = employee.workContact1 ?? ''
+        ;(
+          modalElement.querySelector(
+            '#employeeEdit--workContact2'
+          ) as HTMLInputElement
+        ).value = employee.workContact2 ?? ''
+        ;(
+          modalElement.querySelector(
+            '#employeeEdit--homeContact1'
+          ) as HTMLInputElement
+        ).value = employee.homeContact1 ?? ''
+        ;(
+          modalElement.querySelector(
+            '#employeeEdit--homeContact2'
+          ) as HTMLInputElement
+        ).value = employee.homeContact2 ?? ''
       },
       onshown(modalElement, closeModalFunction) {
+        bulmaJS.toggleHtmlClipped()
+
         MonTY.initializeMenuTabs(
           modalElement.querySelectorAll('.menu a'),
           modalElement.querySelectorAll('.tabs-container > article')
         )
+
+        modalElement
+          .querySelector('#form--employeeEdit')
+          ?.addEventListener('submit', updateEmployee)
+      },
+      onremoved() {
+        bulmaJS.toggleHtmlClipped()
       }
     })
   }
@@ -155,9 +266,7 @@ declare const cityssm: cityssmGlobal
     renderEmployees()
   }
 
-  function resetOffsetAndFilterEmployees(): void {
-    offset = 0
-
+  function refreshFilteredEmployees(): void {
     filteredEmployees = unfilteredEmployees.filter((possibleEmployee) => {
       if (
         (isActiveSearchElement.value === '1' && !possibleEmployee.isActive!) ||
@@ -189,6 +298,11 @@ declare const cityssm: cityssmGlobal
     })
 
     renderEmployees()
+  }
+
+  function resetOffsetAndFilterEmployees(): void {
+    offset = 0
+    refreshFilteredEmployees()
   }
 
   // Initialize page

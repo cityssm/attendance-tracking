@@ -29,13 +29,13 @@ export async function updateEmployee(employee, isSyncUpdate, requestSession) {
       workContact2 = case when @isSyncUpdate = 1 and syncContacts = 0 then workContact2 else @workContact2 end,
       homeContact1 = case when @isSyncUpdate = 1 and syncContacts = 0 then homeContact1 else @homeContact1 end,
       homeContact2 = case when @isSyncUpdate = 1 and syncContacts = 0 then homeContact2 else @homeContact2 end,
-      syncContacts = @syncContacts,
+      syncContacts = case when @isSyncUpdate = 1 then syncContacts else @syncContacts end,
       jobTitle = @jobTitle,
       department = @department,
       seniorityDateTime = @seniorityDateTime,
       isSynced = @isSynced,
-      syncDateTime = @syncDateTime,
-      isActive = @isActive,
+      syncDateTime = case when @isSyncUpdate = 0 then syncDateTime else @syncDateTime end,
+      isActive = case when @isSyncUpdate = 1 then isActive else @isActive end,
       recordUpdate_userName = @record_userName,
       recordUpdate_dateTime = @record_dateTime
       where employeeNumber = @employeeNumber

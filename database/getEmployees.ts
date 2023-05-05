@@ -13,7 +13,7 @@ interface GetEmployeesFilters {
     functionName: string
     employeePropertyName: string
   }
-  isActive?: boolean
+  isActive?: boolean | 'all'
 }
 
 interface GetEmployeesOptions {
@@ -25,6 +25,8 @@ export async function getEmployees(
   filters: GetEmployeesFilters,
   options: GetEmployeesOptions
 ): Promise<Employee[]> {
+  console.log(typeof filters.isActive)
+
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
   let request = pool.request()
@@ -40,7 +42,10 @@ export async function getEmployees(
     from MonTY.Employees
     where recordDelete_dateTime is null`
 
-  if (Object.hasOwn(filters, 'isActive')) {
+  if (
+    Object.hasOwn(filters, 'isActive') &&
+    typeof filters.isActive === 'boolean'
+  ) {
     request = request.input('isActive', filters.isActive)
     sql += ' and isActive = @isActive'
   }
@@ -55,8 +60,8 @@ export async function getEmployees(
   let employees = result.recordset as Employee[]
 
   if (
-    Object.hasOwn(filters, 'eligibilityFunction') ||
-    Object.hasOwn(options, 'includeProperties')
+    ((filters.eligibilityFunction ?? '') !== '' || options.includeProperties) ??
+    false
   ) {
     for (const employee of employees) {
       employee.employeeProperties = await getEmployeeProperties(

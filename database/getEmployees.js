@@ -3,6 +3,7 @@ import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import { getEmployeeProperties } from './getEmployeeProperties.js';
 export async function getEmployees(filters, options) {
+    console.log(typeof filters.isActive);
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let request = pool.request();
     let sql = `select
@@ -15,7 +16,8 @@ export async function getEmployees(filters, options) {
     isActive
     from MonTY.Employees
     where recordDelete_dateTime is null`;
-    if (Object.hasOwn(filters, 'isActive')) {
+    if (Object.hasOwn(filters, 'isActive') &&
+        typeof filters.isActive === 'boolean') {
         request = request.input('isActive', filters.isActive);
         sql += ' and isActive = @isActive';
     }
@@ -25,8 +27,8 @@ export async function getEmployees(filters, options) {
             : ' order by employeeNumber';
     const result = await request.query(sql);
     let employees = result.recordset;
-    if (Object.hasOwn(filters, 'eligibilityFunction') ||
-        Object.hasOwn(options, 'includeProperties')) {
+    if (((filters.eligibilityFunction ?? '') !== '' || options.includeProperties) ??
+        false) {
         for (const employee of employees) {
             employee.employeeProperties = await getEmployeeProperties(employee.employeeNumber);
         }
