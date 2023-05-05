@@ -8,7 +8,7 @@ export const employeeSortKeyFunctions: ConfigEmployeeSortKeyFunction[] = [
     sortKeyFunction(employee) {
       return employee.seniorityDateTime === undefined
         ? '9999-99-99'
-        : dateTimeFunctions.dateToString(employee.seniorityDateTime)
+        : dateTimeFunctions.dateToString(employee.seniorityDateTime as Date)
     }
   },
   {

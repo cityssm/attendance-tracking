@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     let currentListId = '';
     let currentCallOutListMembers = [];
     function renderCallOutLists() {
-        var _a, _b;
+        var _a, _b, _c;
         const panelElement = document.createElement('div');
         panelElement.className = 'panel';
         const searchFilterPieces = searchFilterElement.value
@@ -37,15 +37,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 continue;
             }
             const panelBlockElement = document.createElement('a');
-            panelBlockElement.className = 'panel-block';
+            panelBlockElement.className = 'panel-block is-block';
             panelBlockElement.dataset.listId = callOutList.listId.toString();
             panelBlockElement.href = '#';
-            panelBlockElement.innerHTML = `<span class="panel-icon">
-        <i class="fas fa-list-ol" aria-hidden="true"></i>
-        </span>
-        <div>
+            panelBlockElement.innerHTML = `<div class="columns is-mobile">
+        <div class="column is-narrow">
+          <i class="fas fa-list-ol" aria-hidden="true"></i>
+        </div>
+        <div class="column">
           <strong>${callOutList.listName}</strong><br />
           <span class="is-size-7">${(_b = callOutList.listDescription) !== null && _b !== void 0 ? _b : ''}</span>
+        </div>
+        <div class="column is-narrow">
+          <span class="tag" data-tooltip="Members">
+            <span class="icon is-small"><i class="fas fa-hard-hat" aria-hidden="true"></i></span>
+            <span>${(_c = callOutList.callOutListMembersCount) !== null && _c !== void 0 ? _c : ''}</span>
+          </span>
+        </div>
         </div>`;
             panelBlockElement.addEventListener('click', openCallOutListByClick);
             panelElement.append(panelBlockElement);
@@ -553,6 +561,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 const responseJSON = rawResponseJSON;
                 callOutLists = responseJSON.callOutLists;
                 renderCallOutLists();
+                openCallOutList(responseJSON.listId);
                 createCloseModalFunction();
             });
         }

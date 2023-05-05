@@ -13,9 +13,11 @@ export async function addCallOutListMember(
 ): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
-  let result: IResult<{ sortKeyFunction: string }> = await pool
-    .request()
-    .input('listId', listId).query(`select sortKeyFunction
+  let result: IResult<{
+    sortKeyFunction: string
+    employeePropertyName: string
+  }> = await pool.request().input('listId', listId)
+    .query(`select sortKeyFunction, employeePropertyName
       from MonTY.CallOutLists
       where listId = @listId`)
 
@@ -37,7 +39,11 @@ export async function addCallOutListMember(
       })
 
     if (sortKeyFunction !== undefined) {
-      sortKey = sortKeyFunction.sortKeyFunction(employee!) ?? ''
+      sortKey =
+        sortKeyFunction.sortKeyFunction(
+          employee!,
+          result.recordset[0].employeePropertyName
+        ) ?? ''
     }
   }
 

@@ -63,16 +63,24 @@ declare const cityssm: cityssmGlobal
 
       const panelBlockElement = document.createElement('a')
 
-      panelBlockElement.className = 'panel-block'
+      panelBlockElement.className = 'panel-block is-block'
       panelBlockElement.dataset.listId = callOutList.listId.toString()
       panelBlockElement.href = '#'
 
-      panelBlockElement.innerHTML = `<span class="panel-icon">
-        <i class="fas fa-list-ol" aria-hidden="true"></i>
-        </span>
-        <div>
+      panelBlockElement.innerHTML = `<div class="columns is-mobile">
+        <div class="column is-narrow">
+          <i class="fas fa-list-ol" aria-hidden="true"></i>
+        </div>
+        <div class="column">
           <strong>${callOutList.listName}</strong><br />
           <span class="is-size-7">${callOutList.listDescription ?? ''}</span>
+        </div>
+        <div class="column is-narrow">
+          <span class="tag" data-tooltip="Members">
+            <span class="icon is-small"><i class="fas fa-hard-hat" aria-hidden="true"></i></span>
+            <span>${callOutList.callOutListMembersCount ?? ''}</span>
+          </span>
+        </div>
         </div>`
 
       panelBlockElement.addEventListener('click', openCallOutListByClick)
@@ -896,12 +904,14 @@ declare const cityssm: cityssmGlobal
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
             success: boolean
-            listId: number
+            listId: string
             callOutLists: recordTypes.CallOutList[]
           }
 
           callOutLists = responseJSON.callOutLists
           renderCallOutLists()
+
+          openCallOutList(responseJSON.listId)
 
           createCloseModalFunction()
         }

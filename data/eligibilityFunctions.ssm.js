@@ -10,6 +10,19 @@ export const employeeEligibilityFunctions = [
         }
     },
     {
+        functionName: 'Unionized Employees',
+        eligibilityFunction(employee, employeePropertyName) {
+            const payGroup = employee.employeeProperties?.find((possibleProperty) => {
+                return possibleProperty.propertyName.toLowerCase() === 'paygroup';
+            });
+            if (payGroup !== undefined &&
+                ['310', '311'].includes(payGroup.propertyValue)) {
+                return true;
+            }
+            return false;
+        }
+    },
+    {
         functionName: 'Operator - All Job Classes',
         eligibilityFunction(employee) {
             const jobTitle = (employee.jobTitle ?? '').toLowerCase();

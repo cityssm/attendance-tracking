@@ -3,9 +3,8 @@ import * as sqlPool from '@cityssm/mssql-multi-pool';
 import { getEmployee } from './getEmployee.js';
 export async function addCallOutListMember(listId, employeeNumber, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
-    let result = await pool
-        .request()
-        .input('listId', listId).query(`select sortKeyFunction
+    let result = await pool.request().input('listId', listId)
+        .query(`select sortKeyFunction, employeePropertyName
       from MonTY.CallOutLists
       where listId = @listId`);
     if (result.recordset.length === 0) {
@@ -20,7 +19,8 @@ export async function addCallOutListMember(listId, employeeNumber, requestSessio
             return (possibleFunction.functionName === result.recordset[0].sortKeyFunction);
         });
         if (sortKeyFunction !== undefined) {
-            sortKey = sortKeyFunction.sortKeyFunction(employee) ?? '';
+            sortKey =
+                sortKeyFunction.sortKeyFunction(employee, result.recordset[0].employeePropertyName) ?? '';
         }
     }
     result = await pool
