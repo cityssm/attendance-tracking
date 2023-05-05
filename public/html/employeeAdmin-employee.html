@@ -1,6 +1,6 @@
 <div class="modal" role="dialog" aria-label="Employee View">
   <div class="modal-background"></div>
-  <div class="modal-card" style="width:1000px">
+  <div class="modal-card" style="width: 1000px">
     <div class="modal-card-head">
       <h3 class="modal-card-title">Employee View</h3>
       <button
@@ -20,9 +20,7 @@
                 </a>
               </li>
               <li>
-                <a href="#tab--employeeProperties">
-                  Properties
-                </a>
+                <a href="#tab--employeeProperties"> Properties </a>
               </li>
             </ul>
           </aside>
@@ -33,7 +31,11 @@
               <form id="form--employeeEdit">
                 <div class="columns">
                   <div class="column">
-                    <input id="employeeEdit--employeeNumber" name="employeeNumber" type="hidden" />
+                    <input
+                      id="employeeEdit--employeeNumber"
+                      name="employeeNumber"
+                      type="hidden"
+                    />
                     <div>
                       <strong>Employee Number</strong><br />
                       <span id="employeeEdit--employeeNumberSpan">-</span>
@@ -41,10 +43,16 @@
                   </div>
                   <div class="column">
                     <div class="field">
-                      <label class="label" for="employeeEdit--isActive">Active Status</label>
+                      <label class="label" for="employeeEdit--isActive"
+                        >Active Status</label
+                      >
                       <div class="control has-icons-left">
                         <div class="select is-fullwidth">
-                          <select id="employeeEdit--isActive" name="isActive" required>
+                          <select
+                            id="employeeEdit--isActive"
+                            name="isActive"
+                            required
+                          >
                             <option value="1">Active and Available</option>
                             <option value="0">Inactive</option>
                           </select>
@@ -73,7 +81,11 @@
                     <div class="column is-narrow">
                       <div class="control has-icons-left">
                         <div class="select">
-                          <select id="employeeEdit--isSynced" name="isSynced" required>
+                          <select
+                            id="employeeEdit--isSynced"
+                            name="isSynced"
+                            required
+                          >
                             <option value="1">Details Synced</option>
                             <option value="0">Not Synced</option>
                           </select>
@@ -87,11 +99,21 @@
                   <div class="columns">
                     <div class="column">
                       <div class="field">
-                        <label class="label" for="employeeEdit--employeeSurname">
+                        <label
+                          class="label"
+                          for="employeeEdit--employeeSurname"
+                        >
                           Employee Surname
                         </label>
                         <div class="control has-icons-right">
-                          <input class="input" id="employeeEdit--employeeSurname" name="employeeSurname" type="text" maxlength="100" required />
+                          <input
+                            class="input"
+                            id="employeeEdit--employeeSurname"
+                            name="employeeSurname"
+                            type="text"
+                            maxlength="100"
+                            required
+                          />
                           <span class="icon is-small is-right">
                             <i class="fas fa-asterisk" aria-hidden="true"></i>
                           </span>
@@ -100,11 +122,21 @@
                     </div>
                     <div class="column">
                       <div class="field">
-                        <label class="label" for="employeeEdit--employeeGivenName">
+                        <label
+                          class="label"
+                          for="employeeEdit--employeeGivenName"
+                        >
                           Employee Given Name
                         </label>
                         <div class="control has-icons-right">
-                          <input class="input" id="employeeEdit--employeeGivenName" name="employeeGivenName" type="text" maxlength="100" required />
+                          <input
+                            class="input"
+                            id="employeeEdit--employeeGivenName"
+                            name="employeeGivenName"
+                            type="text"
+                            maxlength="100"
+                            required
+                          />
                           <span class="icon is-small is-right">
                             <i class="fas fa-asterisk" aria-hidden="true"></i>
                           </span>
@@ -117,7 +149,13 @@
                       Job Title
                     </label>
                     <div class="control">
-                      <input class="input" id="employeeEdit--jobTitle" name="jobTitle" type="text" maxlength="100" />
+                      <input
+                        class="input"
+                        id="employeeEdit--jobTitle"
+                        name="jobTitle"
+                        type="text"
+                        maxlength="100"
+                      />
                     </div>
                   </div>
                   <div class="columns">
@@ -127,22 +165,36 @@
                           Department
                         </label>
                         <div class="control">
-                          <input class="input" id="employeeEdit--department" name="department" type="text" maxlength="100" />
+                          <input
+                            class="input"
+                            id="employeeEdit--department"
+                            name="department"
+                            type="text"
+                            maxlength="100"
+                          />
                         </div>
                       </div>
                     </div>
                     <div class="column">
                       <div class="field">
-                        <label class="label" for="employeeEdit--seniorityDateTime">
+                        <label
+                          class="label"
+                          for="employeeEdit--seniorityDateTime"
+                        >
                           Seniority Date
                         </label>
                         <div class="control">
-                          <input class="input" id="employeeEdit--seniorityDateTime" name="seniorityDateTime" type="date" />
+                          <input
+                            class="input"
+                            id="employeeEdit--seniorityDateTime"
+                            name="seniorityDateTime"
+                            type="date"
+                          />
                         </div>
                       </div>
                     </div>
                   </div>
-                  
+
                   <p class="has-text-right">
                     <button class="button is-success" type="submit">
                       <span class="icon is-small">
@@ -161,7 +213,11 @@
                     <div class="column is-narrow">
                       <div class="control has-icons-left">
                         <div class="select">
-                          <select id="employeeEdit--syncContacts" name="syncContacts" required>
+                          <select
+                            id="employeeEdit--syncContacts"
+                            name="syncContacts"
+                            required
+                          >
                             <option value="1">Contacts Synced</option>
                             <option value="0">Not Synced</option>
                           </select>
@@ -175,17 +231,31 @@
                   <div class="columns">
                     <div class="column">
                       <div class="field">
-                        <label class="label" for="employeeEdit--workContact1">Work Contact 1</label>
+                        <label class="label" for="employeeEdit--workContact1"
+                          >Work Contact 1</label
+                        >
                         <div class="control">
-                          <input class="input" id="employeeEdit--workContact1" name="workContact1" maxlength="100" />
+                          <input
+                            class="input"
+                            id="employeeEdit--workContact1"
+                            name="workContact1"
+                            maxlength="100"
+                          />
                         </div>
                       </div>
                     </div>
                     <div class="column">
                       <div class="field">
-                        <label class="label" for="employeeEdit--workContact2">Work Contact 2</label>
+                        <label class="label" for="employeeEdit--workContact2"
+                          >Work Contact 2</label
+                        >
                         <div class="control">
-                          <input class="input" id="employeeEdit--workContact2" name="workContact2" maxlength="100" />
+                          <input
+                            class="input"
+                            id="employeeEdit--workContact2"
+                            name="workContact2"
+                            maxlength="100"
+                          />
                         </div>
                       </div>
                     </div>
@@ -193,17 +263,31 @@
                   <div class="columns">
                     <div class="column">
                       <div class="field">
-                        <label class="label" for="employeeEdit--homeContact1">Home Contact 1</label>
+                        <label class="label" for="employeeEdit--homeContact1"
+                          >Home Contact 1</label
+                        >
                         <div class="control">
-                          <input class="input" id="employeeEdit--homeContact1" name="homeContact1" maxlength="100" />
+                          <input
+                            class="input"
+                            id="employeeEdit--homeContact1"
+                            name="homeContact1"
+                            maxlength="100"
+                          />
                         </div>
                       </div>
                     </div>
                     <div class="column">
                       <div class="field">
-                        <label class="label" for="employeeEdit--homeContact2">Home Contact 2</label>
+                        <label class="label" for="employeeEdit--homeContact2"
+                          >Home Contact 2</label
+                        >
                         <div class="control">
-                          <input class="input" id="employeeEdit--homeContact2" name="homeContact2" maxlength="100" />
+                          <input
+                            class="input"
+                            id="employeeEdit--homeContact2"
+                            name="homeContact2"
+                            maxlength="100"
+                          />
                         </div>
                       </div>
                     </div>
@@ -219,7 +303,78 @@
                 </div>
               </form>
             </article>
-            <article class="is-hidden" id="tab--employeeProperties">properties</article>
+            <article class="is-hidden" id="tab--employeeProperties">
+              <div class="tabs is-boxed">
+                <ul>
+                  <li><a href="#employeePropertyTab--add">Add New Property</a></li>
+                  <li class="is-active"><a href="#employeePropertyTab--current">Current Properties</a></li>
+                </ul>
+              </div>
+              <div class="tabs-container">
+                <div class="is-hidden" id="employeePropertyTab--add">
+                  <form id="form--employeePropertyAdd">
+                    <input
+                      id="employeePropertyAdd--employeeNumber"
+                      name="employeeNumber"
+                      type="hidden"
+                    />
+                    <input id="employeePropertyAdd--isSynced" name="isSynced" type="hidden" value="0" />
+                    <div class="field">
+                      <label class="label" for="employeePropertyAdd--propertyName"
+                        >New Property Name</label
+                      >
+                      <div class="control">
+                        <input
+                          class="input"
+                          id="employeePropertyAdd--propertyName"
+                          name="propertyName"
+                          type="text"
+                          maxlength="100"
+                          list="datalist--employeePropertyNames"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label
+                        class="label"
+                        for="employeePropertyAdd--propertyValue"
+                        >Property Value</label
+                      >
+                      <div class="control">
+                        <input
+                          class="input"
+                          id="employeePropertyAdd--propertyValue"
+                          name="propertyValue"
+                          type="text"
+                          maxlength="500"
+                        />
+                      </div>
+                    </div>
+                    <p class="has-text-right">
+                      <button class="button is-success" type="submit">
+                        Add Property
+                      </button>
+                    </p>
+                  </form>
+                </div>
+                <div id="employeePropertyTab--current">
+                  <table class="table is-fullwidth">
+                    <thead class="is-size-7">
+                      <tr>
+                        <th>Property Name</th>
+                        <th>Property Value</th>
+                        <th>Synced</th>
+                        <th class="has-width-1">
+                          <span class="is-sr-only">Options</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       </div>

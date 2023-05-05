@@ -8,9 +8,139 @@ Object.defineProperty(exports, "__esModule", { value: true });
     let filteredEmployees = unfilteredEmployees;
     // Employee Modal
     function openEmployeeModal(employeeNumber) {
+        let employeeModalElement;
         const employee = unfilteredEmployees.find((possibleEmployee) => {
             return possibleEmployee.employeeNumber === employeeNumber;
         });
+        let employeeProperties = [];
+        function updateEmployeeProperty(clickEvent) {
+            var _a, _b;
+            const rowElement = clickEvent.currentTarget.closest('tr');
+            const propertyName = rowElement === null || rowElement === void 0 ? void 0 : rowElement.dataset.propertyName;
+            const propertyValue = (_a = rowElement === null || rowElement === void 0 ? void 0 : rowElement.querySelector('input')) === null || _a === void 0 ? void 0 : _a.value;
+            const isSynced = (_b = rowElement === null || rowElement === void 0 ? void 0 : rowElement.querySelector('select')) === null || _b === void 0 ? void 0 : _b.value;
+            cityssm.postJSON(MonTY.urlPrefix + '/admin/doUpdateEmployeeProperty', {
+                employeeNumber,
+                propertyName,
+                propertyValue,
+                isSynced
+            }, (rawResponseJSON) => {
+                const responseJSON = rawResponseJSON;
+                if (responseJSON.success) {
+                    bulmaJS.alert({
+                        message: 'Property updated successfully.',
+                        contextualColorName: 'success'
+                    });
+                    employeeProperties = responseJSON.employeeProperties;
+                }
+            });
+        }
+        function deleteEmployeeProperty(clickEvent) {
+            const rowElement = clickEvent.currentTarget.closest('tr');
+            function doDelete() {
+                var _a, _b;
+                const propertyName = rowElement === null || rowElement === void 0 ? void 0 : rowElement.dataset.propertyName;
+                const propertyValue = (_a = rowElement === null || rowElement === void 0 ? void 0 : rowElement.querySelector('input')) === null || _a === void 0 ? void 0 : _a.value;
+                const isSynced = (_b = rowElement === null || rowElement === void 0 ? void 0 : rowElement.querySelector('select')) === null || _b === void 0 ? void 0 : _b.value;
+                cityssm.postJSON(MonTY.urlPrefix + '/admin/doDeleteEmployeeProperty', {
+                    employeeNumber,
+                    propertyName,
+                    propertyValue,
+                    isSynced
+                }, (rawResponseJSON) => {
+                    const responseJSON = rawResponseJSON;
+                    if (responseJSON.success) {
+                        bulmaJS.alert({
+                            message: 'Property deleted successfully.',
+                            contextualColorName: 'success'
+                        });
+                        employeeProperties = responseJSON.employeeProperties;
+                        rowElement === null || rowElement === void 0 ? void 0 : rowElement.remove();
+                    }
+                });
+            }
+            bulmaJS.confirm({
+                title: 'Delete Employee Property',
+                message: 'Are you sure you want to remove this employee property?',
+                contextualColorName: 'warning',
+                okButton: {
+                    text: 'Delete Property',
+                    callbackFunction: doDelete
+                }
+            });
+        }
+        function renderEmployeeProperties() {
+            var _a, _b;
+            const tbodyElement = employeeModalElement.querySelector('#employeePropertyTab--current tbody');
+            tbodyElement.innerHTML = '';
+            for (const employeeProperty of employeeProperties) {
+                const rowElement = document.createElement('tr');
+                rowElement.dataset.propertyName = employeeProperty.propertyName;
+                rowElement.innerHTML = `<td class="is-size-7">${employeeProperty.propertyName}</td>
+          <td>
+            <div class="control">
+              <input class="input is-small" name="propertyValue" type="text" maxlength="500" />
+            </div>
+          </td>
+          <td>
+            <div class="control">
+            <div class="select is-small is-fullwidth">
+              <select name="isSynced">
+                <option value="1">Synced</option>
+                <option value="0">Not Synced</option>
+              </select>
+            </div>
+            </div>
+          </td>
+          <td class="has-text-right">
+          <div class="field is-grouped is-justify-content-flex-end">
+            <div class="control">
+            <button class="button is-update-button is-success is-small" data-tooltip="Save" type="button" aria-label="Save">
+              <i class="fas fa-save" aria-hidden="true"></i>
+            </button>
+            </div>
+            <div class="control">
+            <button class="button is-delete-button is-danger is-small" data-tooltip="Delete" type="button" aria-label="Delete">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+            </button>
+            </div>
+          </div>
+          </td>`;
+                rowElement.querySelector('input').value =
+                    employeeProperty.propertyValue;
+                rowElement.querySelector('select').value = employeeProperty.isSynced
+                    ? '1'
+                    : '0';
+                (_a = rowElement
+                    .querySelector('.is-update-button')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', updateEmployeeProperty);
+                (_b = rowElement
+                    .querySelector('.is-delete-button')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', deleteEmployeeProperty);
+                tbodyElement.append(rowElement);
+            }
+        }
+        function addEmployeeProperty(formEvent) {
+            formEvent.preventDefault();
+            const addPropertyFormElement = formEvent.currentTarget;
+            cityssm.postJSON(MonTY.urlPrefix + '/admin/doAddEmployeeProperty', addPropertyFormElement, (rawResponseJSON) => {
+                const responseJSON = rawResponseJSON;
+                if (responseJSON.success) {
+                    bulmaJS.alert({
+                        message: 'Property added successfully.',
+                        contextualColorName: 'success'
+                    });
+                    addPropertyFormElement.reset();
+                    employeeProperties = responseJSON.employeeProperties;
+                    renderEmployeeProperties();
+                }
+                else {
+                    bulmaJS.alert({
+                        title: 'Error Adding Property',
+                        message: 'The property may already be set. Please check, then try again.',
+                        contextualColorName: 'danger'
+                    });
+                }
+            });
+        }
         function updateEmployee(formEvent) {
             formEvent.preventDefault();
             cityssm.postJSON(MonTY.urlPrefix + '/admin/doUpdateEmployee', formEvent.currentTarget, (rawResponseJSON) => {
@@ -28,7 +158,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         cityssm.openHtmlModal('employeeAdmin-employee', {
             onshow(modalElement) {
                 var _a, _b, _c, _d, _e, _f, _g;
-                ;
+                employeeModalElement = modalElement;
                 modalElement.querySelector('.modal-card-title').textContent =
                     employee.employeeSurname + ', ' + employee.employeeGivenName;
                 modalElement.querySelector('#employeeEdit--employeeNumber').value = employee.employeeNumber;
@@ -50,13 +180,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 modalElement.querySelector('#employeeEdit--workContact2').value = (_e = employee.workContact2) !== null && _e !== void 0 ? _e : '';
                 modalElement.querySelector('#employeeEdit--homeContact1').value = (_f = employee.homeContact1) !== null && _f !== void 0 ? _f : '';
                 modalElement.querySelector('#employeeEdit--homeContact2').value = (_g = employee.homeContact2) !== null && _g !== void 0 ? _g : '';
+                modalElement.querySelector('#employeePropertyAdd--employeeNumber').value = employee.employeeNumber;
+                cityssm.postJSON(MonTY.urlPrefix + '/admin/doGetEmployeeProperties', {
+                    employeeNumber
+                }, (rawResponseJSON) => {
+                    employeeProperties = rawResponseJSON.employeeProperties;
+                    renderEmployeeProperties();
+                });
             },
             onshown(modalElement, closeModalFunction) {
-                var _a;
+                var _a, _b;
                 bulmaJS.toggleHtmlClipped();
+                bulmaJS.init(modalElement);
                 MonTY.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('.tabs-container > article'));
                 (_a = modalElement
                     .querySelector('#form--employeeEdit')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', updateEmployee);
+                (_b = modalElement
+                    .querySelector('#form--employeePropertyAdd')) === null || _b === void 0 ? void 0 : _b.addEventListener('submit', addEmployeeProperty);
             },
             onremoved() {
                 bulmaJS.toggleHtmlClipped();

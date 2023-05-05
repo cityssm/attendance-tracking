@@ -1,6 +1,6 @@
 <div class="modal" role="dialog" aria-label="Call Out List Member View">
   <div class="modal-background"></div>
-  <div class="modal-card" style="width:900px">
+  <div class="modal-card" style="width: 900px">
     <div class="modal-card-head">
       <h3 class="modal-card-title">Call Out List Member View</h3>
       <button
@@ -51,7 +51,7 @@
         </div>
         <div class="column">
           <div class="tabs is-boxed">
-            <ul>
+            <ul+>
               <li class="is-active">
                 <a href="#tab--callNow">Call Now</a>
               </li>
@@ -89,32 +89,60 @@
                     <i class="fas fa-home" aria-hidden="true"></i>
                     <span id="callOutListMember--homeContact2">-</span>
                   </p>
-
                 </div>
               </div>
               <form id="form--callOutRecordAdd">
-                <input id="callOutRecordAdd--listId" name="listId" type="hidden" />
-                <input id="callOutRecordAdd--employeeNumber" name="employeeNumber" type="hidden" />
+                <input
+                  id="callOutRecordAdd--listId"
+                  name="listId"
+                  type="hidden"
+                />
+                <input
+                  id="callOutRecordAdd--employeeNumber"
+                  name="employeeNumber"
+                  type="hidden"
+                />
 
                 <div class="message is-info is-small">
                   <p class="message-body">
-                    Leave the date and time blank to use the current date and time.
+                    Leave the date and time blank to use the current date and
+                    time.
                   </p>
                 </div>
                 <div class="columns is-mobile">
                   <div class="column">
                     <div class="field">
-                      <label class="label" for="callOutRecordAdd--callOutDateString">Call Out Date</label>
+                      <label
+                        class="label"
+                        for="callOutRecordAdd--callOutDateString"
+                        >Call Out Date</label
+                      >
                       <div class="control">
-                        <input class="input" id="callOutRecordAdd--callOutDateString" name="callOutDateString" type="date" placeholder="Current Date" />
+                        <input
+                          class="input"
+                          id="callOutRecordAdd--callOutDateString"
+                          name="callOutDateString"
+                          type="date"
+                          placeholder="Current Date"
+                        />
                       </div>
                     </div>
                   </div>
                   <div class="column">
                     <div class="field">
-                      <label class="label" for="callOutRecordAdd--callOutTimeString">Call Out Time</label>
+                      <label
+                        class="label"
+                        for="callOutRecordAdd--callOutTimeString"
+                        >Call Out Time</label
+                      >
                       <div class="control">
-                        <input class="input" id="callOutRecordAdd--callOutTimeString" name="callOutTimeString" type="time" placeholder="Current Time" />
+                        <input
+                          class="input"
+                          id="callOutRecordAdd--callOutTimeString"
+                          name="callOutTimeString"
+                          type="time"
+                          placeholder="Current Time"
+                        />
                       </div>
                     </div>
                   </div>
@@ -124,21 +152,37 @@
                     <label class="label">Shift Hours</label>
                     <div class="field has-addons">
                       <div class="control">
-                        <input class="input has-text-right" id="callOutRecordAdd--callOutHours" name="callOutHours" type="number" min="0.25" max="24" step="0.25" onwheel="return false" required />
+                        <input
+                          class="input has-text-right"
+                          id="callOutRecordAdd--callOutHours"
+                          name="callOutHours"
+                          type="number"
+                          min="0.25"
+                          max="24"
+                          step="0.25"
+                          onwheel="return false"
+                          required
+                        />
                       </div>
                       <div class="control">
-                        <span class="button is-static">
-                          hours
-                        </span>
+                        <span class="button is-static"> hours </span>
                       </div>
                     </div>
                   </div>
                   <div class="column">
                     <div class="field">
-                      <label class="label" for="callOutRecordAdd--responseTypeId">Response</label>
+                      <label
+                        class="label"
+                        for="callOutRecordAdd--responseTypeId"
+                        >Response</label
+                      >
                       <div class="control">
                         <div class="select is-fullwidth">
-                          <select id="callOutRecordAdd--responseTypeId" name="responseTypeId" required>
+                          <select
+                            id="callOutRecordAdd--responseTypeId"
+                            name="responseTypeId"
+                            required
+                          >
                             <option value="">(Select a Response)</option>
                           </select>
                         </div>
@@ -147,14 +191,22 @@
                   </div>
                 </div>
                 <div class="field">
-                  <label class="label" for="callOutRecordAdd--recordComment">Comment</label>
+                  <label class="label" for="callOutRecordAdd--recordComment"
+                    >Comment</label
+                  >
                   <div class="control">
-                    <textarea class="textarea" id="callOutRecordAdd--recordComment" name="recordComment"></textarea>
+                    <textarea
+                      class="textarea"
+                      id="callOutRecordAdd--recordComment"
+                      name="recordComment"
+                    ></textarea>
                   </div>
                 </div>
                 <p class="has-text-right">
                   <button class="button is-success" type="submit">
-                    <span class="icon is-small"><i class="fas fa-save" aria-hidden="true"></i></span>
+                    <span class="icon is-small"
+                      ><i class="fas fa-save" aria-hidden="true"></i
+                    ></span>
                     <span>Record Call Out</span>
                   </button>
                 </p>
@@ -174,9 +226,7 @@
             <span class="icon is-small">
               <i class="fas fa-chevron-up" aria-hidden="true"></i>
             </span>
-            <span>
-              Previous
-            </span>
+            <span> Previous </span>
           </button>
         </div>
         <div class="control">

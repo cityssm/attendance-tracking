@@ -19,9 +19,190 @@ declare const cityssm: cityssmGlobal
   // Employee Modal
 
   function openEmployeeModal(employeeNumber: string): void {
+    let employeeModalElement: HTMLElement
+
     const employee = unfilteredEmployees.find((possibleEmployee) => {
       return possibleEmployee.employeeNumber === employeeNumber
     })!
+
+    let employeeProperties: recordTypes.EmployeeProperty[] = []
+
+    function updateEmployeeProperty(clickEvent: Event): void {
+      const rowElement = (clickEvent.currentTarget as HTMLElement).closest('tr')
+
+      const propertyName = rowElement?.dataset.propertyName
+      const propertyValue = rowElement?.querySelector('input')?.value
+      const isSynced = rowElement?.querySelector('select')?.value
+
+      cityssm.postJSON(
+        MonTY.urlPrefix + '/admin/doUpdateEmployeeProperty',
+        {
+          employeeNumber,
+          propertyName,
+          propertyValue,
+          isSynced
+        },
+        (rawResponseJSON) => {
+          const responseJSON = rawResponseJSON as {
+            success: boolean
+            employeeProperties: recordTypes.EmployeeProperty[]
+          }
+
+          if (responseJSON.success) {
+            bulmaJS.alert({
+              message: 'Property updated successfully.',
+              contextualColorName: 'success'
+            })
+
+            employeeProperties = responseJSON.employeeProperties
+          }
+        }
+      )
+    }
+
+    function deleteEmployeeProperty(clickEvent: Event): void {
+      const rowElement = (clickEvent.currentTarget as HTMLElement).closest('tr')
+
+      function doDelete(): void {
+        const propertyName = rowElement?.dataset.propertyName
+        const propertyValue = rowElement?.querySelector('input')?.value
+        const isSynced = rowElement?.querySelector('select')?.value
+
+        cityssm.postJSON(
+          MonTY.urlPrefix + '/admin/doDeleteEmployeeProperty',
+          {
+            employeeNumber,
+            propertyName,
+            propertyValue,
+            isSynced
+          },
+          (rawResponseJSON) => {
+            const responseJSON = rawResponseJSON as {
+              success: boolean
+              employeeProperties: recordTypes.EmployeeProperty[]
+            }
+
+            if (responseJSON.success) {
+              bulmaJS.alert({
+                message: 'Property deleted successfully.',
+                contextualColorName: 'success'
+              })
+
+              employeeProperties = responseJSON.employeeProperties
+              rowElement?.remove()
+            }
+          }
+        )
+      }
+
+      bulmaJS.confirm({
+        title: 'Delete Employee Property',
+        message: 'Are you sure you want to remove this employee property?',
+        contextualColorName: 'warning',
+        okButton: {
+          text: 'Delete Property',
+          callbackFunction: doDelete
+        }
+      })
+    }
+
+    function renderEmployeeProperties(): void {
+      const tbodyElement = employeeModalElement.querySelector(
+        '#employeePropertyTab--current tbody'
+      ) as HTMLTableSectionElement
+
+      tbodyElement.innerHTML = ''
+
+      for (const employeeProperty of employeeProperties) {
+        const rowElement = document.createElement('tr')
+        rowElement.dataset.propertyName = employeeProperty.propertyName
+
+        rowElement.innerHTML = `<td class="is-size-7">${employeeProperty.propertyName}</td>
+          <td>
+            <div class="control">
+              <input class="input is-small" name="propertyValue" type="text" maxlength="500" />
+            </div>
+          </td>
+          <td>
+            <div class="control">
+            <div class="select is-small is-fullwidth">
+              <select name="isSynced">
+                <option value="1">Synced</option>
+                <option value="0">Not Synced</option>
+              </select>
+            </div>
+            </div>
+          </td>
+          <td class="has-text-right">
+          <div class="field is-grouped is-justify-content-flex-end">
+            <div class="control">
+            <button class="button is-update-button is-success is-small" data-tooltip="Save" type="button" aria-label="Save">
+              <i class="fas fa-save" aria-hidden="true"></i>
+            </button>
+            </div>
+            <div class="control">
+            <button class="button is-delete-button is-danger is-small" data-tooltip="Delete" type="button" aria-label="Delete">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+            </button>
+            </div>
+          </div>
+          </td>`
+
+        rowElement.querySelector('input')!.value =
+          employeeProperty.propertyValue
+
+        rowElement.querySelector('select')!.value = employeeProperty.isSynced!
+          ? '1'
+          : '0'
+
+        rowElement
+          .querySelector('.is-update-button')
+          ?.addEventListener('click', updateEmployeeProperty)
+
+        rowElement
+          .querySelector('.is-delete-button')
+          ?.addEventListener('click', deleteEmployeeProperty)
+
+        tbodyElement.append(rowElement)
+      }
+    }
+
+    function addEmployeeProperty(formEvent: Event): void {
+      formEvent.preventDefault()
+
+      const addPropertyFormElement = formEvent.currentTarget as HTMLFormElement
+
+      cityssm.postJSON(
+        MonTY.urlPrefix + '/admin/doAddEmployeeProperty',
+        addPropertyFormElement,
+        (rawResponseJSON) => {
+          const responseJSON = rawResponseJSON as {
+            success: boolean
+            errorMessage?: string
+            employeeProperties?: recordTypes.EmployeeProperty[]
+          }
+
+          if (responseJSON.success) {
+            bulmaJS.alert({
+              message: 'Property added successfully.',
+              contextualColorName: 'success'
+            })
+
+            addPropertyFormElement.reset()
+
+            employeeProperties = responseJSON.employeeProperties!
+            renderEmployeeProperties()
+          } else {
+            bulmaJS.alert({
+              title: 'Error Adding Property',
+              message:
+                'The property may already be set. Please check, then try again.',
+              contextualColorName: 'danger'
+            })
+          }
+        }
+      )
+    }
 
     function updateEmployee(formEvent: Event): void {
       formEvent.preventDefault()
@@ -50,6 +231,7 @@ declare const cityssm: cityssmGlobal
 
     cityssm.openHtmlModal('employeeAdmin-employee', {
       onshow(modalElement) {
+        employeeModalElement = modalElement
         ;(
           modalElement.querySelector('.modal-card-title') as HTMLElement
         ).textContent =
@@ -131,9 +313,34 @@ declare const cityssm: cityssmGlobal
             '#employeeEdit--homeContact2'
           ) as HTMLInputElement
         ).value = employee.homeContact2 ?? ''
+
+        // Properties
+        ;(
+          modalElement.querySelector(
+            '#employeePropertyAdd--employeeNumber'
+          ) as HTMLInputElement
+        ).value = employee.employeeNumber
+
+        cityssm.postJSON(
+          MonTY.urlPrefix + '/admin/doGetEmployeeProperties',
+          {
+            employeeNumber
+          },
+          (rawResponseJSON) => {
+            employeeProperties = (
+              rawResponseJSON as {
+                employeeProperties: recordTypes.EmployeeProperty[]
+              }
+            ).employeeProperties
+
+            renderEmployeeProperties()
+          }
+        )
       },
       onshown(modalElement, closeModalFunction) {
         bulmaJS.toggleHtmlClipped()
+
+        bulmaJS.init(modalElement)
 
         MonTY.initializeMenuTabs(
           modalElement.querySelectorAll('.menu a'),
@@ -143,6 +350,10 @@ declare const cityssm: cityssmGlobal
         modalElement
           .querySelector('#form--employeeEdit')
           ?.addEventListener('submit', updateEmployee)
+
+        modalElement
+          .querySelector('#form--employeePropertyAdd')
+          ?.addEventListener('submit', addEmployeeProperty)
       },
       onremoved() {
         bulmaJS.toggleHtmlClipped()

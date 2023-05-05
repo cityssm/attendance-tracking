@@ -1,6 +1,6 @@
 <div class="modal" role="dialog" aria-label="Call Out List View">
   <div class="modal-background"></div>
-  <div class="modal-card" style="width:1000px">
+  <div class="modal-card" style="width: 1000px">
     <div class="modal-card-head">
       <h3 class="modal-card-title">Call Out List View</h3>
       <button
@@ -15,14 +15,10 @@
           <aside class="menu">
             <ul class="menu-list">
               <li>
-                <a href="#tab--callOuts-details">
-                  List Details
-                </a>
+                <a href="#tab--callOuts-details"> List Details </a>
               </li>
               <li>
-                <a class="is-active" href="#tab--callOuts-members">
-                  Members
-                </a>
+                <a class="is-active" href="#tab--callOuts-members"> Members </a>
               </li>
               <li class="is-hidden">
                 <a href="#tab--callOuts-memberManagement">
@@ -36,27 +32,54 @@
           <div class="tabs-container">
             <article class="is-hidden" id="tab--callOuts-details">
               <form id="form--callOutListEdit">
-                <input id="callOutListEdit--listId" name="listId" type="hidden" />
+                <input
+                  id="callOutListEdit--listId"
+                  name="listId"
+                  type="hidden"
+                />
                 <fieldset disabled>
                   <div class="field">
-                    <label class="label" for="callOutListEdit--listName">List Name</label>
+                    <label class="label" for="callOutListEdit--listName"
+                      >List Name</label
+                    >
                     <div class="control">
-                      <input class="input" id="callOutListEdit--listName" name="listName" type="text" maxlength="100" required />
+                      <input
+                        class="input"
+                        id="callOutListEdit--listName"
+                        name="listName"
+                        type="text"
+                        maxlength="100"
+                        required
+                      />
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label" for="callOutListEdit--listDescription">List Description</label>
+                    <label class="label" for="callOutListEdit--listDescription"
+                      >List Description</label
+                    >
                     <div class="control">
-                      <textarea class="textarea" id="callOutListEdit--listDescription" name="listDescription" maxlength="500"></textarea>
+                      <textarea
+                        class="textarea"
+                        id="callOutListEdit--listDescription"
+                        name="listDescription"
+                        maxlength="500"
+                      ></textarea>
                     </div>
                   </div>
                   <div class="columns">
                     <div class="column">
                       <div class="field">
-                        <label class="label" for="callOutListEdit--eligibilityFunction">Eligibility Function</label>
+                        <label
+                          class="label"
+                          for="callOutListEdit--eligibilityFunction"
+                          >Eligibility Function</label
+                        >
                         <div class="control">
                           <div class="select is-fullwidth">
-                            <select id="callOutListEdit--eligibilityFunction" name="eligibilityFunction">
+                            <select
+                              id="callOutListEdit--eligibilityFunction"
+                              name="eligibilityFunction"
+                            >
                               <option value="">(All Employees Eligible)</option>
                             </select>
                           </div>
@@ -65,10 +88,17 @@
                     </div>
                     <div class="column">
                       <div class="field">
-                        <label class="label" for="callOutListEdit--sortKeyFunction">Sort Key Function</label>
+                        <label
+                          class="label"
+                          for="callOutListEdit--sortKeyFunction"
+                          >Sort Key Function</label
+                        >
                         <div class="control">
                           <div class="select is-fullwidth">
-                            <select id="callOutListEdit--sortKeyFunction" name="sortKeyFunction">
+                            <select
+                              id="callOutListEdit--sortKeyFunction"
+                              name="sortKeyFunction"
+                            >
                               <option value="">(Default Sort)</option>
                             </select>
                           </div>
@@ -77,14 +107,27 @@
                     </div>
                   </div>
                   <div class="field">
-                    <label class="label" for="callOutListEdit--employeePropertyName">
+                    <label
+                      class="label"
+                      for="callOutListEdit--employeePropertyName"
+                    >
                       Employee Property Name
                     </label>
                     <div class="control">
-                      <input class="input" id="callOutListEdit--employeePropertyName" name="employeePropertyName" type="text" maxlength="100" list="datalist--employeePropertyNames" />
+                      <input
+                        class="input"
+                        id="callOutListEdit--employeePropertyName"
+                        name="employeePropertyName"
+                        type="text"
+                        maxlength="100"
+                        list="datalist--employeePropertyNames"
+                      />
                     </div>
                   </div>
-                  <p class="has-text-right is-hidden" id="callOutListEdit--updateButtons">
+                  <p
+                    class="has-text-right is-hidden"
+                    id="callOutListEdit--updateButtons"
+                  >
                     <button class="button is-success" type="submit">
                       <span class="icon is-small">
                         <i class="fas fa-save" aria-hidden="true"></i>
@@ -93,7 +136,10 @@
                     </button>
                   </p>
                 </fieldset>
-                <p class="has-text-right is-hidden" id="callOutListEdit--unlockButtons">
+                <p
+                  class="has-text-right is-hidden"
+                  id="callOutListEdit--unlockButtons"
+                >
                   <button class="button is-primary" type="button">
                     <span class="icon is-small">
                       <i class="fas fa-pencil-alt" aria-hidden="true"></i>
@@ -106,7 +152,11 @@
             <article id="tab--callOuts-members">
               <div id="container--callOutListMembers">
                 <div class="has-text-centered">
-                  <i class="fas fa-4x fa-spin fa-cog has-text-grey" aria-hidden="true"></i><br />
+                  <i
+                    class="fas fa-4x fa-spin fa-cog has-text-grey"
+                    aria-hidden="true"
+                  ></i
+                  ><br />
                   <em>Loading members</em>
                 </div>
               </div>
@@ -114,22 +164,24 @@
             <article class="is-hidden" id="tab--callOuts-memberManagement">
               <div class="columns is-mobile">
                 <div class="column">
-                  <h2 class="title is-4">
-                    Available Employees
-                  </h2>
+                  <h2 class="title is-4">Available Employees</h2>
                   <div id="container--callOutListAvailableEmployees">
                     <div class="has-text-centered">
-                      <i class="fas fa-4x fa-spin fa-cog has-text-grey" aria-hidden="true"></i>
+                      <i
+                        class="fas fa-4x fa-spin fa-cog has-text-grey"
+                        aria-hidden="true"
+                      ></i>
                     </div>
                   </div>
                 </div>
                 <div class="column">
-                  <h2 class="title is-4">
-                    Current Members
-                  </h2>
+                  <h2 class="title is-4">Current Members</h2>
                   <div id="container--callOutListCurrentMembers">
                     <div class="has-text-centered">
-                      <i class="fas fa-4x fa-spin fa-cog has-text-grey" aria-hidden="true"></i>
+                      <i
+                        class="fas fa-4x fa-spin fa-cog has-text-grey"
+                        aria-hidden="true"
+                      ></i>
                     </div>
                   </div>
                 </div>
