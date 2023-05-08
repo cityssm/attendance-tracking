@@ -46,7 +46,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         </div>
         <div class="column">
           <strong>${callOutList.listName}</strong><br />
-          <span class="is-size-7">${(_b = callOutList.listDescription) !== null && _b !== void 0 ? _b : ''}</span>
+          <span class="is-size-7">${((_b = callOutList.listDescription) !== null && _b !== void 0 ? _b : '').replace(/\n/g, '<br />')}</span>
         </div>
         <div class="column is-narrow">
           <span class="tag" data-tooltip="Members">
@@ -361,6 +361,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     currentCallOutListMembers = responseJSON.callOutListMembers;
                     renderCallOutListMembers();
                     renderAvailableEmployees();
+                    callOutList.callOutListMembersCount =
+                        currentCallOutListMembers.length;
+                    renderCallOutLists();
                 }
                 else {
                     bulmaJS.alert({
@@ -385,6 +388,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
                         currentCallOutListMembers = responseJSON.callOutListMembers;
                         renderCallOutListMembers();
                         renderAvailableEmployees();
+                        callOutList.callOutListMembersCount =
+                            currentCallOutListMembers.length;
+                        renderCallOutLists();
                     }
                     else {
                         bulmaJS.alert({
@@ -416,6 +422,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
             for (const employee of availableEmployees) {
                 // employee already in the list
                 if (callOutListMemberEmployeeNumbers.includes(employee.employeeNumber)) {
+                    continue;
+                }
+                const searchStringPieces = callOutListModalElement.querySelector('#filter--callOutListAvailableEmployees').value
+                    .trim()
+                    .toLowerCase()
+                    .split(' ');
+                const employeeString = (employee.employeeGivenName +
+                    ' ' +
+                    employee.employeeSurname).toLowerCase();
+                let showEmployee = true;
+                for (const searchStringPiece of searchStringPieces) {
+                    if (!employeeString.includes(searchStringPiece)) {
+                        showEmployee = false;
+                        break;
+                    }
+                }
+                if (!showEmployee) {
                     continue;
                 }
                 const panelBlockElement = document.createElement('a');
@@ -471,7 +494,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 panelBlockElement.dataset.employeeNumber = member.employeeNumber;
                 panelBlockElement.innerHTML = `<div class="columns is-mobile">
           <div class="column is-narrow">
-            <i class="fas fa-user" aria-hidden="true"></i>
+            <i class="fas fa-hard-hat" aria-hidden="true"></i>
           </div>
           <div class="column">
             <strong>${member.employeeSurname}, ${member.employeeGivenName}</strong><br />
@@ -513,12 +536,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         cityssm.openHtmlModal('callOuts-list', {
             onshow(modalElement) {
-                var _a, _b;
+                var _a, _b, _c;
                 callOutListModalElement = modalElement;
                 modalElement.querySelector('.modal-card-title').textContent = callOutList.listName;
                 if (canManage) {
                     (_b = (_a = modalElement
-                        .querySelector(".menu a[href$='tab--callOuts-memberManagement']")) === null || _a === void 0 ? void 0 : _a.closest('li')) === null || _b === void 0 ? void 0 : _b.classList.remove('is-hidden');
+                        .querySelector(".tabs a[href$='tab--callOutMembers-manage']")) === null || _a === void 0 ? void 0 : _a.closest('li')) === null || _b === void 0 ? void 0 : _b.classList.remove('is-hidden');
+                }
+                else {
+                    (_c = modalElement.querySelector('#tab--callOuts-members > .tabs')) === null || _c === void 0 ? void 0 : _c.remove();
                 }
                 // List Details
                 initializeListDetailsTab();
@@ -527,15 +553,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     listId: callOutList.listId,
                     includeAvailableEmployees: canManage
                 }, (rawResponseJSON) => {
+                    var _a;
                     const responseJSON = rawResponseJSON;
                     currentCallOutListMembers = responseJSON.callOutListMembers;
                     availableEmployees = responseJSON.availableEmployees;
                     renderCallOutListMembers();
                     renderAvailableEmployees();
+                    (_a = callOutListModalElement
+                        .querySelector('#filter--callOutListAvailableEmployees')) === null || _a === void 0 ? void 0 : _a.addEventListener('keyup', renderAvailableEmployees);
                 });
             },
             onshown(modalElement, closeModalFunction) {
                 bulmaJS.toggleHtmlClipped();
+                bulmaJS.init(modalElement);
                 MonTY.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('.tabs-container > article'));
                 cityssm.enableNavBlocker();
             },
@@ -569,8 +599,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
             onshown(modalElement, closeModalFunction) {
                 var _a;
                 createCloseModalFunction = closeModalFunction;
+                bulmaJS.toggleHtmlClipped();
+                modalElement.querySelector('#callOutListAdd--listName').focus();
                 (_a = modalElement
                     .querySelector('#form--callOutListAdd')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', doCreate);
+            },
+            onremoved() {
+                bulmaJS.toggleHtmlClipped();
             }
         });
     });

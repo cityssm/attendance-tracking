@@ -25,8 +25,6 @@ export async function getEmployees(
   filters: GetEmployeesFilters,
   options: GetEmployeesOptions
 ): Promise<Employee[]> {
-  console.log(typeof filters.isActive)
-
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
   let request = pool.request()

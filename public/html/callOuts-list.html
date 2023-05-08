@@ -42,7 +42,7 @@
                     <label class="label" for="callOutListEdit--listName"
                       >List Name</label
                     >
-                    <div class="control">
+                    <div class="control has-icons-right">
                       <input
                         class="input"
                         id="callOutListEdit--listName"
@@ -51,6 +51,9 @@
                         maxlength="100"
                         required
                       />
+                      <span class="icon is-small is-right">
+                        <i class="fas fa-asterisk" aria-hidden="true"></i>
+                      </span>
                     </div>
                   </div>
                   <div class="field">
@@ -150,38 +153,73 @@
               </form>
             </article>
             <article id="tab--callOuts-members">
-              <div id="container--callOutListMembers">
-                <div class="has-text-centered">
-                  <i
-                    class="fas fa-4x fa-spin fa-cog has-text-grey"
-                    aria-hidden="true"
-                  ></i
-                  ><br />
-                  <em>Loading members</em>
-                </div>
+              <div class="tabs is-boxed">
+                <ul>
+                  <li>
+                    <a class="is-hidden" href="#tab--callOutMembers-manage">
+                      <span class="icon is-small">
+                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                      </span>
+                      <span>Manage Members</span>
+                    </a>
+                  </li>
+                  <li class="is-active">
+                    <a href="#tab--callOutMembers-current">
+                      Current Members
+                    </a>
+                  </li>
+                </ul>
               </div>
-            </article>
-            <article class="is-hidden" id="tab--callOuts-memberManagement">
-              <div class="columns is-mobile">
-                <div class="column">
-                  <h2 class="title is-4">Available Employees</h2>
-                  <div id="container--callOutListAvailableEmployees">
-                    <div class="has-text-centered">
-                      <i
-                        class="fas fa-4x fa-spin fa-cog has-text-grey"
-                        aria-hidden="true"
-                      ></i>
+              <div class="tabs-container">
+                <div class="is-hidden" id="tab--callOutMembers-manage">
+                  <div class="columns is-mobile">
+                    <div class="column">
+                      <h2 class="title is-4">Available Employees</h2>
+                      <div class="field">
+                        <div class="control has-icons-left">
+                          <input
+                            class="input"
+                            id="filter--callOutListAvailableEmployees"
+                            type="text"
+                            placeholder="Filter available employees"
+                            aria-label="Filter available employees"
+                          />
+                          <span class="icon is-small is-left">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div id="container--callOutListAvailableEmployees">
+                        <div class="has-text-centered">
+                          <i
+                            class="fas fa-4x fa-spin fa-cog has-text-grey"
+                            aria-hidden="true"
+                          ></i>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <h2 class="title is-4">Current Members</h2>
+                      <div id="container--callOutListCurrentMembers">
+                        <div class="has-text-centered">
+                          <i
+                            class="fas fa-4x fa-spin fa-cog has-text-grey"
+                            aria-hidden="true"
+                          ></i>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="column">
-                  <h2 class="title is-4">Current Members</h2>
-                  <div id="container--callOutListCurrentMembers">
+                <div id="tab--callOutMembers-current">
+                  <div id="container--callOutListMembers">
                     <div class="has-text-centered">
                       <i
                         class="fas fa-4x fa-spin fa-cog has-text-grey"
                         aria-hidden="true"
-                      ></i>
+                      ></i
+                      ><br />
+                      <em>Loading members</em>
                     </div>
                   </div>
                 </div>

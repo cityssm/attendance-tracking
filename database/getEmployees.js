@@ -3,7 +3,6 @@ import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import { getEmployeeProperties } from './getEmployeeProperties.js';
 export async function getEmployees(filters, options) {
-    console.log(typeof filters.isActive);
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let request = pool.request();
     let sql = `select

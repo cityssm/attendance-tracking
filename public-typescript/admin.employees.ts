@@ -185,7 +185,16 @@ declare const cityssm: cityssmGlobal
           if (responseJSON.success) {
             bulmaJS.alert({
               message: 'Property added successfully.',
-              contextualColorName: 'success'
+              contextualColorName: 'success',
+              okButton: {
+                callbackFunction() {
+                  ;(
+                    employeeModalElement.querySelector(
+                      '#employeePropertyAdd--propertyName'
+                    ) as HTMLInputElement
+                  ).focus()
+                }
+              }
             })
 
             addPropertyFormElement.reset()
@@ -405,10 +414,18 @@ declare const cityssm: cityssmGlobal
 
       const panelBlockElement = document.createElement('a')
       panelBlockElement.className = 'panel-block is-block'
+
+      if (!employee.isActive!) {
+        panelBlockElement.classList.add('is-italic', 'has-background-warning-light')
+      }
+
       panelBlockElement.href = '#'
       panelBlockElement.dataset.employeeNumber = employee.employeeNumber ?? ''
 
       panelBlockElement.innerHTML = `<div class="columns">
+        <div class="column is-narrow">
+          <i class="fas fa-hard-hat" aria-hidden="true"></i>
+        </div>
         <div class="column">${employee.employeeNumber}</div>
         <div class="column">
           ${employee.employeeSurname}, ${employee.employeeGivenName}<br />

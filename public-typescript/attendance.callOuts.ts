@@ -73,7 +73,7 @@ declare const cityssm: cityssmGlobal
         </div>
         <div class="column">
           <strong>${callOutList.listName}</strong><br />
-          <span class="is-size-7">${callOutList.listDescription ?? ''}</span>
+          <span class="is-size-7">${(callOutList.listDescription ?? '').replace(/\n/g, '<br />')}</span>
         </div>
         <div class="column is-narrow">
           <span class="tag" data-tooltip="Members">
@@ -611,6 +611,10 @@ declare const cityssm: cityssmGlobal
             currentCallOutListMembers = responseJSON.callOutListMembers!
             renderCallOutListMembers()
             renderAvailableEmployees()
+
+            callOutList.callOutListMembersCount =
+              currentCallOutListMembers.length
+            renderCallOutLists()
           } else {
             bulmaJS.alert({
               title: 'Error Adding Member',
@@ -645,6 +649,10 @@ declare const cityssm: cityssmGlobal
               currentCallOutListMembers = responseJSON.callOutListMembers!
               renderCallOutListMembers()
               renderAvailableEmployees()
+
+              callOutList.callOutListMembersCount =
+                currentCallOutListMembers.length
+              renderCallOutLists()
             } else {
               bulmaJS.alert({
                 title: 'Error Removing Member',
@@ -684,6 +692,33 @@ declare const cityssm: cityssmGlobal
         if (
           callOutListMemberEmployeeNumbers.includes(employee.employeeNumber)
         ) {
+          continue
+        }
+
+        const searchStringPieces = (
+          callOutListModalElement.querySelector(
+            '#filter--callOutListAvailableEmployees'
+          ) as HTMLInputElement
+        ).value
+          .trim()
+          .toLowerCase()
+          .split(' ')
+
+        const employeeString = (
+          employee.employeeGivenName +
+          ' ' +
+          employee.employeeSurname
+        ).toLowerCase()
+        let showEmployee = true
+
+        for (const searchStringPiece of searchStringPieces) {
+          if (!employeeString.includes(searchStringPiece)) {
+            showEmployee = false
+            break
+          }
+        }
+
+        if (!showEmployee) {
           continue
         }
 
@@ -761,7 +796,7 @@ declare const cityssm: cityssmGlobal
 
         panelBlockElement.innerHTML = `<div class="columns is-mobile">
           <div class="column is-narrow">
-            <i class="fas fa-user" aria-hidden="true"></i>
+            <i class="fas fa-hard-hat" aria-hidden="true"></i>
           </div>
           <div class="column">
             <strong>${member.employeeSurname}, ${
@@ -832,9 +867,11 @@ declare const cityssm: cityssmGlobal
 
         if (canManage) {
           modalElement
-            .querySelector(".menu a[href$='tab--callOuts-memberManagement']")
+            .querySelector(".tabs a[href$='tab--callOutMembers-manage']")
             ?.closest('li')
             ?.classList.remove('is-hidden')
+        } else {
+          modalElement.querySelector('#tab--callOuts-members > .tabs')?.remove()
         }
 
         // List Details
@@ -859,11 +896,17 @@ declare const cityssm: cityssmGlobal
 
             renderCallOutListMembers()
             renderAvailableEmployees()
+
+            callOutListModalElement
+              .querySelector('#filter--callOutListAvailableEmployees')
+              ?.addEventListener('keyup', renderAvailableEmployees)
           }
         )
       },
       onshown(modalElement, closeModalFunction) {
         bulmaJS.toggleHtmlClipped()
+
+        bulmaJS.init(modalElement)
 
         MonTY.initializeMenuTabs(
           modalElement.querySelectorAll('.menu a'),
@@ -921,10 +964,19 @@ declare const cityssm: cityssmGlobal
     cityssm.openHtmlModal('callOuts-createList', {
       onshown(modalElement, closeModalFunction) {
         createCloseModalFunction = closeModalFunction
+        bulmaJS.toggleHtmlClipped()
+        ;(
+          modalElement.querySelector(
+            '#callOutListAdd--listName'
+          ) as HTMLInputElement
+        ).focus()
 
         modalElement
           .querySelector('#form--callOutListAdd')
           ?.addEventListener('submit', doCreate)
+      },
+      onremoved() {
+        bulmaJS.toggleHtmlClipped()
       }
     })
   })
