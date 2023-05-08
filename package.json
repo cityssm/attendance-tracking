@@ -81,7 +81,7 @@
     "bulma-steps": "^2.2.1",
     "bulma-switch": "^2.0.4",
     "bulma-tooltip": "^3.0.2",
-    "eslint": "^8.39.0",
+    "eslint": "^8.40.0",
     "eslint-config-standard-with-typescript": "^34.0.1",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-node": "^11.1.0",
