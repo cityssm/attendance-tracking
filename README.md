@@ -1,9 +1,9 @@
 <div align="center">
 <img src="public/images/monty-small.svg" alt="Monty" style="height:200px" />
 
-# MonTY
+<h1>MonTY</h1>
 
-⭐ **UNDER DEVELOPMENT** ⭐
+<h2>⭐ UNDER DEVELOPMENT ⭐</h2>
 </div>
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/772303e121fb467d9c1fc0c7fb4c53d6)](https://app.codacy.com/gh/cityssm/MonTY/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
