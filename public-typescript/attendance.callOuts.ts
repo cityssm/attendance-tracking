@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-string-replace-all */
 /* eslint-disable unicorn/prefer-module */
 
 import type * as globalTypes from '../types/globalTypes'
@@ -157,7 +158,9 @@ declare const cityssm: cityssmGlobal
       )
     }
 
-    function deleteCallOutRecord(clickEvent: MouseEvent): void {
+    function deleteCallOutRecord(clickEvent: Event): void {
+      clickEvent.preventDefault()
+      
       const recordId = (
         (clickEvent.currentTarget as HTMLButtonElement).closest(
           '.panel-block'

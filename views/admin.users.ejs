@@ -1,0 +1,37 @@
+<%- include('_header'); -%>
+
+<div class="columns">
+  <div class="column is-3">
+    <%- include('_admin.menu.ejs') %>
+  </div>
+  <div class="column">
+    <nav class="breadcrumb">
+      <ul>
+        <li class="is-active">
+          <a href="#">
+            Administration
+          </a>
+        </li>
+        <li class="is-active">
+          <a href="#" aria-current="page">
+            <span>User Maintenance</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <h1 class="title is-1">
+      User Maintenance
+    </h1>
+    <div id="container--users"></div>
+  </div>
+</div>
+
+<%- include('_footerA'); -%>
+
+<script>
+  exports.users = <%- JSON.stringify(users) %>;
+</script>
+
+<script src="<%= urlPrefix %>/javascripts/admin.users.min.js"></script>
+
+<%- include('_footerB'); -%>

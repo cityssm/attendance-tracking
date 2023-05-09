@@ -5,6 +5,7 @@ import handler_doUpdateEmployee from '../handlers/admin-post/doUpdateEmployee.js
 import handler_doAddEmployeeProperty from '../handlers/admin-post/doAddEmployeeProperty.js';
 import handler_doUpdateEmployeeProperty from '../handlers/admin-post/doUpdateEmployeeProperty.js';
 import handler_doDeleteEmployeeProperty from '../handlers/admin-post/doDeleteEmployeeProperty.js';
+import handler_users from '../handlers/admin-get/users.js';
 export const router = Router();
 router.get('/employees', handler_employees);
 router.post('/doGetEmployeeProperties', handler_doGetEmployeeProperties);
@@ -12,4 +13,5 @@ router.post('/doUpdateEmployee', handler_doUpdateEmployee);
 router.post('/doAddEmployeeProperty', handler_doAddEmployeeProperty);
 router.post('/doUpdateEmployeeProperty', handler_doUpdateEmployeeProperty);
 router.post('/doDeleteEmployeeProperty', handler_doDeleteEmployeeProperty);
+router.get('/users', handler_users);
 export default router;

@@ -10,7 +10,13 @@ import handler_doAddEmployeeProperty from '../handlers/admin-post/doAddEmployeeP
 import handler_doUpdateEmployeeProperty from '../handlers/admin-post/doUpdateEmployeeProperty.js'
 import handler_doDeleteEmployeeProperty from '../handlers/admin-post/doDeleteEmployeeProperty.js'
 
+import handler_users from '../handlers/admin-get/users.js'
+
 export const router = Router()
+
+/*
+ * Employee Maintenance
+ */
 
 router.get('/employees', handler_employees as RequestHandler)
 
@@ -35,5 +41,11 @@ router.post(
   '/doDeleteEmployeeProperty',
   handler_doDeleteEmployeeProperty as RequestHandler
 )
+
+/*
+ * User Maintenance
+ */
+
+router.get('/users', handler_users as RequestHandler)
 
 export default router

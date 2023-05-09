@@ -306,7 +306,14 @@
             <article class="is-hidden" id="tab--employeeProperties">
               <div class="tabs is-boxed">
                 <ul>
-                  <li><a href="#employeePropertyTab--add">Add New Property</a></li>
+                  <li>
+                    <a href="#employeePropertyTab--add">
+                      <span class="icon is-small">
+                        <i class="fas fa-plus" aria-hidden="true"></i>
+                      </span>
+                      <span>Add New Property</span>
+                    </a>
+                  </li>
                   <li class="is-active"><a href="#employeePropertyTab--current">Current Properties</a></li>
                 </ul>
               </div>
@@ -323,7 +330,7 @@
                       <label class="label" for="employeePropertyAdd--propertyName"
                         >New Property Name</label
                       >
-                      <div class="control">
+                      <div class="control has-icons-right">
                         <input
                           class="input"
                           id="employeePropertyAdd--propertyName"
@@ -333,6 +340,9 @@
                           list="datalist--employeePropertyNames"
                           required
                         />
+                        <span class="icon is-small is-right">
+                          <i class="fas fa-asterisk" aria-hidden="true"></i>
+                        </span>
                       </div>
                     </div>
                     <div class="field">

@@ -1,4 +1,5 @@
 "use strict";
+/* eslint-disable unicorn/prefer-string-replace-all */
 /* eslint-disable unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
@@ -101,6 +102,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             });
         }
         function deleteCallOutRecord(clickEvent) {
+            clickEvent.preventDefault();
             const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
             function doDelete() {
                 cityssm.postJSON(MonTY.urlPrefix + '/attendance/doDeleteCallOutRecord', {

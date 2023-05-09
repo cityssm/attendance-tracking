@@ -15,6 +15,7 @@
     "public-typescript/main.ts",
     "public-typescript/dashboard.ts",
     "public-typescript/admin.employees.ts",
+    "public-typescript/admin.users.ts",
     "public-typescript/attendance.ts",
     "public-typescript/attendance.absences.ts",
     "public-typescript/attendance.callOuts.ts",
