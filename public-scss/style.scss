@@ -157,3 +157,11 @@ span.button.is-static {
     visibility: visible !important;
   }
 }
+
+/*
+ * data-fa-glow in menus
+ */
+
+.menu-list a.is-active [data-fa-glow] {
+  stroke: $link
+}
