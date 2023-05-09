@@ -986,6 +986,14 @@ declare const cityssm: cityssmGlobal
           modalElement.querySelectorAll('.menu a'),
           modalElement.querySelectorAll('.tabs-container > article')
         )
+        ;(
+          modalElement.querySelector(
+            '#reportingLink--callOutListMembers'
+          ) as HTMLAnchorElement
+        ).href =
+          MonTY.urlPrefix +
+          '/reports/callOutListMembers-formatted-byListId/?listId=' +
+          listId
 
         cityssm.enableNavBlocker()
       },

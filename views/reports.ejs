@@ -8,14 +8,22 @@
       </h2>
       <ul class="menu-list">
         <li>
-          <a class="is-active" href="#tab--employeeAttendnace">
+          <a class="is-active" href="#tab--employeeAttendance">
             <span class="icon">
               <span class="fa-layers fa-fw" aria-hidden="true">
                 <i class="fas fa-hard-hat"></i>
                 <i class="fas fa-check" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
               </span>
             </span>
-            <span>Employee Attendnace</span>
+            <span>Employee Attendance</span>
+          </a>
+        </li>
+        <li>
+          <a href="#tab--employees">
+            <span class="icon">
+              <i class="fas fa-fw fa-hard-hat" aria-hidden="true"></i>
+            </span>
+            <span>Employees</span>
           </a>
         </li>
       </ul>
@@ -33,12 +41,79 @@
             </li>
             <li class="is-active">
               <a href="#">
-                <span>Employee Attendance</span>
+                <span>Employee Attendance Reports</span>
               </a>
             </li>
           </ul>
         </nav>
         <h1 class="title is-1">Employee Attendance</h1>
+
+        <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
+          <div class="panel">
+            <h2 class="panel-heading">Call Out Reports</h2>
+            <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutListMembers-formatted" download>
+              <div class="columns">
+                <div class="column is-narrow">
+                  <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                </div>
+                <div class="column">
+                  <strong>Call Out List Members</strong><br />
+                  All call out list members.
+                </div>
+              </div>
+            </a>
+            <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutRecords-recent" download>
+              <div class="columns">
+                <div class="column is-narrow">
+                  <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                </div>
+                <div class="column">
+                  <strong>Recent Call Out Records</strong><br />
+                  All call out records recorded in the past <%= configFunctions.getProperty('settings.recentDays') %> days.
+                </div>
+              </div>
+            </a>
+          </div>
+        <% } %>
+      </article>
+      <article class="is-hidden" id="tab--employees">
+        <nav class="breadcrumb">
+          <ul>
+            <li class="is-active">
+              <a href="#" aria-current="page">
+                Report Library
+              </a>
+            </li>
+            <li class="is-active">
+              <a href="#">
+                <span>Employee Reports</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <h1 class="title is-1">Employees</h1>
+
+        <div class="panel">
+          <h2 class="panel-heading">Raw Data Exports</h2>
+          <div class="panel-block">
+            <div class="message is-info">
+              <p class="message-body">
+                Note the raw data exports are unfiltered and unformatted.
+                They may include deleted records that are no longer available through the application.
+              </p>
+            </div>
+          </div>
+          <a class="panel-block is-block" href="<%= urlPrefix %>/reports/employees-all" download>
+            <div class="columns">
+              <div class="column is-narrow">
+                <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+              </div>
+              <div class="column">
+                <strong>Employees Table</strong>
+              </div>
+            </div>
+          </a>
+        </div>
       </article>
     </div>
   </div>

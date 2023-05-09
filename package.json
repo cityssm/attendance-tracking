@@ -47,6 +47,7 @@
     "express-session": "^1.17.3",
     "http-errors": "^2.0.0",
     "object.hasown": "^1.1.2",
+    "papaparse": "^5.4.1",
     "session-file-store": "^1.5.0",
     "set-interval-async": "^3.0.3"
   },
@@ -72,6 +73,7 @@
     "@types/mocha": "^10.0.1",
     "@types/mssql": "^8.1.2",
     "@types/node-windows": "^0.1.2",
+    "@types/papaparse": "^5.3.7",
     "@types/session-file-store": "^1.2.2",
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",
