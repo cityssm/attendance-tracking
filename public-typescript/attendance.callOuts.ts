@@ -3,8 +3,8 @@
 import type * as globalTypes from '../types/globalTypes'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 import type { BulmaJS } from '@cityssm/bulma-js/types'
-
 import type * as recordTypes from '../types/recordTypes'
+
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
@@ -471,6 +471,8 @@ declare const cityssm: cityssmGlobal
     currentListId = listId
     currentCallOutListMembers = []
 
+    let callOutListCloseModalFunction: () => void
+
     const callOutList = callOutLists.find((possibleCallOutList) => {
       return possibleCallOutList.listId === listId
     }) as recordTypes.CallOutList
@@ -932,6 +934,47 @@ declare const cityssm: cityssmGlobal
       }
     }
 
+    function deleteCallOutList(clickEvent: MouseEvent): void {
+      clickEvent.preventDefault()
+
+      function doDelete(): void {
+        cityssm.postJSON(
+          MonTY.urlPrefix + '/attendance/doDeleteCallOutList',
+          {
+            listId
+          },
+          (rawResponseJSON) => {
+            const responseJSON = rawResponseJSON as {
+              success: boolean
+              callOutLists: recordTypes.CallOutList[]
+            }
+
+            if (responseJSON.success) {
+              cityssm.disableNavBlocker()
+              callOutListCloseModalFunction()
+
+              bulmaJS.alert({
+                message: 'Call Out List deleted successfully.'
+              })
+
+              callOutLists = responseJSON.callOutLists
+              renderCallOutLists()
+            }
+          }
+        )
+      }
+
+      bulmaJS.confirm({
+        title: 'Delete Call Out List',
+        message: 'Are you sure you want to delete this call out list?',
+        contextualColorName: 'warning',
+        okButton: {
+          text: 'Yes, Delete Call Out List',
+          callbackFunction: doDelete
+        }
+      })
+    }
+
     cityssm.openHtmlModal('callOuts-list', {
       onshow(modalElement) {
         callOutListModalElement = modalElement
@@ -942,13 +985,23 @@ declare const cityssm: cityssmGlobal
         if (canManage) {
           modalElement
             .querySelector(".tabs a[href$='tab--callOutMembers-manage']")
-            ?.closest('li')
             ?.classList.remove('is-hidden')
+
+          const deleteCallOutListElement = modalElement.querySelector(
+            '.is-delete-call-out-list'
+          ) as HTMLAnchorElement
+
+          deleteCallOutListElement
+            .closest('.dropdown')
+            ?.classList.remove('is-hidden')
+
+          deleteCallOutListElement.addEventListener('click', deleteCallOutList)
         } else {
           modalElement.querySelector('#tab--callOuts-members > .tabs')?.remove()
         }
 
         // List Details
+
         initializeListDetailsTab()
 
         // Members
@@ -978,6 +1031,8 @@ declare const cityssm: cityssmGlobal
         )
       },
       onshown(modalElement, closeModalFunction) {
+        callOutListCloseModalFunction = closeModalFunction
+
         bulmaJS.toggleHtmlClipped()
 
         bulmaJS.init(modalElement)
@@ -993,6 +1048,14 @@ declare const cityssm: cityssmGlobal
         ).href =
           MonTY.urlPrefix +
           '/reports/callOutListMembers-formatted-byListId/?listId=' +
+          listId
+        ;(
+          modalElement.querySelector(
+            '#reportingLink--callOutRecords'
+          ) as HTMLAnchorElement
+        ).href =
+          MonTY.urlPrefix +
+          '/reports/callOutRecords-recent-byListId/?listId=' +
           listId
 
         cityssm.enableNavBlocker()

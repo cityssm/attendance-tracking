@@ -13,6 +13,7 @@ import handler_attendance from '../handlers/attendance-get/attendance.js'
 
 import handler_doCreateCallOutList from '../handlers/attendance-post/doCreateCallOutList.js'
 import handler_doUpdateCallOutList from '../handlers/attendance-post/doUpdateCallOutList.js'
+import handler_doDeleteCallOutList from '../handlers/attendance-post/doDeleteCallOutList.js'
 import handler_doGetCallOutListMembers from '../handlers/attendance-post/doGetCallOutListMembers.js'
 import handler_doAddCallOutListMember from '../handlers/attendance-post/doAddCallOutListMember.js'
 import handler_doDeleteCallOutListMember from '../handlers/attendance-post/doDeleteCallOutListMember.js'
@@ -96,6 +97,12 @@ if (configFunctions.getProperty('features.attendance.callOuts')) {
     '/doUpdateCallOutList',
     callOutsManagePostHandler,
     handler_doUpdateCallOutList as RequestHandler
+  )
+
+  router.post(
+    '/doDeleteCallOutList',
+    callOutsManagePostHandler,
+    handler_doDeleteCallOutList as RequestHandler
   )
 
   router.post(

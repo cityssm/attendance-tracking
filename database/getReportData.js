@@ -49,12 +49,15 @@ export async function getReportData(reportName, reportParameters = {}) {
             break;
         }
         case 'callOutRecords-recent': {
-            sql = callOutRecordsRecentSQL;
+            sql = callOutRecordsRecentSQL + ' order by r.callOutDateTime, r.recordId';
             request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
             break;
         }
         case 'callOutRecords-recent-byListId': {
-            sql = callOutRecordsRecentSQL + ' and r.listId = @listId';
+            sql =
+                callOutRecordsRecentSQL +
+                    ` and r.listId = @listId
+          order by r.callOutDateTime, r.recordId`;
             request = request
                 .input('recentDays', configFunctions.getProperty('settings.recentDays'))
                 .input('listId', reportParameters.listId);

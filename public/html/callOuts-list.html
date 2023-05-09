@@ -233,6 +233,9 @@
       <div class="dropdown is-right is-up mr-2">
         <div class="dropdown-trigger">
           <button class="button" type="button">
+            <span class="icon is-small">
+              <i class="fas fa-download" aria-hidden="true"></i>
+            </span>
             <span>Exports</span>
             <span class="icon is-small">
               <i class="fas fa-angle-up" aria-hidden="true"></i>
@@ -245,7 +248,36 @@
               <span class="icon is-small">
                 <i class="fas fa-file-csv" aria-hidden="true"></i>
               </span>
-              <span>Export Members as CSV</span>
+              <span>Call Out List Members</span>
+            </a>
+            <a class="dropdown-item" id="reportingLink--callOutRecords" href="#" target="_blank" download>
+              <span class="icon is-small">
+                <i class="fas fa-file-csv" aria-hidden="true"></i>
+              </span>
+              <span>Call Out Record Recent History</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="dropdown is-right is-up is-hidden mr-2">
+        <div class="dropdown-trigger">
+          <button class="button" type="button">
+            <span class="icon is-small">
+              <i class="fas fa-cog" aria-hidden="true"></i>
+            </span>
+            <span>Options</span>
+            <span class="icon is-small">
+              <i class="fas fa-angle-up" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+          <div class="dropdown-content">
+            <a class="dropdown-item is-delete-call-out-list" href="#">
+              <span class="icon is-small">
+                <i class="fas fa-trash-alt has-text-danger" aria-hidden="true"></i>
+              </span>
+              <span>Delete Call Out List</span>
             </a>
           </div>
         </div>

@@ -281,6 +281,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     function openCallOutList(listId) {
         currentListId = listId;
         currentCallOutListMembers = [];
+        let callOutListCloseModalFunction;
         const callOutList = callOutLists.find((possibleCallOutList) => {
             return possibleCallOutList.listId === listId;
         });
@@ -581,14 +582,46 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 callOutListCurrentMembersContainer.append(currentPanelElement);
             }
         }
+        function deleteCallOutList(clickEvent) {
+            clickEvent.preventDefault();
+            function doDelete() {
+                cityssm.postJSON(MonTY.urlPrefix + '/attendance/doDeleteCallOutList', {
+                    listId
+                }, (rawResponseJSON) => {
+                    const responseJSON = rawResponseJSON;
+                    if (responseJSON.success) {
+                        cityssm.disableNavBlocker();
+                        callOutListCloseModalFunction();
+                        bulmaJS.alert({
+                            message: 'Call Out List deleted successfully.'
+                        });
+                        callOutLists = responseJSON.callOutLists;
+                        renderCallOutLists();
+                    }
+                });
+            }
+            bulmaJS.confirm({
+                title: 'Delete Call Out List',
+                message: 'Are you sure you want to delete this call out list?',
+                contextualColorName: 'warning',
+                okButton: {
+                    text: 'Yes, Delete Call Out List',
+                    callbackFunction: doDelete
+                }
+            });
+        }
         cityssm.openHtmlModal('callOuts-list', {
             onshow(modalElement) {
                 var _a, _b, _c;
                 callOutListModalElement = modalElement;
                 modalElement.querySelector('.modal-card-title').textContent = callOutList.listName;
                 if (canManage) {
-                    (_b = (_a = modalElement
-                        .querySelector(".tabs a[href$='tab--callOutMembers-manage']")) === null || _a === void 0 ? void 0 : _a.closest('li')) === null || _b === void 0 ? void 0 : _b.classList.remove('is-hidden');
+                    (_a = modalElement
+                        .querySelector(".tabs a[href$='tab--callOutMembers-manage']")) === null || _a === void 0 ? void 0 : _a.classList.remove('is-hidden');
+                    const deleteCallOutListElement = modalElement.querySelector('.is-delete-call-out-list');
+                    (_b = deleteCallOutListElement
+                        .closest('.dropdown')) === null || _b === void 0 ? void 0 : _b.classList.remove('is-hidden');
+                    deleteCallOutListElement.addEventListener('click', deleteCallOutList);
                 }
                 else {
                     (_c = modalElement.querySelector('#tab--callOuts-members > .tabs')) === null || _c === void 0 ? void 0 : _c.remove();
@@ -611,12 +644,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 });
             },
             onshown(modalElement, closeModalFunction) {
+                callOutListCloseModalFunction = closeModalFunction;
                 bulmaJS.toggleHtmlClipped();
                 bulmaJS.init(modalElement);
                 MonTY.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('.tabs-container > article'));
                 modalElement.querySelector('#reportingLink--callOutListMembers').href =
                     MonTY.urlPrefix +
                         '/reports/callOutListMembers-formatted-byListId/?listId=' +
+                        listId;
+                modalElement.querySelector('#reportingLink--callOutRecords').href =
+                    MonTY.urlPrefix +
+                        '/reports/callOutRecords-recent-byListId/?listId=' +
                         listId;
                 cityssm.enableNavBlocker();
             },

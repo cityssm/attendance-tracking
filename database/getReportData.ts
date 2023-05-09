@@ -76,7 +76,7 @@ export async function getReportData(
      */
 
     case 'callOutRecords-recent': {
-      sql = callOutRecordsRecentSQL
+      sql = callOutRecordsRecentSQL + ' order by r.callOutDateTime, r.recordId'
 
       request = request.input(
         'recentDays',
@@ -87,7 +87,10 @@ export async function getReportData(
     }
 
     case 'callOutRecords-recent-byListId': {
-      sql = callOutRecordsRecentSQL + ' and r.listId = @listId'
+      sql =
+        callOutRecordsRecentSQL +
+        ` and r.listId = @listId
+          order by r.callOutDateTime, r.recordId`
 
       request = request
         .input('recentDays', configFunctions.getProperty('settings.recentDays'))
