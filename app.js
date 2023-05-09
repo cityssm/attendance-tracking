@@ -10,6 +10,7 @@ import session from 'express-session';
 import FileStore from 'session-file-store';
 import routerLogin from './routes/login.js';
 import routerDashboard from './routes/dashboard.js';
+import routerReports from './routes/reports.js';
 import routerAttendance from './routes/attendance.js';
 import routerAdmin from './routes/admin.js';
 import * as permissionFunctions from './helpers/functions.permissions.js';
@@ -107,6 +108,7 @@ app.get(urlPrefix + '/', sessionChecker, (_request, response) => {
     response.redirect(urlPrefix + '/dashboard');
 });
 app.use(urlPrefix + '/dashboard', sessionChecker, routerDashboard);
+app.use(urlPrefix + '/reports', sessionChecker, routerReports);
 if (configFunctions.includeAttendance()) {
     app.use(urlPrefix + '/attendance', sessionChecker, (request, response, next) => {
         if (permissionFunctions.hasAttendance(request.session.user)) {

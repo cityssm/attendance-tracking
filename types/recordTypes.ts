@@ -65,6 +65,7 @@ export interface CallOutListMember extends Employee, RecordUserNameDateTime {
   isNext: boolean
   sortKeyFunction?: string
   employeePropertyName?: string
+  callOutDateTimeMax?: string | Date | null
 }
 
 export interface CallOutResponseType extends RecordUserNameDateTime {

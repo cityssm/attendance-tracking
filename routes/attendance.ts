@@ -19,6 +19,7 @@ import handler_doDeleteCallOutListMember from '../handlers/attendance-post/doDel
 
 import handler_doGetCallOutRecords from '../handlers/attendance-post/doGetCallOutRecords.js'
 import handler_doAddCallOutRecord from '../handlers/attendance-post/doAddCallOutRecord.js'
+import handler_doDeleteCallOutRecord from '../handlers/attendance-post/doDeleteCallOutRecord.js'
 
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js'
 
@@ -125,6 +126,12 @@ if (configFunctions.getProperty('features.attendance.callOuts')) {
     '/doAddCallOutRecord',
     callOutsUpdatePostHandler,
     handler_doAddCallOutRecord as RequestHandler
+  )
+
+  router.post(
+    '/doDeleteCallOutRecord',
+    callOutsUpdatePostHandler,
+    handler_doDeleteCallOutRecord as RequestHandler
   )
 }
 

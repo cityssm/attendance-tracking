@@ -2,7 +2,7 @@
 
 <div class="columns">
   <div class="column is-3">
-    <aside class="menu" id="menu--attendance">
+    <aside class="menu" id="menu--attendance" style="position:sticky;top:60px">
       <% if ((configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) || (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView'))) { %>
         <h2 class="menu-label">
           Incoming
@@ -11,7 +11,7 @@
           <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
             <li>
               <a href="#tab--absences">
-                <span class="icon is-small">
+                <span class="icon">
                   <i class="fas fa-fw fa-sign-out-alt" aria-hidden="true"></i>
                 </span>
                 <span>Absence Requests</span>
@@ -21,7 +21,7 @@
           <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
             <li>
               <a href="#tab--returnsToWork">
-                <span class="icon is-small">
+                <span class="icon">
                   <i class="fas fa-fw fa-sign-in-alt" aria-hidden="true"></i>
                 </span>
                 <span>Returns to Work</span>
@@ -37,7 +37,7 @@
         <ul class="menu-list">
           <li>
             <a class="is-active" href="#tab--callOuts">
-              <span class="icon is-small">
+              <span class="icon">
                 <i class="fas fa-fw fa-phone" aria-hidden="true"></i>
               </span>
               <span>Call Out Lists</span>
@@ -51,7 +51,7 @@
       <ul class="menu-list">
         <li>
           <a href="#tab--employees">
-            <span class="icon is-small">
+            <span class="icon">
               <i class="fas fa-fw fa-hard-hat" aria-hidden="true"></i>
             </span>
             <span>Employees</span>

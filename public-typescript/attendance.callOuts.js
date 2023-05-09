@@ -2,12 +2,14 @@
 /* eslint-disable unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
-    var _a;
+    var _a, _b, _c, _d, _e;
     const MonTY = exports.MonTY;
     let callOutLists = exports.callOutLists;
     delete exports.callOutLists;
     const callOutResponseTypes = exports.callOutResponseTypes;
     delete exports.callOutResponseTypes;
+    const isAdmin = (_b = ((_a = document.querySelector('main')) === null || _a === void 0 ? void 0 : _a.dataset.isAdmin) === 'true') !== null && _b !== void 0 ? _b : false;
+    const userName = (_d = (_c = document.querySelector('main')) === null || _c === void 0 ? void 0 : _c.dataset.userName) !== null && _d !== void 0 ? _d : '';
     const canUpdate = exports.callOutsCanUpdate;
     const canManage = exports.callOutsCanManage;
     const searchFilterElement = document.querySelector('#callOuts--searchFilter');
@@ -98,9 +100,38 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
             });
         }
+        function deleteCallOutRecord(clickEvent) {
+            const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
+            function doDelete() {
+                cityssm.postJSON(MonTY.urlPrefix + '/attendance/doDeleteCallOutRecord', {
+                    recordId,
+                    employeeNumber,
+                    listId: currentListId
+                }, (rawResponseJSON) => {
+                    const responseJSON = rawResponseJSON;
+                    if (responseJSON.success) {
+                        bulmaJS.alert({
+                            message: 'Call out record deleted successfully.',
+                            contextualColorName: 'success'
+                        });
+                        callOutRecords = responseJSON.callOutRecords;
+                        renderCallOutRecords();
+                    }
+                });
+            }
+            bulmaJS.confirm({
+                title: 'Delete Call Out Record',
+                message: 'Are you sure you want to delete this call out record?',
+                contextualColorName: 'warning',
+                okButton: {
+                    text: 'Yes, Delete Record',
+                    callbackFunction: doDelete
+                }
+            });
+        }
         function renderCallOutRecords() {
             // Tag Count
-            var _a, _b;
+            var _a, _b, _c;
             callOutMemberModalElement.querySelector('#tag--recentCalls').textContent = callOutRecords.length.toString();
             // Data
             const callOutRecordsContainerElement = callOutMemberModalElement.querySelector('#container--callOutRecords');
@@ -123,7 +154,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
             ${callOutDateTime.toLocaleDateString()} ${callOutDateTime.toLocaleTimeString()}`;
                 }
                 const panelBlockElement = document.createElement('div');
-                panelBlockElement.className = 'panel-block';
+                panelBlockElement.className = 'panel-block is-block';
+                panelBlockElement.dataset.recordId = record.recordId;
                 panelBlockElement.classList.add(record.isSuccessful
                     ? 'has-background-success-light'
                     : 'has-background-danger-light');
@@ -140,7 +172,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
               ${(_b = record.recordComment) !== null && _b !== void 0 ? _b : ''}
             </span>
           </div>
+          <div class="column is-narrow">
+            ${canUpdate &&
+                    (isAdmin || record.recordCreate_userName === userName)
+                    ? `<button class="button is-inverted is-danger is-delete-button" data-tooltip="Delete Record">
+                  <i class="fas fa-trash" aria-hidden="true"></i>
+                  </button>`
+                    : ''}
+          </div>
           </div>`;
+                (_c = panelBlockElement
+                    .querySelector('.is-delete-button')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', deleteCallOutRecord);
                 panelElement.append(panelBlockElement);
             }
             callOutRecordsContainerElement.innerHTML = '';
@@ -503,6 +545,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
           <div class="column">
             <span class="is-size-7 has-tooltip-left" data-tooltip="Sort Key">
               <i class="fas fa-sort-alpha-down" aria-hidden="true"></i> ${(_a = member.sortKey) !== null && _a !== void 0 ? _a : ''}
+            </span><br />
+            <span class="is-size-7 has-tooltip-left" data-tooltip="Last Call Out Time">
+              <i class="fas fa-phone-volume" aria-hidden="true"></i> ${member.callOutDateTimeMax === null
+                    ? '(No Recent Call Out)'
+                    : new Date(member.callOutDateTimeMax).toLocaleDateString()}
             </span>
           </div>
           </div>`;
@@ -583,7 +630,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             .listId;
         openCallOutList(listId);
     }
-    (_a = document.querySelector('#callOuts--create')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
+    (_e = document.querySelector('#callOuts--create')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', () => {
         let createCloseModalFunction;
         function doCreate(formEvent) {
             formEvent.preventDefault();

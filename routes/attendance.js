@@ -9,6 +9,7 @@ import handler_doAddCallOutListMember from '../handlers/attendance-post/doAddCal
 import handler_doDeleteCallOutListMember from '../handlers/attendance-post/doDeleteCallOutListMember.js';
 import handler_doGetCallOutRecords from '../handlers/attendance-post/doGetCallOutRecords.js';
 import handler_doAddCallOutRecord from '../handlers/attendance-post/doAddCallOutRecord.js';
+import handler_doDeleteCallOutRecord from '../handlers/attendance-post/doDeleteCallOutRecord.js';
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js';
 function callOutsViewPostHandler(request, response, next) {
     if (permissionFunctions.hasPermission(request.session.user, 'attendance.callOuts.canView')) {
@@ -41,5 +42,6 @@ if (configFunctions.getProperty('features.attendance.callOuts')) {
     router.post('/doDeleteCallOutListMember', callOutsManagePostHandler, handler_doDeleteCallOutListMember);
     router.post('/doGetCallOutRecords', callOutsViewPostHandler, handler_doGetCallOutRecords);
     router.post('/doAddCallOutRecord', callOutsUpdatePostHandler, handler_doAddCallOutRecord);
+    router.post('/doDeleteCallOutRecord', callOutsUpdatePostHandler, handler_doDeleteCallOutRecord);
 }
 export default router;

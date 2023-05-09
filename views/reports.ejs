@@ -1,0 +1,51 @@
+<%- include('_header'); -%>
+
+<div class="columns">
+  <div class="column is-3">
+    <aside class="menu" id="menu--reports">
+      <h2 class="menu-label">
+        Reports
+      </h2>
+      <ul class="menu-list">
+        <li>
+          <a class="is-active" href="#tab--employeeAttendnace">
+            <span class="icon">
+              <span class="fa-layers fa-fw" aria-hidden="true">
+                <i class="fas fa-hard-hat"></i>
+                <i class="fas fa-check" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+              </span>
+            </span>
+            <span>Employee Attendnace</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+  </div>
+  <div class="column">
+    <div class="tabs-container" id="tabs-container--reports">
+      <article id="tab--employeeAttendance">
+        <nav class="breadcrumb">
+          <ul>
+            <li class="is-active">
+              <a href="#" aria-current="page">
+                Report Library
+              </a>
+            </li>
+            <li class="is-active">
+              <a href="#">
+                <span>Employee Attendance</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <h1 class="title is-1">Employee Attendance</h1>
+      </article>
+    </div>
+  </div>
+</div>
+
+<%- include('_footerA'); -%>
+
+<script src="<%= urlPrefix %>/javascripts/reports.min.js"></script>
+
+<%- include('_footerB'); -%>

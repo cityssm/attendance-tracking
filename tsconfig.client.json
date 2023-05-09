@@ -19,7 +19,8 @@
     "public-typescript/attendance.absences.ts",
     "public-typescript/attendance.callOuts.ts",
     "public-typescript/attendance.employees.ts",
-    "public-typescript/attendance.returnsToWork.ts"
+    "public-typescript/attendance.returnsToWork.ts",
+    "public-typescript/reports.ts",
   ],
   "compileOnSave": true,
   "buildOnSave": true

@@ -18,6 +18,10 @@ declare const cityssm: cityssmGlobal
     exports.callOutResponseTypes as recordTypes.CallOutResponseType[]
   delete exports.callOutResponseTypes
 
+  const isAdmin =
+    document.querySelector('main')?.dataset.isAdmin === 'true' ?? false
+  const userName = document.querySelector('main')?.dataset.userName ?? ''
+
   const canUpdate = exports.callOutsCanUpdate as boolean
   const canManage = exports.callOutsCanManage as boolean
 
@@ -73,7 +77,10 @@ declare const cityssm: cityssmGlobal
         </div>
         <div class="column">
           <strong>${callOutList.listName}</strong><br />
-          <span class="is-size-7">${(callOutList.listDescription ?? '').replace(/\n/g, '<br />')}</span>
+          <span class="is-size-7">${(callOutList.listDescription ?? '').replace(
+            /\n/g,
+            '<br />'
+          )}</span>
         </div>
         <div class="column is-narrow">
           <span class="tag" data-tooltip="Members">
@@ -150,6 +157,51 @@ declare const cityssm: cityssmGlobal
       )
     }
 
+    function deleteCallOutRecord(clickEvent: MouseEvent): void {
+      const recordId = (
+        (clickEvent.currentTarget as HTMLButtonElement).closest(
+          '.panel-block'
+        ) as HTMLElement
+      ).dataset.recordId
+
+      function doDelete(): void {
+        cityssm.postJSON(
+          MonTY.urlPrefix + '/attendance/doDeleteCallOutRecord',
+          {
+            recordId,
+            employeeNumber,
+            listId: currentListId
+          },
+          (rawResponseJSON) => {
+            const responseJSON = rawResponseJSON as {
+              success: boolean
+              callOutRecords: recordTypes.CallOutRecord[]
+            }
+
+            if (responseJSON.success) {
+              bulmaJS.alert({
+                message: 'Call out record deleted successfully.',
+                contextualColorName: 'success'
+              })
+
+              callOutRecords = responseJSON.callOutRecords
+              renderCallOutRecords()
+            }
+          }
+        )
+      }
+
+      bulmaJS.confirm({
+        title: 'Delete Call Out Record',
+        message: 'Are you sure you want to delete this call out record?',
+        contextualColorName: 'warning',
+        okButton: {
+          text: 'Yes, Delete Record',
+          callbackFunction: doDelete
+        }
+      })
+    }
+
     function renderCallOutRecords(): void {
       // Tag Count
 
@@ -194,7 +246,8 @@ declare const cityssm: cityssmGlobal
         }
 
         const panelBlockElement = document.createElement('div')
-        panelBlockElement.className = 'panel-block'
+        panelBlockElement.className = 'panel-block is-block'
+        panelBlockElement.dataset.recordId = record.recordId
 
         panelBlockElement.classList.add(
           record.isSuccessful!
@@ -217,7 +270,21 @@ declare const cityssm: cityssmGlobal
               ${record.recordComment ?? ''}
             </span>
           </div>
+          <div class="column is-narrow">
+            ${
+              canUpdate &&
+              (isAdmin || record.recordCreate_userName === userName)
+                ? `<button class="button is-inverted is-danger is-delete-button" data-tooltip="Delete Record">
+                  <i class="fas fa-trash" aria-hidden="true"></i>
+                  </button>`
+                : ''
+            }
+          </div>
           </div>`
+
+        panelBlockElement
+          .querySelector('.is-delete-button')
+          ?.addEventListener('click', deleteCallOutRecord)
 
         panelElement.append(panelBlockElement)
       }
@@ -808,6 +875,13 @@ declare const cityssm: cityssmGlobal
             <span class="is-size-7 has-tooltip-left" data-tooltip="Sort Key">
               <i class="fas fa-sort-alpha-down" aria-hidden="true"></i> ${
                 member.sortKey ?? ''
+              }
+            </span><br />
+            <span class="is-size-7 has-tooltip-left" data-tooltip="Last Call Out Time">
+              <i class="fas fa-phone-volume" aria-hidden="true"></i> ${
+                member.callOutDateTimeMax === null
+                  ? '(No Recent Call Out)'
+                  : new Date(member.callOutDateTimeMax!).toLocaleDateString()
               }
             </span>
           </div>

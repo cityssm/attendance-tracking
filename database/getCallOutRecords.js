@@ -5,7 +5,8 @@ export async function getCallOutRecords(filters) {
     let sql = `select r.recordId, r.listId, r.employeeNumber,
     r.callOutDateTime, r.callOutHours,
     r.responseTypeId, t.responseType, t.isSuccessful,
-    r.recordComment
+    r.recordComment,
+    r.recordCreate_userName
     from MonTY.CallOutRecords r
     left join MonTY.CallOutResponseTypes t on r.responseTypeId = t.responseTypeId
     where r.recordDelete_dateTime is null`;
