@@ -1,0 +1,42 @@
+<div class="modal" role="dialog" aria-label="Add a New User">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <div class="modal-card-head">
+      <h3 class="modal-card-title">Add a New User</h3>
+      <button
+        class="delete is-close-modal-button"
+        aria-label="close"
+        type="button"
+      ></button>
+    </div>
+    <section class="modal-card-body">
+      <form id="form--userAdd">
+        <div class="field">
+          <label class="label" for="userAdd--userName">User Name</label>
+          <div class="control">
+            <input
+              class="input"
+              id="userAdd--userName"
+              name="userName"
+              type="text"
+              maxlength="20"
+              autocomplete="off"
+              required
+            />
+          </div>
+        </div>
+      </form>
+    </section>
+    <div class="modal-card-foot justify-right">
+      <button
+        class="button is-success"
+        type="submit"
+        form="form--userAdd"
+      >
+        <span class="icon"><i class="fas fa-plus" aria-hidden="true"></i></span>
+        <span>Add User</span>
+      </button>
+      <button class="button is-close-modal-button" type="button">Cancel</button>
+    </div>
+  </div>
+</div>

@@ -12,6 +12,13 @@ import handler_doDeleteEmployeeProperty from '../handlers/admin-post/doDeleteEmp
 
 import handler_users from '../handlers/admin-get/users.js'
 
+import handler_doUpdateUserCanLogin from '../handlers/admin-post/doUpdateUserCanLogin.js'
+import handler_doUpdateUserIsAdmin from '../handlers/admin-post/doUpdateUserIsAdmin.js'
+import handler_doGetUserPermissions from '../handlers/admin-post/doGetUserPermissions.js'
+import handler_doSetUserPermission from '../handlers/admin-post/doSetUserPermission.js'
+import handler_doAddUser from '../handlers/admin-post/doAddUser.js'
+import handler_doDeleteUser from '../handlers/admin-post/doDeleteUser.js'
+
 export const router = Router()
 
 /*
@@ -47,5 +54,29 @@ router.post(
  */
 
 router.get('/users', handler_users as RequestHandler)
+
+router.post(
+  '/doUpdateUserCanLogin',
+  handler_doUpdateUserCanLogin as RequestHandler
+)
+
+router.post(
+  '/doUpdateUserIsAdmin',
+  handler_doUpdateUserIsAdmin as RequestHandler
+)
+
+router.post(
+  '/doGetUserPermissions',
+  handler_doGetUserPermissions as RequestHandler
+)
+
+router.post(
+  '/doSetUserPermission',
+  handler_doSetUserPermission as RequestHandler
+)
+
+router.post('/doAddUser', handler_doAddUser as RequestHandler)
+
+router.post('/doDeleteUser', handler_doDeleteUser as RequestHandler)
 
 export default router

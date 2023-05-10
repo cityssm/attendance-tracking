@@ -1,16 +1,12 @@
 <%- include('_header'); -%>
 
 <div class="columns">
-  <div class="column is-3">
-    <%- include('_admin.menu.ejs') %>
-  </div>
+  <div class="column is-3"><%- include('_admin.menu.ejs') %></div>
   <div class="column">
     <nav class="breadcrumb">
       <ul>
         <li class="is-active">
-          <a href="#">
-            Administration
-          </a>
+          <a href="#"> Administration </a>
         </li>
         <li class="is-active">
           <a href="#" aria-current="page">
@@ -19,10 +15,43 @@
         </li>
       </ul>
     </nav>
-    <h1 class="title is-1">
-      User Maintenance
-    </h1>
-    <div id="container--users"></div>
+    <div class="columns is-vcentered is-mobile">
+      <div class="column">
+        <h1 class="title is-1">User Maintenance</h1>
+      </div>
+      <div class="column is-narrow">
+        <button class="button is-success is-add-user-button" type="button">
+          <span class="icon is-small">
+            <i class="fas fa-plus" aria-hidden="true"></i>
+          </span>
+          <span>Add User</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="message is-info">
+      <p class="message-body">
+        Note that users must log out and log back in to see changes to their
+        permissions.
+      </p>
+    </div>
+
+    <table class="table is-fullwidth is-hoverable is-striped">
+      <thead>
+        <tr>
+          <th>User Name</th>
+          <th class="has-width-1 has-text-centered">Can Log In</th>
+          <th class="has-width-1 has-text-centered">Is Admin</th>
+          <th class="has-width-1">
+            <span class="is-sr-only">Permissions</span>
+          </th>
+          <th class="has-width-1">
+            <span class="is-sr-only">Options</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody id="tbody--users"></tbody>
+    </table>
   </div>
 </div>
 
@@ -30,6 +59,7 @@
 
 <script>
   exports.users = <%- JSON.stringify(users) %>;
+  exports.availablePermissionValues = <%- JSON.stringify(availablePermissionValues) %>;
 </script>
 
 <script src="<%= urlPrefix %>/javascripts/admin.users.min.js"></script>
