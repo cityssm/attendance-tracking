@@ -160,7 +160,7 @@ declare const cityssm: cityssmGlobal
 
     function deleteCallOutRecord(clickEvent: Event): void {
       clickEvent.preventDefault()
-      
+
       const recordId = (
         (clickEvent.currentTarget as HTMLButtonElement).closest(
           '.panel-block'

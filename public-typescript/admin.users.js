@@ -300,7 +300,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
             });
         }
         cityssm.openHtmlModal('userAdmin-addUser', {
-            onshow(modalElement) { },
             onshown(modalElement, closeModalFunction) {
                 var _a;
                 addCloseModalFunction = closeModalFunction;

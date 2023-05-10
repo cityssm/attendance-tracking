@@ -6,7 +6,7 @@ import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 import type { BulmaJS } from '@cityssm/bulma-js/types'
 
 import type * as recordTypes from '../types/recordTypes'
-import { raw } from 'express'
+
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
@@ -440,7 +440,6 @@ declare const cityssm: cityssmGlobal
       }
 
       cityssm.openHtmlModal('userAdmin-addUser', {
-        onshow(modalElement) {},
         onshown(modalElement, closeModalFunction) {
           addCloseModalFunction = closeModalFunction
 
