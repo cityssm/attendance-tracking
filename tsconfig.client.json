@@ -17,10 +17,9 @@
     "public-typescript/admin.employees.ts",
     "public-typescript/admin.users.ts",
     "public-typescript/attendance.ts",
-    "public-typescript/attendance.absences.ts",
+    "public-typescript/attendance.callIns.ts",
     "public-typescript/attendance.callOuts.ts",
     "public-typescript/attendance.employees.ts",
-    "public-typescript/attendance.returnsToWork.ts",
     "public-typescript/reports.ts"
   ],
   "compileOnSave": true,

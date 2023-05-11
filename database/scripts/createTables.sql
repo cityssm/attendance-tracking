@@ -159,3 +159,84 @@ create table MonTY.CallOutRecords (
 	foreign key (responseTypeId) references MonTY.CallOutResponseTypes (responseTypeId) on update cascade on delete no action
 )
 GO
+
+--
+
+create table MonTY.AbsenceTypes (
+	absenceTypeKey varchar(10) primary key not null,
+	absenceType varchar(100) not null,
+	orderNumber smallint not null default 0,
+	recordCreate_userName varchar(20) not null default CURRENT_USER,
+	recordCreate_dateTime datetime2 not null default getdate(),
+	recordUpdate_userName varchar(20) not null default CURRENT_USER,
+	recordUpdate_dateTime datetime2 not null default getdate(),
+	recordDelete_userName varchar(20),
+	recordDelete_dateTime datetime2
+)
+GO
+
+insert into MonTY.AbsenceTypes (absenceTypeKey, absenceType, orderNumber)
+values ('SICK', 'Sick', 1)
+GO
+
+insert into MonTY.AbsenceTypes (absenceTypeKey, absenceType, orderNumber)
+values ('PRSNL', 'Personal', 2)
+GO
+
+insert into MonTY.AbsenceTypes (absenceTypeKey, absenceType, orderNumber)
+values ('VAC', 'Vacation', 3)
+GO
+
+insert into MonTY.AbsenceTypes (absenceTypeKey, absenceType, orderNumber)
+values ('LIEU', 'Lieu', 4)
+GO
+
+insert into MonTY.AbsenceTypes (absenceTypeKey, absenceType, orderNumber)
+values ('BRV', 'Bereavement', 5)
+GO
+
+insert into MonTY.AbsenceTypes (absenceTypeKey, absenceType, orderNumber)
+values ('WSIB', 'WSIB', 6)
+GO
+
+insert into MonTY.AbsenceTypes (absenceTypeKey, absenceType, orderNumber)
+values ('APPT', 'Appointment', 7)
+GO
+
+insert into MonTY.AbsenceTypes (absenceTypeKey, absenceType, orderNumber)
+values ('OTHER', 'Other', 8)
+GO
+
+create table MonTY.AbsenceRecords (
+	recordId bigint primary key identity,
+	employeeNumber varchar(20),
+	employeeName varchar(200) not null,
+	absenceDateTime datetime2 not null,
+	absenceTypeKey varchar(10) not null,
+	recordComment nvarchar(max),
+	returnDateTime datetime2,
+	recordCreate_userName varchar(20) not null default CURRENT_USER,
+	recordCreate_dateTime datetime2 not null default getdate(),
+	recordUpdate_userName varchar(20) not null default CURRENT_USER,
+	recordUpdate_dateTime datetime2 not null default getdate(),
+	recordDelete_userName varchar(20),
+	recordDelete_dateTime datetime2,
+	foreign key (absenceTypeKey) references MonTY.AbsenceTypes (absenceTypeKey) on update cascade on delete no action
+)
+GO
+
+create table MonTY.ReturnToWorkRecords (
+	recordId bigint primary key identity,
+	employeeNumber varchar(20),
+	employeeName varchar(200) not null,
+	returnDateTime datetime2 not null,
+	returnShift varchar(100),
+	recordComment nvarchar(max),
+	recordCreate_userName varchar(20) not null default CURRENT_USER,
+	recordCreate_dateTime datetime2 not null default getdate(),
+	recordUpdate_userName varchar(20) not null default CURRENT_USER,
+	recordUpdate_dateTime datetime2 not null default getdate(),
+	recordDelete_userName varchar(20),
+	recordDelete_dateTime datetime2
+)
+GO

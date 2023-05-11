@@ -10,7 +10,7 @@
         <ul class="menu-list">
           <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
             <li>
-              <a href="#tab--absences">
+              <a class="is-active" href="#tab--absences">
                 <span class="icon">
                   <i class="fas fa-fw fa-sign-out-alt" aria-hidden="true"></i>
                 </span>
@@ -36,7 +36,7 @@
         </h2>
         <ul class="menu-list">
           <li>
-            <a class="is-active" href="#tab--callOuts">
+            <a href="#tab--callOuts">
               <span class="icon">
                 <i class="fas fa-fw fa-phone" aria-hidden="true"></i>
               </span>
@@ -63,32 +63,18 @@
   <div class="column">
     <div class="tabs-container" id="tabs-container--attendance">
       <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
-        <article class="is-hidden" id="tab--absences">
-          <nav class="breadcrumb">
-            <ul>
-              <li class="is-active">
-                <a href="#" aria-current="page">
-                  Employee Attendance
-                </a>
-              </li>
-              <li class="is-active">
-                <a href="#">
-                  <span>Absence Requests</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <h1 class="title is-1">Absence Requests</h1>
-        </article>
-      <% } %>
-      <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
-        <article id="tab--callOuts">
-          <%- include('_attendance.callOuts.ejs'); -%>
+        <article id="tab--absences">
+          <%- include('_attendance.absences.ejs'); -%>
         </article>
       <% } %>
       <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
         <article class="is-hidden" id="tab--returnsToWork">
-          returnsToWork
+          <%- include('_attendance.returnsToWork.ejs'); -%>
+        </article>
+      <% } %>
+      <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
+        <article class="is-hidden" id="tab--callOuts">
+          <%- include('_attendance.callOuts.ejs'); -%>
         </article>
       <% } %>
       <article class="is-hidden" id="tab--employees">
@@ -109,8 +95,19 @@
 <script src="<%= urlPrefix %>/javascripts/attendance.min.js"></script>
 <script src="<%= urlPrefix %>/javascripts/attendance.employees.min.js"></script>
 
-<% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
-  <script src="<%= urlPrefix %>/javascripts/attendance.absences.min.js"></script>
+<% 
+  if (
+    (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView'))
+    || (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView'))) { %>
+  <script>
+    exports.absenceRecords = <%- JSON.stringify(absenceRecords) %>;
+    exports.absenceTypes = <%- JSON.stringify(absenceTypes) %>;
+    exports.employees = <%- JSON.stringify(employees) %>;
+
+    exports.absencesCanUpdate = <%= permissionFunctions.hasPermission(user, 'attendance.absences.canUpdate') ? 'true' : 'false' %>;
+    exports.returnsToWorkCanUpdate = <%= permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canUpdate') ? 'true' : 'false' %>;
+  </script>
+  <script src="<%= urlPrefix %>/javascripts/attendance.callIns.min.js"></script>
 <% } %>
 
 <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
@@ -126,8 +123,5 @@
   <script src="<%= urlPrefix %>/javascripts/attendance.callOuts.min.js"></script>
 <% } %>
 
-<% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
-  <script src="<%= urlPrefix %>/javascripts/attendance.returnsToWork.min.js"></script>
-<% } %>
 
 <%- include('_footerB'); -%>

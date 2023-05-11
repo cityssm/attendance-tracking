@@ -4,14 +4,50 @@ import * as configFunctions from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
 
 import type * as recordTypes from '../../types/recordTypes'
+
+import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
+
 import { getCallOutLists } from '../../database/getCallOutLists.js'
 import { getEmployeePropertyNames } from '../../database/getEmployeePropertyNames.js'
 import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js'
+import { getAbsenceTypes } from '../../database/getAbsenceTypes.js'
+import { getEmployees } from '../../database/getEmployees.js'
 
 export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
+  let absenceRecords: recordTypes.AbsenceRecord[] = []
+  let absenceTypes: recordTypes.AbsenceType[] = []
+  let employees: recordTypes.Employee[] = []
+
+  if (configFunctions.getProperty('features.attendance.absences')) {
+    if (
+      permissionFunctions.hasPermission(
+        request.session.user!,
+        'attendance.absences.canView'
+      )
+    ) {
+      absenceRecords = await getAbsenceRecords({
+        recentOnly: true
+      })
+    }
+
+    if (
+      permissionFunctions.hasPermission(
+        request.session.user!,
+        'attendance.absences.canUpdate'
+      )
+    ) {
+      absenceTypes = await getAbsenceTypes()
+      employees = await getEmployees({
+        isActive: true
+      }, {
+        orderBy: 'employeeNumber'
+      })
+    }
+  }
+
   let callOutLists: recordTypes.CallOutList[] = []
   let callOutResponseTypes: recordTypes.CallOutResponseType[] = []
   const employeeEligibilityFunctionNames: string[] = []
@@ -65,10 +101,16 @@ export async function handler(
 
   response.render('attendance', {
     headTitle: 'Employee Attendance',
+
+    absenceRecords,
+    absenceTypes,
+    employees,
+
     callOutLists,
     callOutResponseTypes,
     employeeEligibilityFunctionNames,
     employeeSortKeyFunctionNames,
+
     employeePropertyNames
   })
 }

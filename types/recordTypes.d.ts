@@ -31,6 +31,28 @@ export interface EmployeeProperty extends RecordUserNameDateTime {
     propertyValue: string;
     isSynced?: boolean;
 }
+export interface AbsenceType extends RecordUserNameDateTime {
+    absenceTypeKey: string;
+    absenceType: string;
+    orderNumber?: number;
+}
+export interface AbsenceRecord extends Partial<AbsenceType>, RecordUserNameDateTime {
+    recordId: string;
+    employeeNumber?: string;
+    employeeName: string;
+    absenceDateTime: string | Date;
+    absenceTypeKey: string;
+    recordComment?: string;
+    returnDateTime?: string | Date;
+}
+export interface ReturnToWorkRecord extends RecordUserNameDateTime {
+    recordId: string;
+    employeeNumber?: string;
+    employeeName: string;
+    returnDateTime: string | Date;
+    returnShift?: string;
+    recordComment?: string;
+}
 export interface CallOutList extends RecordUserNameDateTime {
     listId: string;
     listName: string;
