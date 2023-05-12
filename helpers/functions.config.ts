@@ -11,6 +11,8 @@ import type { config as MSSQLConfig } from 'mssql'
 
 import type { Configuration as AvantiConfig } from '@cityssm/avanti-api'
 
+import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types'
+
 /*
  * SET UP FALLBACK VALUES
  */
@@ -62,7 +64,11 @@ export function getProperty(propertyName: 'application.userDomain'): string
 
 export function getProperty(
   propertyName: 'activeDirectory'
-): configTypes.ConfigActiveDirectory
+): configTypes.ConfigActiveDirectory | undefined
+
+export function getProperty(
+  propertyName: 'adWebAuthConfig'
+): ADWebAuthConfig | undefined
 
 export function getProperty(
   propertyName: 'application.maximumProcesses'

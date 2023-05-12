@@ -1,5 +1,6 @@
 import * as configFunctions from './functions.config.js';
 import ActiveDirectory from 'activedirectory2';
+import * as adWebAuth from '@cityssm/ad-web-auth-connector';
 const userDomain = configFunctions.getProperty('application.userDomain');
 const activeDirectoryConfig = configFunctions.getProperty('activeDirectory');
 async function authenticateViaActiveDirectory(userName, password) {
@@ -19,15 +20,24 @@ async function authenticateViaActiveDirectory(userName, password) {
         }
     });
 }
+const adWebAuthConfig = configFunctions.getProperty('adWebAuthConfig');
+async function authenticateViaADWebAuth(userName, password) {
+    return await adWebAuth.authenticate(userDomain + '\\' + userName, password, adWebAuthConfig);
+}
+const authenticateFunction = activeDirectoryConfig === undefined
+    ? authenticateViaADWebAuth
+    : authenticateViaActiveDirectory;
 export async function authenticate(userName, password) {
     if ((userName ?? '') === '' || (password ?? '') === '') {
         return false;
     }
-    return await authenticateViaActiveDirectory(userName, password);
+    return await authenticateFunction(userName, password);
 }
 const safeRedirects = new Set([
+    '/admin/employees',
     '/admin/users',
-    '/attendance'
+    '/attendance',
+    '/reports'
 ]);
 export function getSafeRedirectURL(possibleRedirectURL = '') {
     const urlPrefix = configFunctions.getProperty('reverseProxy.urlPrefix');

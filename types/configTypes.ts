@@ -2,6 +2,7 @@
 import type { config as MSSQLConfig } from 'mssql'
 
 import type { Configuration as AvantiConfig } from '@cityssm/avanti-api'
+import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types'
 
 import type { Employee } from './recordTypes'
 
@@ -26,7 +27,9 @@ export interface Config {
     disableEtag?: boolean
     urlPrefix?: `/${string}`
   }
+
   activeDirectory?: ConfigActiveDirectory
+  adWebAuthConfig?: ADWebAuthConfig
 
   mssql?: MSSQLConfig
   aliases: {
@@ -81,5 +84,8 @@ export interface ConfigEmployeeSortKeyFunction {
 
 export interface ConfigEmployeeEligibilityFunction {
   functionName: string
-  eligibilityFunction: (employee: Employee, employeePropertyName?: string) => boolean
+  eligibilityFunction: (
+    employee: Employee,
+    employeePropertyName?: string
+  ) => boolean
 }

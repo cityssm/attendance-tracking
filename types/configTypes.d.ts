@@ -1,5 +1,6 @@
 import type { config as MSSQLConfig } from 'mssql';
 import type { Configuration as AvantiConfig } from '@cityssm/avanti-api';
+import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types';
 import type { Employee } from './recordTypes';
 export interface Config {
     application: {
@@ -23,6 +24,7 @@ export interface Config {
         urlPrefix?: `/${string}`;
     };
     activeDirectory?: ConfigActiveDirectory;
+    adWebAuthConfig?: ADWebAuthConfig;
     mssql?: MSSQLConfig;
     aliases: {
         lot?: string;
