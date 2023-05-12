@@ -1,5 +1,4 @@
 "use strict";
-/* eslint-disable unicorn/prefer-string-replace-all */
 /* eslint-disable unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {

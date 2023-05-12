@@ -13,8 +13,9 @@
 An application built for Public Works departments to
 "**MON**itor and **T**rack **Y**our":
 
-- Call Out requests.
 - Employee absences.
+- Return to work calls.
+- Call Out requests.
 
 ## Features
 
@@ -22,6 +23,9 @@ An application built for Public Works departments to
   Enable as many features, or as few as you need.
 
 - **Sync employees** with payroll systems.
+
+- **Granular permissions** give users access to the areas they need,
+  and not the areas they don't.
 
 ## Prerequisities
 
@@ -34,3 +38,14 @@ An application built for Public Works departments to
 ### Optional
 
 - **Avanti** payroll system for employee synchronization.
+
+## About this Project
+
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Contributing Guidelines](CONTRIBUTING.md)
+- [Security Policy](SECURITY.md)
+- [MIT Licence](LICENSE.md)
+
+Although the system is quite niche, it's being released in an open source environment in hopes to pool developer resources from other municipalities looking to move away from older, legacy systems.
+
+It is being shared to start the dialog among other municipalities and present an option to those who may be looking to refresh or upgrade their employee call tracking.

@@ -27,15 +27,6 @@ export async function handler(request, response) {
             recentOnly: true
         });
     }
-    let employees = [];
-    if (permissionFunctions.hasPermission(request.session.user, 'attendance.absences.canUpdate') ||
-        permissionFunctions.hasPermission(request.session.user, 'attendance.returnsToWork.canUpdate')) {
-        employees = await getEmployees({
-            isActive: true
-        }, {
-            orderBy: 'employeeNumber'
-        });
-    }
     let callOutLists = [];
     let callOutResponseTypes = [];
     const employeeEligibilityFunctionNames = [];
@@ -60,6 +51,11 @@ export async function handler(request, response) {
             employeePropertyNames = await getEmployeePropertyNames();
         }
     }
+    const employees = await getEmployees({
+        isActive: true
+    }, {
+        orderBy: 'employeeNumber'
+    });
     response.render('attendance', {
         headTitle: 'Employee Attendance',
         absenceRecords,

@@ -1,5 +1,23 @@
 import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+const absenceRecordsRecentSQL = `select r.recordId,
+  r.employeeNumber, r.employeeName,
+  r.absenceDateTime, r.returnDateTime,
+  t.absenceType,
+  r.recordComment,
+  r.recordUpdate_userName, r.recordUpdate_dateTime
+  from MonTY.AbsenceRecords r
+  left join MonTY.AbsenceTypes t on r.absenceTypeKey = t.absenceTypeKey
+  where r.recordDelete_datetime is null
+  and datediff(day, r.absenceDateTime, getdate()) <= @recentDays`;
+const returnToWorkRecordsRecentSQL = `select r.recordId,
+  r.employeeNumber, r.employeeName,
+  r.returnDateTime, r.returnShift,
+  r.recordComment,
+  r.recordUpdate_userName, r.recordUpdate_dateTime
+  from MonTY.ReturnToWorkRecords r
+  where r.recordDelete_datetime is null
+  and datediff(day, r.returnDateTime, getdate()) <= @recentDays`;
 const callOutRecordsRecentSQL = `select r.recordId,
   r.listId, l.listName,
   r.employeeNumber, e.employeeSurname, e.employeeGivenName,
@@ -20,6 +38,37 @@ export async function getReportData(reportName, reportParameters = {}) {
     switch (reportName) {
         case 'employees-all': {
             sql = 'select * from MonTY.Employees';
+            break;
+        }
+        case 'absenceRecords-recent': {
+            sql = absenceRecordsRecentSQL + ' order by r.absenceDateTime, r.recordId';
+            request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
+            break;
+        }
+        case 'absenceRecords-recent-byEmployeeNumber': {
+            sql =
+                absenceRecordsRecentSQL +
+                    ` and r.employeeNumber = @employeeNumber
+          order by r.absenceDateTime, r.recordId`;
+            request = request
+                .input('recentDays', configFunctions.getProperty('settings.recentDays'))
+                .input('employeeNumber', reportParameters.employeeNumber);
+            break;
+        }
+        case 'returnToWorkRecords-recent': {
+            sql =
+                returnToWorkRecordsRecentSQL + ' order by r.returnDateTime, r.recordId';
+            request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
+            break;
+        }
+        case 'returnToWorkRecords-recent-byEmployeeNumber': {
+            sql =
+                returnToWorkRecordsRecentSQL +
+                    ` and r.employeeNumber = @employeeNumber
+          order by r.returnDateTime, r.recordId`;
+            request = request
+                .input('recentDays', configFunctions.getProperty('settings.recentDays'))
+                .input('employeeNumber', reportParameters.employeeNumber);
             break;
         }
         case 'callOutListMembers-formatted': {
@@ -64,7 +113,10 @@ export async function getReportData(reportName, reportParameters = {}) {
             break;
         }
         case 'callOutRecords-recent-byEmployeeNumber': {
-            sql = callOutRecordsRecentSQL + ' and r.employeeNumber = @employeeNumber';
+            sql =
+                callOutRecordsRecentSQL +
+                    ` and r.employeeNumber = @employeeNumber
+          order by r.callOutDateTime, r.recordId`;
             request = request
                 .input('recentDays', configFunctions.getProperty('settings.recentDays'))
                 .input('employeeNumber', reportParameters.employeeNumber);

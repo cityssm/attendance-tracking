@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prefer-string-replace-all */
 /* eslint-disable unicorn/prefer-module */
 
 import type * as globalTypes from '../types/globalTypes'

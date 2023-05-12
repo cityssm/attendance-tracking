@@ -1,3 +1,62 @@
-(() => {
+/* eslint-disable unicorn/prefer-module */
 
+import type * as globalTypes from '../types/globalTypes'
+import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
+import type { BulmaJS } from '@cityssm/bulma-js/types'
+import type * as recordTypes from '../types/recordTypes'
+
+declare const bulmaJS: BulmaJS
+
+declare const cityssm: cityssmGlobal
+;(() => {
+  const MonTY = exports.MonTY as globalTypes.MonTY
+
+  const employees = exports.employees as recordTypes.Employee[]
+
+  const employeesContainerElement = document.querySelector(
+    '#container--employees'
+  ) as HTMLElement
+
+  function renderEmployees(): void {
+    if (employees.length === 0) {
+      employeesContainerElement.innerHTML = `<div class="message is-warning">
+        <p class="message">There are no active employees to report.</p>
+        </div>`
+
+      return
+    }
+
+    const panelElement = document.createElement('div')
+    panelElement.className = 'panel'
+
+    for (const employee of employees) {
+      const panelBlockElement = document.createElement('a')
+      panelBlockElement.className = 'panel-block is-block'
+
+      panelBlockElement.innerHTML = `<div class="columns">
+        <div class="column">
+          <strong>${employee.employeeNumber}</strong>
+        </div>
+        <div class="column">
+          <strong>${employee.employeeSurname}, ${employee.employeeGivenName}</strong><br />
+          <span class="is-size-7">${employee.jobTitle ?? ''}</span>
+        </div>
+        </div>`
+
+      panelElement.append(panelBlockElement)
+    }
+
+    if (!panelElement.hasChildNodes()) {
+      employeesContainerElement.innerHTML = `<div class="message is-info">
+        <p class="message">There are no active employees that meet the search criteria.</p>
+        </div>`
+
+      return
+    }
+
+    employeesContainerElement.innerHTML = ''
+    employeesContainerElement.append(panelElement)
+  }
+
+  renderEmployees()
 })()

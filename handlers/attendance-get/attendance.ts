@@ -18,6 +18,10 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
+  /*
+   * Absence Records
+   */
+
   let absenceRecords: recordTypes.AbsenceRecord[] = []
   let absenceTypes: recordTypes.AbsenceType[] = []
 
@@ -43,6 +47,10 @@ export async function handler(
     }
   }
 
+  /*
+   * Return to Work Records
+   */
+
   let returnToWorkRecords: recordTypes.ReturnToWorkRecord[] = []
 
   if (
@@ -57,27 +65,9 @@ export async function handler(
     })
   }
 
-  let employees: recordTypes.Employee[] = []
-
-  if (
-    permissionFunctions.hasPermission(
-      request.session.user!,
-      'attendance.absences.canUpdate'
-    ) ||
-    permissionFunctions.hasPermission(
-      request.session.user!,
-      'attendance.returnsToWork.canUpdate'
-    )
-  ) {
-    employees = await getEmployees(
-      {
-        isActive: true
-      },
-      {
-        orderBy: 'employeeNumber'
-      }
-    )
-  }
+  /*
+   * Call Out Records
+   */
 
   let callOutLists: recordTypes.CallOutList[] = []
   let callOutResponseTypes: recordTypes.CallOutResponseType[] = []
@@ -129,6 +119,19 @@ export async function handler(
       employeePropertyNames = await getEmployeePropertyNames()
     }
   }
+
+  /*
+   * Response
+   */
+
+  const employees = await getEmployees(
+    {
+      isActive: true
+    },
+    {
+      orderBy: 'employeeNumber'
+    }
+  )
 
   response.render('attendance', {
     headTitle: 'Employee Attendance',

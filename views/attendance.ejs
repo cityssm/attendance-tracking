@@ -93,6 +93,10 @@
 <%- include('_footerA'); -%>
 
 <script src="<%= urlPrefix %>/javascripts/attendance.min.js"></script>
+
+<script>
+  exports.employees = <%- JSON.stringify(employees) %>;
+</script>
 <script src="<%= urlPrefix %>/javascripts/attendance.employees.min.js"></script>
 
 <% 
@@ -104,8 +108,6 @@
     exports.absenceTypes = <%- JSON.stringify(absenceTypes) %>;
 
     exports.returnToWorkRecords = <%- JSON.stringify(returnToWorkRecords) %>;
-
-    exports.employees = <%- JSON.stringify(employees) %>;
 
     exports.absencesCanUpdate = <%= permissionFunctions.hasPermission(user, 'attendance.absences.canUpdate') ? 'true' : 'false' %>;
     exports.returnsToWorkCanUpdate = <%= permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canUpdate') ? 'true' : 'false' %>;
