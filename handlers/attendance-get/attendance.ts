@@ -12,6 +12,7 @@ import { getEmployeePropertyNames } from '../../database/getEmployeePropertyName
 import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js'
 import { getAbsenceTypes } from '../../database/getAbsenceTypes.js'
 import { getEmployees } from '../../database/getEmployees.js'
+import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 
 export async function handler(
   request: Request,
@@ -19,7 +20,6 @@ export async function handler(
 ): Promise<void> {
   let absenceRecords: recordTypes.AbsenceRecord[] = []
   let absenceTypes: recordTypes.AbsenceType[] = []
-  let employees: recordTypes.Employee[] = []
 
   if (configFunctions.getProperty('features.attendance.absences')) {
     if (
@@ -40,12 +40,43 @@ export async function handler(
       )
     ) {
       absenceTypes = await getAbsenceTypes()
-      employees = await getEmployees({
-        isActive: true
-      }, {
-        orderBy: 'employeeNumber'
-      })
     }
+  }
+
+  let returnToWorkRecords: recordTypes.ReturnToWorkRecord[] = []
+
+  if (
+    configFunctions.getProperty('features.attendance.returnsToWork') &&
+    permissionFunctions.hasPermission(
+      request.session.user!,
+      'attendance.returnsToWork.canView'
+    )
+  ) {
+    returnToWorkRecords = await getReturnToWorkRecords({
+      recentOnly: true
+    })
+  }
+
+  let employees: recordTypes.Employee[] = []
+
+  if (
+    permissionFunctions.hasPermission(
+      request.session.user!,
+      'attendance.absences.canUpdate'
+    ) ||
+    permissionFunctions.hasPermission(
+      request.session.user!,
+      'attendance.returnsToWork.canUpdate'
+    )
+  ) {
+    employees = await getEmployees(
+      {
+        isActive: true
+      },
+      {
+        orderBy: 'employeeNumber'
+      }
+    )
   }
 
   let callOutLists: recordTypes.CallOutList[] = []
@@ -104,6 +135,9 @@ export async function handler(
 
     absenceRecords,
     absenceTypes,
+
+    returnToWorkRecords,
+
     employees,
 
     callOutLists,

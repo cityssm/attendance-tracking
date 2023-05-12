@@ -5,7 +5,6 @@ import type * as globalTypes from '../types/globalTypes'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 import type { BulmaJS } from '@cityssm/bulma-js/types'
 import type * as recordTypes from '../types/recordTypes'
-import { raw } from 'express'
 
 declare const bulmaJS: BulmaJS
 
@@ -18,6 +17,128 @@ declare const cityssm: cityssmGlobal
 
   const canUpdateAbsences = exports.absencesCanUpdate as boolean
   const canUpdateReturnsToWork = exports.returnsToWorkCanUpdate as boolean
+
+  let absenceRecords = exports.absenceRecords as recordTypes.AbsenceRecord[]
+  let returnToWorkRecords =
+    exports.returnToWorkRecords as recordTypes.ReturnToWorkRecord[]
+
+  function renderAbsenceRecords(): void {
+    const containerElement = document.querySelector(
+      '#container--absences'
+    ) as HTMLElement
+
+    if (containerElement === null) {
+      return
+    }
+
+    if (absenceRecords.length === 0) {
+      containerElement.innerHTML = `<div class="message is-info">
+        <p class="message-body">There are no recent absence records to show.</p>
+        </div>`
+
+      return
+    }
+
+    const panelElement = document.createElement('div')
+    panelElement.className = 'panel'
+
+    for (const absenceRecord of absenceRecords) {
+      const absenceDate = new Date(absenceRecord.absenceDateTime)
+
+      const panelBlockElement = document.createElement('div')
+      panelBlockElement.className = 'panel-block is-block'
+
+      if (Date.now() - absenceDate.getTime() <= 86_400 * 1000) {
+        panelBlockElement.classList.add('has-background-success-light')
+      }
+
+      panelBlockElement.innerHTML = `<div class="columns">
+        <div class="column is-narrow">
+          <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+        </div>
+        <div class="column">
+          <strong data-tooltip="Absence Date">
+            ${absenceDate.toLocaleDateString()}
+          </strong>
+        </div>
+        <div class="column">
+          <strong>${absenceRecord.employeeName}</strong><br />
+          <span class="is-size-7">${absenceRecord.employeeNumber ?? ''}</span>
+        </div>
+        <div class="column">
+          <strong data-tooltip="Absence Type">${
+            absenceRecord.absenceType ?? absenceRecord.absenceTypeKey
+          }</strong><br />
+          <span class="is-size-7">${absenceRecord.recordComment ?? ''}</span>
+        </div>
+        </div>`
+
+      panelElement.append(panelBlockElement)
+    }
+
+    containerElement.innerHTML = ''
+    containerElement.append(panelElement)
+  }
+
+  function renderReturnToWorkRecords(): void {
+    const containerElement = document.querySelector(
+      '#container--returnsToWork'
+    ) as HTMLElement
+
+    if (containerElement === null) {
+      return
+    }
+
+    if (absenceRecords.length === 0) {
+      containerElement.innerHTML = `<div class="message is-info">
+        <p class="message-body">There are no recent return to work records to show.</p>
+        </div>`
+
+      return
+    }
+
+    const panelElement = document.createElement('div')
+    panelElement.className = 'panel'
+
+    for (const returnToWorkRecord of returnToWorkRecords) {
+      const returnDate = new Date(returnToWorkRecord.returnDateTime)
+
+      const panelBlockElement = document.createElement('div')
+      panelBlockElement.className = 'panel-block is-block'
+
+      if (Date.now() - returnDate.getTime() <= 86_400 * 1000) {
+        panelBlockElement.classList.add('has-background-success-light')
+      }
+
+      panelBlockElement.innerHTML = `<div class="columns">
+        <div class="column is-narrow">
+          <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+        </div>
+        <div class="column">
+          <strong data-tooltip="Return Date">${returnDate.toLocaleDateString()}</strong>
+        </div>
+        <div class="column">
+          <strong>${returnToWorkRecord.employeeName}</strong><br />
+          <span class="is-size-7">${
+            returnToWorkRecord.employeeNumber ?? ''
+          }</span>
+        </div>
+        <div class="column">
+          <strong data-tooltip="Return Shift">${
+            returnToWorkRecord.returnShift ?? '(No Shift)'
+          }</strong><br />
+          <span class="is-size-7">${
+            returnToWorkRecord.recordComment ?? ''
+          }</span>
+        </div>
+        </div>`
+
+      panelElement.append(panelBlockElement)
+    }
+
+    containerElement.innerHTML = ''
+    containerElement.append(panelElement)
+  }
 
   function openCallInModal(clickEvent: Event): void {
     let callInModalElement: HTMLElement
@@ -111,6 +232,19 @@ declare const cityssm: cityssmGlobal
 
           if (responseJSON.success) {
             callInCloseModalFunction()
+
+            switch (responseJSON.callInType) {
+              case 'absence': {
+                absenceRecords = responseJSON.absenceRecords!
+                renderAbsenceRecords()
+                break
+              }
+              case 'returnToWork': {
+                returnToWorkRecords = responseJSON.returnToWorkRecords!
+                renderReturnToWorkRecords()
+                break
+              }
+            }
           }
         }
       )
@@ -122,7 +256,7 @@ declare const cityssm: cityssmGlobal
 
         if (canUpdateAbsences) {
           ;(modalElement.querySelector(
-            '#callInAdd--absenceDateTime-absence'
+            '#callInAdd--absenceDateString-absence'
           ) as HTMLInputElement)!.valueAsDate = new Date()
 
           const absenceTypeElement = modalElement.querySelector(
@@ -167,11 +301,16 @@ declare const cityssm: cityssmGlobal
     })
   }
 
-  const addCallInButtonElements = document.querySelectorAll(
-    '.is-new-call-in-button'
-  )
+  if (canUpdateAbsences || canUpdateReturnsToWork) {
+    const addCallInButtonElements = document.querySelectorAll(
+      '.is-new-call-in-button'
+    )
 
-  for (const buttonElement of addCallInButtonElements) {
-    buttonElement.addEventListener('click', openCallInModal)
+    for (const buttonElement of addCallInButtonElements) {
+      buttonElement.addEventListener('click', openCallInModal)
+    }
   }
+
+  renderAbsenceRecords()
+  renderReturnToWorkRecords()
 })()

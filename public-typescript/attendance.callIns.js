@@ -8,6 +8,94 @@ Object.defineProperty(exports, "__esModule", { value: true });
     const employees = exports.employees;
     const canUpdateAbsences = exports.absencesCanUpdate;
     const canUpdateReturnsToWork = exports.returnsToWorkCanUpdate;
+    let absenceRecords = exports.absenceRecords;
+    let returnToWorkRecords = exports.returnToWorkRecords;
+    function renderAbsenceRecords() {
+        var _a, _b, _c;
+        const containerElement = document.querySelector('#container--absences');
+        if (containerElement === null) {
+            return;
+        }
+        if (absenceRecords.length === 0) {
+            containerElement.innerHTML = `<div class="message is-info">
+        <p class="message-body">There are no recent absence records to show.</p>
+        </div>`;
+            return;
+        }
+        const panelElement = document.createElement('div');
+        panelElement.className = 'panel';
+        for (const absenceRecord of absenceRecords) {
+            const absenceDate = new Date(absenceRecord.absenceDateTime);
+            const panelBlockElement = document.createElement('div');
+            panelBlockElement.className = 'panel-block is-block';
+            if (Date.now() - absenceDate.getTime() <= 86400 * 1000) {
+                panelBlockElement.classList.add('has-background-success-light');
+            }
+            panelBlockElement.innerHTML = `<div class="columns">
+        <div class="column is-narrow">
+          <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+        </div>
+        <div class="column">
+          <strong data-tooltip="Absence Date">
+            ${absenceDate.toLocaleDateString()}
+          </strong>
+        </div>
+        <div class="column">
+          <strong>${absenceRecord.employeeName}</strong><br />
+          <span class="is-size-7">${(_a = absenceRecord.employeeNumber) !== null && _a !== void 0 ? _a : ''}</span>
+        </div>
+        <div class="column">
+          <strong data-tooltip="Absence Type">${(_b = absenceRecord.absenceType) !== null && _b !== void 0 ? _b : absenceRecord.absenceTypeKey}</strong><br />
+          <span class="is-size-7">${(_c = absenceRecord.recordComment) !== null && _c !== void 0 ? _c : ''}</span>
+        </div>
+        </div>`;
+            panelElement.append(panelBlockElement);
+        }
+        containerElement.innerHTML = '';
+        containerElement.append(panelElement);
+    }
+    function renderReturnToWorkRecords() {
+        var _a, _b, _c;
+        const containerElement = document.querySelector('#container--returnsToWork');
+        if (containerElement === null) {
+            return;
+        }
+        if (absenceRecords.length === 0) {
+            containerElement.innerHTML = `<div class="message is-info">
+        <p class="message-body">There are no recent return to work records to show.</p>
+        </div>`;
+            return;
+        }
+        const panelElement = document.createElement('div');
+        panelElement.className = 'panel';
+        for (const returnToWorkRecord of returnToWorkRecords) {
+            const returnDate = new Date(returnToWorkRecord.returnDateTime);
+            const panelBlockElement = document.createElement('div');
+            panelBlockElement.className = 'panel-block is-block';
+            if (Date.now() - returnDate.getTime() <= 86400 * 1000) {
+                panelBlockElement.classList.add('has-background-success-light');
+            }
+            panelBlockElement.innerHTML = `<div class="columns">
+        <div class="column is-narrow">
+          <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+        </div>
+        <div class="column">
+          <strong data-tooltip="Return Date">${returnDate.toLocaleDateString()}</strong>
+        </div>
+        <div class="column">
+          <strong>${returnToWorkRecord.employeeName}</strong><br />
+          <span class="is-size-7">${(_a = returnToWorkRecord.employeeNumber) !== null && _a !== void 0 ? _a : ''}</span>
+        </div>
+        <div class="column">
+          <strong data-tooltip="Return Shift">${(_b = returnToWorkRecord.returnShift) !== null && _b !== void 0 ? _b : '(No Shift)'}</strong><br />
+          <span class="is-size-7">${(_c = returnToWorkRecord.recordComment) !== null && _c !== void 0 ? _c : ''}</span>
+        </div>
+        </div>`;
+            panelElement.append(panelBlockElement);
+        }
+        containerElement.innerHTML = '';
+        containerElement.append(panelElement);
+    }
     function openCallInModal(clickEvent) {
         let callInModalElement;
         let callInCloseModalFunction;
@@ -64,6 +152,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     callInCloseModalFunction();
+                    switch (responseJSON.callInType) {
+                        case 'absence': {
+                            absenceRecords = responseJSON.absenceRecords;
+                            renderAbsenceRecords();
+                            break;
+                        }
+                        case 'returnToWork': {
+                            returnToWorkRecords = responseJSON.returnToWorkRecords;
+                            renderReturnToWorkRecords();
+                            break;
+                        }
+                    }
                 }
             });
         }
@@ -73,7 +173,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 callInModalElement = modalElement;
                 if (canUpdateAbsences) {
                     ;
-                    modalElement.querySelector('#callInAdd--absenceDateTime-absence').valueAsDate = new Date();
+                    modalElement.querySelector('#callInAdd--absenceDateString-absence').valueAsDate = new Date();
                     const absenceTypeElement = modalElement.querySelector('#callInAdd--absenceTypeKey-absence');
                     for (const absenceType of absenceTypes) {
                         const optionElement = document.createElement('option');
@@ -104,8 +204,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
             }
         });
     }
-    const addCallInButtonElements = document.querySelectorAll('.is-new-call-in-button');
-    for (const buttonElement of addCallInButtonElements) {
-        buttonElement.addEventListener('click', openCallInModal);
+    if (canUpdateAbsences || canUpdateReturnsToWork) {
+        const addCallInButtonElements = document.querySelectorAll('.is-new-call-in-button');
+        for (const buttonElement of addCallInButtonElements) {
+            buttonElement.addEventListener('click', openCallInModal);
+        }
     }
+    renderAbsenceRecords();
+    renderReturnToWorkRecords();
 })();

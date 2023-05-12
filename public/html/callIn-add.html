@@ -40,7 +40,7 @@
           <div class="field is-grouped">
             <div class="control">
               <label class="button">
-                <input class="is-hidden" id="callInAdd--callInType_absence" name="callInType" type="radio" value="absence" />
+                <input class="is-hidden" id="callInAdd--callInType_absence" name="callInType" type="radio" value="absence" required />
                 <span class="icon mr-2">
                   <i class="fas fa-fw fa-minus" aria-hidden="true"></i>
                 </span>
@@ -49,7 +49,7 @@
             </div>
             <div class="control">
               <label class="button">
-                <input class="is-hidden" id="callInAdd--callInType_returnToWork" name="callInType" type="radio" value="returnToWork" />
+                <input class="is-hidden" id="callInAdd--callInType_returnToWork" name="callInType" type="radio" value="returnToWork" required />
                 <span class="icon mr-2">
                   <i class="fas fa-fw fa-minus" aria-hidden="true"></i>
                 </span>
@@ -62,9 +62,9 @@
           <div class="columns">
             <div class="column">
               <div class="field">
-                <label class="label" for="callInAdd--absenceDateTime-absence">Absence Date</label>
+                <label class="label" for="callInAdd--absenceDateString-absence">Absence Date</label>
                 <div class="control">
-                  <input class="input" id="callInAdd--absenceDateTime-absence" name="absenceDateTime" type="date" required />
+                  <input class="input" id="callInAdd--absenceDateString-absence" name="absenceDateString" type="date" required />
                 </div>
               </div>
             </div>
@@ -82,9 +82,9 @@
             </div>
           </div>
           <div class="field">
-            <label class="label" for="callInAdd--returnDateTime-absence">Expected Return Date</label>
+            <label class="label" for="callInAdd--returnDateString-absence">Expected Return Date</label>
             <div class="control">
-              <input class="input" id="callInAdd--returnDateTime-absence" name="returnDateTime" type="date" />
+              <input class="input" id="callInAdd--returnDateString-absence" name="returnDateString" type="date" />
             </div>
           </div>
         </fieldset>
@@ -92,9 +92,9 @@
           <div class="columns">
             <div class="column">
               <div class="field">
-                <label class="label" for="callInAdd--returnDateTime-returnToWork">Return Date</label>
+                <label class="label" for="callInAdd--returnDateString-returnToWork">Return Date</label>
                 <div class="control">
-                  <input class="input" id="callInAdd--returnDateTime-returnToWork" name="returnDateTime" type="date" required />
+                  <input class="input" id="callInAdd--returnDateString-returnToWork" name="returnDateString" type="date" required />
                 </div>
               </div>
             </div>

@@ -6,10 +6,10 @@ import { getEmployeePropertyNames } from '../../database/getEmployeePropertyName
 import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js';
 import { getAbsenceTypes } from '../../database/getAbsenceTypes.js';
 import { getEmployees } from '../../database/getEmployees.js';
+import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js';
 export async function handler(request, response) {
     let absenceRecords = [];
     let absenceTypes = [];
-    let employees = [];
     if (configFunctions.getProperty('features.attendance.absences')) {
         if (permissionFunctions.hasPermission(request.session.user, 'attendance.absences.canView')) {
             absenceRecords = await getAbsenceRecords({
@@ -18,12 +18,23 @@ export async function handler(request, response) {
         }
         if (permissionFunctions.hasPermission(request.session.user, 'attendance.absences.canUpdate')) {
             absenceTypes = await getAbsenceTypes();
-            employees = await getEmployees({
-                isActive: true
-            }, {
-                orderBy: 'employeeNumber'
-            });
         }
+    }
+    let returnToWorkRecords = [];
+    if (configFunctions.getProperty('features.attendance.returnsToWork') &&
+        permissionFunctions.hasPermission(request.session.user, 'attendance.returnsToWork.canView')) {
+        returnToWorkRecords = await getReturnToWorkRecords({
+            recentOnly: true
+        });
+    }
+    let employees = [];
+    if (permissionFunctions.hasPermission(request.session.user, 'attendance.absences.canUpdate') ||
+        permissionFunctions.hasPermission(request.session.user, 'attendance.returnsToWork.canUpdate')) {
+        employees = await getEmployees({
+            isActive: true
+        }, {
+            orderBy: 'employeeNumber'
+        });
     }
     let callOutLists = [];
     let callOutResponseTypes = [];
@@ -53,6 +64,7 @@ export async function handler(request, response) {
         headTitle: 'Employee Attendance',
         absenceRecords,
         absenceTypes,
+        returnToWorkRecords,
         employees,
         callOutLists,
         callOutResponseTypes,

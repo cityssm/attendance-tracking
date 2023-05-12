@@ -102,6 +102,9 @@
   <script>
     exports.absenceRecords = <%- JSON.stringify(absenceRecords) %>;
     exports.absenceTypes = <%- JSON.stringify(absenceTypes) %>;
+
+    exports.returnToWorkRecords = <%- JSON.stringify(returnToWorkRecords) %>;
+
     exports.employees = <%- JSON.stringify(employees) %>;
 
     exports.absencesCanUpdate = <%= permissionFunctions.hasPermission(user, 'attendance.absences.canUpdate') ? 'true' : 'false' %>;

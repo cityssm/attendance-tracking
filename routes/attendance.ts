@@ -11,6 +11,8 @@ import * as permissionFunctions from '../helpers/functions.permissions.js'
 
 import handler_attendance from '../handlers/attendance-get/attendance.js'
 
+import handler_doRecordCallIn from '../handlers/attendance-post/doRecordCallIn.js'
+
 import handler_doCreateCallOutList from '../handlers/attendance-post/doCreateCallOutList.js'
 import handler_doUpdateCallOutList from '../handlers/attendance-post/doUpdateCallOutList.js'
 import handler_doDeleteCallOutList from '../handlers/attendance-post/doDeleteCallOutList.js'
@@ -81,6 +83,17 @@ function callOutsManagePostHandler(
 export const router = Router()
 
 router.get('/', handler_attendance as RequestHandler)
+
+/*
+ * Absences / Returns to Work
+ */
+
+if (
+  configFunctions.getProperty('features.attendance.absences') ||
+  configFunctions.getProperty('features.attendance.returnsToWork')
+) {
+  router.post('/doRecordCallIn', handler_doRecordCallIn as RequestHandler)
+}
 
 /*
  * Call Outs

@@ -3,26 +3,24 @@ import * as configFunctions from '../helpers/functions.config.js'
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import type { AbsenceRecord } from '../types/recordTypes'
+import type { ReturnToWorkRecord } from '../types/recordTypes'
 
-interface GetAbsenceRecordsFilters {
+interface GetReturnToWorkRecordsFilters {
   employeeNumber?: string
   recentOnly: boolean
 }
 
-export async function getAbsenceRecords(
-  filters: GetAbsenceRecordsFilters
-): Promise<AbsenceRecord[]> {
+export async function getReturnToWorkRecords(
+  filters: GetReturnToWorkRecordsFilters
+): Promise<ReturnToWorkRecord[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
   let sql = `select r.recordId,
     r.employeeNumber, r.employeeName,
-    r.absenceDateTime, r.returnDateTime,
-    r.absenceTypeKey, t.absenceType,
+    r.returnDateTime, r.returnShift,
     r.recordComment,
     r.recordCreate_userName
-    from MonTY.AbsenceRecords r
-    left join MonTY.AbsenceTypes t on r.absenceTypeKey = t.absenceTypeKey
+    from MonTY.ReturnToWorkRecords r
     where r.recordDelete_dateTime is null`
 
   let request = pool.request()
@@ -33,16 +31,16 @@ export async function getAbsenceRecords(
   }
 
   if (filters.recentOnly) {
-    sql += ' and datediff(day, r.absenceDateTime, getdate()) <= @recentDays'
+    sql += ' and datediff(day, r.returnDateTime, getdate()) <= @recentDays'
     request = request.input(
       'recentDays',
       configFunctions.getProperty('settings.recentDays')
     )
   }
 
-  sql += ' order by r.absenceDateTime desc, r.recordId desc'
+  sql += ' order by r.returnDateTime desc, r.recordId desc'
 
-  const recordsResult: IResult<AbsenceRecord> = await request.query(sql)
+  const recordsResult: IResult<ReturnToWorkRecord> = await request.query(sql)
 
   return recordsResult.recordset
 }
