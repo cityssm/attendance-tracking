@@ -18,7 +18,7 @@ export async function getCallOutRecords(filters: GetCallOutRecordsFilters): Prom
     r.callOutDateTime, r.callOutHours,
     r.responseTypeId, t.responseType, t.isSuccessful,
     r.recordComment,
-    r.recordCreate_userName
+    r.recordCreate_userName, r.recordCreate_dateTime
     from MonTY.CallOutRecords r
     left join MonTY.CallOutResponseTypes t on r.responseTypeId = t.responseTypeId
     where r.recordDelete_dateTime is null`

@@ -7,7 +7,7 @@ export async function getAbsenceRecords(filters) {
     r.absenceDateTime, r.returnDateTime,
     r.absenceTypeKey, t.absenceType,
     r.recordComment,
-    r.recordCreate_userName
+    r.recordCreate_userName, r.recordCreate_dateTime
     from MonTY.AbsenceRecords r
     left join MonTY.AbsenceTypes t on r.absenceTypeKey = t.absenceTypeKey
     where r.recordDelete_dateTime is null`;

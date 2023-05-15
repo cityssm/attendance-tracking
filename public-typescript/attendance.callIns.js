@@ -23,12 +23,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         const panelElement = document.createElement('div');
         panelElement.className = 'panel';
+        let todayCount = 0;
         for (const absenceRecord of absenceRecords) {
             const absenceDate = new Date(absenceRecord.absenceDateTime);
             const panelBlockElement = document.createElement('div');
             panelBlockElement.className = 'panel-block is-block';
             if (Date.now() - absenceDate.getTime() <= 86400 * 1000) {
                 panelBlockElement.classList.add('has-background-success-light');
+                todayCount += 1;
             }
             panelBlockElement.innerHTML = `<div class="columns">
         <div class="column is-narrow">
@@ -52,6 +54,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         containerElement.innerHTML = '';
         containerElement.append(panelElement);
+        document.querySelector('#menu--attendance a[href="#tab--absences"] .tag').textContent = todayCount.toString();
     }
     function renderReturnToWorkRecords() {
         var _a, _b, _c;
@@ -67,12 +70,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         const panelElement = document.createElement('div');
         panelElement.className = 'panel';
+        let todayCount = 0;
         for (const returnToWorkRecord of returnToWorkRecords) {
             const returnDate = new Date(returnToWorkRecord.returnDateTime);
             const panelBlockElement = document.createElement('div');
             panelBlockElement.className = 'panel-block is-block';
             if (Date.now() - returnDate.getTime() <= 86400 * 1000) {
                 panelBlockElement.classList.add('has-background-success-light');
+                todayCount += 1;
             }
             panelBlockElement.innerHTML = `<div class="columns">
         <div class="column is-narrow">
@@ -94,6 +99,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         containerElement.innerHTML = '';
         containerElement.append(panelElement);
+        document.querySelector('#menu--attendance a[href="#tab--returnsToWork"] .tag').textContent = todayCount.toString();
     }
     function openCallInModal(clickEvent) {
         let callInModalElement;

@@ -10,21 +10,27 @@
         <ul class="menu-list">
           <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
             <li>
-              <a class="is-active" href="#tab--absences">
-                <span class="icon">
-                  <i class="fas fa-fw fa-sign-out-alt" aria-hidden="true"></i>
+              <a class="is-active is-justify-content-space-between" href="#tab--absences">
+                <span>
+                  <span class="icon">
+                    <i class="fas fa-fw fa-sign-out-alt" aria-hidden="true"></i>
+                  </span>
+                  <span>Absence Requests</span>
                 </span>
-                <span>Absence Requests</span>
+                <span class="tag has-tooltip-left" data-tooltip="Past 24 Hours">0</span>
               </a>
             </li>
           <% } %>
           <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
             <li>
-              <a href="#tab--returnsToWork">
-                <span class="icon">
-                  <i class="fas fa-fw fa-sign-in-alt" aria-hidden="true"></i>
+              <a class="is-justify-content-space-between" href="#tab--returnsToWork">
+                <span>
+                  <span class="icon">
+                    <i class="fas fa-fw fa-sign-in-alt" aria-hidden="true"></i>
+                  </span>
+                  <span>Returns to Work</span>
                 </span>
-                <span>Returns to Work</span>
+                <span class="tag has-tooltip-left" data-tooltip="Past 24 Hours">0</span>
               </a>
             </li>
           <% } %>
@@ -96,6 +102,7 @@
 
 <script>
   exports.employees = <%- JSON.stringify(employees) %>;
+  exports.recentDays = <%- configFunctions.getProperty('settings.recentDays') %>;
 </script>
 <script src="<%= urlPrefix %>/javascripts/attendance.employees.min.js"></script>
 

@@ -24,6 +24,8 @@ import handler_doGetCallOutRecords from '../handlers/attendance-post/doGetCallOu
 import handler_doAddCallOutRecord from '../handlers/attendance-post/doAddCallOutRecord.js'
 import handler_doDeleteCallOutRecord from '../handlers/attendance-post/doDeleteCallOutRecord.js'
 
+import handler_doGetAttendanceRecords from '../handlers/attendance-post/doGetAttendanceRecords.js'
+
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js'
 
 function callOutsViewPostHandler(
@@ -154,5 +156,14 @@ if (configFunctions.getProperty('features.attendance.callOuts')) {
     handler_doDeleteCallOutRecord as RequestHandler
   )
 }
+
+/*
+ * Employees
+ */
+
+router.post(
+  '/doGetAttendanceRecords',
+  handler_doGetAttendanceRecords as RequestHandler
+)
 
 export default router

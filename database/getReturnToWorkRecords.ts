@@ -19,7 +19,7 @@ export async function getReturnToWorkRecords(
     r.employeeNumber, r.employeeName,
     r.returnDateTime, r.returnShift,
     r.recordComment,
-    r.recordCreate_userName
+    r.recordCreate_userName, r.recordCreate_dateTime
     from MonTY.ReturnToWorkRecords r
     where r.recordDelete_dateTime is null`
 

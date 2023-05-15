@@ -2,10 +2,10 @@
 
 import type * as globalTypes from '../types/globalTypes'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
-import type { BulmaJS } from '@cityssm/bulma-js/types'
+// import type { BulmaJS } from '@cityssm/bulma-js/types'
 import type * as recordTypes from '../types/recordTypes'
 
-declare const bulmaJS: BulmaJS
+// declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
@@ -41,6 +41,8 @@ declare const cityssm: cityssmGlobal
     const panelElement = document.createElement('div')
     panelElement.className = 'panel'
 
+    let todayCount = 0
+
     for (const absenceRecord of absenceRecords) {
       const absenceDate = new Date(absenceRecord.absenceDateTime)
 
@@ -49,6 +51,7 @@ declare const cityssm: cityssmGlobal
 
       if (Date.now() - absenceDate.getTime() <= 86_400 * 1000) {
         panelBlockElement.classList.add('has-background-success-light')
+        todayCount += 1
       }
 
       panelBlockElement.innerHTML = `<div class="columns">
@@ -77,6 +80,8 @@ declare const cityssm: cityssmGlobal
 
     containerElement.innerHTML = ''
     containerElement.append(panelElement)
+
+    document.querySelector('#menu--attendance a[href="#tab--absences"] .tag')!.textContent = todayCount.toString()
   }
 
   function renderReturnToWorkRecords(): void {
@@ -99,6 +104,8 @@ declare const cityssm: cityssmGlobal
     const panelElement = document.createElement('div')
     panelElement.className = 'panel'
 
+    let todayCount = 0
+
     for (const returnToWorkRecord of returnToWorkRecords) {
       const returnDate = new Date(returnToWorkRecord.returnDateTime)
 
@@ -107,6 +114,7 @@ declare const cityssm: cityssmGlobal
 
       if (Date.now() - returnDate.getTime() <= 86_400 * 1000) {
         panelBlockElement.classList.add('has-background-success-light')
+        todayCount += 1
       }
 
       panelBlockElement.innerHTML = `<div class="columns">
@@ -137,6 +145,8 @@ declare const cityssm: cityssmGlobal
 
     containerElement.innerHTML = ''
     containerElement.append(panelElement)
+
+    document.querySelector('#menu--attendance a[href="#tab--returnsToWork"] .tag')!.textContent = todayCount.toString()
   }
 
   function openCallInModal(clickEvent: Event): void {

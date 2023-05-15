@@ -129,7 +129,7 @@ export async function handler(
       isActive: true
     },
     {
-      orderBy: 'employeeNumber'
+      orderBy: 'name'
     }
   )
 

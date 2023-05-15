@@ -54,7 +54,7 @@ export async function handler(request, response) {
     const employees = await getEmployees({
         isActive: true
     }, {
-        orderBy: 'employeeNumber'
+        orderBy: 'name'
     });
     response.render('attendance', {
         headTitle: 'Employee Attendance',
