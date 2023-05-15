@@ -5,6 +5,7 @@ import handler_doUpdateEmployee from '../handlers/admin-post/doUpdateEmployee.js
 import handler_doAddEmployeeProperty from '../handlers/admin-post/doAddEmployeeProperty.js';
 import handler_doUpdateEmployeeProperty from '../handlers/admin-post/doUpdateEmployeeProperty.js';
 import handler_doDeleteEmployeeProperty from '../handlers/admin-post/doDeleteEmployeeProperty.js';
+import handler_tables from '../handlers/admin-get/tables.js';
 import handler_users from '../handlers/admin-get/users.js';
 import handler_doUpdateUserCanLogin from '../handlers/admin-post/doUpdateUserCanLogin.js';
 import handler_doUpdateUserIsAdmin from '../handlers/admin-post/doUpdateUserIsAdmin.js';
@@ -19,6 +20,7 @@ router.post('/doUpdateEmployee', handler_doUpdateEmployee);
 router.post('/doAddEmployeeProperty', handler_doAddEmployeeProperty);
 router.post('/doUpdateEmployeeProperty', handler_doUpdateEmployeeProperty);
 router.post('/doDeleteEmployeeProperty', handler_doDeleteEmployeeProperty);
+router.get('/tables', handler_tables);
 router.get('/users', handler_users);
 router.post('/doUpdateUserCanLogin', handler_doUpdateUserCanLogin);
 router.post('/doUpdateUserIsAdmin', handler_doUpdateUserIsAdmin);

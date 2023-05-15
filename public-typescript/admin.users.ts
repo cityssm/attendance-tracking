@@ -329,6 +329,17 @@ declare const cityssm: cityssmGlobal
 
       tableRowElement.innerHTML = `<td class="is-vcentered">
           ${user.userName}
+            ${
+              (user.employeeSurname ?? '') === ''
+                ? ''
+                : `<br />
+                  <span class="is-size-7">
+                  <i class="fas fa-hard-hat" aria-hidden="true"></i> ${
+                    user.employeeSurname ?? ''
+                  }, ${user.employeeGivenName ?? ''}
+                  </span>`
+            }
+          
         </td>
         <td>
           <div class="control has-icons-left">

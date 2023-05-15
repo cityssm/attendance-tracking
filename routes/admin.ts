@@ -10,6 +10,8 @@ import handler_doAddEmployeeProperty from '../handlers/admin-post/doAddEmployeeP
 import handler_doUpdateEmployeeProperty from '../handlers/admin-post/doUpdateEmployeeProperty.js'
 import handler_doDeleteEmployeeProperty from '../handlers/admin-post/doDeleteEmployeeProperty.js'
 
+import handler_tables from '../handlers/admin-get/tables.js'
+
 import handler_users from '../handlers/admin-get/users.js'
 
 import handler_doUpdateUserCanLogin from '../handlers/admin-post/doUpdateUserCanLogin.js'
@@ -48,6 +50,12 @@ router.post(
   '/doDeleteEmployeeProperty',
   handler_doDeleteEmployeeProperty as RequestHandler
 )
+
+/*
+ * Table Maintenance
+ */
+
+router.get('/tables', handler_tables as RequestHandler)
 
 /*
  * User Maintenance

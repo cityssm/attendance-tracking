@@ -91,6 +91,9 @@ export interface User extends RecordUserNameDateTime {
     userName: string;
     canLogin: boolean;
     isAdmin: boolean;
+    employeeNumber?: string;
+    employeeSurname?: string;
+    employeeGivenName?: string;
     permissions?: Partial<Record<keyof typeof availablePermissionValues, string>>;
 }
 declare module 'express-session' {

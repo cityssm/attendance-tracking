@@ -210,13 +210,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
         });
     }
     function renderUsers() {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e, _f, _g;
         usersTableBodyElement.innerHTML = '';
         for (const user of users) {
             const tableRowElement = document.createElement('tr');
             tableRowElement.dataset.userName = user.userName;
             tableRowElement.innerHTML = `<td class="is-vcentered">
           ${user.userName}
+            ${((_a = user.employeeSurname) !== null && _a !== void 0 ? _a : '') === ''
+                ? ''
+                : `<br />
+                  <span class="is-size-7">
+                  <i class="fas fa-hard-hat" aria-hidden="true"></i> ${(_b = user.employeeSurname) !== null && _b !== void 0 ? _b : ''}, ${(_c = user.employeeGivenName) !== null && _c !== void 0 ? _c : ''}
+                  </span>`}
+          
         </td>
         <td>
           <div class="control has-icons-left">
@@ -263,14 +270,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
             <span class="icon is-small"><i class="fas fa-trash" aria-hidden="true"></i></span>
           </button>
         </td>`;
-            (_a = tableRowElement
-                .querySelector('select[data-field="canLogin"]')) === null || _a === void 0 ? void 0 : _a.addEventListener('change', toggleCanLogin);
-            (_b = tableRowElement
-                .querySelector('select[data-field="isAdmin"]')) === null || _b === void 0 ? void 0 : _b.addEventListener('change', toggleIsAdmin);
-            (_c = tableRowElement
-                .querySelector('.is-user-permissions-button')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', openUserPermissionsModal);
             (_d = tableRowElement
-                .querySelector('.is-delete-button')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', deleteUser);
+                .querySelector('select[data-field="canLogin"]')) === null || _d === void 0 ? void 0 : _d.addEventListener('change', toggleCanLogin);
+            (_e = tableRowElement
+                .querySelector('select[data-field="isAdmin"]')) === null || _e === void 0 ? void 0 : _e.addEventListener('change', toggleIsAdmin);
+            (_f = tableRowElement
+                .querySelector('.is-user-permissions-button')) === null || _f === void 0 ? void 0 : _f.addEventListener('click', openUserPermissionsModal);
+            (_g = tableRowElement
+                .querySelector('.is-delete-button')) === null || _g === void 0 ? void 0 : _g.addEventListener('click', deleteUser);
             usersTableBodyElement.append(tableRowElement);
         }
     }
