@@ -163,7 +163,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         cityssm.openHtmlModal('employeeAdmin-employee', {
             onshow(modalElement) {
-                var _a, _b, _c, _d, _e, _f, _g;
+                var _a, _b, _c, _d, _e, _f, _g, _h;
                 employeeModalElement = modalElement;
                 modalElement.querySelector('.modal-card-title').textContent =
                     employee.employeeSurname + ', ' + employee.employeeGivenName;
@@ -174,18 +174,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 modalElement.querySelector('#employeeEdit--employeeSurname').value = employee.employeeSurname;
                 modalElement.querySelector('#employeeEdit--employeeGivenName').value = employee.employeeGivenName;
                 modalElement.querySelector('#employeeEdit--jobTitle').value = (_a = employee.jobTitle) !== null && _a !== void 0 ? _a : '';
-                modalElement.querySelector('#employeeEdit--department').value = (_b = employee.department) !== null && _b !== void 0 ? _b : '';
-                if (((_c = employee.seniorityDateTime) !== null && _c !== void 0 ? _c : '') !== '') {
+                modalElement.querySelector('#employeeEdit--userName').value = (_b = employee.userName) !== null && _b !== void 0 ? _b : '';
+                modalElement.querySelector('#employeeEdit--department').value = (_c = employee.department) !== null && _c !== void 0 ? _c : '';
+                if (((_d = employee.seniorityDateTime) !== null && _d !== void 0 ? _d : '') !== '') {
                     ;
                     modalElement.querySelector('#employeeEdit--seniorityDateTime').valueAsDate = new Date(employee.seniorityDateTime);
                 }
                 // Contact Information
                 ;
                 modalElement.querySelector('#employeeEdit--syncContacts').value = employee.syncContacts ? '1' : '0';
-                modalElement.querySelector('#employeeEdit--workContact1').value = (_d = employee.workContact1) !== null && _d !== void 0 ? _d : '';
-                modalElement.querySelector('#employeeEdit--workContact2').value = (_e = employee.workContact2) !== null && _e !== void 0 ? _e : '';
-                modalElement.querySelector('#employeeEdit--homeContact1').value = (_f = employee.homeContact1) !== null && _f !== void 0 ? _f : '';
-                modalElement.querySelector('#employeeEdit--homeContact2').value = (_g = employee.homeContact2) !== null && _g !== void 0 ? _g : '';
+                modalElement.querySelector('#employeeEdit--workContact1').value = (_e = employee.workContact1) !== null && _e !== void 0 ? _e : '';
+                modalElement.querySelector('#employeeEdit--workContact2').value = (_f = employee.workContact2) !== null && _f !== void 0 ? _f : '';
+                modalElement.querySelector('#employeeEdit--homeContact1').value = (_g = employee.homeContact1) !== null && _g !== void 0 ? _g : '';
+                modalElement.querySelector('#employeeEdit--homeContact2').value = (_h = employee.homeContact2) !== null && _h !== void 0 ? _h : '';
                 modalElement.querySelector('#employeePropertyAdd--employeeNumber').value = employee.employeeNumber;
                 cityssm.postJSON(MonTY.urlPrefix + '/admin/doGetEmployeeProperties', {
                     employeeNumber

@@ -284,6 +284,11 @@ declare const cityssm: cityssmGlobal
         ).value = employee.jobTitle ?? ''
         ;(
           modalElement.querySelector(
+            '#employeeEdit--userName'
+          ) as HTMLInputElement
+        ).value = employee.userName ?? ''
+        ;(
+          modalElement.querySelector(
             '#employeeEdit--department'
           ) as HTMLInputElement
         ).value = employee.department ?? ''
@@ -416,7 +421,10 @@ declare const cityssm: cityssmGlobal
       panelBlockElement.className = 'panel-block is-block'
 
       if (!employee.isActive!) {
-        panelBlockElement.classList.add('is-italic', 'has-background-warning-light')
+        panelBlockElement.classList.add(
+          'is-italic',
+          'has-background-warning-light'
+        )
       }
 
       panelBlockElement.href = '#'
