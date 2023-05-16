@@ -153,6 +153,8 @@ declare const cityssm: cityssmGlobal
   function setUserPermission(formEvent: Event): void {
     formEvent.preventDefault()
 
+    const rowElement = (formEvent.currentTarget as HTMLElement).closest('tr')!
+
     cityssm.postJSON(
       MonTY.urlPrefix + '/admin/doSetUserPermission',
       formEvent.currentTarget,
@@ -166,6 +168,7 @@ declare const cityssm: cityssmGlobal
             message: 'Permission updated successfully.',
             contextualColorName: 'success'
           })
+          rowElement.classList.remove('has-background-warning-light')
         } else {
           bulmaJS.alert({
             title: 'Error Updating Permission',
@@ -175,6 +178,12 @@ declare const cityssm: cityssmGlobal
         }
       }
     )
+  }
+
+  function highlightRow(changeEvent: Event): void {
+    ;(changeEvent.currentTarget as HTMLElement)
+      .closest('tr')
+      ?.classList.add('has-background-warning-light')
   }
 
   function openUserPermissionsModal(clickEvent: Event): void {
@@ -217,14 +226,18 @@ declare const cityssm: cityssmGlobal
             </form>
           </td>`
 
+        const selectElement = tableRowElement.querySelector(
+          'select'
+        ) as HTMLSelectElement
+
         for (const permissionValue of permissionValues) {
-          tableRowElement
-            .querySelector('select')
-            ?.insertAdjacentHTML(
-              'beforeend',
-              `<option value="${permissionValue}">${permissionValue}</option>`
-            )
+          selectElement.insertAdjacentHTML(
+            'beforeend',
+            `<option value="${permissionValue}">${permissionValue}</option>`
+          )
         }
+
+        selectElement.addEventListener('change', highlightRow)
 
         tableRowElement
           .querySelector('form')
@@ -459,7 +472,9 @@ declare const cityssm: cityssmGlobal
         onshown(modalElement, closeModalFunction) {
           addCloseModalFunction = closeModalFunction
 
-          const userNameElement = modalElement.querySelector('#userAdd--userName') as HTMLInputElement
+          const userNameElement = modalElement.querySelector(
+            '#userAdd--userName'
+          ) as HTMLInputElement
 
           // Try to defeat browser auto populating
           userNameElement.value = ''

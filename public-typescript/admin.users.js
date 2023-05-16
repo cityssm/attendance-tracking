@@ -94,6 +94,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     }
     function setUserPermission(formEvent) {
         formEvent.preventDefault();
+        const rowElement = formEvent.currentTarget.closest('tr');
         cityssm.postJSON(MonTY.urlPrefix + '/admin/doSetUserPermission', formEvent.currentTarget, (rawResponseJSON) => {
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
@@ -101,6 +102,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     message: 'Permission updated successfully.',
                     contextualColorName: 'success'
                 });
+                rowElement.classList.remove('has-background-warning-light');
             }
             else {
                 bulmaJS.alert({
@@ -111,6 +113,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
             }
         });
     }
+    function highlightRow(changeEvent) {
+        var _a;
+        ;
+        (_a = changeEvent.currentTarget
+            .closest('tr')) === null || _a === void 0 ? void 0 : _a.classList.add('has-background-warning-light');
+    }
     function openUserPermissionsModal(clickEvent) {
         var _a;
         clickEvent.preventDefault();
@@ -118,7 +126,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const userName = (_a = clickEvent.currentTarget.closest('tr').dataset
             .userName) !== null && _a !== void 0 ? _a : '';
         function populatePermissionsTable() {
-            var _a, _b;
+            var _a;
             const tableBodyElement = permissionsModalElement.querySelector('tbody');
             for (const [permissionKey, permissionValues] of Object.entries(availablePermissionValues)) {
                 const tableRowElement = document.createElement('tr');
@@ -144,12 +152,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
               </div>
             </form>
           </td>`;
+                const selectElement = tableRowElement.querySelector('select');
                 for (const permissionValue of permissionValues) {
-                    (_a = tableRowElement
-                        .querySelector('select')) === null || _a === void 0 ? void 0 : _a.insertAdjacentHTML('beforeend', `<option value="${permissionValue}">${permissionValue}</option>`);
+                    selectElement.insertAdjacentHTML('beforeend', `<option value="${permissionValue}">${permissionValue}</option>`);
                 }
-                (_b = tableRowElement
-                    .querySelector('form')) === null || _b === void 0 ? void 0 : _b.addEventListener('submit', setUserPermission);
+                selectElement.addEventListener('change', highlightRow);
+                (_a = tableRowElement
+                    .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', setUserPermission);
                 tableBodyElement.append(tableRowElement);
             }
             cityssm.postJSON(MonTY.urlPrefix + '/admin/doGetUserPermissions', {
