@@ -311,11 +311,16 @@ declare const cityssm: cityssmGlobal
 
     cityssm.openHtmlModal('userAdmin-userPermissions', {
       onshow(modalElement) {
+        bulmaJS.toggleHtmlClipped()
+
         permissionsModalElement = modalElement
 
         modalElement.querySelector('.modal-card-title')!.textContent = userName
 
         populatePermissionsTable()
+      },
+      onremoved() {
+        bulmaJS.toggleHtmlClipped()
       }
     })
   }
@@ -454,10 +459,12 @@ declare const cityssm: cityssmGlobal
         onshown(modalElement, closeModalFunction) {
           addCloseModalFunction = closeModalFunction
 
+          const userNameElement = modalElement.querySelector('#userAdd--userName') as HTMLInputElement
+
           // Try to defeat browser auto populating
-          ;(
-            modalElement.querySelector('#userAdd--userName') as HTMLInputElement
-          ).value = ''
+          userNameElement.value = ''
+
+          userNameElement.focus()
 
           modalElement
             .querySelector('form')

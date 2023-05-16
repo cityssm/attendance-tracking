@@ -203,9 +203,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         cityssm.openHtmlModal('userAdmin-userPermissions', {
             onshow(modalElement) {
+                bulmaJS.toggleHtmlClipped();
                 permissionsModalElement = modalElement;
                 modalElement.querySelector('.modal-card-title').textContent = userName;
                 populatePermissionsTable();
+            },
+            onremoved() {
+                bulmaJS.toggleHtmlClipped();
             }
         });
     }
@@ -310,7 +314,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
             onshown(modalElement, closeModalFunction) {
                 var _a;
                 addCloseModalFunction = closeModalFunction;
-                modalElement.querySelector('#userAdd--userName').value = '';
+                const userNameElement = modalElement.querySelector('#userAdd--userName');
+                // Try to defeat browser auto populating
+                userNameElement.value = '';
+                userNameElement.focus();
                 (_a = modalElement
                     .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', doAddUser);
             }
