@@ -12,6 +12,10 @@ import handler_doDeleteEmployeeProperty from '../handlers/admin-post/doDeleteEmp
 
 import handler_tables from '../handlers/admin-get/tables.js'
 
+import handler_doUpdateAbsenceType from '../handlers/admin-post/doUpdateAbsenceType.js'
+import handler_doMoveAbsenceTypeUp from '../handlers/admin-post/doMoveAbsenceTypeUp.js'
+import handler_doMoveAbsenceTypeDown from '../handlers/admin-post/doMoveAbsenceTypeDown.js'
+
 import handler_users from '../handlers/admin-get/users.js'
 
 import handler_doUpdateUserCanLogin from '../handlers/admin-post/doUpdateUserCanLogin.js'
@@ -56,6 +60,21 @@ router.post(
  */
 
 router.get('/tables', handler_tables as RequestHandler)
+
+router.post(
+  '/doUpdateAbsenceType',
+  handler_doUpdateAbsenceType as RequestHandler
+)
+
+router.post(
+  '/doMoveAbsenceTypeUp',
+  handler_doMoveAbsenceTypeUp as RequestHandler
+)
+
+router.post(
+  '/doMoveAbsenceTypeDown',
+  handler_doMoveAbsenceTypeDown as RequestHandler
+)
 
 /*
  * User Maintenance

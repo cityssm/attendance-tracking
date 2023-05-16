@@ -1,13 +1,21 @@
 import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { updateRecordOrderNumber } from './updateRecordOrderNumber.js';
 export async function getCallOutResponseTypes() {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
-    const responseTypeResult = await pool
-        .request()
+    const responseTypeResult = await pool.request()
         .query(`select
       responseTypeId, responseType, isSuccessful, orderNumber
       from MonTY.CallOutResponseTypes
       where recordDelete_dateTime is null
       order by orderNumber, responseType`);
-    return responseTypeResult.recordset;
+    const responseTypes = responseTypeResult.recordset;
+    let expectedOrderNumber = -1;
+    for (const responseType of responseTypes) {
+        expectedOrderNumber += 1;
+        if (responseType.orderNumber !== expectedOrderNumber) {
+            await updateRecordOrderNumber('CallOutResponseTypes', responseType.responseTypeId, expectedOrderNumber);
+        }
+    }
+    return responseTypes;
 }
