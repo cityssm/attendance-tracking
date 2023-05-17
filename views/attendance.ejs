@@ -10,27 +10,39 @@
         <ul class="menu-list">
           <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
             <li>
-              <a class="is-active is-justify-content-space-between" href="#tab--absences">
-                <span>
-                  <span class="icon">
-                    <i class="fas fa-fw fa-sign-out-alt" aria-hidden="true"></i>
-                  </span>
-                  <span>Absence Requests</span>
-                </span>
-                <span class="tag has-tooltip-left" data-tooltip="Past 24 Hours">0</span>
+              <a class="is-active is-block" href="#tab--absences">
+                <div class="columns is-gapless is-mobile">
+                  <div class="column is-narrow">
+                    <span class="icon">
+                      <i class="fas fa-fw fa-sign-out-alt" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <div class="column">
+                    Absence Requests
+                  </div>
+                  <div class="column is-narrow">
+                    <span class="tag has-tooltip-left" data-tooltip="Past 24 Hours">0</span>
+                  </div>
+                </div>
               </a>
             </li>
           <% } %>
           <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
             <li>
-              <a class="is-justify-content-space-between" href="#tab--returnsToWork">
-                <span>
-                  <span class="icon">
-                    <i class="fas fa-fw fa-sign-in-alt" aria-hidden="true"></i>
-                  </span>
-                  <span>Returns to Work</span>
-                </span>
-                <span class="tag has-tooltip-left" data-tooltip="Past 24 Hours">0</span>
+              <a class="is-block" href="#tab--returnsToWork">
+                <div class="columns is-gapless is-mobile">
+                  <div class="column is-narrow">
+                    <span class="icon">
+                      <i class="fas fa-fw fa-sign-in-alt" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <div class="column">
+                    Returns to Work
+                  </div>
+                  <div class="column is-narrow">
+                    <span class="tag has-tooltip-left" data-tooltip="Past 24 Hours">0</span>
+                  </div>
+                </div>
               </a>
             </li>
           <% } %>

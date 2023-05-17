@@ -2,10 +2,10 @@
 
 import type * as globalTypes from '../types/globalTypes'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
-// import type { BulmaJS } from '@cityssm/bulma-js/types'
+import type { BulmaJS } from '@cityssm/bulma-js/types'
 import type * as recordTypes from '../types/recordTypes'
 
-// declare const bulmaJS: BulmaJS
+declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
@@ -54,11 +54,11 @@ declare const cityssm: cityssmGlobal
         todayCount += 1
       }
 
-      panelBlockElement.innerHTML = `<div class="columns">
+      panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
           <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
         </div>
-        <div class="column">
+        <div class="column is-3">
           <strong data-tooltip="Absence Date">
             ${absenceDate.toLocaleDateString()}
           </strong>
@@ -81,7 +81,9 @@ declare const cityssm: cityssmGlobal
     containerElement.innerHTML = ''
     containerElement.append(panelElement)
 
-    document.querySelector('#menu--attendance a[href="#tab--absences"] .tag')!.textContent = todayCount.toString()
+    document.querySelector(
+      '#menu--attendance a[href="#tab--absences"] .tag'
+    )!.textContent = todayCount.toString()
   }
 
   function renderReturnToWorkRecords(): void {
@@ -117,11 +119,11 @@ declare const cityssm: cityssmGlobal
         todayCount += 1
       }
 
-      panelBlockElement.innerHTML = `<div class="columns">
+      panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
           <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
         </div>
-        <div class="column">
+        <div class="column is-3">
           <strong data-tooltip="Return Date">${returnDate.toLocaleDateString()}</strong>
         </div>
         <div class="column">
@@ -146,7 +148,9 @@ declare const cityssm: cityssmGlobal
     containerElement.innerHTML = ''
     containerElement.append(panelElement)
 
-    document.querySelector('#menu--attendance a[href="#tab--returnsToWork"] .tag')!.textContent = todayCount.toString()
+    document.querySelector(
+      '#menu--attendance a[href="#tab--returnsToWork"] .tag'
+    )!.textContent = todayCount.toString()
   }
 
   function openCallInModal(clickEvent: Event): void {
@@ -291,6 +295,8 @@ declare const cityssm: cityssmGlobal
       onshown(modalElement, closeModalFunction) {
         callInCloseModalFunction = closeModalFunction
 
+        bulmaJS.toggleHtmlClipped()
+
         modalElement
           .querySelector('form')
           ?.addEventListener('submit', recordCallIn)
@@ -306,6 +312,9 @@ declare const cityssm: cityssmGlobal
         modalElement
           .querySelector('#callInAdd--callInType_returnToWork')
           ?.addEventListener('change', toggleCallInType)
+      },
+      onremoved() {
+        bulmaJS.toggleHtmlClipped()
       }
     })
   }

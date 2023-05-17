@@ -32,11 +32,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 panelBlockElement.classList.add('has-background-success-light');
                 todayCount += 1;
             }
-            panelBlockElement.innerHTML = `<div class="columns">
+            panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
           <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
         </div>
-        <div class="column">
+        <div class="column is-3">
           <strong data-tooltip="Absence Date">
             ${absenceDate.toLocaleDateString()}
           </strong>
@@ -79,11 +79,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 panelBlockElement.classList.add('has-background-success-light');
                 todayCount += 1;
             }
-            panelBlockElement.innerHTML = `<div class="columns">
+            panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
           <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
         </div>
-        <div class="column">
+        <div class="column is-3">
           <strong data-tooltip="Return Date">${returnDate.toLocaleDateString()}</strong>
         </div>
         <div class="column">
@@ -198,6 +198,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             onshown(modalElement, closeModalFunction) {
                 var _a, _b, _c, _d;
                 callInCloseModalFunction = closeModalFunction;
+                bulmaJS.toggleHtmlClipped();
                 (_a = modalElement
                     .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', recordCallIn);
                 (_b = modalElement
@@ -206,6 +207,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     .querySelector('#callInAdd--callInType_absence')) === null || _c === void 0 ? void 0 : _c.addEventListener('change', toggleCallInType);
                 (_d = modalElement
                     .querySelector('#callInAdd--callInType_returnToWork')) === null || _d === void 0 ? void 0 : _d.addEventListener('change', toggleCallInType);
+            },
+            onremoved() {
+                bulmaJS.toggleHtmlClipped();
             }
         });
     }
