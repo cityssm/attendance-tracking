@@ -82,7 +82,7 @@ export async function handler(
         'attendance.callOuts.canView'
       )
     ) {
-      callOutLists = await getCallOutLists()
+      callOutLists = await getCallOutLists(request.session)
     }
 
     if (

@@ -13,6 +13,9 @@ import handler_attendance from '../handlers/attendance-get/attendance.js'
 
 import handler_doRecordCallIn from '../handlers/attendance-post/doRecordCallIn.js'
 
+import handler_doAddFavouriteCallOutList from '../handlers/attendance-post/doAddFavouriteCallOutList.js'
+import handler_doRemoveFavouriteCallOutList from '../handlers/attendance-post/doRemoveFavouriteCallOutList.js'
+
 import handler_doCreateCallOutList from '../handlers/attendance-post/doCreateCallOutList.js'
 import handler_doUpdateCallOutList from '../handlers/attendance-post/doUpdateCallOutList.js'
 import handler_doDeleteCallOutList from '../handlers/attendance-post/doDeleteCallOutList.js'
@@ -102,6 +105,16 @@ if (
  */
 
 if (configFunctions.getProperty('features.attendance.callOuts')) {
+  router.post(
+    '/doAddFavouriteCallOutList',
+    handler_doAddFavouriteCallOutList as RequestHandler
+  )  
+  
+  router.post(
+    '/doRemoveFavouriteCallOutList',
+    handler_doRemoveFavouriteCallOutList as RequestHandler
+  )
+
   router.post(
     '/doCreateCallOutList',
     callOutsManagePostHandler,

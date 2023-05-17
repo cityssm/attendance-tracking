@@ -34,7 +34,7 @@ export async function handler(request, response) {
     let employeePropertyNames = [];
     if (configFunctions.getProperty('features.attendance.callOuts')) {
         if (permissionFunctions.hasPermission(request.session.user, 'attendance.callOuts.canView')) {
-            callOutLists = await getCallOutLists();
+            callOutLists = await getCallOutLists(request.session);
         }
         if (permissionFunctions.hasPermission(request.session.user, 'attendance.callOuts.canUpdate')) {
             callOutResponseTypes = await getCallOutResponseTypes();

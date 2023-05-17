@@ -10,7 +10,7 @@ export async function handler(
 ): Promise<void> {
   const listId = await createCallOutList(request.body, request.session)
 
-  const callOutLists = await getCallOutLists()
+  const callOutLists = await getCallOutLists(request.session)
 
   response.json({
     success: true,

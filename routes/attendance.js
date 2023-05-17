@@ -3,6 +3,8 @@ import * as configFunctions from '../helpers/functions.config.js';
 import * as permissionFunctions from '../helpers/functions.permissions.js';
 import handler_attendance from '../handlers/attendance-get/attendance.js';
 import handler_doRecordCallIn from '../handlers/attendance-post/doRecordCallIn.js';
+import handler_doAddFavouriteCallOutList from '../handlers/attendance-post/doAddFavouriteCallOutList.js';
+import handler_doRemoveFavouriteCallOutList from '../handlers/attendance-post/doRemoveFavouriteCallOutList.js';
 import handler_doCreateCallOutList from '../handlers/attendance-post/doCreateCallOutList.js';
 import handler_doUpdateCallOutList from '../handlers/attendance-post/doUpdateCallOutList.js';
 import handler_doDeleteCallOutList from '../handlers/attendance-post/doDeleteCallOutList.js';
@@ -42,6 +44,8 @@ if (configFunctions.getProperty('features.attendance.absences') ||
     router.post('/doRecordCallIn', handler_doRecordCallIn);
 }
 if (configFunctions.getProperty('features.attendance.callOuts')) {
+    router.post('/doAddFavouriteCallOutList', handler_doAddFavouriteCallOutList);
+    router.post('/doRemoveFavouriteCallOutList', handler_doRemoveFavouriteCallOutList);
     router.post('/doCreateCallOutList', callOutsManagePostHandler, handler_doCreateCallOutList);
     router.post('/doUpdateCallOutList', callOutsManagePostHandler, handler_doUpdateCallOutList);
     router.post('/doDeleteCallOutList', callOutsManagePostHandler, handler_doDeleteCallOutList);

@@ -62,6 +62,7 @@ export interface CallOutList extends RecordUserNameDateTime {
     employeePropertyName?: string;
     callOutListMembersCount?: number;
     callOutListMembers?: CallOutListMember[];
+    isFavourite?: boolean;
 }
 export interface CallOutListMember extends Employee, RecordUserNameDateTime {
     listId: string;

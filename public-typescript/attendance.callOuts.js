@@ -17,8 +17,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
     const searchResultsElement = document.querySelector('#callOuts--searchResults');
     let currentListId = '';
     let currentCallOutListMembers = [];
+    function toggleCallOutListFavourite(clickEvent) {
+        const buttonElement = clickEvent.currentTarget;
+        const oldIsFavourite = buttonElement.dataset.isFavourite === '1';
+        const panelBlockElement = buttonElement.closest('.panel-block');
+        const listId = panelBlockElement.dataset.listId;
+        cityssm.postJSON(MonTY.urlPrefix +
+            (oldIsFavourite
+                ? '/attendance/doRemoveFavouriteCallOutList'
+                : '/attendance/doAddFavouriteCallOutList'), { listId }, (rawResponseJSON) => {
+            const responseJSON = rawResponseJSON;
+            callOutLists = responseJSON.callOutLists;
+            renderCallOutLists();
+        });
+    }
     function renderCallOutLists() {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e;
         const panelElement = document.createElement('div');
         panelElement.className = 'panel';
         const searchFilterPieces = searchFilterElement.value
@@ -39,17 +53,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
             if (!showList) {
                 continue;
             }
-            const panelBlockElement = document.createElement('a');
+            const panelBlockElement = document.createElement('div');
             panelBlockElement.className = 'panel-block is-block';
             panelBlockElement.dataset.listId = callOutList.listId.toString();
-            panelBlockElement.href = '#';
             panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
-          <i class="fas fa-list-ol" aria-hidden="true"></i>
+          <button class="button is-white" data-is-favourite="${callOutList.isFavourite ? '1' : '0'}" data-tooltip="Toggle Favourite" type="button">
+            ${callOutList.isFavourite
+                ? '<i class="fas fa-star" aria-label="Favourite"></i>'
+                : '<i class="far fa-star" aria-label="Not Favourite"></i>'}
+          </button>
         </div>
         <div class="column">
+          <a href="#">
           <strong>${callOutList.listName}</strong><br />
-          <span class="is-size-7">${((_b = callOutList.listDescription) !== null && _b !== void 0 ? _b : '').replace(/\n/g, '<br />')}</span>
+            <span class="is-size-7">${((_b = callOutList.listDescription) !== null && _b !== void 0 ? _b : '').replace(/\n/g, '<br />')}</span>
+          </a>
         </div>
         <div class="column is-narrow">
           <span class="tag" data-tooltip="Members">
@@ -58,7 +77,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
           </span>
         </div>
         </div>`;
-            panelBlockElement.addEventListener('click', openCallOutListByClick);
+            (_d = panelBlockElement
+                .querySelector('button')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', toggleCallOutListFavourite);
+            (_e = panelBlockElement
+                .querySelector('a')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', openCallOutListByClick);
             panelElement.append(panelBlockElement);
         }
         if (panelElement.hasChildNodes()) {
@@ -671,8 +693,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     }
     function openCallOutListByClick(clickEvent) {
         clickEvent.preventDefault();
-        const listId = clickEvent.currentTarget.dataset
-            .listId;
+        const listId = clickEvent.currentTarget.closest('.panel-block').dataset.listId;
         openCallOutList(listId);
     }
     (_e = document.querySelector('#callOuts--create')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', () => {

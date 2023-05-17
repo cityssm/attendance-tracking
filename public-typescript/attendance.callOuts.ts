@@ -37,6 +37,35 @@ declare const cityssm: cityssmGlobal
   let currentListId = ''
   let currentCallOutListMembers: recordTypes.CallOutListMember[] = []
 
+  function toggleCallOutListFavourite(clickEvent: Event): void {
+    const buttonElement = clickEvent.currentTarget as HTMLButtonElement
+
+    const oldIsFavourite = buttonElement.dataset.isFavourite === '1'
+
+    const panelBlockElement = buttonElement.closest(
+      '.panel-block'
+    ) as HTMLElement
+
+    const listId = panelBlockElement.dataset.listId
+
+    cityssm.postJSON(
+      MonTY.urlPrefix +
+        (oldIsFavourite
+          ? '/attendance/doRemoveFavouriteCallOutList'
+          : '/attendance/doAddFavouriteCallOutList'),
+      { listId },
+      (rawResponseJSON) => {
+        const responseJSON = rawResponseJSON as {
+          callOutLists: recordTypes.CallOutList[]
+        }
+
+        callOutLists = responseJSON.callOutLists
+
+        renderCallOutLists()
+      }
+    )
+  }
+
   function renderCallOutLists(): void {
     const panelElement = document.createElement('div')
     panelElement.className = 'panel'
@@ -66,22 +95,30 @@ declare const cityssm: cityssmGlobal
         continue
       }
 
-      const panelBlockElement = document.createElement('a')
+      const panelBlockElement = document.createElement('div')
 
       panelBlockElement.className = 'panel-block is-block'
       panelBlockElement.dataset.listId = callOutList.listId.toString()
-      panelBlockElement.href = '#'
 
       panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
-          <i class="fas fa-list-ol" aria-hidden="true"></i>
+          <button class="button is-white" data-is-favourite="${
+            callOutList.isFavourite! ? '1' : '0'
+          }" data-tooltip="Toggle Favourite" type="button">
+            ${
+              callOutList.isFavourite!
+                ? '<i class="fas fa-star" aria-label="Favourite"></i>'
+                : '<i class="far fa-star" aria-label="Not Favourite"></i>'
+            }
+          </button>
         </div>
         <div class="column">
+          <a href="#">
           <strong>${callOutList.listName}</strong><br />
-          <span class="is-size-7">${(callOutList.listDescription ?? '').replace(
-            /\n/g,
-            '<br />'
-          )}</span>
+            <span class="is-size-7">${(
+              callOutList.listDescription ?? ''
+            ).replace(/\n/g, '<br />')}</span>
+          </a>
         </div>
         <div class="column is-narrow">
           <span class="tag" data-tooltip="Members">
@@ -91,7 +128,13 @@ declare const cityssm: cityssmGlobal
         </div>
         </div>`
 
-      panelBlockElement.addEventListener('click', openCallOutListByClick)
+      panelBlockElement
+        .querySelector('button')
+        ?.addEventListener('click', toggleCallOutListFavourite)
+
+      panelBlockElement
+        .querySelector('a')
+        ?.addEventListener('click', openCallOutListByClick)
 
       panelElement.append(panelBlockElement)
     }
@@ -241,7 +284,7 @@ declare const cityssm: cityssmGlobal
 
         if (index === 0) {
           callOutDateTimeMaxElement.innerHTML = `${
-            record.isSuccessful!
+            (record.isSuccessful as boolean)
               ? '<i class="fas fa-fw fa-check has-text-success" aria-label="Yes"></i>'
               : '<i class="fas fa-fw fa-times has-text-danger" aria-label="No"></i>'
           }
@@ -253,7 +296,7 @@ declare const cityssm: cityssmGlobal
         panelBlockElement.dataset.recordId = record.recordId
 
         panelBlockElement.classList.add(
-          record.isSuccessful!
+          (record.isSuccessful as boolean)
             ? 'has-background-success-light'
             : 'has-background-danger-light'
         )
@@ -261,7 +304,7 @@ declare const cityssm: cityssmGlobal
         panelBlockElement.innerHTML = `<div class="columns">
           <div class="column is-narrow">
             ${
-              record.isSuccessful!
+              (record.isSuccessful as boolean)
                 ? '<i class="fas fa-fw fa-check has-text-success" aria-label="Yes"></i>'
                 : '<i class="fas fa-fw fa-times has-text-danger" aria-label="No"></i>'
             }
@@ -1082,8 +1125,11 @@ declare const cityssm: cityssmGlobal
   function openCallOutListByClick(clickEvent: MouseEvent): void {
     clickEvent.preventDefault()
 
-    const listId = (clickEvent.currentTarget as HTMLAnchorElement).dataset
-      .listId!
+    const listId = (
+      (clickEvent.currentTarget as HTMLAnchorElement).closest(
+        '.panel-block'
+      ) as HTMLElement
+    ).dataset.listId!
 
     openCallOutList(listId)
   }
