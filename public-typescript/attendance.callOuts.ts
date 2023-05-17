@@ -113,7 +113,7 @@ declare const cityssm: cityssmGlobal
           </button>
         </div>
         <div class="column">
-          <a href="#">
+          <a class="is-block" href="#">
           <strong>${callOutList.listName}</strong><br />
             <span class="is-size-7">${(
               callOutList.listDescription ?? ''
