@@ -13,5 +13,5 @@ export async function deleteEmployeeProperty(employeeNumber, propertyName, reque
       where employeeNumber = @employeeNumber
       and propertyName = @propertyName
       and recordDelete_dateTime is null`);
-    return result.rowsAffected[0];
+    return result.rowsAffected[0] > 0;
 }

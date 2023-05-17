@@ -8,7 +8,7 @@ export async function deleteCallOutListMember(
   listId: string,
   employeeNumber: string,
   requestSession: recordTypes.PartialSession
-): Promise<number> {
+): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
   const result = await pool
@@ -23,5 +23,5 @@ export async function deleteCallOutListMember(
       and employeeNumber = @employeeNumber
       and recordDelete_dateTime is null`)
 
-  return result.rowsAffected[0]
+  return result.rowsAffected[0] > 0
 }

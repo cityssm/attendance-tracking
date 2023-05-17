@@ -12,9 +12,17 @@ import handler_doDeleteEmployeeProperty from '../handlers/admin-post/doDeleteEmp
 
 import handler_tables from '../handlers/admin-get/tables.js'
 
+import handler_doAddAbsenceType from '../handlers/admin-post/doAddAbsenceType.js'
 import handler_doUpdateAbsenceType from '../handlers/admin-post/doUpdateAbsenceType.js'
 import handler_doMoveAbsenceTypeUp from '../handlers/admin-post/doMoveAbsenceTypeUp.js'
 import handler_doMoveAbsenceTypeDown from '../handlers/admin-post/doMoveAbsenceTypeDown.js'
+import handler_doDeleteAbsenceType from '../handlers/admin-post/doDeleteAbsenceType.js'
+
+import handler_doAddCallOutResponseType from '../handlers/admin-post/doAddCallOutResponseType.js'
+import handler_doUpdateCallOutResponseType from '../handlers/admin-post/doUpdateCallOutResponseType.js'
+import handler_doMoveCallOutResponseTypeUp from '../handlers/admin-post/doMoveCallOutResponseTypeUp.js'
+import handler_doMoveCallOutResponseTypeDown from '../handlers/admin-post/doMoveCallOutResponseTypeDown.js'
+import handler_doDeleteCallOutResponseType from '../handlers/admin-post/doDeleteCallOutResponseType.js'
 
 import handler_users from '../handlers/admin-get/users.js'
 
@@ -61,6 +69,13 @@ router.post(
 
 router.get('/tables', handler_tables as RequestHandler)
 
+// Absence Types
+
+router.post(
+  '/doAddAbsenceType',
+  handler_doAddAbsenceType as RequestHandler
+)
+
 router.post(
   '/doUpdateAbsenceType',
   handler_doUpdateAbsenceType as RequestHandler
@@ -74,6 +89,38 @@ router.post(
 router.post(
   '/doMoveAbsenceTypeDown',
   handler_doMoveAbsenceTypeDown as RequestHandler
+)
+
+router.post(
+  '/doDeleteAbsenceType',
+  handler_doDeleteAbsenceType as RequestHandler
+)
+
+// Call Out Response Types
+
+router.post(
+  '/doAddCallOutResponseType',
+  handler_doAddCallOutResponseType as RequestHandler
+)
+
+router.post(
+  '/doUpdateCallOutResponseType',
+  handler_doUpdateCallOutResponseType as RequestHandler
+)
+
+router.post(
+  '/doMoveCallOutResponseTypeUp',
+  handler_doMoveCallOutResponseTypeUp as RequestHandler
+)
+
+router.post(
+  '/doMoveCallOutResponseTypeDown',
+  handler_doMoveCallOutResponseTypeDown as RequestHandler
+)
+
+router.post(
+  '/doDeleteCallOutResponseType',
+  handler_doDeleteCallOutResponseType as RequestHandler
 )
 
 /*

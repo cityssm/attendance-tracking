@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/indent */
+
 import * as configFunctions from '../helpers/functions.config.js'
 
 import * as sqlPool from '@cityssm/mssql-multi-pool'

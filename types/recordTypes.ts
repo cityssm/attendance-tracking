@@ -103,7 +103,7 @@ export interface CallOutListMember extends Employee, RecordUserNameDateTime {
 export interface CallOutResponseType extends RecordUserNameDateTime {
   responseTypeId: number
   responseType: string
-  isSuccessful: boolean
+  isSuccessful: boolean | '0' | '1'
   orderNumber?: number
 }
 

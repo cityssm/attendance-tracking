@@ -7,7 +7,7 @@ import type * as recordTypes from '../types/recordTypes'
 export async function deleteCallOutList(
   listId: string,
   requestSession: recordTypes.PartialSession
-): Promise<number> {
+): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
   const result = await pool
@@ -20,5 +20,5 @@ export async function deleteCallOutList(
       where listId = @listId
       and recordDelete_dateTime is null`)
 
-  return result.rowsAffected[0]
+  return result.rowsAffected[0] > 0
 }

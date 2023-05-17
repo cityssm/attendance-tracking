@@ -11,5 +11,5 @@ export async function deleteCallOutList(listId, requestSession) {
       recordDelete_dateTime = @record_dateTime
       where listId = @listId
       and recordDelete_dateTime is null`);
-    return result.rowsAffected[0];
+    return result.rowsAffected[0] > 0;
 }

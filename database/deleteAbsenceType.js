@@ -1,17 +1,15 @@
 import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-export async function deleteCallOutListMember(listId, employeeNumber, requestSession) {
+export async function deleteAbsenceType(absenceTypeKey, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     const result = await pool
         .request()
-        .input('listId', listId)
-        .input('employeeNumber', employeeNumber)
+        .input('absenceTypeKey', absenceTypeKey)
         .input('record_userName', requestSession.user?.userName)
-        .input('record_dateTime', new Date()).query(`update MonTY.CallOutListMembers
+        .input('record_dateTime', new Date()).query(`update MonTY.AbsenceTypes
       set recordDelete_userName = @record_userName,
       recordDelete_dateTime = @record_dateTime
-      where listId = @listId
-      and employeeNumber = @employeeNumber
+      where absenceTypeKey = @absenceTypeKey
       and recordDelete_dateTime is null`);
     return result.rowsAffected[0] > 0;
 }
