@@ -650,11 +650,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 bulmaJS.toggleHtmlClipped();
                 bulmaJS.init(modalElement);
                 MonTY.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('.tabs-container > article'));
-                modalElement.querySelector('#reportingLink--callOutListMembers').href =
+                modalElement.querySelector('#reportingLink--callOutListReport').href = MonTY.urlPrefix + '/print/screen/callOutList/?listId=' + listId;
+                modalElement.querySelector('#reportingLink--callOutListMembersCSV').href =
                     MonTY.urlPrefix +
                         '/reports/callOutListMembers-formatted-byListId/?listId=' +
                         listId;
-                modalElement.querySelector('#reportingLink--callOutRecords').href =
+                modalElement.querySelector('#reportingLink--callOutRecordsCSV').href =
                     MonTY.urlPrefix +
                         '/reports/callOutRecords-recent-byListId/?listId=' +
                         listId;

@@ -1046,7 +1046,12 @@ declare const cityssm: cityssmGlobal
         )
         ;(
           modalElement.querySelector(
-            '#reportingLink--callOutListMembers'
+            '#reportingLink--callOutListReport'
+          ) as HTMLAnchorElement
+        ).href = MonTY.urlPrefix + '/print/screen/callOutList/?listId=' + listId
+        ;(
+          modalElement.querySelector(
+            '#reportingLink--callOutListMembersCSV'
           ) as HTMLAnchorElement
         ).href =
           MonTY.urlPrefix +
@@ -1054,7 +1059,7 @@ declare const cityssm: cityssmGlobal
           listId
         ;(
           modalElement.querySelector(
-            '#reportingLink--callOutRecords'
+            '#reportingLink--callOutRecordsCSV'
           ) as HTMLAnchorElement
         ).href =
           MonTY.urlPrefix +

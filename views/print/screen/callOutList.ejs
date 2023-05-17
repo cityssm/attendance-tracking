@@ -1,0 +1,35 @@
+<%- include('_header-print'); -%>
+
+<h1 class="title is-2">
+  <%= callOutList.listName %>
+</h1>
+
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>Emp No</th>
+      <th>Employee Name</th>
+      <th>Primary Home Contact</th>
+      <th>Secondary Home Contact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (const member of callOutListMembers) { %>
+      <tr>
+        <td><%= member.employeeNumber %></td>
+        <td>
+          <%= member.employeeSurname %>, <%= member.employeeGivenName %>
+        </td>
+        <td><%= member.homeContact1 %></td>
+        <td><%= member.homeContact2 %></td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+
+<p class="has-text-right is-size-7 is-italic">
+  <% const currentDate = new Date() %>
+  Printed <%= currentDate.toLocaleDateString() %> at <%= currentDate.toLocaleTimeString() %>
+</p>
+
+<%- include('_footer-print'); -%>
