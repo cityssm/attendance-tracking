@@ -4,6 +4,7 @@ import handler_employees from '../handlers/admin-get/employees.js'
 
 import handler_doGetEmployeeProperties from '../handlers/admin-post/doGetEmployeeProperties.js'
 
+import handler_doAddEmployee from '../handlers/admin-post/doAddEmployee.js'
 import handler_doUpdateEmployee from '../handlers/admin-post/doUpdateEmployee.js'
 
 import handler_doAddEmployeeProperty from '../handlers/admin-post/doAddEmployeeProperty.js'
@@ -45,6 +46,8 @@ router.post(
   '/doGetEmployeeProperties',
   handler_doGetEmployeeProperties as RequestHandler
 )
+
+router.post('/doAddEmployee', handler_doAddEmployee as RequestHandler)
 
 router.post('/doUpdateEmployee', handler_doUpdateEmployee as RequestHandler)
 

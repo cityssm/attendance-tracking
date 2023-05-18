@@ -2,6 +2,7 @@
 /* eslint-disable unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
+    var _a;
     const MonTY = exports.MonTY;
     let unfilteredEmployees = exports.employees;
     delete exports.employees;
@@ -216,6 +217,43 @@ Object.defineProperty(exports, "__esModule", { value: true });
             .employeeNumber;
         openEmployeeModal(employeeNumber);
     }
+    // Add
+    (_a = document
+        .querySelector('#is-add-employee-button')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
+        let addCloseModalFunction;
+        function addEmployee(formEvent) {
+            formEvent.preventDefault();
+            cityssm.postJSON(MonTY.urlPrefix + '/admin/doAddEmployee', formEvent.currentTarget, (rawResponseJSON) => {
+                const responseJSON = rawResponseJSON;
+                if (responseJSON.success) {
+                    addCloseModalFunction();
+                    bulmaJS.alert({
+                        message: 'Employee added successfully.',
+                        okButton: {
+                            callbackFunction() {
+                                openEmployeeModal(responseJSON.employeeNumber);
+                            }
+                        }
+                    });
+                    unfilteredEmployees = responseJSON.employees;
+                    refreshFilteredEmployees();
+                }
+            });
+        }
+        cityssm.openHtmlModal('employeeAdmin-addEmployee', {
+            onshown(modalElement, closeModalFunction) {
+                var _a;
+                addCloseModalFunction = closeModalFunction;
+                bulmaJS.toggleHtmlClipped();
+                modalElement.querySelector('#employeeAdd--employeeNumber').focus();
+                (_a = modalElement
+                    .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', addEmployee);
+            },
+            onremoved() {
+                bulmaJS.toggleHtmlClipped();
+            }
+        });
+    });
     // Search
     const employeeNameNumberSearchElement = document.querySelector('#employeeSearch--employeeNameNumber');
     const isActiveSearchElement = document.querySelector('#employeeSearch--isActive');

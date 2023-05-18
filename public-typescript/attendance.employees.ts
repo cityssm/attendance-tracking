@@ -46,13 +46,8 @@ declare const cityssm: cityssmGlobal
     }
   }
 
-  function openEmployeeModal(clickEvent: Event): void {
-    clickEvent.preventDefault()
-
+  function openEmployeeModal(employeeNumber: string): void {
     let employeeModalElement: HTMLElement
-
-    const employeeNumber = (clickEvent.currentTarget as HTMLAnchorElement)
-      .dataset.employeeNumber
 
     const employee = employees.find((possibleEmployee) => {
       return possibleEmployee.employeeNumber === employeeNumber
@@ -84,7 +79,9 @@ declare const cityssm: cityssmGlobal
             <i class="fas fa-fw fa-sign-out-alt" aria-label="Absence"></i>
           </div>
           <div class="column">
-            <strong>${new Date(absenceRecord.absenceDateTime).toLocaleDateString()}</strong>
+            <strong>${new Date(
+              absenceRecord.absenceDateTime
+            ).toLocaleDateString()}</strong>
           </div>
           <div class="column">
             <strong>${absenceRecord.absenceType!}</strong><br />
@@ -109,12 +106,16 @@ declare const cityssm: cityssmGlobal
             <i class="fas fa-fw fa-sign-in-alt" aria-label="Return to Work"></i>
           </div>
           <div class="column">
-            <strong>${new Date(returnToWorkRecord.returnDateTime).toLocaleDateString()}</strong><br />
+            <strong>${new Date(
+              returnToWorkRecord.returnDateTime
+            ).toLocaleDateString()}</strong><br />
             ${returnToWorkRecord.returnShift ?? ''}
           </div>
           <div class="column">
             <strong>Return to Work</strong><br />
-            <span class="is-size-7">${returnToWorkRecord.recordComment ?? ''}</span>
+            <span class="is-size-7">${
+              returnToWorkRecord.recordComment ?? ''
+            }</span>
           </div>
           </div>`
 
@@ -135,9 +136,15 @@ declare const cityssm: cityssmGlobal
             <i class="fas fa-fw fa-phone" aria-label="Call Out"></i>
           </div>
           <div class="column">
-            <strong>${new Date(callOutRecord.callOutDateTime).toLocaleDateString()}</strong><br />
+            <strong>${new Date(
+              callOutRecord.callOutDateTime
+            ).toLocaleDateString()}</strong><br />
             <span class="is-size-7">
-              <i class="fas fa-fw ${(callOutRecord.isSuccessful ?? false) ? ' fa-check has-text-success' : ' fa-times has-text-danger'}" aria-hidden="true"></i>
+              <i class="fas fa-fw ${
+                callOutRecord.isSuccessful ?? false
+                  ? ' fa-check has-text-success'
+                  : ' fa-times has-text-danger'
+              }" aria-hidden="true"></i>
               ${callOutRecord.responseType ?? ''}
             </span>
           </div>
@@ -199,6 +206,15 @@ declare const cityssm: cityssmGlobal
     })
   }
 
+  function openEmployeeModalByClick(clickEvent: Event): void {
+    clickEvent.preventDefault()
+
+    const employeeNumber = (clickEvent.currentTarget as HTMLAnchorElement)
+      .dataset.employeeNumber!
+
+    openEmployeeModal(employeeNumber)
+  }
+
   function renderEmployees(): void {
     if (employees.length === 0) {
       employeesContainerElement.innerHTML = `<div class="message is-warning">
@@ -255,7 +271,7 @@ declare const cityssm: cityssmGlobal
         </div>
         </div>`
 
-      panelBlockElement.addEventListener('click', openEmployeeModal)
+      panelBlockElement.addEventListener('click', openEmployeeModalByClick)
 
       panelElement.append(panelBlockElement)
     }

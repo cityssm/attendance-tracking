@@ -21,11 +21,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
             panelElement.append(panelBlockElementToInsert);
         }
     }
-    function openEmployeeModal(clickEvent) {
-        clickEvent.preventDefault();
+    function openEmployeeModal(employeeNumber) {
         let employeeModalElement;
-        const employeeNumber = clickEvent.currentTarget
-            .dataset.employeeNumber;
         const employee = employees.find((possibleEmployee) => {
             return possibleEmployee.employeeNumber === employeeNumber;
         });
@@ -88,7 +85,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
           <div class="column">
             <strong>${new Date(callOutRecord.callOutDateTime).toLocaleDateString()}</strong><br />
             <span class="is-size-7">
-              <i class="fas fa-fw ${((_d = callOutRecord.isSuccessful) !== null && _d !== void 0 ? _d : false) ? ' fa-check has-text-success' : ' fa-times has-text-danger'}" aria-hidden="true"></i>
+              <i class="fas fa-fw ${((_d = callOutRecord.isSuccessful) !== null && _d !== void 0 ? _d : false)
+                    ? ' fa-check has-text-success'
+                    : ' fa-times has-text-danger'}" aria-hidden="true"></i>
               ${(_e = callOutRecord.responseType) !== null && _e !== void 0 ? _e : ''}
             </span>
           </div>
@@ -129,6 +128,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 });
             }
         });
+    }
+    function openEmployeeModalByClick(clickEvent) {
+        clickEvent.preventDefault();
+        const employeeNumber = clickEvent.currentTarget
+            .dataset.employeeNumber;
+        openEmployeeModal(employeeNumber);
     }
     function renderEmployees() {
         var _a;
@@ -173,7 +178,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
           <span class="is-size-7">${(_a = employee.jobTitle) !== null && _a !== void 0 ? _a : ''}</span>
         </div>
         </div>`;
-            panelBlockElement.addEventListener('click', openEmployeeModal);
+            panelBlockElement.addEventListener('click', openEmployeeModalByClick);
             panelElement.append(panelBlockElement);
         }
         if (!panelElement.hasChildNodes()) {

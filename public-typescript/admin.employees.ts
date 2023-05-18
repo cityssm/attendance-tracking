@@ -382,6 +382,66 @@ declare const cityssm: cityssmGlobal
     openEmployeeModal(employeeNumber)
   }
 
+  // Add
+
+  document
+    .querySelector('#is-add-employee-button')
+    ?.addEventListener('click', () => {
+      let addCloseModalFunction: () => void
+
+      function addEmployee(formEvent: Event): void {
+        formEvent.preventDefault()
+
+        cityssm.postJSON(
+          MonTY.urlPrefix + '/admin/doAddEmployee',
+          formEvent.currentTarget,
+          (rawResponseJSON) => {
+            const responseJSON = rawResponseJSON as {
+              success: boolean
+              employeeNumber?: string
+              employees?: recordTypes.Employee[]
+            }
+
+            if (responseJSON.success) {
+              addCloseModalFunction()
+
+              bulmaJS.alert({
+                message: 'Employee added successfully.',
+                okButton: {
+                  callbackFunction() {
+                    openEmployeeModal(responseJSON.employeeNumber!)
+                  }
+                }
+              })
+
+              unfilteredEmployees = responseJSON.employees!
+              refreshFilteredEmployees()
+            }
+          }
+        )
+      }
+
+      cityssm.openHtmlModal('employeeAdmin-addEmployee', {
+        onshown(modalElement, closeModalFunction) {
+          addCloseModalFunction = closeModalFunction
+
+          bulmaJS.toggleHtmlClipped()
+          ;(
+            modalElement.querySelector(
+              '#employeeAdd--employeeNumber'
+            ) as HTMLInputElement
+          ).focus()
+
+          modalElement
+            .querySelector('form')
+            ?.addEventListener('submit', addEmployee)
+        },
+        onremoved() {
+          bulmaJS.toggleHtmlClipped()
+        }
+      })
+    })
+
   // Search
 
   const employeeNameNumberSearchElement = document.querySelector(
