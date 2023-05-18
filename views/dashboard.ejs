@@ -81,18 +81,14 @@
                       <% for (const absenceRecord of absenceRecords) {%>
                         <div class="panel-block is-block">
                           <div class="columns is-mobile">
-                            <div class="column is-3">
+                            <div class="column is-4">
                               <strong data-tooltip="Absence Date">
                                 <%= dateTimeFunctions.dateToString(absenceRecord.absenceDateTime) %>
                               </strong>
                             </div>
                             <div class="column">
-                              <strong><%= absenceRecord.employeeName %></strong><br>
-                              <span class="is-size-7"><%= absenceRecord.employeeNumber %></span>
-                            </div>
-                            <div class="column">
-                              <strong data-tooltip="Absence Type"><%= absenceRecord.absenceType %></strong><br>
-                              <span class="is-size-7"><%- absenceRecord.recordComment %></span>
+                              <strong><%= absenceRecord.employeeName %></strong><br />
+                              <span data-tooltip="Absence Type"><%= absenceRecord.absenceType %></span>
                             </div>
                           </div>
                         </div>
@@ -114,18 +110,14 @@
                       <% for (const returnToWorkRecord of returnToWorkRecords) {%>
                         <div class="panel-block is-block">
                           <div class="columns is-mobile">
-                            <div class="column is-3">
+                            <div class="column is-4">
                               <strong data-tooltip="Return Date">
                                 <%= dateTimeFunctions.dateToString(returnToWorkRecord.returnDateTime) %>
                               </strong>
                             </div>
                             <div class="column">
-                              <strong><%= returnToWorkRecord.employeeName %></strong><br>
-                              <span class="is-size-7"><%= returnToWorkRecord.employeeNumber %></span>
-                            </div>
-                            <div class="column">
-                              <strong data-tooltip="Return Shift"><%= returnToWorkRecord.returnShift %></strong><br>
-                              <span class="is-size-7"><%- returnToWorkRecord.recordComment %></span>
+                              <strong><%= returnToWorkRecord.employeeName %></strong><br />
+                              <span data-tooltip="Return Shift"><%= returnToWorkRecord.returnShift %></span>
                             </div>
                           </div>
                         </div>
