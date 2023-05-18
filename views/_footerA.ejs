@@ -15,6 +15,10 @@
   window.exports = window.exports || {};
   exports.aliases = {
   };
+  exports.userPermissions = {
+    callOutsCanUpdate: <%= permissionFunctions.hasPermission(user, 'attendance.callOuts.canUpdate') ? 'true' : 'false' %>,
+    callOutsCanManage: <%= permissionFunctions.hasPermission(user, 'attendance.callOuts.canManage') ? 'true' : 'false' %>
+  }
 </script>
 <script src="<%= urlPrefix %>/lib/cityssm-bulma-js/bulma-js.js"></script>
 <script src="<%= urlPrefix %>/lib/cityssm-bulma-webapp-js/cityssm.min.js"></script>

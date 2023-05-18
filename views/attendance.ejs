@@ -140,10 +140,8 @@
     exports.callOutResponseTypes = <%- JSON.stringify(callOutResponseTypes) %>;
     exports.employeeEligibilityFunctionNames = <%- JSON.stringify(employeeEligibilityFunctionNames) %>;
     exports.employeeSortKeyFunctionNames = <%- JSON.stringify(employeeSortKeyFunctionNames) %>;
-
-    exports.callOutsCanUpdate = <%= permissionFunctions.hasPermission(user, 'attendance.callOuts.canUpdate') ? 'true' : 'false' %>;
-    exports.callOutsCanManage = <%= permissionFunctions.hasPermission(user, 'attendance.callOuts.canManage') ? 'true' : 'false' %>;
-  </script>
+ </script>
+  <script src="<%= urlPrefix %>/javascripts/main.callOuts.min.js"></script>
   <script src="<%= urlPrefix %>/javascripts/attendance.callOuts.min.js"></script>
 <% } %>
 

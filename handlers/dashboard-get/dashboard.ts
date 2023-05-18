@@ -8,6 +8,7 @@ import type * as recordTypes from '../../types/recordTypes'
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 import { getCallOutLists } from '../../database/getCallOutLists.js'
+import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js'
 
 export async function handler(
   request: Request,
@@ -44,25 +45,37 @@ export async function handler(
   }
 
   let callOutLists: recordTypes.CallOutList[] = []
+  let callOutResponseTypes: recordTypes.CallOutResponseType[] = []
 
-  if (
-    configFunctions.getProperty('features.attendance.callOuts') &&
-    permissionFunctions.hasPermission(
-      request.session.user!,
-      'attendance.callOuts.canView'
-    )
-  ) {
-    callOutLists = await getCallOutLists(
-      { favouriteOnly: true },
-      request.session
-    )
+  if (configFunctions.getProperty('features.attendance.callOuts')) {
+    if (
+      permissionFunctions.hasPermission(
+        request.session.user!,
+        'attendance.callOuts.canView'
+      )
+    ) {
+      callOutLists = await getCallOutLists(
+        { favouriteOnly: true },
+        request.session
+      )
+    }
+
+    if (
+      permissionFunctions.hasPermission(
+        request.session.user!,
+        'attendance.callOuts.canUpdate'
+      )
+    ) {
+      callOutResponseTypes = await getCallOutResponseTypes()
+    }
   }
 
   response.render('dashboard', {
     headTitle: 'Dashboard',
     absenceRecords,
     returnToWorkRecords,
-    callOutLists
+    callOutLists,
+    callOutResponseTypes
   })
 }
 
