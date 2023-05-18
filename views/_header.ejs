@@ -11,7 +11,12 @@
     <%= configFunctions.getProperty("application.applicationName") %>
   </title>
 
-  <link rel="icon" href="<%= urlPrefix + configFunctions.getProperty("application.smallLogoURL") %>" />
+  <link rel="apple-touch-icon" sizes="180x180" href="<%= urlPrefix %>/images/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="<%= urlPrefix %>/images/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="<%= urlPrefix %>/images/favicon/favicon-16x16.png" />
+  <link rel="icon" type="image/svg+xml" href="<%= urlPrefix %>/images/favicon/favicon.svg" />
+  <link rel="mask-icon" href="<%= urlPrefix %>/images/favicon/safari-pinned-tab.svg" color="#5bbad5" />
+  <link rel="shortcut icon" href="<%= urlPrefix %>/images/favicon/favicon.ico" />
 
   <link rel="stylesheet" href="<%= urlPrefix %>/stylesheets/style.css" />
 </head>

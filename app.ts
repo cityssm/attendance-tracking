@@ -99,9 +99,12 @@ app.use(urlPrefix, express.static(path.join('public')))
 
 app.use(
   '/favicon.ico',
-  express.static(
-    path.join('public', 'favicon.ico')
-  )
+  express.static(path.join('public', 'images', 'favicon', 'favicon.ico'))
+)
+
+app.use(
+  urlPrefix + '/favicon.ico',
+  express.static(path.join('public', 'images', 'favicon', 'favicon.ico'))
 )
 
 app.use(
