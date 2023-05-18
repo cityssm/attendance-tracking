@@ -10,7 +10,10 @@ export async function handler(
 ): Promise<void> {
   const success = await deleteCallOutList(request.body.listId, request.session)
 
-  const callOutLists = await getCallOutLists(request.session)
+  const callOutLists = await getCallOutLists(
+    { favouriteOnly: false },
+    request.session
+  )
 
   response.json({
     success,

@@ -1,19 +1,20 @@
 import * as configFunctions from '../../helpers/functions.config.js';
 import * as permissionFunctions from '../../helpers/functions.permissions.js';
-import { getAbsenceRecords } from '../../database/getAbsenceRecords.js';
-import { getCallOutLists } from '../../database/getCallOutLists.js';
-import { getEmployeePropertyNames } from '../../database/getEmployeePropertyNames.js';
-import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js';
-import { getAbsenceTypes } from '../../database/getAbsenceTypes.js';
 import { getEmployees } from '../../database/getEmployees.js';
+import { getAbsenceRecords } from '../../database/getAbsenceRecords.js';
+import { getAbsenceTypes } from '../../database/getAbsenceTypes.js';
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js';
+import { getCallOutLists } from '../../database/getCallOutLists.js';
+import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js';
+import { getEmployeePropertyNames } from '../../database/getEmployeePropertyNames.js';
 export async function handler(request, response) {
     let absenceRecords = [];
     let absenceTypes = [];
     if (configFunctions.getProperty('features.attendance.absences')) {
         if (permissionFunctions.hasPermission(request.session.user, 'attendance.absences.canView')) {
             absenceRecords = await getAbsenceRecords({
-                recentOnly: true
+                recentOnly: true,
+                todayOnly: false
             });
         }
         if (permissionFunctions.hasPermission(request.session.user, 'attendance.absences.canUpdate')) {
@@ -24,7 +25,8 @@ export async function handler(request, response) {
     if (configFunctions.getProperty('features.attendance.returnsToWork') &&
         permissionFunctions.hasPermission(request.session.user, 'attendance.returnsToWork.canView')) {
         returnToWorkRecords = await getReturnToWorkRecords({
-            recentOnly: true
+            recentOnly: true,
+            todayOnly: false
         });
     }
     let callOutLists = [];
@@ -34,7 +36,9 @@ export async function handler(request, response) {
     let employeePropertyNames = [];
     if (configFunctions.getProperty('features.attendance.callOuts')) {
         if (permissionFunctions.hasPermission(request.session.user, 'attendance.callOuts.canView')) {
-            callOutLists = await getCallOutLists(request.session);
+            callOutLists = await getCallOutLists({
+                favouriteOnly: false
+            }, request.session);
         }
         if (permissionFunctions.hasPermission(request.session.user, 'attendance.callOuts.canUpdate')) {
             callOutResponseTypes = await getCallOutResponseTypes();

@@ -5,14 +5,16 @@ import * as permissionFunctions from '../../helpers/functions.permissions.js'
 
 import type * as recordTypes from '../../types/recordTypes'
 
+import { getEmployees } from '../../database/getEmployees.js'
+
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
+import { getAbsenceTypes } from '../../database/getAbsenceTypes.js'
+
+import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 
 import { getCallOutLists } from '../../database/getCallOutLists.js'
-import { getEmployeePropertyNames } from '../../database/getEmployeePropertyNames.js'
 import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js'
-import { getAbsenceTypes } from '../../database/getAbsenceTypes.js'
-import { getEmployees } from '../../database/getEmployees.js'
-import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
+import { getEmployeePropertyNames } from '../../database/getEmployeePropertyNames.js'
 
 export async function handler(
   request: Request,
@@ -33,7 +35,8 @@ export async function handler(
       )
     ) {
       absenceRecords = await getAbsenceRecords({
-        recentOnly: true
+        recentOnly: true,
+        todayOnly: false
       })
     }
 
@@ -61,7 +64,8 @@ export async function handler(
     )
   ) {
     returnToWorkRecords = await getReturnToWorkRecords({
-      recentOnly: true
+      recentOnly: true,
+      todayOnly: false
     })
   }
 
@@ -82,7 +86,12 @@ export async function handler(
         'attendance.callOuts.canView'
       )
     ) {
-      callOutLists = await getCallOutLists(request.session)
+      callOutLists = await getCallOutLists(
+        {
+          favouriteOnly: false
+        },
+        request.session
+      )
     }
 
     if (

@@ -13,7 +13,10 @@ export async function handler(
     request.session
   )
 
-  const callOutLists = await getCallOutLists(request.session)
+  const callOutLists = await getCallOutLists(
+    { favouriteOnly: false },
+    request.session
+  )
 
   response.json({
     success,

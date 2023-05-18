@@ -12,7 +12,10 @@ export async function handler(
 ): Promise<void> {
   const success = await updateCallOutList(request.body, request.session)
 
-  const callOutLists = await getCallOutLists(request.session)
+  const callOutLists = await getCallOutLists(
+    { favouriteOnly: false },
+    request.session
+  )
 
   const callOutListMembers = await getCallOutListMembers(
     {

@@ -24,7 +24,8 @@ export async function handler(
   ) {
     absenceRecords = await getAbsenceRecords({
       employeeNumber: request.body.employeeNumber,
-      recentOnly: true
+      recentOnly: true,
+      todayOnly: false
     })
   }
 
@@ -39,7 +40,8 @@ export async function handler(
   ) {
     returnToWorkRecords = await getReturnToWorkRecords({
       employeeNumber: request.body.employeeNumber,
-      recentOnly: true
+      recentOnly: true,
+      todayOnly: false
     })
   }
 

@@ -1,6 +1,6 @@
 import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-export async function getCallOutLists(requestSession) {
+export async function getCallOutLists(filters, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     const propertyResult = await pool
         .request()

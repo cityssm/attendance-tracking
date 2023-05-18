@@ -8,6 +8,7 @@ import type { AbsenceRecord } from '../types/recordTypes'
 interface GetAbsenceRecordsFilters {
   employeeNumber?: string
   recentOnly: boolean
+  todayOnly: boolean
 }
 
 export async function getAbsenceRecords(
@@ -32,7 +33,9 @@ export async function getAbsenceRecords(
     request = request.input('employeeNumber', filters.employeeNumber)
   }
 
-  if (filters.recentOnly) {
+  if (filters.todayOnly) {
+    sql += ' and datediff(day, r.absenceDateTime, getdate()) < 1'
+  } else if (filters.recentOnly) {
     sql += ' and datediff(day, r.absenceDateTime, getdate()) <= @recentDays'
     request = request.input(
       'recentDays',

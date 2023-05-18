@@ -9,7 +9,8 @@ export async function handler(request, response) {
         permissionFunctions.hasPermission(request.session.user, 'attendance.absences.canView')) {
         absenceRecords = await getAbsenceRecords({
             employeeNumber: request.body.employeeNumber,
-            recentOnly: true
+            recentOnly: true,
+            todayOnly: false
         });
     }
     let returnToWorkRecords = [];
@@ -17,7 +18,8 @@ export async function handler(request, response) {
         permissionFunctions.hasPermission(request.session.user, 'attendance.returnsToWork.canView')) {
         returnToWorkRecords = await getReturnToWorkRecords({
             employeeNumber: request.body.employeeNumber,
-            recentOnly: true
+            recentOnly: true,
+            todayOnly: false
         });
     }
     let callOutRecords = [];

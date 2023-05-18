@@ -14,7 +14,10 @@ export async function getReturnToWorkRecords(filters) {
         sql += ' and r.employeeNumber = @employeeNumber';
         request = request.input('employeeNumber', filters.employeeNumber);
     }
-    if (filters.recentOnly) {
+    if (filters.todayOnly) {
+        sql += ' and datediff(day, r.returnDateTime, getdate()) < 1';
+    }
+    else if (filters.recentOnly) {
         sql += ' and datediff(day, r.returnDateTime, getdate()) <= @recentDays';
         request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
     }

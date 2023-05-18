@@ -5,7 +5,12 @@ import type { IResult } from 'mssql'
 
 import type * as recordTypes from '../types/recordTypes'
 
+interface GetCallOutListsFilters {
+  favouriteOnly: boolean
+}
+
 export async function getCallOutLists(
+  filters: GetCallOutListsFilters,
   requestSession: recordTypes.PartialSession
 ): Promise<recordTypes.CallOutList[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))

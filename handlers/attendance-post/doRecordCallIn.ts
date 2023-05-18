@@ -33,7 +33,8 @@ export async function handler(
         recordId = await addAbsenceRecord(request.body, request.session)
         success = true
         absenceRecords = await getAbsenceRecords({
-          recentOnly: true
+          recentOnly: true,
+          todayOnly: false
         })
       }
 
@@ -50,7 +51,8 @@ export async function handler(
         recordId = await addReturnToWorkRecord(request.body, request.session)
         success = true
         returnToWorkRecords = await getReturnToWorkRecords({
-          recentOnly: true
+          recentOnly: true,
+          todayOnly: false
         })
       }
 
@@ -61,6 +63,7 @@ export async function handler(
   response.json({
     success,
     recordId,
+    callInType,
     absenceRecords,
     returnToWorkRecords
   })

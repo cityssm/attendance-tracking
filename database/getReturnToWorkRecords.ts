@@ -8,6 +8,7 @@ import type { ReturnToWorkRecord } from '../types/recordTypes'
 interface GetReturnToWorkRecordsFilters {
   employeeNumber?: string
   recentOnly: boolean
+  todayOnly: boolean
 }
 
 export async function getReturnToWorkRecords(
@@ -30,7 +31,9 @@ export async function getReturnToWorkRecords(
     request = request.input('employeeNumber', filters.employeeNumber)
   }
 
-  if (filters.recentOnly) {
+  if (filters.todayOnly) {
+    sql += ' and datediff(day, r.returnDateTime, getdate()) < 1'
+  } else if (filters.recentOnly) {
     sql += ' and datediff(day, r.returnDateTime, getdate()) <= @recentDays'
     request = request.input(
       'recentDays',

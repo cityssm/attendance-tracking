@@ -15,7 +15,8 @@ export async function handler(request, response) {
                 recordId = await addAbsenceRecord(request.body, request.session);
                 success = true;
                 absenceRecords = await getAbsenceRecords({
-                    recentOnly: true
+                    recentOnly: true,
+                    todayOnly: false
                 });
             }
             break;
@@ -25,7 +26,8 @@ export async function handler(request, response) {
                 recordId = await addReturnToWorkRecord(request.body, request.session);
                 success = true;
                 returnToWorkRecords = await getReturnToWorkRecords({
-                    recentOnly: true
+                    recentOnly: true,
+                    todayOnly: false
                 });
             }
             break;
@@ -34,6 +36,7 @@ export async function handler(request, response) {
     response.json({
         success,
         recordId,
+        callInType,
         absenceRecords,
         returnToWorkRecords
     });

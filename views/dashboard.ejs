@@ -4,11 +4,16 @@
   <%= configFunctions.getProperty("application.applicationName") %>
 </h1>
 
-<div class="columns is-desktop">
-  <div class="column">
-    <% if (configFunctions.includeAttendance() && permissionFunctions.hasAttendance(user)) { %>
-      <div class="card">
-        <div class="card-content">
+<% if (configFunctions.includeAttendance() && permissionFunctions.hasAttendance(user)) { %>
+  <%
+    const includeAbsences = configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')
+    const includeReturnsToWork = configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')
+    const includeCallOuts = configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')
+  %>
+  <div class="card mb-4">
+    <div class="card-content">
+      <div class="columns is-desktop">
+        <div class="column">
           <div class="media">
             <div class="media-left">
               <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
@@ -21,22 +26,115 @@
                 Employee Attendance
               </h2>
               <p>
-                <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
+                <% if (includeAbsences) { %>
                   Track absence requests.
                 <% } %>
-                <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
+                <% if (includeReturnsToWork) { %>
                   Record return to work notices.
                 <% } %>
-                <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
+                <% if (includeCallOuts) { %>
                   Manage employee call outs.
                 <% } %>
               </p>
             </a>
           </div>
         </div>
+        <div class="column">
+          <div class="tabs is-boxed">
+            <ul>
+              <% if (includeAbsences) { %>
+                <li class="is-active">
+                  <a href="#tab--attendance-absences">
+                    <span>Absences</span>
+                    <span class="tag ml-2"><%= absenceRecords.length %></span>
+                  </a>
+                </li>
+              <% } %>
+              <% if (includeReturnsToWork) { %>
+                <li>
+                  <a href="#tab--attendance-returnsToWork">
+                    <span>Returns to Work</span>
+                    <span class="tag ml-2"><%= returnToWorkRecords.length %></span>
+                  </a>
+                </li>
+              <% } %>
+            </ul>
+          </div>
+          <div class="tabs-container">
+            <% if (includeAbsences) { %>
+              <div id="tab--attendance-absences">
+                <% if (absenceRecords.length === 0) { %>
+                  <div class="message is-info">
+                    <p class="message-body is-size-7">
+                      There are no absence records for today.
+                    </p>
+                  </div>
+                <% } else { %>
+                  <div class="panel">
+                    <% for (const absenceRecord of absenceRecords) {%>
+                      <div class="panel-block is-block">
+                        <div class="columns is-mobile">
+                          <div class="column is-3">
+                            <strong data-tooltip="Absence Date">
+                              <%= dateTimeFunctions.dateToString(absenceRecord.absenceDateTime) %>
+                            </strong>
+                          </div>
+                          <div class="column">
+                            <strong><%= absenceRecord.employeeName %></strong><br>
+                            <span class="is-size-7"><%= absenceRecord.employeeNumber %></span>
+                          </div>
+                          <div class="column">
+                            <strong data-tooltip="Absence Type"><%= absenceRecord.absenceType %></strong><br>
+                            <span class="is-size-7"><%- absenceRecord.recordComment %></span>
+                          </div>
+                        </div>
+                      </div>
+                    <% } %>
+                  </div>
+                <% } %>
+              </div>
+            <% } %>
+            <% if (includeReturnsToWork) { %>
+              <div class="is-hidden" id="tab--attendance-returnsToWork">
+                <% if (returnToWorkRecords.length === 0) { %>
+                  <div class="message is-info">
+                    <p class="message-body is-size-7">
+                      There are no return to work records for today.
+                    </p>
+                  </div>
+                <% } else { %>
+                  <div class="panel">
+                    <% for (const returnToWorkRecord of returnToWorkRecords) {%>
+                      <div class="panel-block is-block">
+                        <div class="columns is-mobile">
+                          <div class="column is-3">
+                            <strong data-tooltip="Return Date">
+                              <%= dateTimeFunctions.dateToString(returnToWorkRecord.returnDateTime) %>
+                            </strong>
+                          </div>
+                          <div class="column">
+                            <strong><%= returnToWorkRecord.employeeName %></strong><br>
+                            <span class="is-size-7"><%= returnToWorkRecord.employeeNumber %></span>
+                          </div>
+                          <div class="column">
+                            <strong data-tooltip="Return Shift"><%= returnToWorkRecord.returnShift %></strong><br>
+                            <span class="is-size-7"><%- returnToWorkRecord.recordComment %></span>
+                          </div>
+                        </div>
+                      </div>
+                    <% } %>
+                  </div>
+                <% } %>
+              </div>
+            <% } %>
+          </div>
+        </div>
       </div>
-    <% } %>
+    </div>
   </div>
+<% } %>
+
+<div class="columns">
   <div class="column">
     <div class="card">
       <div class="card-content">
@@ -52,6 +150,10 @@
           </a>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="card">
       <div class="card-content">
         <div class="media">
           <div class="media-left">

@@ -1,2 +1,6 @@
 import type * as recordTypes from '../types/recordTypes';
-export declare function getCallOutLists(requestSession: recordTypes.PartialSession): Promise<recordTypes.CallOutList[]>;
+interface GetCallOutListsFilters {
+    favouriteOnly: boolean;
+}
+export declare function getCallOutLists(filters: GetCallOutListsFilters, requestSession: recordTypes.PartialSession): Promise<recordTypes.CallOutList[]>;
+export {};
