@@ -4,7 +4,7 @@ import type * as globalTypes from '../types/globalTypes'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 import type { BulmaJS } from '@cityssm/bulma-js/types'
 
-import type * as recordTypes from '../types/recordTypes'
+import * as recordTypes from '../types/recordTypes'
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
@@ -20,6 +20,7 @@ declare const cityssm: cityssmGlobal
 
   function openEmployeeModal(employeeNumber: string): void {
     let employeeModalElement: HTMLElement
+    let closeEmployeeModalFunction: () => void
 
     const employee = unfilteredEmployees.find((possibleEmployee) => {
       return possibleEmployee.employeeNumber === employeeNumber
@@ -238,6 +239,49 @@ declare const cityssm: cityssmGlobal
       )
     }
 
+    function deleteEmployee(clickEvent: Event): void {
+      clickEvent.preventDefault()
+
+      function doDelete(): void {
+        cityssm.postJSON(
+          MonTY.urlPrefix + '/admin/doDeleteEmployee',
+          {
+            employeeNumber
+          },
+          (rawResponseJSON) => {
+            const responseJSON = rawResponseJSON as {
+              success: boolean
+              employees?: recordTypes.Employee[]
+            }
+
+            if (responseJSON.success) {
+              closeEmployeeModalFunction()
+
+              bulmaJS.alert({
+                message: 'Employee deleted successfully',
+                contextualColorName: 'info'
+              })
+
+              unfilteredEmployees = responseJSON.employees!
+              refreshFilteredEmployees()
+            }
+          }
+        )
+      }
+
+      bulmaJS.confirm({
+        title: 'Delete Employee',
+        message: `Are you sure you want to delete this employee?<br />
+          Note that if the employee is found in a subsequent syncing process, they may be restored.`,
+        messageIsHtml: true,
+        contextualColorName: 'warning',
+        okButton: {
+          text: 'Yes, Delete Employee',
+          callbackFunction: doDelete
+        }
+      })
+    }
+
     cityssm.openHtmlModal('employeeAdmin-employee', {
       onshow(modalElement) {
         employeeModalElement = modalElement
@@ -352,6 +396,8 @@ declare const cityssm: cityssmGlobal
         )
       },
       onshown(modalElement, closeModalFunction) {
+        closeEmployeeModalFunction = closeModalFunction
+
         bulmaJS.toggleHtmlClipped()
 
         bulmaJS.init(modalElement)
@@ -368,6 +414,10 @@ declare const cityssm: cityssmGlobal
         modalElement
           .querySelector('#form--employeePropertyAdd')
           ?.addEventListener('submit', addEmployeeProperty)
+
+        modalElement
+          .querySelector('.is-delete-employee')
+          ?.addEventListener('click', deleteEmployee)
       },
       onremoved() {
         bulmaJS.toggleHtmlClipped()

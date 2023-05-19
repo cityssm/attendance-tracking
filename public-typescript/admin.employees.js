@@ -10,6 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     // Employee Modal
     function openEmployeeModal(employeeNumber) {
         let employeeModalElement;
+        let closeEmployeeModalFunction;
         const employee = unfilteredEmployees.find((possibleEmployee) => {
             return possibleEmployee.employeeNumber === employeeNumber;
         });
@@ -162,6 +163,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
             });
         }
+        function deleteEmployee(clickEvent) {
+            clickEvent.preventDefault();
+            function doDelete() {
+                cityssm.postJSON(MonTY.urlPrefix + '/admin/doDeleteEmployee', {
+                    employeeNumber
+                }, (rawResponseJSON) => {
+                    const responseJSON = rawResponseJSON;
+                    if (responseJSON.success) {
+                        closeEmployeeModalFunction();
+                        bulmaJS.alert({
+                            message: 'Employee deleted successfully',
+                            contextualColorName: 'info'
+                        });
+                        unfilteredEmployees = responseJSON.employees;
+                        refreshFilteredEmployees();
+                    }
+                });
+            }
+            bulmaJS.confirm({
+                title: 'Delete Employee',
+                message: `Are you sure you want to delete this employee?<br />
+          Note that if the employee is found in a subsequent syncing process, they may be restored.`,
+                messageIsHtml: true,
+                contextualColorName: 'warning',
+                okButton: {
+                    text: 'Yes, Delete Employee',
+                    callbackFunction: doDelete
+                }
+            });
+        }
         cityssm.openHtmlModal('employeeAdmin-employee', {
             onshow(modalElement) {
                 var _a, _b, _c, _d, _e, _f, _g, _h;
@@ -197,7 +228,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 });
             },
             onshown(modalElement, closeModalFunction) {
-                var _a, _b;
+                var _a, _b, _c;
+                closeEmployeeModalFunction = closeModalFunction;
                 bulmaJS.toggleHtmlClipped();
                 bulmaJS.init(modalElement);
                 MonTY.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('.tabs-container > article'));
@@ -205,6 +237,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     .querySelector('#form--employeeEdit')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', updateEmployee);
                 (_b = modalElement
                     .querySelector('#form--employeePropertyAdd')) === null || _b === void 0 ? void 0 : _b.addEventListener('submit', addEmployeeProperty);
+                (_c = modalElement
+                    .querySelector('.is-delete-employee')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', deleteEmployee);
             },
             onremoved() {
                 bulmaJS.toggleHtmlClipped();

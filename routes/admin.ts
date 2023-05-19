@@ -6,6 +6,7 @@ import handler_doGetEmployeeProperties from '../handlers/admin-post/doGetEmploye
 
 import handler_doAddEmployee from '../handlers/admin-post/doAddEmployee.js'
 import handler_doUpdateEmployee from '../handlers/admin-post/doUpdateEmployee.js'
+import handler_doDeleteEmployee from '../handlers/admin-post/doDeleteEmployee.js'
 
 import handler_doAddEmployeeProperty from '../handlers/admin-post/doAddEmployeeProperty.js'
 import handler_doUpdateEmployeeProperty from '../handlers/admin-post/doUpdateEmployeeProperty.js'
@@ -50,6 +51,8 @@ router.post(
 router.post('/doAddEmployee', handler_doAddEmployee as RequestHandler)
 
 router.post('/doUpdateEmployee', handler_doUpdateEmployee as RequestHandler)
+
+router.post('/doDeleteEmployee', handler_doDeleteEmployee as RequestHandler)
 
 router.post(
   '/doAddEmployeeProperty',
