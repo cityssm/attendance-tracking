@@ -21,6 +21,7 @@ export declare function getProperty(propertyName: 'session.secret'): string;
 export declare function getProperty(propertyName: 'features.attendance.absences'): boolean;
 export declare function getProperty(propertyName: 'features.attendance.callOuts'): boolean;
 export declare function getProperty(propertyName: 'features.attendance.returnsToWork'): boolean;
+export declare function getProperty(propertyName: 'features.attendance.afterHours'): boolean;
 export declare function getProperty(propertyName: 'features.employees.avantiSync'): boolean;
 export declare function getProperty(propertyName: 'mssql'): MSSQLConfig;
 export declare function getProperty(propertyName: 'settings.avantiSync.config'): AvantiConfig;

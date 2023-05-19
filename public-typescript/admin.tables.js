@@ -2,7 +2,7 @@
 /* eslint-disable unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
-    var _a, _b;
+    var _a, _b, _c;
     const MonTY = exports.MonTY;
     function setRowBackgroundColor(changeEvent) {
         ;
@@ -401,4 +401,191 @@ Object.defineProperty(exports, "__esModule", { value: true });
         });
     });
     renderCallOutResponseTypes();
+    let afterHoursReasons = exports.afterHoursReasons;
+    delete exports.afterHoursReasons;
+    function updateAfterHoursReason(clickEvent) {
+        const rowElement = clickEvent.currentTarget.closest('tr');
+        const afterHoursReasonId = rowElement.dataset.afterHoursReasonId;
+        const afterHoursReason = rowElement.querySelector('input').value;
+        cityssm.postJSON(MonTY.urlPrefix + '/admin/doUpdateAfterHoursReason', {
+            afterHoursReasonId,
+            afterHoursReason
+        }, (rawResponseJSON) => {
+            const responseJSON = rawResponseJSON;
+            if (responseJSON.success) {
+                bulmaJS.alert({
+                    message: 'Reason updated successfully.'
+                });
+                rowElement.classList.remove('has-background-warning-light');
+            }
+        });
+    }
+    function moveAfterHoursReason(clickEvent) {
+        const buttonElement = clickEvent.currentTarget;
+        const tableRowElement = buttonElement.closest('tr');
+        const afterHoursReasonId = tableRowElement.dataset.afterHoursReasonId;
+        cityssm.postJSON(MonTY.urlPrefix +
+            '/admin/' +
+            (buttonElement.dataset.direction === 'up'
+                ? 'doMoveAfterHoursReasonUp'
+                : 'doMoveAfterHoursReasonDown'), {
+            afterHoursReasonId,
+            moveToEnd: clickEvent.shiftKey ? '1' : '0'
+        }, (rawResponseJSON) => {
+            var _a;
+            const responseJSON = rawResponseJSON;
+            if (responseJSON.success) {
+                afterHoursReasons = responseJSON.afterHoursReasons;
+                renderAfterHoursReasons();
+            }
+            else {
+                bulmaJS.alert({
+                    title: 'Error Moving Reason',
+                    message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                    contextualColorName: 'danger'
+                });
+            }
+        });
+    }
+    function deleteAfterHoursReason(clickEvent) {
+        const rowElement = clickEvent.currentTarget.closest('tr');
+        const afterHoursReasonId = rowElement.dataset.afterHoursReasonId;
+        function doDelete() {
+            cityssm.postJSON(MonTY.urlPrefix + '/admin/doDeleteAfterHoursReason', {
+                afterHoursReasonId
+            }, (rawResponseJSON) => {
+                var _a;
+                const responseJSON = rawResponseJSON;
+                if (responseJSON.success) {
+                    afterHoursReasons = responseJSON.afterHoursReasons;
+                    renderAfterHoursReasons();
+                }
+                else {
+                    bulmaJS.alert({
+                        title: 'Error Deleting Reason',
+                        message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                        contextualColorName: 'danger'
+                    });
+                }
+            });
+        }
+        bulmaJS.confirm({
+            title: 'Delete Reason',
+            message: 'Are you sure you want to delete this after hours reason?',
+            contextualColorName: 'warning',
+            okButton: {
+                text: 'Yes, Delete Reason',
+                callbackFunction: doDelete
+            }
+        });
+    }
+    function renderAfterHoursReasons() {
+        var _a, _b;
+        const containerElement = document.querySelector('#container--afterHoursReasons');
+        if (absenceTypes.length === 0) {
+            containerElement.innerHTML = `<div class="message is-warning">
+        <p class="message-body">There are no active active hours reasons.</p>
+        </div>`;
+            return;
+        }
+        containerElement.innerHTML = `<table class="table is-striped is-hoverable is-fullwidth">
+      <thead>
+        <tr>
+          <th>Reason</th>
+          <th class="has-width-1">
+            <span class="is-sr-only">Update Reason</span>
+          </th>
+          <th class="has-width-1">
+            <span class="is-sr-only">Move Reason</span>
+          </th>
+          <th class="has-width-1">
+            <span class="is-sr-only">Delete Reason</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      </table>`;
+        const tableBodyElement = containerElement.querySelector('tbody');
+        for (const afterHoursReason of afterHoursReasons) {
+            const rowElement = document.createElement('tr');
+            rowElement.dataset.afterHoursReasonId = afterHoursReason.afterHoursReasonId.toString();
+            rowElement.innerHTML = `<td>
+        <input class="input" name="afterHoursReason" maxlength="100" required />
+        </td>
+        <td>
+          <button class="button is-success is-update-button" type="button" aria-label="Update Reason">
+            <i class="fas fa-save" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <div class="field has-addons">
+            <div class="control">
+              <button class="button is-up-button" data-direction="up" type="button" aria-label="Move Up">
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="control">
+              <button class="button is-down-button" data-direction="down" type="button" aria-label="Move Down">
+                <i class="fas fa-arrow-down" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </td>
+        <td>
+        <button class="button is-danger is-delete-button" type="button" aria-label="Delete Reason">
+          <i class="fas fa-trash" aria-hidden="true"></i>
+        </button>
+        </td>`;
+            const inputElement = rowElement.querySelector('input');
+            inputElement.value = afterHoursReason.afterHoursReason;
+            inputElement.addEventListener('change', setRowBackgroundColor);
+            (_a = rowElement
+                .querySelector('.is-update-button')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', updateAfterHoursReason);
+            rowElement.querySelector('.is-up-button').addEventListener('click', moveAfterHoursReason);
+            rowElement.querySelector('.is-down-button').addEventListener('click', moveAfterHoursReason);
+            (_b = rowElement
+                .querySelector('.is-delete-button')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', deleteAfterHoursReason);
+            tableBodyElement.append(rowElement);
+        }
+    }
+    (_c = document
+        .querySelector('#tab--afterHoursReasons .is-add-button')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', () => {
+        let addCloseModalFunction;
+        function addAfterHoursReason(formEvent) {
+            formEvent.preventDefault();
+            cityssm.postJSON(MonTY.urlPrefix + '/admin/doAddAfterHoursReason', formEvent.currentTarget, (rawResponseJSON) => {
+                var _a;
+                const responseJSON = rawResponseJSON;
+                if (responseJSON.success) {
+                    addCloseModalFunction();
+                    bulmaJS.alert({
+                        message: 'Reason added successfully.',
+                        contextualColorName: 'success'
+                    });
+                    afterHoursReasons = responseJSON.afterHoursReasons;
+                    renderAfterHoursReasons();
+                }
+                else {
+                    bulmaJS.alert({
+                        title: 'Error Adding Reason',
+                        message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                        contextualColorName: 'danger'
+                    });
+                }
+            });
+        }
+        cityssm.openHtmlModal('tableAdmin-addAfterHoursReason', {
+            onshown(modalElement, closeModalFunction) {
+                var _a;
+                bulmaJS.toggleHtmlClipped();
+                addCloseModalFunction = closeModalFunction;
+                (_a = modalElement
+                    .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', addAfterHoursReason);
+            },
+            onremoved() {
+                bulmaJS.toggleHtmlClipped();
+            }
+        });
+    });
+    renderAfterHoursReasons();
 })();

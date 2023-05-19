@@ -7,6 +7,10 @@ export const availablePermissionValues = {
   'attendance.absences.canUpdate': trueFalseStrings,
   'attendance.absences.canManage': trueFalseStrings,
 
+  'attendance.afterHours.canView': trueFalseStrings,
+  'attendance.afterHours.canUpdate': trueFalseStrings,
+  'attendance.afterHours.canManage': trueFalseStrings,
+
   'attendance.callOuts.canView': trueFalseStrings,
   'attendance.callOuts.canUpdate': trueFalseStrings,
   'attendance.callOuts.canManage': trueFalseStrings,
@@ -21,6 +25,7 @@ export const availablePermissionValues = {
 export function hasAttendance(user: User): boolean {
   return (
     user.permissions?.['attendance.absences.canView'] === 'true' ||
+    user.permissions?.['attendance.afterHours.canView'] === 'true' ||
     user.permissions?.['attendance.callOuts.canView'] === 'true' ||
     user.permissions?.['attendance.returnsToWork.canView'] === 'true'
   )

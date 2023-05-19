@@ -26,6 +26,12 @@ import handler_doMoveCallOutResponseTypeUp from '../handlers/admin-post/doMoveCa
 import handler_doMoveCallOutResponseTypeDown from '../handlers/admin-post/doMoveCallOutResponseTypeDown.js'
 import handler_doDeleteCallOutResponseType from '../handlers/admin-post/doDeleteCallOutResponseType.js'
 
+import handler_doAddAfterHoursReason from '../handlers/admin-post/doAddAfterHoursReason.js'
+import handler_doUpdateAfterHoursReason from '../handlers/admin-post/doUpdateAfterHoursReason.js'
+import handler_doMoveAfterHoursReasonUp from '../handlers/admin-post/doMoveAfterHoursReasonUp.js'
+import handler_doMoveAfterHoursReasonDown from '../handlers/admin-post/doMoveAfterHoursReasonDown.js'
+import handler_doDeleteAfterHoursReason from '../handlers/admin-post/doDeleteAfterHoursReason.js'
+
 import handler_users from '../handlers/admin-get/users.js'
 
 import handler_doUpdateUserCanLogin from '../handlers/admin-post/doUpdateUserCanLogin.js'
@@ -127,6 +133,33 @@ router.post(
 router.post(
   '/doDeleteCallOutResponseType',
   handler_doDeleteCallOutResponseType as RequestHandler
+)
+
+// After Hours Reasons
+
+router.post(
+  '/doAddAfterHoursReason',
+  handler_doAddAfterHoursReason as RequestHandler
+)
+
+router.post(
+  '/doUpdateAfterHoursReason',
+  handler_doUpdateAfterHoursReason as RequestHandler
+)
+
+router.post(
+  '/doMoveAfterHoursReasonUp',
+  handler_doMoveAfterHoursReasonUp as RequestHandler
+)
+
+router.post(
+  '/doMoveAfterHoursReasonDown',
+  handler_doMoveAfterHoursReasonDown as RequestHandler
+)
+
+router.post(
+  '/doDeleteAfterHoursReason',
+  handler_doDeleteAfterHoursReason as RequestHandler
 )
 
 /*

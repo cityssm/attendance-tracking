@@ -65,6 +65,10 @@ export interface AbsenceRecord
   returnDateTime?: string | Date
 }
 
+/*
+ * RETURN TO WORK
+ */
+
 export interface ReturnToWorkRecord
   extends RecordUserNameDateTime {
   recordId: string // bigint
@@ -119,6 +123,25 @@ export interface CallOutRecord
   callOutDateTime: string | Date
   callOutHours: number
   responseTypeId: number
+  recordComment?: string
+}
+
+/*
+ * AFTER HOURS
+ */
+
+export interface AfterHoursReason extends RecordUserNameDateTime {
+  afterHoursReasonId: number
+  afterHoursReason: string
+  orderNumber?: number
+}
+
+export interface AfterHoursRecord extends Partial<AfterHoursReason>, RecordUserNameDateTime {
+  recordId: string // bigint
+  employeeNumber: string
+  employeeName: string
+  attendanceDateTime: string | Date
+  afterHoursReasonId: number
   recordComment?: string
 }
 

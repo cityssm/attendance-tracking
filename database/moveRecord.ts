@@ -5,10 +5,11 @@ import type { IResult } from 'mssql'
 
 import { updateRecordOrderNumber } from './updateRecordOrderNumber.js'
 
-type RecordTable = 'AbsenceTypes' | 'CallOutResponseTypes'
+type RecordTable = 'AbsenceTypes' | 'AfterHoursReasons' | 'CallOutResponseTypes'
 
 const recordIdColumns = new Map<RecordTable, string>()
 recordIdColumns.set('AbsenceTypes', 'absenceTypeKey')
+recordIdColumns.set('AfterHoursReasons', 'afterHoursReasonId')
 recordIdColumns.set('CallOutResponseTypes', 'responseTypeId')
 
 async function getCurrentOrderNumber(

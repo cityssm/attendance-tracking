@@ -35,6 +35,14 @@
             <span>Call Out Response Types</span>
           </a>
         </li>
+        <li>
+          <a href="#tab--afterHoursReasons">
+            <span class="icon is-small">
+              <i class="fas fa-table" aria-hidden="true"></i>
+            </span>
+            <span>After Hours Reasons</span>
+          </a>
+        </li>
       </ul>
     </div>
     <div class="tabs-container">
@@ -70,6 +78,22 @@
         </div>
         <div id="container--callOutResponseTypes"></div>
       </div>
+      <div class="is-hidden" id="tab--afterHoursReasons">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <h2 class="title is-4">After Hours Reasons</h2>
+          </div>
+          <div class="column is-narrow has-text-right">
+            <button class="button is-success is-add-button" type="button">
+              <span class="icon is-small">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+              </span>
+              <span>Add Reason</span>
+            </button>
+          </div>
+        </div>
+        <div id="container--afterHoursReasons"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -79,6 +103,7 @@
 <script>
   exports.absenceTypes = <%- JSON.stringify(absenceTypes) %>;
   exports.callOutResponseTypes = <%- JSON.stringify(callOutResponseTypes) %>;
+  exports.afterHoursReasons = <%- JSON.stringify(afterHoursReasons) %>;
 </script>
 
 <script src="<%= urlPrefix %>/javascripts/admin.tables.min.js"></script>

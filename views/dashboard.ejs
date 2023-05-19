@@ -8,6 +8,7 @@
   const includeAbsences = configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')
   const includeReturnsToWork = configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')
   const includeCallOuts = configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')
+  const includeAfterHours = configFunctions.getProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')
 %>
 <% if (configFunctions.includeAttendance() && permissionFunctions.hasAttendance(user)) { %>
   <div class="card mb-4">
@@ -34,6 +35,9 @@
                 <% } %>
                 <% if (includeCallOuts) { %>
                   Manage employee call outs.
+                <% } %>
+                <% if (includeAfterHours) { %>
+                  Track after hours attendance.
                 <% } %>
               </p>
             </a>

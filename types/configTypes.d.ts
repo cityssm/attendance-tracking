@@ -45,6 +45,7 @@ export interface Config {
             absences?: boolean;
             returnsToWork?: boolean;
             callOuts?: boolean;
+            afterHours?: boolean;
         };
         employees?: {
             avantiSync?: boolean;

@@ -41,6 +41,7 @@ configFallbackValues.set('session.doKeepAlive', false)
 configFallbackValues.set('features.attendance.absences', true)
 configFallbackValues.set('features.attendance.callOuts', true)
 configFallbackValues.set('features.attendance.returnsToWork', true)
+configFallbackValues.set('features.attendance.afterHours', true)
 
 configFallbackValues.set('features.employees.avantiSync', false)
 
@@ -94,6 +95,9 @@ export function getProperty(
 ): boolean
 export function getProperty(
   propertyName: 'features.attendance.returnsToWork'
+): boolean
+export function getProperty(
+  propertyName: 'features.attendance.afterHours'
 ): boolean
 
 export function getProperty(

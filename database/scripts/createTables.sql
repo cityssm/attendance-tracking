@@ -1,7 +1,7 @@
 create schema MonTY
 GO
 
---
+-- Users
 
 create table MonTY.Users (
 	userName varchar(20) not null primary key,
@@ -29,7 +29,7 @@ create table MonTY.UserPermissions (
 )
 GO
 
---
+-- Employees
 
 create table MonTY.Employees (
 	employeeNumber varchar(20) not null primary key,
@@ -72,7 +72,7 @@ create table MonTY.EmployeeProperties (
 )
 GO
 
---
+-- Call Out Records
 
 create table MonTY.CallOutLists (
 	listId bigint primary key identity,
@@ -168,7 +168,7 @@ create table MonTY.CallOutRecords (
 )
 GO
 
---
+-- Absence Records
 
 create table MonTY.AbsenceTypes (
 	absenceTypeKey varchar(10) primary key not null,
@@ -233,6 +233,8 @@ create table MonTY.AbsenceRecords (
 )
 GO
 
+-- Return to Work Records
+
 create table MonTY.ReturnToWorkRecords (
 	recordId bigint primary key identity,
 	employeeNumber varchar(20),
@@ -246,5 +248,45 @@ create table MonTY.ReturnToWorkRecords (
 	recordUpdate_dateTime datetime2 not null default getdate(),
 	recordDelete_userName varchar(20),
 	recordDelete_dateTime datetime2
+)
+GO
+
+-- After Hours Log
+
+create table MonTY.AfterHoursReasons (
+	afterHoursReasonId smallint primary key identity,
+	afterHoursReason varchar(100) not null,
+	orderNumber smallint not null default 0,
+	recordCreate_userName varchar(20) not null default CURRENT_USER,
+	recordCreate_dateTime datetime2 not null default getdate(),
+	recordUpdate_userName varchar(20) not null default CURRENT_USER,
+	recordUpdate_dateTime datetime2 not null default getdate(),
+	recordDelete_userName varchar(20),
+	recordDelete_dateTime datetime2
+)
+GO
+
+insert into MonTY.AfterHoursReasons (afterHoursReason, orderNumber)
+values ('Called In', 1)
+GO
+
+insert into MonTY.AfterHoursReasons (afterHoursReason, orderNumber)
+values ('Other', 2)
+GO
+
+create table MonTY.AfterHoursRecords (
+	recordId bigint primary key identity,
+	employeeNumber varchar(20),
+	employeeName varchar(200) not null,
+	attendanceDateTime datetime2 not null,
+	afterHoursReasonId smallint not null,
+	recordComment nvarchar(max),
+	recordCreate_userName varchar(20) not null default CURRENT_USER,
+	recordCreate_dateTime datetime2 not null default getdate(),
+	recordUpdate_userName varchar(20) not null default CURRENT_USER,
+	recordUpdate_dateTime datetime2 not null default getdate(),
+	recordDelete_userName varchar(20),
+	recordDelete_dateTime datetime2,
+	foreign key (afterHoursReasonId) references MonTY.AfterHoursReasons (afterHoursReasonId) on update cascade on delete no action
 )
 GO

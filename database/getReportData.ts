@@ -40,6 +40,17 @@ const callOutRecordsRecentSQL = `select r.recordId,
   where r.recordDelete_datetime is null
   and datediff(day, r.callOutDateTime, getdate()) <= @recentDays`
 
+const afterHoursRecordsRecentSQL = `select r.recordId,
+  r.employeeNumber, r.employeeName,
+  r.attendanceDateTime,
+  t.afterHoursReason,
+  r.recordComment,
+  r.recordUpdate_userName, r.recordUpdate_dateTime
+  from MonTY.AfterHoursRecords r
+  left join MonTY.AfterHoursReasons t on r.afterHoursReasonId = t.afterHoursReasonId
+  where r.recordDelete_datetime is null
+  and datediff(day, r.attendanceDateTime, getdate()) <= @recentDays`
+
 export async function getReportData(
   reportName: string,
   reportParameters: ReportParameters = {}
@@ -227,6 +238,28 @@ export async function getReportData(
       request = request
         .input('recentDays', configFunctions.getProperty('settings.recentDays'))
         .input('employeeNumber', reportParameters.employeeNumber)
+
+      break
+    }
+
+    /*
+     * After Hours Records
+     */
+
+    case 'afterHoursRecords-all': {
+      sql = 'select * from MonTY.AfterHoursRecords'
+      break
+    }
+
+    case 'afterHoursRecords-recent': {
+      sql =
+        afterHoursRecordsRecentSQL +
+        ' order by r.attendanceDateTime, r.recordId'
+
+      request = request.input(
+        'recentDays',
+        configFunctions.getProperty('settings.recentDays')
+      )
 
       break
     }

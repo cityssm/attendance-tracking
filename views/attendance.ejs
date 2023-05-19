@@ -5,7 +5,7 @@
     <aside class="menu" id="menu--attendance" style="position:sticky;top:60px">
       <% if ((configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) || (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView'))) { %>
         <h2 class="menu-label">
-          Incoming
+          Incoming Calls
         </h2>
         <ul class="menu-list">
           <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
@@ -50,7 +50,7 @@
       <% } %>
       <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
         <h2 class="menu-label">
-          Outgoing
+          Outgoing Calls
         </h2>
         <ul class="menu-list">
           <li>
@@ -59,6 +59,30 @@
                 <i class="fas fa-fw fa-phone" aria-hidden="true"></i>
               </span>
               <span>Call Out Lists</span>
+            </a>
+          </li>
+        </ul>
+      <% } %>
+      <% if (configFunctions.getProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
+        <h2 class="menu-label">
+          After Hours
+        </h2>
+        <ul class="menu-list">
+          <li>
+            <a class="is-block" href="#tab--afterHours">
+              <div class="columns is-gapless is-mobile">
+                <div class="column is-narrow">
+                  <span class="icon">
+                    <i class="fas fa-fw fa-clock" aria-hidden="true"></i>
+                  </span>
+                </div>
+                <div class="column">
+                  After Hours
+                </div>
+                <div class="column is-narrow">
+                  <span class="tag has-tooltip-left" data-tooltip="Past 24 Hours">0</span>
+                </div>
+              </div>
             </a>
           </li>
         </ul>
@@ -93,6 +117,11 @@
       <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
         <article class="is-hidden" id="tab--callOuts">
           <%- include('_attendance.callOuts.ejs'); -%>
+        </article>
+      <% } %>
+      <% if (configFunctions.getProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
+        <article class="is-hidden" id="tab--afterHours">
+          <%- include('_attendance.afterHours.ejs'); -%>
         </article>
       <% } %>
       <article class="is-hidden" id="tab--employees">
@@ -143,6 +172,14 @@
  </script>
   <script src="<%= urlPrefix %>/javascripts/main.callOuts.min.js"></script>
   <script src="<%= urlPrefix %>/javascripts/attendance.callOuts.min.js"></script>
+<% } %>
+
+<% if (configFunctions.getProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
+  <script>
+    exports.afterHoursRecords = <%- JSON.stringify(afterHoursRecords) %>;
+    exports.afterHoursReasons = <%- JSON.stringify(afterHoursReasons) %>;
+  </script>
+  <script src="<%= urlPrefix %>/javascripts/attendance.afterHours.min.js"></script>
 <% } %>
 
 

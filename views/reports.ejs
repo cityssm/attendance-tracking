@@ -111,6 +111,23 @@
                 </a>
               </div>
             <% } %>
+
+            <% if (configFunctions.getProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
+              <div class="panel">
+                <h2 class="panel-heading">After Hours Reports</h2>
+                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/afterHoursRecords-recent" download>
+                  <div class="columns">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      <strong>Recent After Hours Records</strong><br />
+                      All after hours records recorded in the past <%= configFunctions.getProperty('settings.recentDays') %> days.
+                    </div>
+                  </div>
+                </a>
+              </div>
+            <% } %>
           </div>
           <% if (permissionFunctions.hasPermission(user, 'reports.hasRawExports')) { %>
             <div class="column">
@@ -151,6 +168,16 @@
                     </div>
                     <div class="column">
                       <strong>Call Out Records Table</strong>
+                    </div>
+                  </div>
+                </a>
+                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/afterHoursRecords-all" download>
+                  <div class="columns">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      <strong>After Hours Records Table</strong>
                     </div>
                   </div>
                 </a>

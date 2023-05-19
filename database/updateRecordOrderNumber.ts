@@ -2,10 +2,11 @@ import * as configFunctions from '../helpers/functions.config.js'
 
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
-type RecordTable = 'AbsenceTypes' | 'CallOutResponseTypes'
+type RecordTable = 'AbsenceTypes' | 'AfterHoursReasons' | 'CallOutResponseTypes'
 
 const recordIdColumns = new Map<RecordTable, string>()
 recordIdColumns.set('AbsenceTypes', 'absenceTypeKey')
+recordIdColumns.set('AfterHoursReasons', 'afterHoursReasonId')
 recordIdColumns.set('CallOutResponseTypes', 'responseTypeId')
 
 export async function updateRecordOrderNumber(

@@ -7,6 +7,8 @@ import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js
 import { getCallOutLists } from '../../database/getCallOutLists.js';
 import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js';
 import { getEmployeePropertyNames } from '../../database/getEmployeePropertyNames.js';
+import { getAfterHoursRecords } from '../../database/getAfterHoursRecords.js';
+import { getAfterHoursReasons } from '../../database/getAfterHoursReasons.js';
 export async function handler(request, response) {
     let absenceRecords = [];
     let absenceTypes = [];
@@ -55,6 +57,19 @@ export async function handler(request, response) {
             employeePropertyNames = await getEmployeePropertyNames();
         }
     }
+    let afterHoursRecords = [];
+    let afterHoursReasons = [];
+    if (configFunctions.getProperty('features.attendance.afterHours')) {
+        if (permissionFunctions.hasPermission(request.session.user, 'attendance.afterHours.canView')) {
+            afterHoursRecords = await getAfterHoursRecords({
+                recentOnly: true,
+                todayOnly: false
+            });
+        }
+        if (permissionFunctions.hasPermission(request.session.user, 'attendance.afterHours.canUpdate')) {
+            afterHoursReasons = await getAfterHoursReasons();
+        }
+    }
     const employees = await getEmployees({
         isActive: true
     }, {
@@ -65,11 +80,13 @@ export async function handler(request, response) {
         absenceRecords,
         absenceTypes,
         returnToWorkRecords,
-        employees,
         callOutLists,
         callOutResponseTypes,
         employeeEligibilityFunctionNames,
         employeeSortKeyFunctionNames,
+        afterHoursRecords,
+        afterHoursReasons,
+        employees,
         employeePropertyNames
     });
 }

@@ -3,6 +3,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool';
 import { updateRecordOrderNumber } from './updateRecordOrderNumber.js';
 const recordIdColumns = new Map();
 recordIdColumns.set('AbsenceTypes', 'absenceTypeKey');
+recordIdColumns.set('AfterHoursReasons', 'afterHoursReasonId');
 recordIdColumns.set('CallOutResponseTypes', 'responseTypeId');
 async function getCurrentOrderNumber(recordTable, recordId) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));

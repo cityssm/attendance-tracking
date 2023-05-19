@@ -18,6 +18,11 @@ import handler_doUpdateCallOutResponseType from '../handlers/admin-post/doUpdate
 import handler_doMoveCallOutResponseTypeUp from '../handlers/admin-post/doMoveCallOutResponseTypeUp.js';
 import handler_doMoveCallOutResponseTypeDown from '../handlers/admin-post/doMoveCallOutResponseTypeDown.js';
 import handler_doDeleteCallOutResponseType from '../handlers/admin-post/doDeleteCallOutResponseType.js';
+import handler_doAddAfterHoursReason from '../handlers/admin-post/doAddAfterHoursReason.js';
+import handler_doUpdateAfterHoursReason from '../handlers/admin-post/doUpdateAfterHoursReason.js';
+import handler_doMoveAfterHoursReasonUp from '../handlers/admin-post/doMoveAfterHoursReasonUp.js';
+import handler_doMoveAfterHoursReasonDown from '../handlers/admin-post/doMoveAfterHoursReasonDown.js';
+import handler_doDeleteAfterHoursReason from '../handlers/admin-post/doDeleteAfterHoursReason.js';
 import handler_users from '../handlers/admin-get/users.js';
 import handler_doUpdateUserCanLogin from '../handlers/admin-post/doUpdateUserCanLogin.js';
 import handler_doUpdateUserIsAdmin from '../handlers/admin-post/doUpdateUserIsAdmin.js';
@@ -45,6 +50,11 @@ router.post('/doUpdateCallOutResponseType', handler_doUpdateCallOutResponseType)
 router.post('/doMoveCallOutResponseTypeUp', handler_doMoveCallOutResponseTypeUp);
 router.post('/doMoveCallOutResponseTypeDown', handler_doMoveCallOutResponseTypeDown);
 router.post('/doDeleteCallOutResponseType', handler_doDeleteCallOutResponseType);
+router.post('/doAddAfterHoursReason', handler_doAddAfterHoursReason);
+router.post('/doUpdateAfterHoursReason', handler_doUpdateAfterHoursReason);
+router.post('/doMoveAfterHoursReasonUp', handler_doMoveAfterHoursReasonUp);
+router.post('/doMoveAfterHoursReasonDown', handler_doMoveAfterHoursReasonDown);
+router.post('/doDeleteAfterHoursReason', handler_doDeleteAfterHoursReason);
 router.get('/users', handler_users);
 router.post('/doUpdateUserCanLogin', handler_doUpdateUserCanLogin);
 router.post('/doUpdateUserIsAdmin', handler_doUpdateUserIsAdmin);

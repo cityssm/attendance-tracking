@@ -14,6 +14,7 @@ import handler_doDeleteCallOutListMember from '../handlers/attendance-post/doDel
 import handler_doGetCallOutRecords from '../handlers/attendance-post/doGetCallOutRecords.js';
 import handler_doAddCallOutRecord from '../handlers/attendance-post/doAddCallOutRecord.js';
 import handler_doDeleteCallOutRecord from '../handlers/attendance-post/doDeleteCallOutRecord.js';
+import handler_doAddAfterHoursRecord from '../handlers/attendance-post/doAddAfterHoursRecord.js';
 import handler_doGetAttendanceRecords from '../handlers/attendance-post/doGetAttendanceRecords.js';
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js';
 function callOutsViewPostHandler(request, response, next) {
@@ -37,6 +38,13 @@ function callOutsManagePostHandler(request, response, next) {
     }
     response.status(forbiddenStatus).json(forbiddenJSON);
 }
+function afterHoursUpdatePostHandler(request, response, next) {
+    if (permissionFunctions.hasPermission(request.session.user, 'attendance.afterHours.canUpdate')) {
+        next();
+        return;
+    }
+    response.status(forbiddenStatus).json(forbiddenJSON);
+}
 export const router = Router();
 router.get('/', handler_attendance);
 if (configFunctions.getProperty('features.attendance.absences') ||
@@ -55,6 +63,9 @@ if (configFunctions.getProperty('features.attendance.callOuts')) {
     router.post('/doGetCallOutRecords', callOutsViewPostHandler, handler_doGetCallOutRecords);
     router.post('/doAddCallOutRecord', callOutsUpdatePostHandler, handler_doAddCallOutRecord);
     router.post('/doDeleteCallOutRecord', callOutsUpdatePostHandler, handler_doDeleteCallOutRecord);
+}
+if (configFunctions.getProperty('features.attendance.afterHours')) {
+    router.post('/doAddAfterHoursRecord', afterHoursUpdatePostHandler, handler_doAddAfterHoursRecord);
 }
 router.post('/doGetAttendanceRecords', handler_doGetAttendanceRecords);
 export default router;

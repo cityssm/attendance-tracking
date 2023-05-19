@@ -19,6 +19,7 @@
     "public-typescript/admin.tables.ts",
     "public-typescript/admin.users.ts",
     "public-typescript/attendance.ts",
+    "public-typescript/attendance.afterHours.ts",
     "public-typescript/attendance.callIns.ts",
     "public-typescript/attendance.callOuts.ts",
     "public-typescript/attendance.employees.ts",

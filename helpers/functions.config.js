@@ -17,6 +17,7 @@ configFallbackValues.set('session.doKeepAlive', false);
 configFallbackValues.set('features.attendance.absences', true);
 configFallbackValues.set('features.attendance.callOuts', true);
 configFallbackValues.set('features.attendance.returnsToWork', true);
+configFallbackValues.set('features.attendance.afterHours', true);
 configFallbackValues.set('features.employees.avantiSync', false);
 configFallbackValues.set('settings.avantiSync.locationCodes', []);
 configFallbackValues.set('settings.employeeEligibilityFunctions', []);

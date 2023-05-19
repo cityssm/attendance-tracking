@@ -27,6 +27,8 @@ import handler_doGetCallOutRecords from '../handlers/attendance-post/doGetCallOu
 import handler_doAddCallOutRecord from '../handlers/attendance-post/doAddCallOutRecord.js'
 import handler_doDeleteCallOutRecord from '../handlers/attendance-post/doDeleteCallOutRecord.js'
 
+import handler_doAddAfterHoursRecord from '../handlers/attendance-post/doAddAfterHoursRecord.js'
+
 import handler_doGetAttendanceRecords from '../handlers/attendance-post/doGetAttendanceRecords.js'
 
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js'
@@ -85,6 +87,24 @@ function callOutsManagePostHandler(
   response.status(forbiddenStatus).json(forbiddenJSON)
 }
 
+function afterHoursUpdatePostHandler(
+  request: Request,
+  response: Response,
+  next: NextFunction
+): void {
+  if (
+    permissionFunctions.hasPermission(
+      request.session.user!,
+      'attendance.afterHours.canUpdate'
+    )
+  ) {
+    next()
+    return
+  }
+
+  response.status(forbiddenStatus).json(forbiddenJSON)
+}
+
 export const router = Router()
 
 router.get('/', handler_attendance as RequestHandler)
@@ -108,8 +128,8 @@ if (configFunctions.getProperty('features.attendance.callOuts')) {
   router.post(
     '/doAddFavouriteCallOutList',
     handler_doAddFavouriteCallOutList as RequestHandler
-  )  
-  
+  )
+
   router.post(
     '/doRemoveFavouriteCallOutList',
     handler_doRemoveFavouriteCallOutList as RequestHandler
@@ -167,6 +187,18 @@ if (configFunctions.getProperty('features.attendance.callOuts')) {
     '/doDeleteCallOutRecord',
     callOutsUpdatePostHandler,
     handler_doDeleteCallOutRecord as RequestHandler
+  )
+}
+
+/*
+ * After Hours
+ */
+
+if (configFunctions.getProperty('features.attendance.afterHours')) {
+  router.post(
+    '/doAddAfterHoursRecord',
+    afterHoursUpdatePostHandler,
+    handler_doAddAfterHoursRecord as RequestHandler
   )
 }
 

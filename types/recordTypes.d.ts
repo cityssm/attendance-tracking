@@ -88,6 +88,19 @@ export interface CallOutRecord extends Partial<CallOutResponseType>, Partial<Cal
     responseTypeId: number;
     recordComment?: string;
 }
+export interface AfterHoursReason extends RecordUserNameDateTime {
+    afterHoursReasonId: number;
+    afterHoursReason: string;
+    orderNumber?: number;
+}
+export interface AfterHoursRecord extends Partial<AfterHoursReason>, RecordUserNameDateTime {
+    recordId: string;
+    employeeNumber: string;
+    employeeName: string;
+    attendanceDateTime: string | Date;
+    afterHoursReasonId: number;
+    recordComment?: string;
+}
 export interface User extends RecordUserNameDateTime {
     userName: string;
     canLogin: boolean;
