@@ -40,6 +40,31 @@ export async function getReportData(reportName, reportParameters = {}) {
             sql = 'select * from MonTY.Employees';
             break;
         }
+        case 'employees-contacts': {
+            sql = `select
+        employeeNumber, employeeSurname, employeeGivenName,
+        jobTitle, department,
+        workContact1, workContact2, homeContact1, homeContact2
+        from MonTY.Employees
+        where isActive = 1
+        and recordDelete_dateTime is null
+        order by employeeSurname, employeeGivenName, employeeNumber`;
+            break;
+        }
+        case 'employees-inactive': {
+            sql = `select
+        employeeNumber, employeeSurname, employeeGivenName,
+        jobTitle, department
+        from MonTY.Employees
+        where isActive = 0
+        and recordDelete_dateTime is null
+        order by employeeSurname, employeeGivenName, employeeNumber`;
+            break;
+        }
+        case 'absenceRecords-all': {
+            sql = 'select * from MonTY.AbsenceRecords';
+            break;
+        }
         case 'absenceRecords-recent': {
             sql = absenceRecordsRecentSQL + ' order by r.absenceDateTime, r.recordId';
             request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
@@ -53,6 +78,10 @@ export async function getReportData(reportName, reportParameters = {}) {
             request = request
                 .input('recentDays', configFunctions.getProperty('settings.recentDays'))
                 .input('employeeNumber', reportParameters.employeeNumber);
+            break;
+        }
+        case 'returnToWorkRecords-all': {
+            sql = 'select * from MonTY.ReturnToWorkRecords';
             break;
         }
         case 'returnToWorkRecords-recent': {
@@ -95,6 +124,10 @@ export async function getReportData(reportName, reportParameters = {}) {
         and m.listId = @listId
         order by m.listId, m.sortKey, m.employeeNumber`;
             request = request.input('listId', reportParameters.listId);
+            break;
+        }
+        case 'callOutRecords-all': {
+            sql = 'select * from MonTY.CallOutRecords';
             break;
         }
         case 'callOutRecords-recent': {

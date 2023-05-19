@@ -8,7 +8,8 @@ export const availablePermissionValues = {
     'attendance.callOuts.canManage': trueFalseStrings,
     'attendance.returnsToWork.canView': trueFalseStrings,
     'attendance.returnsToWork.canUpdate': trueFalseStrings,
-    'attendance.returnsToWork.canManage': trueFalseStrings
+    'attendance.returnsToWork.canManage': trueFalseStrings,
+    'reports.hasRawExports': trueFalseStrings
 };
 export function hasAttendance(user) {
     return (user.permissions?.['attendance.absences.canView'] === 'true' ||

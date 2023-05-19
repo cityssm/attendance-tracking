@@ -48,67 +48,117 @@
         </nav>
         <h1 class="title is-1">Employee Attendance Reports</h1>
         
-        <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
-          <div class="panel">
-            <h2 class="panel-heading">Absence Reports</h2>
-            <a class="panel-block is-block" href="<%= urlPrefix %>/reports/absenceRecords-recent" download>
-              <div class="columns">
-                <div class="column is-narrow">
-                  <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
-                </div>
-                <div class="column">
-                  <strong>Recent Absence Records</strong><br />
-                  All absence records recorded in the past <%= configFunctions.getProperty('settings.recentDays') %> days.
-                </div>
+        <div class="columns">
+          <div class="column">
+            <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
+              <div class="panel">
+                <h2 class="panel-heading">Absence Reports</h2>
+                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/absenceRecords-recent" download>
+                  <div class="columns">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      <strong>Recent Absence Records</strong><br />
+                      All absence records recorded in the past <%= configFunctions.getProperty('settings.recentDays') %> days.
+                    </div>
+                  </div>
+                </a>
               </div>
-            </a>
+            <% } %>
+    
+            <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
+              <div class="panel">
+                <h2 class="panel-heading">Return to Work Reports</h2>
+                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/returnToWorkRecords-recent" download>
+                  <div class="columns">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      <strong>Recent Return to Work Records</strong><br />
+                      All return to work records recorded in the past <%= configFunctions.getProperty('settings.recentDays') %> days.
+                    </div>
+                  </div>
+                </a>
+              </div>
+            <% } %>
+    
+            <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
+              <div class="panel">
+                <h2 class="panel-heading">Call Out Reports</h2>
+                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutListMembers-formatted" download>
+                  <div class="columns">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      <strong>Call Out List Members</strong><br />
+                      All call out list members.
+                    </div>
+                  </div>
+                </a>
+                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutRecords-recent" download>
+                  <div class="columns">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      <strong>Recent Call Out Records</strong><br />
+                      All call out records recorded in the past <%= configFunctions.getProperty('settings.recentDays') %> days.
+                    </div>
+                  </div>
+                </a>
+              </div>
+            <% } %>
           </div>
-        <% } %>
-
-        <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
-          <div class="panel">
-            <h2 class="panel-heading">Return to Work Reports</h2>
-            <a class="panel-block is-block" href="<%= urlPrefix %>/reports/returnToWorkRecords-recent" download>
-              <div class="columns">
-                <div class="column is-narrow">
-                  <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+          <% if (permissionFunctions.hasPermission(user, 'reports.hasRawExports')) { %>
+            <div class="column">
+              <div class="panel">
+                <h2 class="panel-heading">Raw Data Exports</h2>
+                <div class="panel-block">
+                  <div class="message is-info">
+                    <p class="message-body">
+                      Note the raw data exports are unfiltered and unformatted.
+                      They may include deleted records that are no longer available through the application.
+                    </p>
+                  </div>
                 </div>
-                <div class="column">
-                  <strong>Recent Return to Work Records</strong><br />
-                  All return to work records recorded in the past <%= configFunctions.getProperty('settings.recentDays') %> days.
-                </div>
+                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/absenceRecords-all" download>
+                  <div class="columns">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      <strong>Absence Records Table</strong>
+                    </div>
+                  </div>
+                </a>
+                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/returnToWorkRecords-all" download>
+                  <div class="columns">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      <strong>Return to Work Records Table</strong>
+                    </div>
+                  </div>
+                </a>
+                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutRecords-all" download>
+                  <div class="columns">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      <strong>Call Out Records Table</strong>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </a>
-          </div>
-        <% } %>
-
-        <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
-          <div class="panel">
-            <h2 class="panel-heading">Call Out Reports</h2>
-            <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutListMembers-formatted" download>
-              <div class="columns">
-                <div class="column is-narrow">
-                  <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
-                </div>
-                <div class="column">
-                  <strong>Call Out List Members</strong><br />
-                  All call out list members.
-                </div>
-              </div>
-            </a>
-            <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutRecords-recent" download>
-              <div class="columns">
-                <div class="column is-narrow">
-                  <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
-                </div>
-                <div class="column">
-                  <strong>Recent Call Out Records</strong><br />
-                  All call out records recorded in the past <%= configFunctions.getProperty('settings.recentDays') %> days.
-                </div>
-              </div>
-            </a>
-          </div>
-        <% } %>
+            </div>
+          <% } %>
+        </div>
+        
       </article>
       <article class="is-hidden" id="tab--employees">
         <nav class="breadcrumb">
@@ -127,27 +177,61 @@
         </nav>
         <h1 class="title is-1">Employee Reports</h1>
 
-        <div class="panel">
-          <h2 class="panel-heading">Raw Data Exports</h2>
-          <div class="panel-block">
-            <div class="message is-info">
-              <p class="message-body">
-                Note the raw data exports are unfiltered and unformatted.
-                They may include deleted records that are no longer available through the application.
-              </p>
+        <div class="columns">
+          <div class="column">
+            <div class="panel">
+              <h2 class="panel-heading">Employee Reports</h2>
+              <a class="panel-block is-block" href="<%= urlPrefix %>/reports/employees-contacts" download>
+                <div class="columns">
+                  <div class="column is-narrow">
+                    <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                  </div>
+                  <div class="column">
+                    <strong>Active Employee Contacts</strong><br />
+                    All contact details for all active employees.
+                  </div>
+                </div>
+              </a>
+              <a class="panel-block is-block" href="<%= urlPrefix %>/reports/employees-inactive" download>
+                <div class="columns">
+                  <div class="column is-narrow">
+                    <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                  </div>
+                  <div class="column">
+                    <strong>Inactive Employees</strong><br />
+                    Employees marked as inactive, unavailable for new records.
+                  </div>
+                </div>
+              </a>
             </div>
           </div>
-          <a class="panel-block is-block" href="<%= urlPrefix %>/reports/employees-all" download>
-            <div class="columns">
-              <div class="column is-narrow">
-                <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
-              </div>
-              <div class="column">
-                <strong>Employees Table</strong>
+          <% if (permissionFunctions.hasPermission(user, 'reports.hasRawExports')) { %>
+            <div class="column">
+              <div class="panel">
+                <h2 class="panel-heading">Raw Data Exports</h2>
+                <div class="panel-block">
+                  <div class="message is-info">
+                    <p class="message-body">
+                      Note the raw data exports are unfiltered and unformatted.
+                      They may include deleted records that are no longer available through the application.
+                    </p>
+                  </div>
+                </div>
+                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/employees-all" download>
+                  <div class="columns">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      <strong>Employees Table</strong>
+                    </div>
+                  </div>
+                </a>
               </div>
             </div>
-          </a>
+          <% } %>
         </div>
+        
       </article>
     </div>
   </div>

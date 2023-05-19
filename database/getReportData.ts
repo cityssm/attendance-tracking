@@ -51,14 +51,46 @@ export async function getReportData(
   let sql: string
 
   switch (reportName) {
+    /*
+     * Employees
+     */
+
     case 'employees-all': {
       sql = 'select * from MonTY.Employees'
+      break
+    }
+
+    case 'employees-contacts': {
+      sql = `select
+        employeeNumber, employeeSurname, employeeGivenName,
+        jobTitle, department,
+        workContact1, workContact2, homeContact1, homeContact2
+        from MonTY.Employees
+        where isActive = 1
+        and recordDelete_dateTime is null
+        order by employeeSurname, employeeGivenName, employeeNumber`
+      break
+    }
+
+    case 'employees-inactive': {
+      sql = `select
+        employeeNumber, employeeSurname, employeeGivenName,
+        jobTitle, department
+        from MonTY.Employees
+        where isActive = 0
+        and recordDelete_dateTime is null
+        order by employeeSurname, employeeGivenName, employeeNumber`
       break
     }
 
     /*
      * Absence Records
      */
+
+    case 'absenceRecords-all': {
+      sql = 'select * from MonTY.AbsenceRecords'
+      break
+    }
 
     case 'absenceRecords-recent': {
       sql = absenceRecordsRecentSQL + ' order by r.absenceDateTime, r.recordId'
@@ -87,6 +119,11 @@ export async function getReportData(
     /*
      * Return to Work Records
      */
+
+    case 'returnToWorkRecords-all': {
+      sql = 'select * from MonTY.ReturnToWorkRecords'
+      break
+    }
 
     case 'returnToWorkRecords-recent': {
       sql =
@@ -151,6 +188,11 @@ export async function getReportData(
     /*
      * Call Out Records
      */
+
+    case 'callOutRecords-all': {
+      sql = 'select * from MonTY.CallOutRecords'
+      break
+    }
 
     case 'callOutRecords-recent': {
       sql = callOutRecordsRecentSQL + ' order by r.callOutDateTime, r.recordId'

@@ -9,6 +9,7 @@ export declare const availablePermissionValues: {
     'attendance.returnsToWork.canView': string[];
     'attendance.returnsToWork.canUpdate': string[];
     'attendance.returnsToWork.canManage': string[];
+    'reports.hasRawExports': string[];
 };
 export declare function hasAttendance(user: User): boolean;
 export declare function hasPermission(user: User, permissionKey: keyof typeof availablePermissionValues): boolean;
