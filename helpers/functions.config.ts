@@ -28,6 +28,7 @@ configFallbackValues.set('application.bigLogoURL', '/images/monty-big.svg')
 configFallbackValues.set('application.smallLogoURL', '/images/monty-small.svg')
 configFallbackValues.set('application.httpPort', 7000)
 configFallbackValues.set('application.maximumProcesses', 4)
+configFallbackValues.set('application.tempAdminPassword', '')
 
 configFallbackValues.set('reverseProxy.disableCompression', false)
 configFallbackValues.set('reverseProxy.disableEtag', false)
@@ -50,6 +51,8 @@ configFallbackValues.set('settings.avantiSync.locationCodes', [])
 configFallbackValues.set('settings.employeeEligibilityFunctions', [])
 configFallbackValues.set('settings.employeeSortKeyFunctions', [])
 
+configFallbackValues.set('settings.printPdf.contentDisposition', 'attachment')
+
 configFallbackValues.set('settings.recentDays', 10)
 
 /*
@@ -58,10 +61,13 @@ configFallbackValues.set('settings.recentDays', 10)
 
 export function getProperty(propertyName: 'application.applicationName'): string
 
+export function getProperty(propertyName: 'application.backgroundURL'): string
 export function getProperty(propertyName: 'application.bigLogoURL'): string
 export function getProperty(propertyName: 'application.smallLogoURL'): string
+
 export function getProperty(propertyName: 'application.httpPort'): number
 export function getProperty(propertyName: 'application.userDomain'): string
+export function getProperty(propertyName: 'application.tempAdminPassword'): string
 
 export function getProperty(
   propertyName: 'activeDirectory'

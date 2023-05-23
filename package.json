@@ -10,7 +10,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./bin/www.js",
     "dev": "cross-env NODE_ENV=dev DEBUG=monty:* nodemon --inspect ./bin/www.js",
-    "test:startup": "cross-env NODE_ENV=dev DEBUG=lot-occupancy-system:* STARTUP_TEST=true node ./bin/www.js"
+    "test:startup": "cross-env NODE_ENV=dev DEBUG=monty:* STARTUP_TEST=true node ./bin/www.js"
   },
   "repository": {
     "type": "git",

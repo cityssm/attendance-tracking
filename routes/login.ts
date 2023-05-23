@@ -1,4 +1,9 @@
-import { Router, type RequestHandler, type Request, type Response } from 'express'
+import {
+  Router,
+  type RequestHandler,
+  type Request,
+  type Response
+} from 'express'
 
 import * as configFunctions from '../helpers/functions.config.js'
 
@@ -6,6 +11,13 @@ import * as authenticationFunctions from '../helpers/functions.authentication.js
 
 import type * as recordTypes from '../types/recordTypes'
 import { getUser } from '../database/getUser.js'
+
+const temporaryAdminUser: recordTypes.User = {
+  userName: '~~monty',
+  canLogin: true,
+  isAdmin: true,
+  permissions: {}
+}
 
 export const router = Router()
 
@@ -49,17 +61,26 @@ async function postHandler(
   )
 
   let isAuthenticated = false
+  let userObject: recordTypes.User | undefined
 
-  if (userName !== '' && passwordPlain !== '') {
+  if (userName === temporaryAdminUser.userName) {
+    if (
+      passwordPlain !== '' &&
+      configFunctions.getProperty('application.tempAdminPassword') !== '' &&
+      passwordPlain ===
+        configFunctions.getProperty('application.tempAdminPassword')
+    ) {
+      isAuthenticated = true
+      userObject = temporaryAdminUser
+    }
+  } else if (userName !== '' && passwordPlain !== '') {
     isAuthenticated = await authenticationFunctions.authenticate(
       userName,
       passwordPlain
     )
   }
 
-  let userObject: recordTypes.User | undefined
-
-  if (isAuthenticated) {
+  if (isAuthenticated && userName !== temporaryAdminUser.userName) {
     const userNameLowerCase = userName.toLowerCase()
     userObject = await getUser(userNameLowerCase)
   }

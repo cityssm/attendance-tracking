@@ -11,6 +11,7 @@ export interface Config {
         httpPort?: number;
         userDomain?: string;
         maximumProcesses?: number;
+        tempAdminPassword?: string;
     };
     session: {
         cookieName?: string;
@@ -26,33 +27,20 @@ export interface Config {
     activeDirectory?: ConfigActiveDirectory;
     adWebAuthConfig?: ADWebAuthConfig;
     mssql?: MSSQLConfig;
-    aliases: {
-        lot?: string;
-        lots?: string;
-        map?: string;
-        maps?: string;
-        occupancy?: string;
-        occupancies?: string;
-        occupancyStartDate?: string;
-        occupant?: string;
-        occupants?: string;
-        externalReceiptNumber?: string;
-        workOrderOpenDate?: string;
-        workOrderCloseDate?: string;
-    };
+    aliases: Record<string, string>;
     features: {
         attendance?: {
             absences?: boolean;
-            returnsToWork?: boolean;
-            callOuts?: boolean;
             afterHours?: boolean;
+            callOuts?: boolean;
+            returnsToWork?: boolean;
         };
         employees?: {
             avantiSync?: boolean;
         };
     };
     settings: {
-        printPdf: {
+        printPdf?: {
             contentDisposition?: 'attachment' | 'inline';
         };
         avantiSync?: {

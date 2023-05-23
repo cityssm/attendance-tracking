@@ -16,6 +16,7 @@ An application built for Public Works departments to
 - Employee absences.
 - Return to work calls.
 - Call Out requests.
+- After hours attendance.
 
 ## Features
 
@@ -41,6 +42,8 @@ An application built for Public Works departments to
 
 ## About this Project
 
+📘 **[User Documentation](docs/README.md)**
+
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 - [Contributing Guidelines](CONTRIBUTING.md)
 - [Security Policy](SECURITY.md)
@@ -49,3 +52,14 @@ An application built for Public Works departments to
 Although the system is quite niche, it's being released in an open source environment in hopes to pool developer resources from other municipalities looking to move away from older, legacy systems.
 
 It is being shared to start the dialog among other municipalities and present an option to those who may be looking to refresh or upgrade their employee call tracking.
+
+## More Projects from the City of Sault Ste. Marie
+
+The City of Sault Ste. Marie has [several open source applications](https://cityssm.github.io/) available
+for managing municipal operations.
+
+- **[General Licence Manager](https://github.com/cityssm/general-licence-manager)** - An application built to manage the general licences issued by municipalities.
+
+- **[Lottery Licence Manager](https://github.com/cityssm/lottery-licence-manager)** - An application for managing AGCO's municipal lottery licensing requirements in Ontario.
+
+[Browse our GitHub account](https://github.com/cityssm/) for more of the City's offerings.
