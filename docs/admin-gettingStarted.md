@@ -1,4 +1,4 @@
-[Help Home](readme.md)
+[Help Home](https://cityssm.github.io/MonTY/docs/)
 
 # Admin - Getting Started
 

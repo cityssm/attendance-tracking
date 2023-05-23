@@ -1,4 +1,4 @@
-[Home](https://cityssm.github.io/monty/)
+[Home](https://cityssm.github.io/MonTY/)
 
 # Help Documentation
 
