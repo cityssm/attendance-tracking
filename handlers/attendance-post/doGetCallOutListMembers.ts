@@ -5,7 +5,7 @@ import { getCallOutList } from '../../database/getCallOutList.js'
 
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
 
-import type * as recordTypes from '../../types/recordTypes'
+import type * as recordTypes from '../../types/recordTypes.js'
 import { getEmployees } from '../../database/getEmployees.js'
 
 export async function handler(

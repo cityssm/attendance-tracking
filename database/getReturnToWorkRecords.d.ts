@@ -1,4 +1,4 @@
-import type { ReturnToWorkRecord } from '../types/recordTypes';
+import type { ReturnToWorkRecord } from '../types/recordTypes.js';
 interface GetReturnToWorkRecordsFilters {
     employeeNumber?: string;
     recentOnly: boolean;

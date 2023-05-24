@@ -9,7 +9,7 @@ import * as configFunctions from '../helpers/functions.config.js'
 
 import * as authenticationFunctions from '../helpers/functions.authentication.js'
 
-import type * as recordTypes from '../types/recordTypes'
+import type * as recordTypes from '../types/recordTypes.js'
 import { getUser } from '../database/getUser.js'
 
 const temporaryAdminUser: recordTypes.User = {

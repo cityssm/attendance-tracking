@@ -1,4 +1,4 @@
-import type { CallOutRecord } from '../types/recordTypes';
+import type { CallOutRecord } from '../types/recordTypes.js';
 interface GetCallOutRecordsFilters {
     listId?: string;
     employeeNumber?: string;

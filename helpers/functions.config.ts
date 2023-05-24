@@ -4,7 +4,7 @@ import './polyfills.js'
 
 import { config } from '../data/config.js'
 
-import type * as configTypes from '../types/configTypes'
+import type * as configTypes from '../types/configTypes.js'
 
 // eslint-disable-next-line node/no-extraneous-import
 import type { config as MSSQLConfig } from 'mssql'

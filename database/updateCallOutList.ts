@@ -4,7 +4,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 
 import { updateCallOutListMemberSortKeys } from './updateCallOutListMemberSortKeys.js'
 
-import type * as recordTypes from '../types/recordTypes'
+import type * as recordTypes from '../types/recordTypes.js'
 import type { IResult } from 'mssql'
 
 interface UpdateCallOutListReturn {

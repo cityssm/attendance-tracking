@@ -3,7 +3,7 @@ import * as configFunctions from '../helpers/functions.config.js'
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import type { ReturnToWorkRecord } from '../types/recordTypes'
+import type { ReturnToWorkRecord } from '../types/recordTypes.js'
 
 interface GetReturnToWorkRecordsFilters {
   employeeNumber?: string

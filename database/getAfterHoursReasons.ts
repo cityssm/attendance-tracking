@@ -5,7 +5,7 @@ import type { IResult } from 'mssql'
 
 import { updateRecordOrderNumber } from './updateRecordOrderNumber.js'
 
-import type { AfterHoursReason } from '../types/recordTypes'
+import type { AfterHoursReason } from '../types/recordTypes.js'
 
 export async function getAfterHoursReasons(): Promise<AfterHoursReason[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))

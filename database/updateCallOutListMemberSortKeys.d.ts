@@ -1,5 +1,5 @@
 import '../helpers/polyfills.js';
-import type * as recordTypes from '../types/recordTypes';
+import type * as recordTypes from '../types/recordTypes.js';
 interface CallOutListMemberFilters {
     listId?: string;
     employeeNumber?: string;

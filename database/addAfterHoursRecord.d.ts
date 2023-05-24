@@ -1,4 +1,4 @@
-import type * as recordTypes from '../types/recordTypes';
+import type * as recordTypes from '../types/recordTypes.js';
 interface AddAfterHoursRecordForm {
     employeeNumber: string;
     employeeName: string;

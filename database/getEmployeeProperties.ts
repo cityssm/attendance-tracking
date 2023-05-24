@@ -3,7 +3,7 @@ import * as configFunctions from '../helpers/functions.config.js'
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import type { EmployeeProperty } from '../types/recordTypes'
+import type { EmployeeProperty } from '../types/recordTypes.js'
 
 export async function getEmployeeProperties(
   employeeNumber: string

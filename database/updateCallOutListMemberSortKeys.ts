@@ -6,7 +6,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 
 import { getCallOutListMembers } from './getCallOutListMembers.js'
 
-import type * as recordTypes from '../types/recordTypes'
+import type * as recordTypes from '../types/recordTypes.js'
 import { getEmployeeProperties } from './getEmployeeProperties.js'
 
 interface CallOutListMemberFilters {

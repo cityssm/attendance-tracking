@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prefer-module */
 
-import type * as recordTypes from '../types/recordTypes'
-import type * as globalTypes from '../types/globalTypes'
+import type * as recordTypes from '../types/recordTypes.js'
+import type * as globalTypes from '../types/globalTypes.js'
 import type { BulmaJS } from '@cityssm/bulma-js/types'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 
@@ -19,6 +19,14 @@ declare const cityssm: cityssmGlobal
    */
 
   let callOutLists = exports.callOutLists as recordTypes.CallOutList[]
+
+  function getCallOutListById(
+    listId: string
+  ): recordTypes.CallOutList | undefined {
+    return callOutLists.find((possibleCallOutList) => {
+      return possibleCallOutList.listId === currentListId
+    })
+  }
 
   const callOutResponseTypes = (exports.callOutResponseTypes ??
     []) as recordTypes.CallOutResponseType[]
@@ -49,9 +57,7 @@ declare const cityssm: cityssmGlobal
       : (exports.userPermissions.callOutsCanManage as boolean)
 
   function openCallOutListMember(employeeNumber: string): void {
-    const callOutList = callOutLists.find((possibleCallOutList) => {
-      return possibleCallOutList.listId === currentListId
-    })!
+    const callOutList = getCallOutListById(currentListId)!
 
     let callOutListMemberIndex = 0
 
@@ -421,9 +427,7 @@ declare const cityssm: cityssmGlobal
 
     let callOutListCloseModalFunction: () => void
 
-    const callOutList = callOutLists.find((possibleCallOutList) => {
-      return possibleCallOutList.listId === listId
-    }) as recordTypes.CallOutList
+    const callOutList = getCallOutListById(listId)!
 
     let callOutListModalElement: HTMLElement
 

@@ -1,4 +1,4 @@
-import type { User } from '../types/recordTypes'
+import type { User } from '../types/recordTypes.js'
 
 const trueFalseStrings = ['true', 'false']
 

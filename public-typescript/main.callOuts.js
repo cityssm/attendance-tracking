@@ -10,6 +10,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
      * Data
      */
     let callOutLists = exports.callOutLists;
+    function getCallOutListById(listId) {
+        return callOutLists.find((possibleCallOutList) => {
+            return possibleCallOutList.listId === currentListId;
+        });
+    }
     const callOutResponseTypes = ((_a = exports.callOutResponseTypes) !== null && _a !== void 0 ? _a : []);
     const employeeEligibilityFunctions = ((_b = exports.employeeEligibilityFunctionNames) !== null && _b !== void 0 ? _b : []);
     const employeeSortKeyFunctionNames = ((_c = exports.employeeSortKeyFunctionNames) !== null && _c !== void 0 ? _c : []);
@@ -25,9 +30,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         ? false
         : exports.userPermissions.callOutsCanManage;
     function openCallOutListMember(employeeNumber) {
-        const callOutList = callOutLists.find((possibleCallOutList) => {
-            return possibleCallOutList.listId === currentListId;
-        });
+        const callOutList = getCallOutListById(currentListId);
         let callOutListMemberIndex = 0;
         const callOutListMember = currentCallOutListMembers.find((possibleMember, possibleIndex) => {
             if (possibleMember.employeeNumber === employeeNumber) {
@@ -237,9 +240,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         currentListId = listId;
         currentCallOutListMembers = [];
         let callOutListCloseModalFunction;
-        const callOutList = callOutLists.find((possibleCallOutList) => {
-            return possibleCallOutList.listId === listId;
-        });
+        const callOutList = getCallOutListById(listId);
         let callOutListModalElement;
         function doUpdateCallOutList(formEvent) {
             formEvent.preventDefault();

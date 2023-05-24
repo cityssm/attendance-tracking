@@ -508,7 +508,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const tableBodyElement = containerElement.querySelector('tbody');
         for (const afterHoursReason of afterHoursReasons) {
             const rowElement = document.createElement('tr');
-            rowElement.dataset.afterHoursReasonId = afterHoursReason.afterHoursReasonId.toString();
+            rowElement.dataset.afterHoursReasonId =
+                afterHoursReason.afterHoursReasonId.toString();
             rowElement.innerHTML = `<td>
         <input class="input" name="afterHoursReason" maxlength="100" required />
         </td>

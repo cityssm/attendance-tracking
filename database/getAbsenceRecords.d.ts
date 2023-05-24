@@ -1,4 +1,4 @@
-import type { AbsenceRecord } from '../types/recordTypes';
+import type { AbsenceRecord } from '../types/recordTypes.js';
 interface GetAbsenceRecordsFilters {
     employeeNumber?: string;
     recentOnly: boolean;

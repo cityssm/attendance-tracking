@@ -8,7 +8,7 @@ import { addReturnToWorkRecord } from '../../database/addReturnToWorkRecord.js'
 
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
 
-import type * as recordTypes from '../../types/recordTypes'
+import type * as recordTypes from '../../types/recordTypes.js'
 
 export async function handler(
   request: Request,

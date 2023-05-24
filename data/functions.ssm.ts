@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import type { ConfigEmployeeEligibilityFunction } from '../types/configTypes'
+import type { ConfigEmployeeEligibilityFunction } from '../types/configTypes.js'
 
 /*
  * Eligibility

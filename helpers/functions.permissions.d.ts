@@ -1,4 +1,4 @@
-import type { User } from '../types/recordTypes';
+import type { User } from '../types/recordTypes.js';
 export declare const availablePermissionValues: {
     'attendance.absences.canView': string[];
     'attendance.absences.canUpdate': string[];

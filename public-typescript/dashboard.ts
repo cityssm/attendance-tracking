@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prefer-module */
 
-import type * as globalTypes from '../types/globalTypes'
-import type * as recordTypes from '../types/recordTypes'
+import type * as globalTypes from '../types/globalTypes.js'
+import type * as recordTypes from '../types/recordTypes.js'
 ;(() => {
   const MonTY = exports.MonTY as globalTypes.MonTY
 

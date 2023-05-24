@@ -5,7 +5,7 @@ import * as configFunctions from '../helpers/functions.config.js'
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import type { CallOutResponseType } from '../types/recordTypes'
+import type { CallOutResponseType } from '../types/recordTypes.js'
 import { updateRecordOrderNumber } from './updateRecordOrderNumber.js'
 
 export async function getCallOutResponseTypes(): Promise<

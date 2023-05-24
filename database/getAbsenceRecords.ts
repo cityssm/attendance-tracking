@@ -3,7 +3,7 @@ import * as configFunctions from '../helpers/functions.config.js'
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import type { AbsenceRecord } from '../types/recordTypes'
+import type { AbsenceRecord } from '../types/recordTypes.js'
 
 interface GetAbsenceRecordsFilters {
   employeeNumber?: string

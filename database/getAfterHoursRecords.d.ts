@@ -1,4 +1,4 @@
-import type { AfterHoursRecord } from '../types/recordTypes';
+import type { AfterHoursRecord } from '../types/recordTypes.js';
 interface GetAfterHoursRecordsFilters {
     employeeNumber?: string;
     recentOnly: boolean;

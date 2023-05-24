@@ -3,7 +3,7 @@ import * as configFunctions from '../helpers/functions.config.js'
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import type { CallOutRecord } from '../types/recordTypes'
+import type { CallOutRecord } from '../types/recordTypes.js'
 
 interface GetCallOutRecordsFilters {
   listId?: string

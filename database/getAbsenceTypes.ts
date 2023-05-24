@@ -5,7 +5,7 @@ import type { IResult } from 'mssql'
 
 import { updateRecordOrderNumber } from './updateRecordOrderNumber.js'
 
-import type { AbsenceType } from '../types/recordTypes'
+import type { AbsenceType } from '../types/recordTypes.js'
 
 export async function getAbsenceTypes(): Promise<AbsenceType[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))

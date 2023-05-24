@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/prefer-module */
 
-import type * as globalTypes from '../types/globalTypes'
+import type * as globalTypes from '../types/globalTypes.js'
 ;(() => {
   const MonTY = exports.MonTY as globalTypes.MonTY
 

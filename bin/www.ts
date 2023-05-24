@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url'
 
 import * as configFunctions from '../helpers/functions.config.js'
 
-import type { WorkerMessage } from '../types/applicationTypes'
+import type { WorkerMessage } from '../types/applicationTypes.js'
 
 import Debug from 'debug'
 const debug = Debug(`monty:www:${process.pid}`)

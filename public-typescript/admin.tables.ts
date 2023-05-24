@@ -1,10 +1,10 @@
 /* eslint-disable unicorn/prefer-module */
 
-import type * as globalTypes from '../types/globalTypes'
+import type * as globalTypes from '../types/globalTypes.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 import type { BulmaJS } from '@cityssm/bulma-js/types'
 
-import type * as recordTypes from '../types/recordTypes'
+import type * as recordTypes from '../types/recordTypes.js'
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
@@ -552,7 +552,6 @@ declare const cityssm: cityssmGlobal
 
   renderCallOutResponseTypes()
 
-  
   /*
    * After Hours Reasons
    */
@@ -563,7 +562,8 @@ declare const cityssm: cityssmGlobal
     afterHoursReasons?: recordTypes.AfterHoursReason[]
   }
 
-  let afterHoursReasons = exports.afterHoursReasons as recordTypes.AfterHoursReason[]
+  let afterHoursReasons =
+    exports.afterHoursReasons as recordTypes.AfterHoursReason[]
   delete exports.afterHoursReasons
 
   function updateAfterHoursReason(clickEvent: Event): void {
@@ -703,7 +703,8 @@ declare const cityssm: cityssmGlobal
 
     for (const afterHoursReason of afterHoursReasons) {
       const rowElement = document.createElement('tr')
-      rowElement.dataset.afterHoursReasonId = afterHoursReason.afterHoursReasonId.toString()
+      rowElement.dataset.afterHoursReasonId =
+        afterHoursReason.afterHoursReasonId.toString()
 
       rowElement.innerHTML = `<td>
         <input class="input" name="afterHoursReason" maxlength="100" required />

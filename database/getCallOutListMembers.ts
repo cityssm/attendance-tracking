@@ -5,7 +5,7 @@ import * as configFunctions from '../helpers/functions.config.js'
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import type { CallOutListMember } from '../types/recordTypes'
+import type { CallOutListMember } from '../types/recordTypes.js'
 
 interface CallOutListMemberFilters {
   listId?: string

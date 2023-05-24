@@ -31,9 +31,7 @@ An application built for Public Works departments to
 ## Prerequisities
 
 - **NodeJS 14 or better** to run the application.
-
 - **Active Directory** for authentication.
-
 - **SQL Server** for database storage.
 
 ### Optional
@@ -59,7 +57,6 @@ The City of Sault Ste. Marie has [several open source applications](https://city
 for managing municipal operations.
 
 - **[General Licence Manager](https://github.com/cityssm/general-licence-manager)** - An application built to manage the general licences issued by municipalities.
-
 - **[Lottery Licence Manager](https://github.com/cityssm/lottery-licence-manager)** - An application for managing AGCO's municipal lottery licensing requirements in Ontario.
 
 [Browse our GitHub account](https://github.com/cityssm/) for more of the City's offerings.

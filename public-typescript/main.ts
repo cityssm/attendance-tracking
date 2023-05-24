@@ -1,4 +1,4 @@
-import type * as globalTypes from '../types/globalTypes'
+import type * as globalTypes from '../types/globalTypes.js'
 
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 

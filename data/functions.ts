@@ -3,7 +3,7 @@
 import type {
   ConfigEmployeeSortKeyFunction,
   ConfigEmployeeEligibilityFunction
-} from '../types/configTypes'
+} from '../types/configTypes.js'
 
 import * as dateTimeFunctions from '@cityssm/utils-datetime'
 

@@ -3,7 +3,7 @@ import type { Request, Response } from 'express'
 import * as configFunctions from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
 
-import type * as recordTypes from '../../types/recordTypes'
+import type * as recordTypes from '../../types/recordTypes.js'
 
 import { getEmployees } from '../../database/getEmployees.js'
 
