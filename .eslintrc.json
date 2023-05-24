@@ -38,8 +38,6 @@
     "@typescript-eslint/restrict-plus-operands": "warn",
     "@typescript-eslint/space-before-function-paren": "off",
     "@typescript-eslint/strict-boolean-expressions": "warn",
-    "node/no-extraneous-import": "off",
-    "node/no-unpublished-import": "off",
     "unicorn/consistent-function-scoping": "warn",
     "unicorn/empty-brace-spaces": "off",
     "unicorn/filename-case": [

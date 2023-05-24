@@ -1,4 +1,4 @@
-import { type availablePermissionValues } from '../helpers/functions.permissions';
+import type { availablePermissionValues } from '../helpers/functions.permissions';
 export interface RecordUserNameDateTime {
     recordCreate_userName?: string;
     recordCreate_dateTime?: Date;

@@ -477,7 +477,7 @@ declare const cityssm: cityssmGlobal
         .querySelector('select')
         ?.addEventListener('change', setRowBackgroundColor)
 
-      if (!callOutResponseType.isSuccessful) {
+      if (!(callOutResponseType.isSuccessful as boolean)) {
         rowElement.querySelector('select')!.value = '0'
       }
 
