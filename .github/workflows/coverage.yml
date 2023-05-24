@@ -44,7 +44,7 @@ jobs:
           npm install -g cross-env mocha c8
 
       - name: Copy Test Config
-        run: cp ./test/config.githubActions.js ./test/config.js
+        run: cp ./data/config.githubActions.js ./data/config.js
         
       - name: Code Climate (Before)
         if: ${{ github.event_name != 'pull_request' && env.CC_TEST_REPORTER_ID != '' && matrix.node == 16 }}
