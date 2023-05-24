@@ -1,4 +1,4 @@
-[Help Home](https://cityssm.github.io/MonTY/docs/readme.md)
+[Help Home](https://cityssm.github.io/MonTY/docs/)
 
 # Administrator Tools - User Management
 
