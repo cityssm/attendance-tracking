@@ -8,6 +8,8 @@
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/772303e121fb467d9c1fc0c7fb4c53d6)](https://app.codacy.com/gh/cityssm/MonTY/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e5f9a6caa7b2d3ebd16c/maintainability)](https://codeclimate.com/github/cityssm/MonTY/maintainability)
+[![Coverage Testing](https://github.com/cityssm/MonTY/actions/workflows/coverage.yml/badge.svg)](https://github.com/cityssm/MonTY/actions/workflows/coverage.yml)
+[![codecov](https://codecov.io/gh/cityssm/MonTY/branch/main/graph/badge.svg?token=21LFC3U1Q2)](https://codecov.io/gh/cityssm/MonTY)
 [![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/cityssm/MonTY)](https://app.snyk.io/org/cityssm/project/a2511a35-9290-4424-ad6c-669a8d1566d4)
 
 An application built for Public Works departments to
@@ -17,6 +19,8 @@ An application built for Public Works departments to
 - Return to work calls.
 - Call Out requests.
 - After hours attendance.
+
+![Absence Requests](docs/images/attendanceAbsences.png)
 
 ## Features
 
@@ -40,7 +44,7 @@ An application built for Public Works departments to
 
 ## About this Project
 
-📘 **[User Documentation](docs/README.md)**
+📘 **[User Documentation (In The Works)](docs/README.md)**
 
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 - [Contributing Guidelines](CONTRIBUTING.md)
