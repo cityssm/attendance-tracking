@@ -10,7 +10,9 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./bin/www.js",
     "dev": "cross-env NODE_ENV=dev DEBUG=monty:* nodemon --inspect ./bin/www.js",
-    "test:startup": "cross-env NODE_ENV=dev DEBUG=monty:* STARTUP_TEST=true node ./bin/www.js"
+    "test": "cross-env NODE_ENV=dev DEBUG=monty:* TEST_DATABASES=true mocha --timeout 30000 --exit",
+    "test:startup": "cross-env NODE_ENV=dev DEBUG=monty:* STARTUP_TEST=true node ./bin/www.js",
+    "coverage": "cross-env NODE_ENV=dev DEBUG=monty:* TEST_DATABASES=true c8 --reporter=lcov --reporter=text --reporter=text-summary mocha --timeout 30000 --exit"
   },
   "repository": {
     "type": "git",

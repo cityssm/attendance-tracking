@@ -1,0 +1,73 @@
+name: Coverage Testing
+
+on: [workflow_dispatch, push, pull_request]
+
+permissions: read-all
+
+jobs:
+  Coverage:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [ 14, 16, 18 ]
+    env:
+      CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    name: Node ${{ matrix.node }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Setup SQL Server
+        uses: potatoqualitee/mssqlsuite@v1.7
+        with:
+          install: sqlengine, sqlclient, sqlpackage
+
+      - name: Create MonTY Database
+        run: |
+          sqlcmd -S localhost -U sa -P dbatools.I0 -d tempdb -Q "create database MonTY"
+          sqlcmd -S localhost -U sa -P dbatools.I0 -d MonTY -i database/scripts/createTables.sql -I
+      
+      - name: Update NPM (Node 14)
+        if: ${{ matrix.node == 14 }}
+        run: npm install -g npm@7
+
+      - name: Install Package
+        run: |
+          npm ci
+          npm install -g cross-env mocha c8
+
+      - name: Copy Test Config
+        run: cp ./test/config.githubActions.js ./test/config.js
+        
+      - name: Code Climate (Before)
+        if: ${{ github.event_name != 'pull_request' && env.CC_TEST_REPORTER_ID != '' && matrix.node == 16 }}
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./codeclimate-test-reporter
+          chmod +x codeclimate-test-reporter
+          ./codeclimate-test-reporter before-build
+
+      - name: Run Coverage Testing
+        run: cross-env NODE_ENV=dev DEBUG=monty:* c8 --reporter=lcov --reporter=text --reporter=text-summary mocha --timeout 30000 --exit
+
+      - name: Code Climate (After)
+        if: ${{ github.event_name != 'pull_request' && env.CC_TEST_REPORTER_ID != '' && matrix.node == 16 }}
+        run: |
+          ./codeclimate-test-reporter after-build -t lcov --exit-code $?
+          
+      - name: Codacy
+        if: ${{ github.event_name != 'pull_request' && env.CODACY_PROJECT_TOKEN != '' && matrix.node == 16 }}
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r ./coverage/lcov.info
+
+      - name: Codecov
+        if: ${{ github.event_name != 'pull_request' && env.CODECOV_TOKEN != '' && matrix.node == 16 }}
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -t ${CODECOV_TOKEN}
