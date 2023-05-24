@@ -44,7 +44,7 @@ An application built for Public Works departments to
 
 ## About this Project
 
-📘 **[User Documentation (In The Works)](docs/README.md)**
+📘 **[User Documentation (In The Works)](https://cityssm.github.io/MonTY/docs/)**
 
 - [Code of Conduct](CODE_OF_CONDUCT.md)
 - [Contributing Guidelines](CONTRIBUTING.md)
