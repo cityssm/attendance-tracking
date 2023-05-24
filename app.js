@@ -23,13 +23,15 @@ import { version } from './version.js';
 import { getSafeRedirectURL } from './helpers/functions.authentication.js';
 import Debug from 'debug';
 const debug = Debug(`monty:app:${process.pid}`);
-const _dirname = '.';
+if (configFunctions.getProperty('application.tempAdminPassword') !== '') {
+    debug('Temporary admin account currently active!');
+}
 export const app = express();
 app.disable('X-Powered-By');
 if (!configFunctions.getProperty('reverseProxy.disableEtag')) {
     app.set('etag', false);
 }
-app.set('views', path.join(_dirname, 'views'));
+app.set('views', path.join('views'));
 app.set('view engine', 'ejs');
 if (!configFunctions.getProperty('reverseProxy.disableCompression')) {
     app.use(compression());

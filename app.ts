@@ -36,7 +36,9 @@ const debug = Debug(`monty:app:${process.pid}`)
  * INITIALIZE APP
  */
 
-const _dirname = '.'
+if (configFunctions.getProperty('application.tempAdminPassword') !== '') {
+  debug('Temporary admin account currently active!')
+}
 
 export const app = express()
 
@@ -47,7 +49,7 @@ if (!configFunctions.getProperty('reverseProxy.disableEtag')) {
 }
 
 // View engine setup
-app.set('views', path.join(_dirname, 'views'))
+app.set('views', path.join('views'))
 app.set('view engine', 'ejs')
 
 if (!configFunctions.getProperty('reverseProxy.disableCompression')) {
