@@ -6,6 +6,10 @@
 
 ![Call Out Lists](images/callOutLists.png)
 
+**[Employee Attendance](employeeAttendance.md)**<br />
+Track absences, returns to work, call outs, and after hours attendance
+all in one place.
+
 ## Administrator Documentation
 
 **[Getting Started](admin-gettingStarted.md)**<br />
