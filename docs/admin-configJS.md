@@ -19,7 +19,7 @@ export default config
 
 ---
 
-## config.application = {};
+## config.application = {}
 
 | Property Name       | Type   | Description                                                                                  | Default Value                    |
 | ------------------- | ------ | -------------------------------------------------------------------------------------------- | -------------------------------- |
@@ -34,7 +34,7 @@ export default config
 
 ---
 
-## config.session = {};
+## config.session = {}
 
 | Property Name  | Type    | Description                                                                        | Default Value      |
 | -------------- | ------- | ---------------------------------------------------------------------------------- | ------------------ |
@@ -45,7 +45,7 @@ export default config
 
 ---
 
-## config.reverseProxy = {};
+## config.reverseProxy = {}
 
 The settings below help when running the application behind
 a reverse proxy like IIS.
@@ -59,7 +59,7 @@ a reverse proxy like IIS.
 
 ---
 
-## config.activeDirectory = {};
+## config.activeDirectory = {}
 
 See the configuration for [activedirectory2 on npm](https://www.npmjs.com/package/activedirectory2).
 
@@ -72,13 +72,13 @@ See the configuration for [activedirectory2 on npm](https://www.npmjs.com/packag
 
 ---
 
-## config.mssql = {};
+## config.mssql = {}
 
 See the configuration for [node-mssql on npm](https://www.npmjs.com/package/mssql#configuration-1).
 
 ---
 
-## config.features = {};
+## config.features = {}
 
 | Property                   | Type    | Default |
 | -------------------------- | ------- | ------- |
@@ -90,7 +90,7 @@ See the configuration for [node-mssql on npm](https://www.npmjs.com/package/mssq
 
 ---
 
-## config.settings = {};
+## config.settings = {}
 
 | Property                       | Type                                                                                                                                    | Description                                                                  | Default      |
 | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------ |
@@ -101,7 +101,7 @@ See the configuration for [node-mssql on npm](https://www.npmjs.com/package/mssq
 | `employeeEligibilityFunctions` | _See below_                                                                                                                               | Options to test employee eligibility for call out lists.                     | `[]`         |
 | `recentDays`                   | number                                                                                                                                  | The number of days of data to display to users without raw export abilities. | `10`         |
 
-### config.settings.employeeSortKeyFunctions = [];
+### config.settings.employeeSortKeyFunctions = []
 
 See [data/functions.ts](https://github.com/cityssm/MonTY/blob/main/data/functions.ts) for examples.
 
@@ -110,7 +110,7 @@ See [data/functions.ts](https://github.com/cityssm/MonTY/blob/main/data/function
 | `functionName`    | string                                                        | The name of the function to display in the application.                                                            | `"Alphabetical"` |
 | `sortKeyFunction` | (employee: Employee, employeePropertyName?: string) => string | The function that takes an employee record, and returns a string that can be used to sort the employees in a list. |                  |
 
-### config.settings.employeeEligibilityFunctions = [];
+### config.settings.employeeEligibilityFunctions = []
 
 See [data/functions.ts](https://github.com/cityssm/MonTY/blob/main/data/functions.ts) for examples.
 
