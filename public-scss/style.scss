@@ -165,3 +165,23 @@ span.button.is-static {
 .menu-list a.is-active [data-fa-glow] {
   stroke: $link;
 }
+
+/*
+ * .table.is-fade-hoverable
+ * Fade rows not under mouse
+*/
+
+.table.is-fade-hoverable {
+  &:hover, &:focus, &:focus-within {
+    tbody tr {
+      opacity: 0.4;
+
+    }
+  }
+
+  tbody tr {
+  &:hover, &:focus, &:focus-within {
+    opacity: 1;
+  }
+}
+}

@@ -97,7 +97,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         </div>`;
             return;
         }
-        containerElement.innerHTML = `<table class="table is-striped is-hoverable is-fullwidth">
+        containerElement.innerHTML = `<table class="table is-striped is-hoverable is-fade-hoverable is-fullwidth">
       <thead>
         <tr>
           <th>Absence Type</th>
@@ -286,7 +286,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         </div>`;
             return;
         }
-        containerElement.innerHTML = `<table class="table is-striped is-hoverable is-fullwidth">
+        containerElement.innerHTML = `<table class="table is-striped is-hoverable is-fade-hoverable is-fullwidth">
       <thead>
         <tr>
           <th>Response Type</th>
@@ -488,7 +488,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         </div>`;
             return;
         }
-        containerElement.innerHTML = `<table class="table is-striped is-hoverable is-fullwidth">
+        containerElement.innerHTML = `<table class="table is-striped is-hoverable is-fade-hoverable is-fullwidth">
       <thead>
         <tr>
           <th>Reason</th>

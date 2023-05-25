@@ -145,7 +145,7 @@ declare const cityssm: cityssmGlobal
       return
     }
 
-    containerElement.innerHTML = `<table class="table is-striped is-hoverable is-fullwidth">
+    containerElement.innerHTML = `<table class="table is-striped is-hoverable is-fade-hoverable is-fullwidth">
       <thead>
         <tr>
           <th>Absence Type</th>
@@ -405,7 +405,7 @@ declare const cityssm: cityssmGlobal
       return
     }
 
-    containerElement.innerHTML = `<table class="table is-striped is-hoverable is-fullwidth">
+    containerElement.innerHTML = `<table class="table is-striped is-hoverable is-fade-hoverable is-fullwidth">
       <thead>
         <tr>
           <th>Response Type</th>
@@ -681,7 +681,7 @@ declare const cityssm: cityssmGlobal
       return
     }
 
-    containerElement.innerHTML = `<table class="table is-striped is-hoverable is-fullwidth">
+    containerElement.innerHTML = `<table class="table is-striped is-hoverable is-fade-hoverable is-fullwidth">
       <thead>
         <tr>
           <th>Reason</th>

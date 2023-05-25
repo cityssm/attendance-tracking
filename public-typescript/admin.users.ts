@@ -204,21 +204,41 @@ declare const cityssm: cityssmGlobal
         const tableRowElement = document.createElement('tr')
         tableRowElement.dataset.permissionKey = permissionKey
 
+        let iconClass = 'fa-cog'
+
+        switch (permissionKey.slice(permissionKey.lastIndexOf('.') + 1)) {
+          case 'canView': {
+            iconClass = 'fa-eye'
+            break
+          }
+          case 'canUpdate': {
+            iconClass = 'fa-pencil-alt'
+            break
+          }
+          case 'canManage': {
+            iconClass = 'fa-tools'
+            break
+          }
+        }
+
         tableRowElement.innerHTML = `<td class="is-vcentered">${permissionKey}</td>
           <td>
             <form>
               <input name="userName" value="${userName}" type="hidden" />
               <input name="permissionKey" value="${permissionKey}" type="hidden" />
               <div class="field has-addons">
-                <div class="control is-expanded">
+                <div class="control has-icons-left is-expanded">
                   <div class="select is-fullwidth">
                     <select name="permissionValue">
                       <option value="">(Not Set)</option>
                     </select>
                   </div>
+                  <span class="icon is-left">
+                    <i class="fas ${iconClass}" aria-hidden="true"></i>
+                  </span>
                 </div>
                 <div class="control">
-                  <button class="button is-success" type="submit">
+                  <button class="button is-success" type="submit" aria-label="Save Changes">
                     <i class="fas fa-save" aria-hidden="true"></i>
                   </button>
                 </div>
@@ -325,6 +345,7 @@ declare const cityssm: cityssmGlobal
     cityssm.openHtmlModal('userAdmin-userPermissions', {
       onshow(modalElement) {
         bulmaJS.toggleHtmlClipped()
+        cityssm.enableNavBlocker()
 
         permissionsModalElement = modalElement
 
@@ -334,6 +355,7 @@ declare const cityssm: cityssmGlobal
       },
       onremoved() {
         bulmaJS.toggleHtmlClipped()
+        cityssm.disableNavBlocker()
       }
     })
   }
@@ -357,7 +379,6 @@ declare const cityssm: cityssmGlobal
                   }, ${user.employeeGivenName ?? ''}
                   </span>`
             }
-          
         </td>
         <td>
           <div class="control has-icons-left">
