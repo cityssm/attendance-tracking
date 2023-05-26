@@ -42,17 +42,10 @@ jobs:
       - name: Install Package
         run: |
           npm ci
-          npm install -g mocha c8
+          npm install -g mocha c8 cypress@12
 
       - name: Copy Test Config
         run: cp ./data/config.githubActions.js ./data/config.js
-
-      - name: Cypress Tests
-        uses: cypress-io/github-action@v5
-        with:
-          start: npm start
-          browser: chrome
-          config-file: cypress.config.js
         
       - name: Code Climate (Before)
         if: ${{ github.event_name != 'pull_request' && env.CC_TEST_REPORTER_ID != '' && matrix.node == 16 }}
