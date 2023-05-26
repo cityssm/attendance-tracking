@@ -1,4 +1,4 @@
-name: Coverage Testing
+name: Cypress Testing
 
 on: [workflow_dispatch, push, pull_request]
 
