@@ -10,6 +10,9 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./bin/www.js",
     "dev": "cross-env NODE_ENV=dev DEBUG=monty:* nodemon --inspect ./bin/www.js",
+    "cy:open": "cypress open --config-file cypress.config.js",
+    "cy:run": "cypress run --config-file cypress.config.js",
+    "cy:run:firefox": "cypress run --config-file cypress.config.js --browser firefox",
     "test": "cross-env NODE_ENV=dev DEBUG=monty:* TEST_DATABASES=true mocha --timeout 30000 --exit",
     "test:startup": "cross-env NODE_ENV=dev DEBUG=monty:* STARTUP_TEST=true node ./bin/www.js",
     "coverage": "cross-env NODE_ENV=dev DEBUG=monty:* TEST_DATABASES=true c8 --reporter=lcov --reporter=text --reporter=text-summary mocha --timeout 30000 --exit"
@@ -62,6 +65,7 @@
     "@cityssm/bulma-webapp-css": "^0.12.0",
     "@cityssm/fa-glow": "^0.1.0",
     "@cityssm/simple-fa5-checkbox": "^0.2.1",
+    "@cypress/webpack-batteries-included-preprocessor": "^2.4.1",
     "@types/activedirectory2": "^1.2.3",
     "@types/compression": "^1.7.2",
     "@types/cookie-parser": "^1.4.3",
@@ -88,6 +92,8 @@
     "bulma-steps": "^2.2.1",
     "bulma-switch": "^2.0.4",
     "bulma-tooltip": "^3.0.2",
+    "cypress": "^12.13.0",
+    "cypress-axe": "^1.4.0",
     "eslint": "^8.41.0",
     "eslint-config-standard-with-typescript": "^34.0.1",
     "eslint-plugin-import": "^2.27.5",
@@ -99,6 +105,7 @@
     "gulp-minify": "^3.1.0",
     "gulp-sass": "^5.1.0",
     "nodemon": "^2.0.22",
-    "sass": "^1.62.1"
+    "sass": "^1.62.1",
+    "webpack": "^5.84.1"
   }
 }

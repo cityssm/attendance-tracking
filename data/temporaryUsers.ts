@@ -13,7 +13,7 @@ export const adminUser: ConfigTemporaryUser = {
 
 export const manageUser: ConfigTemporaryUser = {
   userName: '~~monty.manage',
-  isAdmin: true,
+  isAdmin: false,
   canLogin: true,
   permissions: {
     'attendance.absences.canManage': 'true',

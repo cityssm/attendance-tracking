@@ -1,0 +1,17 @@
+/* eslint-disable unicorn/prefer-module */
+/* eslint-disable node/no-unpublished-import */
+
+import { defineConfig } from 'cypress'
+import wp from '@cypress/webpack-batteries-included-preprocessor'
+
+export default defineConfig({
+  e2e: {
+    baseUrl: 'http://localhost:7000/',
+    specPattern: 'cypress/e2e/**/*.cy.js',
+    supportFile: false,
+    projectId: 'szu5cb',
+    setupNodeEvents(on, config) {
+      on('file:preprocessor', wp())
+    }
+  }
+})

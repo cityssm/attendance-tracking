@@ -1,4 +1,3 @@
-export declare const testView = "*testView";
-export declare const testUpdate = "*testUpdate";
-export declare const testAdmin = "*testAdmin";
+export declare const testAdmin: import("../types/configTypes.js").ConfigTemporaryUserCredentials | undefined;
+export declare const testUser: import("../types/configTypes.js").ConfigTemporaryUserCredentials | undefined;
 export declare const portNumber = 7000;

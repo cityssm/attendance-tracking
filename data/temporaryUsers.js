@@ -6,7 +6,7 @@ export const adminUser = {
 };
 export const manageUser = {
     userName: '~~monty.manage',
-    isAdmin: true,
+    isAdmin: false,
     canLogin: true,
     permissions: {
         'attendance.absences.canManage': 'true',

@@ -1,12 +1,14 @@
 import type { Config } from '../types/configTypes.js'
 
-import crypto from 'node:crypto'
 import * as configFunctions from './functions.js'
 
 import { adminUser, manageUser } from './temporaryUsers.js'
 
 // MSSQL Secrets OK
 // https://github.com/potatoqualitee/mssqlsuite
+
+// Temp User Secrets OK
+// http://www.unit-conversion.info/texttools/random-string-generator/
 
 export const config: Config = {
   activeDirectory: {
@@ -27,11 +29,11 @@ export const config: Config = {
   tempUsers: [
     {
       user: adminUser,
-      password: crypto.randomUUID()
+      password: '2vxnd9AiL7C3j4BlG4zk7Rlqhz7fOGI23LpF0nmtMIQPtHqPk8sHe8onCx4Hzoee'
     },
     {
       user: manageUser,
-      password: crypto.randomUUID()
+      password: '3rJr3oHUt8i74DZe1ypoitKLoxzzWLxzeBZ8eCfCSdYd1frywB18xuguMlwwCWFI'
     }
   ],
   application: {},

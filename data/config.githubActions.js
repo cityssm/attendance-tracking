@@ -1,4 +1,3 @@
-import crypto from 'node:crypto';
 import * as configFunctions from './functions.js';
 import { adminUser, manageUser } from './temporaryUsers.js';
 export const config = {
@@ -20,11 +19,11 @@ export const config = {
     tempUsers: [
         {
             user: adminUser,
-            password: crypto.randomUUID()
+            password: '2vxnd9AiL7C3j4BlG4zk7Rlqhz7fOGI23LpF0nmtMIQPtHqPk8sHe8onCx4Hzoee'
         },
         {
             user: manageUser,
-            password: crypto.randomUUID()
+            password: '3rJr3oHUt8i74DZe1ypoitKLoxzzWLxzeBZ8eCfCSdYd1frywB18xuguMlwwCWFI'
         }
     ],
     application: {},

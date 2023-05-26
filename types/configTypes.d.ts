@@ -22,7 +22,7 @@ export interface Config {
     reverseProxy: {
         disableCompression?: boolean;
         disableEtag?: boolean;
-        urlPrefix?: `/${string}`;
+        urlPrefix?: '' | `/${string}`;
     };
     activeDirectory?: ConfigActiveDirectory;
     adWebAuthConfig?: ADWebAuthConfig;
