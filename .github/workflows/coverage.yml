@@ -53,6 +53,11 @@ jobs:
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./codeclimate-test-reporter
           chmod +x codeclimate-test-reporter
           ./codeclimate-test-reporter before-build
+      
+      - name: Verify Cypress
+        run: cypress verify
+        env:
+          CYPRESS_VERIFY_TIMEOUT: 600000
 
       - name: Run Coverage Testing
         run: c8 --reporter=lcov --reporter=text --reporter=text-summary mocha --timeout 30000 --exit
