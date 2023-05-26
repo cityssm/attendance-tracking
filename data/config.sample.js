@@ -1,7 +1,7 @@
 import * as configFunctions from './functions.js';
 export const config = {
     activeDirectory: {
-        url: 'ldap://dc.domain.com',
+        url: 'ldap://',
         baseDN: 'dc=domain,dc=com',
         username: 'username@domain.com',
         password: 'p@ssword'
