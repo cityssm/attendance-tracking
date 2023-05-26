@@ -15,6 +15,7 @@ jobs:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
     name: Node ${{ matrix.node }}
     steps:
       - uses: actions/checkout@v3
@@ -41,7 +42,7 @@ jobs:
       - name: Install Package
         run: |
           npm ci
-          npm install -g cross-env mocha c8
+          npm install -g mocha c8 cypress@12
 
       - name: Copy Test Config
         run: cp ./data/config.githubActions.js ./data/config.js
@@ -52,9 +53,14 @@ jobs:
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./codeclimate-test-reporter
           chmod +x codeclimate-test-reporter
           ./codeclimate-test-reporter before-build
+      
+      - name: Verify Cypress
+        run: cypress verify
+        env:
+          CYPRESS_VERIFY_TIMEOUT: 600000
 
       - name: Run Coverage Testing
-        run: cross-env NODE_ENV=dev DEBUG=monty:* c8 --reporter=lcov --reporter=text --reporter=text-summary mocha --timeout 30000 --exit
+        run: c8 --reporter=lcov --reporter=text --reporter=text-summary mocha --timeout 30000 --exit
 
       - name: Code Climate (After)
         if: ${{ github.event_name != 'pull_request' && env.CC_TEST_REPORTER_ID != '' && matrix.node == 16 }}
