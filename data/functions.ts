@@ -5,7 +5,7 @@ import type {
   ConfigEmployeeEligibilityFunction
 } from '../types/configTypes.js'
 
-import * as dateTimeFunctions from '@cityssm/utils-datetime'
+import { dateToString } from '@cityssm/utils-datetime'
 
 /*
  * Eligibility
@@ -58,6 +58,6 @@ export const sortKey_seniorityDate: ConfigEmployeeSortKeyFunction = {
   sortKeyFunction(employee) {
     return employee.seniorityDateTime === undefined
       ? '9999-99-99'
-      : dateTimeFunctions.dateToString(employee.seniorityDateTime as Date)
+      : dateToString(employee.seniorityDateTime as Date)
   }
 }

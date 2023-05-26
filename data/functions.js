@@ -1,4 +1,4 @@
-import * as dateTimeFunctions from '@cityssm/utils-datetime';
+import { dateToString } from '@cityssm/utils-datetime';
 export const eligibility_hasProperty = {
     functionName: 'Has Property',
     eligibilityFunction(employee, employeePropertyName) {
@@ -32,6 +32,6 @@ export const sortKey_seniorityDate = {
     sortKeyFunction(employee) {
         return employee.seniorityDateTime === undefined
             ? '9999-99-99'
-            : dateTimeFunctions.dateToString(employee.seniorityDateTime);
+            : dateToString(employee.seniorityDateTime);
     }
 };
