@@ -12,13 +12,6 @@ import * as authenticationFunctions from '../helpers/functions.authentication.js
 import type * as recordTypes from '../types/recordTypes.js'
 import { getUser } from '../database/getUser.js'
 
-const temporaryAdminUser: recordTypes.User = {
-  userName: '~~monty',
-  canLogin: true,
-  isAdmin: true,
-  permissions: {}
-}
-
 export const router = Router()
 
 function getHandler(request: Request, response: Response): void {
@@ -61,17 +54,25 @@ async function postHandler(
   )
 
   let isAuthenticated = false
+  let isTemporaryUser = false
   let userObject: recordTypes.User | undefined
 
-  if (userName === temporaryAdminUser.userName) {
+  if (userName.startsWith('~~')) {
+    isTemporaryUser = true
+
+    const potentialUser = configFunctions
+      .getProperty('tempUsers')
+      .find((possibleUser) => {
+        return possibleUser.user.userName === userName
+      })
+
     if (
+      (potentialUser?.user.canLogin ?? false) &&
       passwordPlain !== '' &&
-      configFunctions.getProperty('application.tempAdminPassword') !== '' &&
-      passwordPlain ===
-        configFunctions.getProperty('application.tempAdminPassword')
+      passwordPlain === potentialUser!.password
     ) {
       isAuthenticated = true
-      userObject = temporaryAdminUser
+      userObject = potentialUser!.user
     }
   } else if (userName !== '' && passwordPlain !== '') {
     isAuthenticated = await authenticationFunctions.authenticate(
@@ -80,7 +81,7 @@ async function postHandler(
     )
   }
 
-  if (isAuthenticated && userName !== temporaryAdminUser.userName) {
+  if (isAuthenticated && !isTemporaryUser) {
     const userNameLowerCase = userName.toLowerCase()
     userObject = await getUser(userNameLowerCase)
   }

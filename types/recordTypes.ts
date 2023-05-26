@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/indent */
 
-import type { availablePermissionValues } from '../helpers/functions.permissions'
+import type { availablePermissionValues } from '../helpers/functions.permissions.js'
 
 export interface RecordUserNameDateTime {
   recordCreate_userName?: string

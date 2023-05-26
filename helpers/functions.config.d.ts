@@ -1,5 +1,5 @@
 import './polyfills.js';
-import type * as configTypes from '../types/configTypes.js';
+import type * as configTypes from '../types/configTypes';
 import type { config as MSSQLConfig } from 'mssql';
 import type { Configuration as AvantiConfig } from '@cityssm/avanti-api';
 import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types';
@@ -9,7 +9,7 @@ export declare function getProperty(propertyName: 'application.bigLogoURL'): str
 export declare function getProperty(propertyName: 'application.smallLogoURL'): string;
 export declare function getProperty(propertyName: 'application.httpPort'): number;
 export declare function getProperty(propertyName: 'application.userDomain'): string;
-export declare function getProperty(propertyName: 'application.tempAdminPassword'): string;
+export declare function getProperty(propertyName: 'tempUsers'): configTypes.ConfigTemporaryUserCredentials[];
 export declare function getProperty(propertyName: 'activeDirectory'): configTypes.ConfigActiveDirectory | undefined;
 export declare function getProperty(propertyName: 'adWebAuthConfig'): ADWebAuthConfig | undefined;
 export declare function getProperty(propertyName: 'application.maximumProcesses'): number;

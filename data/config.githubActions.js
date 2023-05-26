@@ -1,4 +1,6 @@
+import crypto from 'node:crypto';
 import * as configFunctions from './functions.js';
+import { adminUser, manageUser } from './temporaryUsers.js';
 export const config = {
     activeDirectory: {
         url: 'ldap://dc.domain.com',
@@ -15,9 +17,17 @@ export const config = {
             encrypt: false
         }
     },
-    application: {
-        tempAdminPassword: 'admin'
-    },
+    tempUsers: [
+        {
+            user: adminUser,
+            password: crypto.randomUUID()
+        },
+        {
+            user: manageUser,
+            password: crypto.randomUUID()
+        }
+    ],
+    application: {},
     reverseProxy: {},
     session: {},
     aliases: {},

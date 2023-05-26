@@ -15,10 +15,9 @@ export const config: Config = {
     user: 'username',
     password: 'p@ssword'
   },
-  application: {
-    tempAdminPassword: ''
-  },
+  application: {},
   reverseProxy: {},
+  tempUsers: [],
   session: {},
   aliases: {},
   features: {},

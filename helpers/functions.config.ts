@@ -4,7 +4,7 @@ import './polyfills.js'
 
 import { config } from '../data/config.js'
 
-import type * as configTypes from '../types/configTypes.js'
+import type * as configTypes from '../types/configTypes'
 
 // eslint-disable-next-line node/no-extraneous-import
 import type { config as MSSQLConfig } from 'mssql'
@@ -28,7 +28,8 @@ configFallbackValues.set('application.bigLogoURL', '/images/monty-big.svg')
 configFallbackValues.set('application.smallLogoURL', '/images/monty-small.svg')
 configFallbackValues.set('application.httpPort', 7000)
 configFallbackValues.set('application.maximumProcesses', 4)
-configFallbackValues.set('application.tempAdminPassword', '')
+
+configFallbackValues.set('tempUsers', [])
 
 configFallbackValues.set('reverseProxy.disableCompression', false)
 configFallbackValues.set('reverseProxy.disableEtag', false)
@@ -67,7 +68,8 @@ export function getProperty(propertyName: 'application.smallLogoURL'): string
 
 export function getProperty(propertyName: 'application.httpPort'): number
 export function getProperty(propertyName: 'application.userDomain'): string
-export function getProperty(propertyName: 'application.tempAdminPassword'): string
+
+export function getProperty(propertyName: 'tempUsers'): configTypes.ConfigTemporaryUserCredentials[]
 
 export function getProperty(
   propertyName: 'activeDirectory'

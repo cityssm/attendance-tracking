@@ -36,8 +36,8 @@ const debug = Debug(`monty:app:${process.pid}`)
  * INITIALIZE APP
  */
 
-if (configFunctions.getProperty('application.tempAdminPassword') !== '') {
-  debug('Temporary admin account currently active!')
+if (configFunctions.getProperty('tempUsers').length > 0) {
+  debug('Temporary user accounts currently active!')
 }
 
 export const app = express()

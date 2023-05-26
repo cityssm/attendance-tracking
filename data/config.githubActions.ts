@@ -1,6 +1,9 @@
 import type { Config } from '../types/configTypes.js'
 
+import crypto from 'node:crypto'
 import * as configFunctions from './functions.js'
+
+import { adminUser, manageUser } from './temporaryUsers.js'
 
 // MSSQL Secrets OK
 // https://github.com/potatoqualitee/mssqlsuite
@@ -21,9 +24,17 @@ export const config: Config = {
       encrypt: false
     }
   },
-  application: {
-    tempAdminPassword: 'admin'
-  },
+  tempUsers: [
+    {
+      user: adminUser,
+      password: crypto.randomUUID()
+    },
+    {
+      user: manageUser,
+      password: crypto.randomUUID()
+    }
+  ],
+  application: {},
   reverseProxy: {},
   session: {},
   aliases: {},

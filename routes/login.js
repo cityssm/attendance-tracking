@@ -2,12 +2,6 @@ import { Router } from 'express';
 import * as configFunctions from '../helpers/functions.config.js';
 import * as authenticationFunctions from '../helpers/functions.authentication.js';
 import { getUser } from '../database/getUser.js';
-const temporaryAdminUser = {
-    userName: '~~monty',
-    canLogin: true,
-    isAdmin: true,
-    permissions: {}
-};
 export const router = Router();
 function getHandler(request, response) {
     const sessionCookieName = configFunctions.getProperty('session.cookieName');
@@ -30,20 +24,26 @@ async function postHandler(request, response) {
     const unsafeRedirectURL = request.body.redirect;
     const redirectURL = authenticationFunctions.getSafeRedirectURL(typeof unsafeRedirectURL === 'string' ? unsafeRedirectURL : '');
     let isAuthenticated = false;
+    let isTemporaryUser = false;
     let userObject;
-    if (userName === temporaryAdminUser.userName) {
-        if (passwordPlain !== '' &&
-            configFunctions.getProperty('application.tempAdminPassword') !== '' &&
-            passwordPlain ===
-                configFunctions.getProperty('application.tempAdminPassword')) {
+    if (userName.startsWith('~~')) {
+        isTemporaryUser = true;
+        const potentialUser = configFunctions
+            .getProperty('tempUsers')
+            .find((possibleUser) => {
+            return possibleUser.user.userName === userName;
+        });
+        if ((potentialUser?.user.canLogin ?? false) &&
+            passwordPlain !== '' &&
+            passwordPlain === potentialUser.password) {
             isAuthenticated = true;
-            userObject = temporaryAdminUser;
+            userObject = potentialUser.user;
         }
     }
     else if (userName !== '' && passwordPlain !== '') {
         isAuthenticated = await authenticationFunctions.authenticate(userName, passwordPlain);
     }
-    if (isAuthenticated && userName !== temporaryAdminUser.userName) {
+    if (isAuthenticated && !isTemporaryUser) {
         const userNameLowerCase = userName.toLowerCase();
         userObject = await getUser(userNameLowerCase);
     }

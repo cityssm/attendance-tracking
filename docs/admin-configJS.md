@@ -21,16 +21,32 @@ export default config
 
 ## config.application = {}
 
-| Property Name       | Type   | Description                                                                                  | Default Value                    |
-| ------------------- | ------ | -------------------------------------------------------------------------------------------- | -------------------------------- |
-| `applicationName`   | string | Make the application your own by changing the name.                                          | `"MonTY"`                        |
-| `httpPort`          | number | The listening port for HTTP.                                                                 | `7000`                           |
-| `userDomain`        | string | The domain used when authenticating users.                                                   | `null`                           |
-| `backgroundURL`     | string | The path to background used on the login page.                                               | `"/images/truck-background.jpg"` |
-| `bigLogoURL`        | string | The path to a custom logo, displayed on the login page.                                      | `"/images/monty-big.svg"`        |
-| `smallLogoURL`      | string | The path to a custom logo, displayed in the top-left corner. Square-shaped images work best. | `"/images/monty-small.svg"`      |
-| `maximumProcesses`  | number | The maximum number of server threads. May be limited by your processor.                      | 4                                |
-| `tempAdminPassword` | string | The password for the `~~monty` admin user. **Only user this for initial setup!**             | `""`                             |
+| Property Name      | Type   | Description                                                                                  | Default Value                    |
+| ------------------ | ------ | -------------------------------------------------------------------------------------------- | -------------------------------- |
+| `applicationName`  | string | Make the application your own by changing the name.                                          | `"MonTY"`                        |
+| `httpPort`         | number | The listening port for HTTP.                                                                 | `7000`                           |
+| `userDomain`       | string | The domain used when authenticating users.                                                   | `null`                           |
+| `backgroundURL`    | string | The path to background used on the login page.                                               | `"/images/truck-background.jpg"` |
+| `bigLogoURL`       | string | The path to a custom logo, displayed on the login page.                                      | `"/images/monty-big.svg"`        |
+| `smallLogoURL`     | string | The path to a custom logo, displayed in the top-left corner. Square-shaped images work best. | `"/images/monty-small.svg"`      |
+| `maximumProcesses` | number | The maximum number of server threads. May be limited by your processor.                      | 4                                |
+
+---
+
+## config.tempUsers = ConfigTemporaryUserCredentials[]
+
+**Note that temporary user credentials should only be used to aid with initial setup, and not long term.**
+
+There are preconfigured temporary users in `data/temporaryUsers.js` that can be imported.
+Note that before they can be used, passwords must be set.
+
+| ConfigTemporaryUserCredentials Property Name | Type                   | Description                                |
+| -------------------------------------------- | ---------------------- | ------------------------------------------ |
+| `user.userName`                              | string                 | User name, starting with "~~".             |
+| `user.isAdmin`                               | boolean                | Whether the user has admin access or not.  |
+| `user.canLogin`                              | boolean                | Whether the user can log in or not.        |
+| `user.permissions`                           | Record<string, string> | Granular permissions assigned to the user. |
+| `password`                                   | string                 | Please keep security in mind.              |
 
 ---
 
@@ -97,8 +113,8 @@ See the configuration for [node-mssql on npm](https://www.npmjs.com/package/mssq
 | `printPdf.contentDisposition`  | string                                                                                                                                  | Either `attachment` or `inline`.                                             | `attachment` |
 | `avantiSync.config`            | [node-avanti-api Configuration](https://github.com/cityssm/node-avanti-api/blob/41d5c051641d3d1242e2b3d20046e7b501223009/apiCall.ts#L7) | Client details for connecting to the Avanti API.                             | `null`       |
 | `avantiSync.locationCodes`     | string[]                                                                                                                                | The location codes to sync from the Avanti API.                              | `[]`         |
-| `employeeSortKeyFunctions`     | _See below_                                                                                                                               | Options to sort employees within call out lists.                             | `[]`         |
-| `employeeEligibilityFunctions` | _See below_                                                                                                                               | Options to test employee eligibility for call out lists.                     | `[]`         |
+| `employeeSortKeyFunctions`     | _See below_                                                                                                                             | Options to sort employees within call out lists.                             | `[]`         |
+| `employeeEligibilityFunctions` | _See below_                                                                                                                             | Options to test employee eligibility for call out lists.                     | `[]`         |
 | `recentDays`                   | number                                                                                                                                  | The number of days of data to display to users without raw export abilities. | `10`         |
 
 ### config.settings.employeeSortKeyFunctions = []

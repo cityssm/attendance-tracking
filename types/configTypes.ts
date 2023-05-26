@@ -4,7 +4,8 @@ import type { config as MSSQLConfig } from 'mssql'
 import type { Configuration as AvantiConfig } from '@cityssm/avanti-api'
 import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types'
 
-import type { Employee } from './recordTypes'
+import type { Employee, User } from './recordTypes.js'
+import type { availablePermissionValues } from '../helpers/functions.permissions.js'
 
 export interface Config {
   application: {
@@ -15,7 +16,6 @@ export interface Config {
     httpPort?: number
     userDomain?: string
     maximumProcesses?: number
-    tempAdminPassword?: string
   }
   session: {
     cookieName?: string
@@ -31,6 +31,8 @@ export interface Config {
 
   activeDirectory?: ConfigActiveDirectory
   adWebAuthConfig?: ADWebAuthConfig
+
+  tempUsers?: ConfigTemporaryUserCredentials[]
 
   mssql?: MSSQLConfig
   aliases: Record<string, string>
@@ -77,4 +79,14 @@ export interface ConfigEmployeeEligibilityFunction {
     employee: Employee,
     employeePropertyName?: string
   ) => boolean
+}
+
+export interface ConfigTemporaryUserCredentials {
+  user: ConfigTemporaryUser
+  password: string
+}
+
+export interface ConfigTemporaryUser extends User {
+  userName: `~~${string}`
+  permissions: Partial<Record<keyof typeof availablePermissionValues, string>>
 }

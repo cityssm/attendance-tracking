@@ -23,8 +23,8 @@ import { version } from './version.js';
 import { getSafeRedirectURL } from './helpers/functions.authentication.js';
 import Debug from 'debug';
 const debug = Debug(`monty:app:${process.pid}`);
-if (configFunctions.getProperty('application.tempAdminPassword') !== '') {
-    debug('Temporary admin account currently active!');
+if (configFunctions.getProperty('tempUsers').length > 0) {
+    debug('Temporary user accounts currently active!');
 }
 export const app = express();
 app.disable('X-Powered-By');
