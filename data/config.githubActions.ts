@@ -20,7 +20,7 @@ export const config: Config = {
   mssql: {
     server: 'localhost',
     user: 'sa',
-    password: 'dbatools.IO',
+    password: 'dbatools.I0',
     database: 'MonTY',
     options: {
       encrypt: false
