@@ -1,4 +1,5 @@
 import { Service } from 'node-windows'
+
 import { serviceConfig } from './windowsService.js'
 
 // Create a new service object

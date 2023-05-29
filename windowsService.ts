@@ -1,4 +1,5 @@
 import path from 'node:path'
+
 import type { ServiceConfig } from 'node-windows'
 
 const _dirname = '.'

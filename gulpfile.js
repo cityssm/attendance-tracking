@@ -1,8 +1,8 @@
 import gulp from 'gulp';
 import changed from 'gulp-changed';
 import minify from 'gulp-minify';
-import dartSass from 'sass';
 import gulpSass from 'gulp-sass';
+import dartSass from 'sass';
 const sass = gulpSass(dartSass);
 const publicSCSSDestination = 'public/stylesheets';
 function publicSCSSFunction() {

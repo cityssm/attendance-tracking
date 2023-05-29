@@ -1,35 +1,31 @@
 import './helpers/polyfills.js'
 
-import createError from 'http-errors'
-import express from 'express'
-
-import compression from 'compression'
 import path from 'node:path'
+
+import * as htmlFns from '@cityssm/expressjs-server-js/htmlFns.js'
+import * as stringFns from '@cityssm/expressjs-server-js/stringFns.js'
+import * as dateTimeFns from '@cityssm/utils-datetime'
+import compression from 'compression'
 import cookieParser from 'cookie-parser'
 import csurf from 'csurf'
+import Debug from 'debug'
+import express from 'express'
 import rateLimit from 'express-rate-limit'
-
 import session from 'express-session'
+import createError from 'http-errors'
 import FileStore from 'session-file-store'
 
-import routerLogin from './routes/login.js'
-import routerDashboard from './routes/dashboard.js'
-import routerReports from './routes/reports.js'
-import routerPrint from './routes/print.js'
-import routerAttendance from './routes/attendance.js'
-import routerAdmin from './routes/admin.js'
-
-import * as permissionFunctions from './helpers/functions.permissions.js'
+import { getSafeRedirectURL } from './helpers/functions.authentication.js'
 import * as configFunctions from './helpers/functions.config.js'
-import * as dateTimeFns from '@cityssm/utils-datetime'
-import * as stringFns from '@cityssm/expressjs-server-js/stringFns.js'
-import * as htmlFns from '@cityssm/expressjs-server-js/htmlFns.js'
-
+import * as permissionFunctions from './helpers/functions.permissions.js'
+import routerAdmin from './routes/admin.js'
+import routerAttendance from './routes/attendance.js'
+import routerDashboard from './routes/dashboard.js'
+import routerLogin from './routes/login.js'
+import routerPrint from './routes/print.js'
+import routerReports from './routes/reports.js'
 import { version } from './version.js'
 
-import { getSafeRedirectURL } from './helpers/functions.authentication.js'
-
-import Debug from 'debug'
 const debug = Debug(`monty:app:${process.pid}`)
 
 /*
