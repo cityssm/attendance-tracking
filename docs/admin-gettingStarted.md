@@ -52,7 +52,7 @@ all tables are declared in the `MonTY` schema,
 making it possible to share a database with another application with little possibility of colliding.
 
     > sqlcmd -S localhost -U saUser -P saP@ss -Q 'create database MonTY'
-    > sqlcmd -S localhost -U saUser -P saP@ss -d Monty -i database/scripts/createTables.sql -I
+    > sqlcmd -S localhost -U saUser -P saP@ss -d MonTY -i database/scripts/createTables.sql -I
 
 ## Step 6: Create a `config.js` file
 
