@@ -81,7 +81,7 @@
                       </p>
                     </div>
                   <% } else { %>
-                    <div class="panel">
+                    <div class="panel" style="overflow:auto;max-height:min(300px,80vh)">
                       <% for (const absenceRecord of absenceRecords) {%>
                         <div class="panel-block is-block">
                           <div class="columns is-mobile">
@@ -110,7 +110,7 @@
                       </p>
                     </div>
                   <% } else { %>
-                    <div class="panel">
+                    <div class="panel" style="overflow:auto;max-height:min(300px,80vh)">
                       <% for (const returnToWorkRecord of returnToWorkRecords) {%>
                         <div class="panel-block is-block">
                           <div class="columns is-mobile">
