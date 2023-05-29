@@ -1,10 +1,6 @@
-<div align="center">
-<img src="public/images/monty-small.svg" alt="Monty" style="height:200px" />
+# MonTY
 
-<h1>MonTY</h1>
-
-<h2>⭐ UNDER DEVELOPMENT ⭐</h2>
-</div>
+<img src="public/images/monty-big.svg" alt="Monty" style="float:right;height:200px" />
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/772303e121fb467d9c1fc0c7fb4c53d6)](https://app.codacy.com/gh/cityssm/MonTY/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e5f9a6caa7b2d3ebd16c/maintainability)](https://codeclimate.com/github/cityssm/MonTY/maintainability)
@@ -12,6 +8,8 @@
 [![MonTY](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/szu5cb/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/szu5cb/runs)
 [![codecov](https://codecov.io/gh/cityssm/MonTY/branch/main/graph/badge.svg?token=21LFC3U1Q2)](https://codecov.io/gh/cityssm/MonTY)
 [![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/cityssm/MonTY)](https://app.snyk.io/org/cityssm/project/a2511a35-9290-4424-ad6c-669a8d1566d4)
+
+## ⭐ UNDER DEVELOPMENT ⭐
 
 An application built for Public Works departments to
 "**MON**itor and **T**rack **Y**our":
