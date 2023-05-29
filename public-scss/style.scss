@@ -172,16 +172,19 @@ span.button.is-static {
 */
 
 .table.is-fade-hoverable {
-  &:hover, &:focus, &:focus-within {
+  &:hover,
+  &:focus,
+  &:focus-within {
     tbody tr {
       opacity: 0.4;
-
     }
   }
 
   tbody tr {
-  &:hover, &:focus, &:focus-within {
-    opacity: 1;
+    &:hover,
+    &:focus,
+    &:focus-within {
+      opacity: 1;
+    }
   }
-}
 }

@@ -24,7 +24,7 @@ export async function handler(
 
   const reportData = await getReportData(printConfig, request.query, request.session)
 
-  response.render('print/screen/' + printName, reportData)
+  response.render(`print/screen/${printName}`, reportData)
 }
 
 export default handler
