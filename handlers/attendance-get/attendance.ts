@@ -14,7 +14,7 @@ import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js
 
 import { getCallOutLists } from '../../database/getCallOutLists.js'
 import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js'
-import { getEmployeePropertyNames } from '../../database/getEmployeePropertyNames.js'
+import { getEmployeePropertyNames } from '../../helpers/functions.cache.js'
 import { getAfterHoursRecords } from '../../database/getAfterHoursRecords.js'
 import { getAfterHoursReasons } from '../../database/getAfterHoursReasons.js'
 

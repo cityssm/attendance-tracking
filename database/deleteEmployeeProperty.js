@@ -1,5 +1,6 @@
-import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import * as configFunctions from '../helpers/functions.config.js';
+import { clearCacheByTableName } from '../helpers/functions.cache.js';
 export async function deleteEmployeeProperty(employeeNumber, propertyName, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     const result = await pool
@@ -13,5 +14,6 @@ export async function deleteEmployeeProperty(employeeNumber, propertyName, reque
       where employeeNumber = @employeeNumber
       and propertyName = @propertyName
       and recordDelete_dateTime is null`);
+    clearCacheByTableName('EmployeeProperties');
     return result.rowsAffected[0] > 0;
 }

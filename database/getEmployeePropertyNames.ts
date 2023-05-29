@@ -1,7 +1,7 @@
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
+
+import * as configFunctions from '../helpers/functions.config.js'
 
 export async function getEmployeePropertyNames(): Promise<string[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
@@ -11,6 +11,7 @@ export async function getEmployeePropertyNames(): Promise<string[]> {
       distinct propertyName
       from MonTY.EmployeeProperties
       where recordDelete_dateTime is null
+      and employeeNumber in (select employeeNumber from MonTY.Employees where recordDelete_dateTime is null)
       order by propertyName`)
 
   const propertyNames: string[] = []

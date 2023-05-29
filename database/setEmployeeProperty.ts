@@ -1,8 +1,9 @@
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
+import * as configFunctions from '../helpers/functions.config.js'
+
 import type * as recordTypes from '../types/recordTypes.js'
+import { clearCacheByTableName } from '../helpers/functions.cache.js'
 
 export async function setEmployeeProperty(
   employeeProperty: recordTypes.EmployeeProperty,
@@ -45,6 +46,8 @@ export async function setEmployeeProperty(
         values (@employeeNumber, @propertyName, @propertyValue, @isSynced,
           @record_userName, @record_dateTime, @record_userName, @record_dateTime)`)
   }
+
+  clearCacheByTableName('EmployeeProperties')
 
   return result.rowsAffected[0] > 0
 }

@@ -1,5 +1,6 @@
-import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import * as configFunctions from '../helpers/functions.config.js';
+import { clearCacheByTableName } from '../helpers/functions.cache.js';
 export async function setEmployeeProperty(employeeProperty, isSyncUpdate, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let result = await pool
@@ -35,5 +36,6 @@ export async function setEmployeeProperty(employeeProperty, isSyncUpdate, reques
         values (@employeeNumber, @propertyName, @propertyValue, @isSynced,
           @record_userName, @record_dateTime, @record_userName, @record_dateTime)`);
     }
+    clearCacheByTableName('EmployeeProperties');
     return result.rowsAffected[0] > 0;
 }

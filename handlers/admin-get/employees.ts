@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express'
 
 import { getEmployees } from '../../database/getEmployees.js'
-import { getEmployeePropertyNames } from '../../database/getEmployeePropertyNames.js'
+import { getEmployeePropertyNames } from '../../helpers/functions.cache.js'
 
 export async function handler(
   request: Request,

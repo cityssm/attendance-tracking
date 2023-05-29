@@ -1,8 +1,9 @@
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
+import * as configFunctions from '../helpers/functions.config.js'
+
 import type * as recordTypes from '../types/recordTypes.js'
+import { clearCacheByTableName } from '../helpers/functions.cache.js'
 
 export async function deleteEmployeeProperty(
   employeeNumber: string,
@@ -22,6 +23,8 @@ export async function deleteEmployeeProperty(
       where employeeNumber = @employeeNumber
       and propertyName = @propertyName
       and recordDelete_dateTime is null`)
+
+  clearCacheByTableName('EmployeeProperties')
 
   return result.rowsAffected[0] > 0
 }
