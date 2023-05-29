@@ -1,5 +1,5 @@
 import cluster from 'node:cluster';
-import 'core-js/es/object';
+import 'core-js/es/object/index.js';
 import Debug from 'debug';
 const debug = Debug('monty:polyfills');
 if (!Object.hasOwn(cluster, 'setupPrimary') &&

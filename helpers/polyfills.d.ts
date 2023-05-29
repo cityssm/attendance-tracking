@@ -1,1 +1,1 @@
-import 'core-js/es/object';
+import 'core-js/es/object/index.js';

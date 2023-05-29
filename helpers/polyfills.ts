@@ -1,7 +1,7 @@
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import cluster from 'node:cluster'
 
-import 'core-js/es/object'
+import 'core-js/es/object/index.js'
 
 import Debug from 'debug'
 
