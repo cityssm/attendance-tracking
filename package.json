@@ -44,6 +44,7 @@
     "camelcase": "^7.0.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
+    "core-js": "^3.30.2",
     "cross-env": "^7.0.3",
     "csurf": "^1.11.0",
     "debug": "^4.3.4",
@@ -54,7 +55,6 @@
     "express-session": "^1.17.3",
     "http-errors": "^2.0.0",
     "mssql": "^9.1.1",
-    "object.hasown": "^1.1.2",
     "papaparse": "^5.4.1",
     "session-file-store": "^1.5.0",
     "set-interval-async": "^3.0.3"
@@ -69,6 +69,7 @@
     "@types/activedirectory2": "^1.2.3",
     "@types/compression": "^1.7.2",
     "@types/cookie-parser": "^1.4.3",
+    "@types/core-js": "^2.5.5",
     "@types/csurf": "^1.11.2",
     "@types/debug": "^4.1.8",
     "@types/ejs": "^3.1.2",

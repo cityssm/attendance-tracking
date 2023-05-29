@@ -1,2 +1,1 @@
-export declare function applyPolyfills(): void;
-export default applyPolyfills;
+import 'core-js/es/object';
