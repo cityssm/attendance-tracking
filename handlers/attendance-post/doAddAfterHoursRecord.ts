@@ -1,7 +1,6 @@
 import type { Request, Response } from 'express'
 
 import { addAfterHoursRecord } from '../../database/addAfterHoursRecord.js'
-
 import { getAfterHoursRecords } from '../../database/getAfterHoursRecords.js'
 
 export async function handler(

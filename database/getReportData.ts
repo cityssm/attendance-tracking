@@ -1,8 +1,8 @@
 /* eslint-disable no-case-declarations */
 
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
+
+import * as configFunctions from '../helpers/functions.config.js'
 
 export type ReportParameters = Record<string, string | number>
 

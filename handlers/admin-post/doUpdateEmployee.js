@@ -1,5 +1,5 @@
-import { updateEmployee } from '../../database/updateEmployee.js';
 import { getEmployees } from '../../database/getEmployees.js';
+import { updateEmployee } from '../../database/updateEmployee.js';
 export async function handler(request, response) {
     const success = await updateEmployee(request.body, false, request.session);
     const employees = await getEmployees({

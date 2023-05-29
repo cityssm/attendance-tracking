@@ -1,13 +1,12 @@
 /* eslint-disable unicorn/filename-case */
 
 import * as assert from 'node:assert'
+import { exec } from 'node:child_process'
+import * as http from 'node:http'
+
+import { app } from '../app.js'
 
 import { portNumber } from './_globals.js'
-
-import { exec } from 'node:child_process'
-
-import * as http from 'node:http'
-import { app } from '../app.js'
 
 function runCypress(browser: 'chrome' | 'firefox', done: () => void): void {
   let cypressCommand = `cypress run --config-file cypress.config.js --browser ${browser}`

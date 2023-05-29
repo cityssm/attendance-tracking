@@ -1,5 +1,5 @@
-import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import * as configFunctions from '../helpers/functions.config.js';
 export async function getCallOutRecords(filters) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let sql = `select r.recordId, r.listId, r.employeeNumber,
@@ -24,7 +24,6 @@ export async function getCallOutRecords(filters) {
         request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
     }
     sql += ' order by r.callOutDateTime desc, r.recordId desc';
-    const recordsResult = await request
-        .query(sql);
+    const recordsResult = await request.query(sql);
     return recordsResult.recordset;
 }

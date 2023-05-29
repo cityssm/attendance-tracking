@@ -1,6 +1,6 @@
-import hasOwn from 'object.hasown';
 import cluster from 'cluster';
 import Debug from 'debug';
+import hasOwn from 'object.hasown';
 const debug = Debug('monty:polyfills');
 export function applyPolyfills() {
     if (Object.hasOwn === undefined) {

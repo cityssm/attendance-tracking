@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express'
 
 import { getAbsenceTypes } from '../../database/getAbsenceTypes.js'
-import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js'
 import { getAfterHoursReasons } from '../../database/getAfterHoursReasons.js'
+import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js'
 
 export async function handler(
   request: Request,

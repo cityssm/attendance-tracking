@@ -1,14 +1,13 @@
 /* eslint-disable no-process-exit, unicorn/no-process-exit */
 
-import { app } from '../app.js'
-
 import http from 'node:http'
 
-import * as configFunctions from '../helpers/functions.config.js'
-
+import Debug from 'debug'
 import exitHook from 'exit-hook'
 
-import Debug from 'debug'
+import { app } from '../app.js'
+import * as configFunctions from '../helpers/functions.config.js'
+
 const debug = Debug(`monty:wwwProcess:${process.pid}`)
 
 interface ServerError extends Error {
@@ -58,7 +57,8 @@ function onListening(server: http.Server): void {
  * Initialize HTTP
  */
 
-process.title = configFunctions.getProperty('application.applicationName') + ' (Worker)'
+process.title =
+  configFunctions.getProperty('application.applicationName') + ' (Worker)'
 
 const httpPort = configFunctions.getProperty('application.httpPort')
 

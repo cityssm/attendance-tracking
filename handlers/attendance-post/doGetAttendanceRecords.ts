@@ -1,13 +1,11 @@
 import type { Request, Response } from 'express'
 
+import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
 import { getCallOutRecords } from '../../database/getCallOutRecords.js'
-
+import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 import * as configFunctions from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
-
 import type * as recordTypes from '../../types/recordTypes.js'
-import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
-import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 
 export async function handler(
   request: Request,

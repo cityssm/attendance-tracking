@@ -1,5 +1,6 @@
-import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { clearCacheByTableName } from '../helpers/functions.cache.js';
+import * as configFunctions from '../helpers/functions.config.js';
 export async function deleteMissingSyncedEmployees(syncDateTime, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     const result = await pool
@@ -12,5 +13,6 @@ export async function deleteMissingSyncedEmployees(syncDateTime, requestSession)
       where isSynced = 1
       and syncDateTime < @syncDateTime
       and recordDelete_dateTime is not null`);
+    clearCacheByTableName('EmployeeProperties');
     return result.rowsAffected[0];
 }

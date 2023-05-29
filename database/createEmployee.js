@@ -1,5 +1,5 @@
-import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import * as configFunctions from '../helpers/functions.config.js';
 export async function createEmployee(employee, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     const employeeResult = await pool

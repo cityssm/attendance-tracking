@@ -1,9 +1,8 @@
 import { getCallOutList } from '../database/getCallOutList.js'
 import { getCallOutListMembers } from '../database/getCallOutListMembers.js'
+import type * as recordTypes from '../types/recordTypes.js'
 
 import * as permissionFunctions from './functions.permissions.js'
-
-import type * as recordTypes from '../types/recordTypes.js'
 
 interface PrintConfig {
   title: string

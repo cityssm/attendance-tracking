@@ -1,7 +1,7 @@
-import { getCallOutListMembers } from '../../database/getCallOutListMembers.js';
 import { getCallOutList } from '../../database/getCallOutList.js';
-import * as permissionFunctions from '../../helpers/functions.permissions.js';
+import { getCallOutListMembers } from '../../database/getCallOutListMembers.js';
 import { getEmployees } from '../../database/getEmployees.js';
+import * as permissionFunctions from '../../helpers/functions.permissions.js';
 export async function handler(request, response) {
     const listId = request.body.listId;
     const callOutListMembers = await getCallOutListMembers({ listId }, {});

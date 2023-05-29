@@ -1,10 +1,9 @@
 import type { Request, Response } from 'express'
 
-import { updateCallOutList } from '../../database/updateCallOutList.js'
-
-import { getCallOutLists } from '../../database/getCallOutLists.js'
 import { getCallOutListMembers } from '../../database/getCallOutListMembers.js'
+import { getCallOutLists } from '../../database/getCallOutLists.js'
 import { getEmployees } from '../../database/getEmployees.js'
+import { updateCallOutList } from '../../database/updateCallOutList.js'
 
 export async function handler(
   request: Request,

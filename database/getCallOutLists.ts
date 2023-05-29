@@ -1,8 +1,7 @@
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
+import * as configFunctions from '../helpers/functions.config.js'
 import type * as recordTypes from '../types/recordTypes.js'
 
 interface GetCallOutListsFilters {
@@ -23,7 +22,9 @@ export async function getCallOutLists(
       cast (case when f.userName is not null then 1 else 0 end as bit) as isFavourite,
       count(m.employeeNumber) as callOutListMembersCount
       from MonTY.CallOutLists l
-      ${filters.favouriteOnly ? 'inner' : 'left'} join MonTY.FavouriteCallOutLists f
+      ${
+        filters.favouriteOnly ? 'inner' : 'left'
+      } join MonTY.FavouriteCallOutLists f
         on l.listId = f.listId and f.userName = @userName
       left join MonTY.CallOutListMembers m
         on l.listId = m.listId

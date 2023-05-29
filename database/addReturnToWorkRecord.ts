@@ -1,9 +1,8 @@
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
-
-import type * as recordTypes from '../types/recordTypes.js'
 import type { IResult } from 'mssql'
+
+import * as configFunctions from '../helpers/functions.config.js'
+import type * as recordTypes from '../types/recordTypes.js'
 
 interface AddReturnToWorkRecordForm {
   employeeNumber: string
@@ -23,7 +22,10 @@ export async function addReturnToWorkRecord(
     .request()
     .input('employeeNumber', form.employeeNumber)
     .input('employeeName', form.employeeName)
-    .input('returnDateTime', form.returnDateString === '' ? undefined : form.returnDateString)
+    .input(
+      'returnDateTime',
+      form.returnDateString === '' ? undefined : form.returnDateString
+    )
     .input('returnShift', form.returnShift)
     .input('recordComment', form.recordComment)
     .input('record_userName', requestSession.user?.userName)

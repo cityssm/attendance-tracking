@@ -1,8 +1,9 @@
-import * as configFunctions from '../helpers/functions.config.js'
+/* eslint-disable @typescript-eslint/indent */
 
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
+import * as configFunctions from '../helpers/functions.config.js'
 import type { availablePermissionValues } from '../helpers/functions.permissions.js'
 
 export async function getUserPermissions(
@@ -18,7 +19,9 @@ export async function getUserPermissions(
       from MonTY.UserPermissions
       where userName = @userName`)
 
-  const permissions: Partial<Record<keyof typeof availablePermissionValues, string>> = {}
+  const permissions: Partial<
+    Record<keyof typeof availablePermissionValues, string>
+  > = {}
 
   for (const permission of permissionsResult.recordset) {
     permissions[permission.permissionKey] = permission.permissionValue

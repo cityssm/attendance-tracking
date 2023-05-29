@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express'
 
+import { getEmployeeProperties } from '../../database/getEmployeeProperties.js'
 import { getEmployeePropertyValue } from '../../database/getEmployeePropertyValue.js'
 import { setEmployeeProperty } from '../../database/setEmployeeProperty.js'
-import { getEmployeeProperties } from '../../database/getEmployeeProperties.js'
 
 export async function handler(
   request: Request,

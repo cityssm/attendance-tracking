@@ -1,7 +1,6 @@
 import * as assert from 'node:assert'
 
 import * as userFunctions from '../helpers/functions.user.js'
-
 import * as polyfills from '../helpers/polyfills.js'
 
 describe('functions.user', () => {

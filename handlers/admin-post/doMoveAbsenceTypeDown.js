@@ -1,5 +1,5 @@
-import { moveRecordDown, moveRecordDownToBottom } from '../../database/moveRecord.js';
 import { getAbsenceTypes } from '../../database/getAbsenceTypes.js';
+import { moveRecordDown, moveRecordDownToBottom } from '../../database/moveRecord.js';
 export async function handler(request, response) {
     const success = request.body.moveToEnd === '1'
         ? await moveRecordDownToBottom('AbsenceTypes', request.body.absenceTypeKey)

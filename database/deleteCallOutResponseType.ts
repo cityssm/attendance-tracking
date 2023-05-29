@@ -1,7 +1,6 @@
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
+import * as configFunctions from '../helpers/functions.config.js'
 import type * as recordTypes from '../types/recordTypes.js'
 
 export async function deleteCallOutResponseType(
@@ -14,7 +13,8 @@ export async function deleteCallOutResponseType(
     .request()
     .input('responseTypeId', responseTypeId)
     .input('record_userName', requestSession.user?.userName)
-    .input('record_dateTime', new Date()).query(`update MonTY.CallOutResponseTypes
+    .input('record_dateTime', new Date())
+    .query(`update MonTY.CallOutResponseTypes
       set recordDelete_userName = @record_userName,
       recordDelete_dateTime = @record_dateTime
       where responseTypeId = @responseTypeId

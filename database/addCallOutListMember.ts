@@ -1,9 +1,9 @@
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
-
-import type * as recordTypes from '../types/recordTypes.js'
 import type { IResult } from 'mssql'
+
+import * as configFunctions from '../helpers/functions.config.js'
+import type * as recordTypes from '../types/recordTypes.js'
+
 import { getEmployee } from './getEmployee.js'
 
 export async function addCallOutListMember(

@@ -1,6 +1,6 @@
 import '../helpers/polyfills.js';
-import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import * as configFunctions from '../helpers/functions.config.js';
 import { getEmployeeProperties } from './getEmployeeProperties.js';
 export async function getEmployees(filters, options) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));

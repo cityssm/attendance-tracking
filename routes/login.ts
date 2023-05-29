@@ -5,12 +5,10 @@ import {
   type Response
 } from 'express'
 
-import * as configFunctions from '../helpers/functions.config.js'
-
-import * as authenticationFunctions from '../helpers/functions.authentication.js'
-
-import type * as recordTypes from '../types/recordTypes.js'
 import { getUser } from '../database/getUser.js'
+import * as authenticationFunctions from '../helpers/functions.authentication.js'
+import * as configFunctions from '../helpers/functions.config.js'
+import type * as recordTypes from '../types/recordTypes.js'
 
 export const router = Router()
 

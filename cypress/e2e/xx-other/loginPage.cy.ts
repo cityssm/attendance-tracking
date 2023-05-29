@@ -1,6 +1,5 @@
-import { logout } from '../../support/index.js'
-
 import { testUser } from '../../../test/_globals.js'
+import { logout } from '../../support/index.js'
 
 describe('Login Page', () => {
   beforeEach(logout)

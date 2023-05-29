@@ -1,9 +1,8 @@
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
-
-import type * as recordTypes from '../types/recordTypes.js'
 import type { IResult } from 'mssql'
+
+import * as configFunctions from '../helpers/functions.config.js'
+import type * as recordTypes from '../types/recordTypes.js'
 
 interface AddAbsenceRecordForm {
   employeeNumber: string
@@ -26,7 +25,10 @@ export async function addAbsenceRecord(
     .input('employeeName', form.employeeName)
     .input('absenceDateTime', form.absenceDateString)
     .input('absenceTypeKey', form.absenceTypeKey)
-    .input('returnDateTime', form.returnDateString === '' ? undefined : form.returnDateString)
+    .input(
+      'returnDateTime',
+      form.returnDateString === '' ? undefined : form.returnDateString
+    )
     .input('recordComment', form.recordComment)
     .input('record_userName', requestSession.user?.userName)
     .input('record_dateTime', new Date())

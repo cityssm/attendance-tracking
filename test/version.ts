@@ -1,5 +1,4 @@
 import * as assert from 'node:assert'
-
 import fs from 'node:fs'
 
 import { version } from '../version.js'

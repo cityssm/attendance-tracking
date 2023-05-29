@@ -1,9 +1,8 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
-import * as configFunctions from '../helpers/functions.config.js'
-
-import type * as recordTypes from '../types/recordTypes.js'
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
+import * as configFunctions from '../helpers/functions.config.js'
+import type * as recordTypes from '../types/recordTypes.js'
 
 export async function setEmployeeProperty(
   employeeProperty: recordTypes.EmployeeProperty,

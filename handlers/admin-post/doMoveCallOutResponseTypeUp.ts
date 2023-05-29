@@ -2,9 +2,8 @@
 
 import type { Request, Response } from 'express'
 
-import { moveRecordUp, moveRecordUpToTop } from '../../database/moveRecord.js'
-
 import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js'
+import { moveRecordUp, moveRecordUpToTop } from '../../database/moveRecord.js'
 
 export async function handler(
   request: Request,

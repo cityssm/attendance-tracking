@@ -1,8 +1,9 @@
 /* eslint-disable unicorn/prefer-module */
 
-import type * as globalTypes from '../types/globalTypes.js'
-import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 import type { BulmaJS } from '@cityssm/bulma-js/types'
+import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
+
+import type * as globalTypes from '../types/globalTypes.js'
 import type * as recordTypes from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS

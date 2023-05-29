@@ -1,8 +1,8 @@
-import type { config as MSSQLConfig } from 'mssql';
-import type { Configuration as AvantiConfig } from '@cityssm/avanti-api';
 import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types';
-import type { Employee, User } from './recordTypes.js';
+import type { Configuration as AvantiConfig } from '@cityssm/avanti-api';
+import type { config as MSSQLConfig } from 'mssql';
 import type { availablePermissionValues } from '../helpers/functions.permissions.js';
+import type { Employee, User } from './recordTypes.js';
 export interface Config {
     application: {
         applicationName?: string;

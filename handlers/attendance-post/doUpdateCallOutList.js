@@ -1,7 +1,7 @@
-import { updateCallOutList } from '../../database/updateCallOutList.js';
-import { getCallOutLists } from '../../database/getCallOutLists.js';
 import { getCallOutListMembers } from '../../database/getCallOutListMembers.js';
+import { getCallOutLists } from '../../database/getCallOutLists.js';
 import { getEmployees } from '../../database/getEmployees.js';
+import { updateCallOutList } from '../../database/updateCallOutList.js';
 export async function handler(request, response) {
     const success = await updateCallOutList(request.body, request.session);
     const callOutLists = await getCallOutLists({ favouriteOnly: false }, request.session);

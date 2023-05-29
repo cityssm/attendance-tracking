@@ -1,8 +1,7 @@
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
+import * as configFunctions from '../helpers/functions.config.js'
 import type { CallOutRecord } from '../types/recordTypes.js'
 
 interface GetCallOutRecordsFilters {
@@ -11,7 +10,9 @@ interface GetCallOutRecordsFilters {
   recentOnly: boolean
 }
 
-export async function getCallOutRecords(filters: GetCallOutRecordsFilters): Promise<CallOutRecord[]> {
+export async function getCallOutRecords(
+  filters: GetCallOutRecordsFilters
+): Promise<CallOutRecord[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
   let sql = `select r.recordId, r.listId, r.employeeNumber,
@@ -37,13 +38,15 @@ export async function getCallOutRecords(filters: GetCallOutRecordsFilters): Prom
 
   if (filters.recentOnly) {
     sql += ' and datediff(day, r.callOutDateTime, getdate()) <= @recentDays'
-    request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'))
+    request = request.input(
+      'recentDays',
+      configFunctions.getProperty('settings.recentDays')
+    )
   }
 
   sql += ' order by r.callOutDateTime desc, r.recordId desc'
 
-  const recordsResult: IResult<CallOutRecord> = await request
-    .query(sql)
+  const recordsResult: IResult<CallOutRecord> = await request.query(sql)
 
   return recordsResult.recordset
 }

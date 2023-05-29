@@ -38,6 +38,16 @@
     "@typescript-eslint/restrict-plus-operands": "warn",
     "@typescript-eslint/space-before-function-paren": "off",
     "@typescript-eslint/strict-boolean-expressions": "warn",
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "orderImportKind": "asc"
+        }
+      }
+    ],
     "unicorn/consistent-function-scoping": "warn",
     "unicorn/empty-brace-spaces": "off",
     "unicorn/filename-case": [

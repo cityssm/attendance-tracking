@@ -1,14 +1,14 @@
-import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async';
-import exitHook from 'exit-hook';
 import * as avanti from '@cityssm/avanti-api';
-import * as configFunctions from '../helpers/functions.config.js';
-import { getEmployee } from '../database/getEmployee.js';
-import { createEmployee } from '../database/createEmployee.js';
 import Debug from 'debug';
-import { updateEmployee } from '../database/updateEmployee.js';
-import { deleteMissingSyncedEmployees } from '../database/deleteMissingSyncedEmployees.js';
+import exitHook from 'exit-hook';
+import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async';
+import { createEmployee } from '../database/createEmployee.js';
 import { deleteEmployeeProperties } from '../database/deleteEmployeeProperties.js';
+import { deleteMissingSyncedEmployees } from '../database/deleteMissingSyncedEmployees.js';
+import { getEmployee } from '../database/getEmployee.js';
 import { setEmployeeProperty } from '../database/setEmployeeProperty.js';
+import { updateEmployee } from '../database/updateEmployee.js';
+import * as configFunctions from '../helpers/functions.config.js';
 const debug = Debug('monty:avantiEmployeeSync');
 let terminateTask = false;
 const partialSession = {

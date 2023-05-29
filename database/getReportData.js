@@ -1,5 +1,5 @@
-import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import * as configFunctions from '../helpers/functions.config.js';
 const absenceRecordsRecentSQL = `select r.recordId,
   r.employeeNumber, r.employeeName,
   r.absenceDateTime, r.returnDateTime,

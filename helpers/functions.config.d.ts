@@ -1,8 +1,8 @@
 import './polyfills.js';
-import type * as configTypes from '../types/configTypes';
-import type { config as MSSQLConfig } from 'mssql';
-import type { Configuration as AvantiConfig } from '@cityssm/avanti-api';
 import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types';
+import type { Configuration as AvantiConfig } from '@cityssm/avanti-api';
+import type { config as MSSQLConfig } from 'mssql';
+import type * as configTypes from '../types/configTypes';
 export declare function getProperty(propertyName: 'application.applicationName'): string;
 export declare function getProperty(propertyName: 'application.backgroundURL'): string;
 export declare function getProperty(propertyName: 'application.bigLogoURL'): string;

@@ -2,16 +2,12 @@
 
 import './polyfills.js'
 
-import { config } from '../data/config.js'
-
-import type * as configTypes from '../types/configTypes'
-
-// eslint-disable-next-line node/no-extraneous-import
+import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types'
+import type { Configuration as AvantiConfig } from '@cityssm/avanti-api'
 import type { config as MSSQLConfig } from 'mssql'
 
-import type { Configuration as AvantiConfig } from '@cityssm/avanti-api'
-
-import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types'
+import { config } from '../data/config.js'
+import type * as configTypes from '../types/configTypes'
 
 /*
  * SET UP FALLBACK VALUES
@@ -69,7 +65,9 @@ export function getProperty(propertyName: 'application.smallLogoURL'): string
 export function getProperty(propertyName: 'application.httpPort'): number
 export function getProperty(propertyName: 'application.userDomain'): string
 
-export function getProperty(propertyName: 'tempUsers'): configTypes.ConfigTemporaryUserCredentials[]
+export function getProperty(
+  propertyName: 'tempUsers'
+): configTypes.ConfigTemporaryUserCredentials[]
 
 export function getProperty(
   propertyName: 'activeDirectory'

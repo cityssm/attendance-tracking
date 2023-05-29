@@ -1,7 +1,6 @@
 import type { Request, Response, NextFunction } from 'express'
 
 import * as configFunctions from '../helpers/functions.config.js'
-
 import * as userFunctions from '../helpers/functions.user.js'
 
 const urlPrefix = configFunctions.getProperty('reverseProxy.urlPrefix')

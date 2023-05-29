@@ -1,6 +1,6 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-import * as configFunctions from '../helpers/functions.config.js';
 import { clearCacheByTableName } from '../helpers/functions.cache.js';
+import * as configFunctions from '../helpers/functions.config.js';
 export async function deleteEmployeeProperty(employeeNumber, propertyName, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     const result = await pool

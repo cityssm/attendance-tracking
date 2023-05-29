@@ -1,8 +1,7 @@
 import type { Request, Response } from 'express'
 
-import { removeFavouriteCallOutList } from '../../database/removeFavouriteCallOutList.js'
-
 import { getCallOutLists } from '../../database/getCallOutLists.js'
+import { removeFavouriteCallOutList } from '../../database/removeFavouriteCallOutList.js'
 
 export async function handler(
   request: Request,

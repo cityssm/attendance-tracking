@@ -1,7 +1,6 @@
 import type { Request, Response } from 'express'
 
 import { deleteCallOutList } from '../../database/deleteCallOutList.js'
-
 import { getCallOutLists } from '../../database/getCallOutLists.js'
 
 export async function handler(

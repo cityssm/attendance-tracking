@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/indent */
 
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
+import * as configFunctions from '../helpers/functions.config.js'
 import type { CallOutResponseType } from '../types/recordTypes.js'
+
 import { updateRecordOrderNumber } from './updateRecordOrderNumber.js'
 
 export async function getCallOutResponseTypes(): Promise<

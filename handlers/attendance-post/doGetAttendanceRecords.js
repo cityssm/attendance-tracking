@@ -1,8 +1,8 @@
+import { getAbsenceRecords } from '../../database/getAbsenceRecords.js';
 import { getCallOutRecords } from '../../database/getCallOutRecords.js';
+import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js';
 import * as configFunctions from '../../helpers/functions.config.js';
 import * as permissionFunctions from '../../helpers/functions.permissions.js';
-import { getAbsenceRecords } from '../../database/getAbsenceRecords.js';
-import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js';
 export async function handler(request, response) {
     let absenceRecords = [];
     if (configFunctions.getProperty('features.attendance.absences') &&

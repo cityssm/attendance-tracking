@@ -1,7 +1,6 @@
 import type { Config } from '../types/configTypes.js'
 
 import * as configFunctions from './functions.js'
-
 import { adminUser, manageUser } from './temporaryUsers.js'
 
 // MSSQL Secrets OK

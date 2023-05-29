@@ -1,11 +1,12 @@
 // eslint-disable-next-line node/no-extraneous-import
+
+import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types'
+import type { Configuration as AvantiConfig } from '@cityssm/avanti-api'
 import type { config as MSSQLConfig } from 'mssql'
 
-import type { Configuration as AvantiConfig } from '@cityssm/avanti-api'
-import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types'
+import type { availablePermissionValues } from '../helpers/functions.permissions.js'
 
 import type { Employee, User } from './recordTypes.js'
-import type { availablePermissionValues } from '../helpers/functions.permissions.js'
 
 export interface Config {
   application: {

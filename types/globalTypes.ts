@@ -16,5 +16,8 @@ export interface MonTY {
 
 export interface MonTYCallOuts {
   callOutLists: recordTypes.CallOutList[]
-  openCallOutList: (listId: string, onUpdateCallbackFunction?: () => void) => void
+  openCallOutList: (
+    listId: string,
+    onUpdateCallbackFunction?: () => void
+  ) => void
 }

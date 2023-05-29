@@ -1,7 +1,7 @@
-import * as configFunctions from './functions.config.js'
-
-import ActiveDirectory from 'activedirectory2'
 import * as adWebAuth from '@cityssm/ad-web-auth-connector'
+import ActiveDirectory from 'activedirectory2'
+
+import * as configFunctions from './functions.config.js'
 
 const userDomain = configFunctions.getProperty('application.userDomain')
 

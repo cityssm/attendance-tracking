@@ -1,8 +1,7 @@
 import type { Request, Response } from 'express'
 
-import { moveRecordDown, moveRecordDownToBottom } from '../../database/moveRecord.js'
-
 import { getAfterHoursReasons } from '../../database/getAfterHoursReasons.js'
+import { moveRecordDown, moveRecordDownToBottom } from '../../database/moveRecord.js'
 
 export async function handler(
   request: Request,

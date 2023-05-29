@@ -1,12 +1,10 @@
 import type { Request, Response } from 'express'
 
-import { getCallOutListMembers } from '../../database/getCallOutListMembers.js'
 import { getCallOutList } from '../../database/getCallOutList.js'
-
-import * as permissionFunctions from '../../helpers/functions.permissions.js'
-
-import type * as recordTypes from '../../types/recordTypes.js'
+import { getCallOutListMembers } from '../../database/getCallOutListMembers.js'
 import { getEmployees } from '../../database/getEmployees.js'
+import * as permissionFunctions from '../../helpers/functions.permissions.js'
+import type * as recordTypes from '../../types/recordTypes.js'
 
 export async function handler(
   request: Request,

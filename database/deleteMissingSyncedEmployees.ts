@@ -1,7 +1,7 @@
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
+import { clearCacheByTableName } from '../helpers/functions.cache.js'
+import * as configFunctions from '../helpers/functions.config.js'
 import type * as recordTypes from '../types/recordTypes.js'
 
 export async function deleteMissingSyncedEmployees(
@@ -20,6 +20,8 @@ export async function deleteMissingSyncedEmployees(
       where isSynced = 1
       and syncDateTime < @syncDateTime
       and recordDelete_dateTime is not null`)
+
+  clearCacheByTableName('EmployeeProperties')
 
   return result.rowsAffected[0]
 }

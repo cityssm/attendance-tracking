@@ -1,11 +1,11 @@
 import '../helpers/polyfills.js'
 
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
+import * as configFunctions from '../helpers/functions.config.js'
 import type { Employee } from '../types/recordTypes.js'
+
 import { getEmployeeProperties } from './getEmployeeProperties.js'
 
 interface GetEmployeesFilters {

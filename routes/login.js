@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import * as configFunctions from '../helpers/functions.config.js';
-import * as authenticationFunctions from '../helpers/functions.authentication.js';
 import { getUser } from '../database/getUser.js';
+import * as authenticationFunctions from '../helpers/functions.authentication.js';
+import * as configFunctions from '../helpers/functions.config.js';
 export const router = Router();
 function getHandler(request, response) {
     const sessionCookieName = configFunctions.getProperty('session.cookieName');

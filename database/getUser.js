@@ -1,5 +1,5 @@
-import * as configFunctions from '../helpers/functions.config.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import * as configFunctions from '../helpers/functions.config.js';
 import { getUserPermissions } from './getUserPermissions.js';
 export async function getUser(userName) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));

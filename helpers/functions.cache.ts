@@ -3,12 +3,11 @@ import cluster from 'node:cluster'
 import Debug from 'debug'
 
 import { getEmployeePropertyNames as getEmployeePropertyNamesFromDatabase } from '../database/getEmployeePropertyNames.js'
-
-import type * as recordTypes from '../types/recordTypes.js'
 import type {
   ClearCacheWorkerMessage,
   CacheTableName
 } from '../types/applicationTypes.js'
+import type * as recordTypes from '../types/recordTypes.js'
 
 const debug = Debug(`monty:functions.cache:${process.pid}`)
 

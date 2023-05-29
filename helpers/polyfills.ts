@@ -1,9 +1,9 @@
-import hasOwn from 'object.hasown'
-
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import cluster from 'cluster'
 
 import Debug from 'debug'
+import hasOwn from 'object.hasown'
+
 const debug = Debug('monty:polyfills')
 
 export function applyPolyfills(): void {

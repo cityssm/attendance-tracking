@@ -1,7 +1,6 @@
-import * as configFunctions from '../helpers/functions.config.js'
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
+import * as configFunctions from '../helpers/functions.config.js'
 import type * as recordTypes from '../types/recordTypes.js'
 
 export async function setUserPermission(
@@ -29,8 +28,8 @@ export async function setUserPermission(
       .input('permissionKey', userPermission.permissionKey)
       .input('permissionValue', userPermission.permissionValue)
       .query(`insert into MonTY.UserPermissions
-      (userName, permissionKey, permissionValue)
-      values (@userName, @permissionKey, @permissionValue)`)
+        (userName, permissionKey, permissionValue)
+        values (@userName, @permissionKey, @permissionValue)`)
   }
 
   return userPermission.permissionValue === '' || result.rowsAffected[0] > 0
