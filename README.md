@@ -1,6 +1,6 @@
 # MonTY
 
-<img src="public/images/monty-big.svg" alt="Monty" style="float:right;height:200px" />
+<img src="public/images/monty-big.svg" alt="Monty" align="right" style="height:200px" />
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/772303e121fb467d9c1fc0c7fb4c53d6)](https://app.codacy.com/gh/cityssm/MonTY/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e5f9a6caa7b2d3ebd16c/maintainability)](https://codeclimate.com/github/cityssm/MonTY/maintainability)
