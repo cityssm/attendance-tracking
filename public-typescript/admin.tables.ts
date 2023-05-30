@@ -262,6 +262,8 @@ declare const cityssm: cityssmGlobal
           bulmaJS.toggleHtmlClipped()
           addCloseModalFunction = closeModalFunction
 
+          modalElement.querySelector('input')?.focus()
+
           modalElement
             .querySelector('form')
             ?.addEventListener('submit', addAbsenceType)
@@ -540,6 +542,8 @@ declare const cityssm: cityssmGlobal
           bulmaJS.toggleHtmlClipped()
           addCloseModalFunction = closeModalFunction
 
+          modalElement.querySelector('input')?.focus()
+
           modalElement
             .querySelector('form')
             ?.addEventListener('submit', addCallOutResponseType)
@@ -798,6 +802,8 @@ declare const cityssm: cityssmGlobal
         onshown(modalElement, closeModalFunction) {
           bulmaJS.toggleHtmlClipped()
           addCloseModalFunction = closeModalFunction
+
+          modalElement.querySelector('input')?.focus()
 
           modalElement
             .querySelector('form')

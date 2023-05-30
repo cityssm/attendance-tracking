@@ -30,6 +30,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 panelBlockElement.classList.add('has-background-success-light');
                 todayCount += 1;
             }
+            panelBlockElement.tabIndex = 0;
             panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
           <i class="fas fa-clock" aria-hidden="true"></i>
@@ -111,13 +112,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
             },
             onshown(modalElement, closeModalFunction) {
-                var _a, _b;
+                var _a;
                 afterHoursCloseModalFunction = closeModalFunction;
                 bulmaJS.toggleHtmlClipped();
                 (_a = modalElement
                     .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', recordAfterHours);
-                (_b = modalElement
-                    .querySelector('#afterHoursAdd--employeeNumber')) === null || _b === void 0 ? void 0 : _b.addEventListener('keyup', populateEmployeeName);
+                const employeeNumberElement = modalElement.querySelector('#afterHoursAdd--employeeNumber');
+                employeeNumberElement.focus();
+                employeeNumberElement.addEventListener('keyup', populateEmployeeName);
             },
             onremoved() {
                 bulmaJS.toggleHtmlClipped();

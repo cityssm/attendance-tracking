@@ -67,6 +67,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const panelBlockElement = document.createElement('div');
             panelBlockElement.className = 'panel-block is-block';
             panelBlockElement.dataset.recordId = absenceRecord.recordId;
+            panelBlockElement.tabIndex = 0;
             if (Date.now() - absenceDate.getTime() <= 86400 * 1000) {
                 panelBlockElement.classList.add('has-background-success-light');
                 todayCount += 1;
@@ -159,6 +160,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const panelBlockElement = document.createElement('div');
             panelBlockElement.className = 'panel-block is-block';
             panelBlockElement.dataset.recordId = returnToWorkRecord.recordId;
+            panelBlockElement.tabIndex = 0;
             if (Date.now() - returnDate.getTime() <= 86400 * 1000) {
                 panelBlockElement.classList.add('has-background-success-light');
                 todayCount += 1;
@@ -293,17 +295,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
             },
             onshown(modalElement, closeModalFunction) {
-                var _a, _b, _c, _d;
+                var _a, _b, _c;
                 callInCloseModalFunction = closeModalFunction;
                 bulmaJS.toggleHtmlClipped();
                 (_a = modalElement
                     .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', recordCallIn);
+                const employeeNumberElement = modalElement.querySelector('#callInAdd--employeeNumber');
+                employeeNumberElement.focus();
+                employeeNumberElement.addEventListener('keyup', populateEmployeeName);
                 (_b = modalElement
-                    .querySelector('#callInAdd--employeeNumber')) === null || _b === void 0 ? void 0 : _b.addEventListener('keyup', populateEmployeeName);
+                    .querySelector('#callInAdd--callInType_absence')) === null || _b === void 0 ? void 0 : _b.addEventListener('change', toggleCallInType);
                 (_c = modalElement
-                    .querySelector('#callInAdd--callInType_absence')) === null || _c === void 0 ? void 0 : _c.addEventListener('change', toggleCallInType);
-                (_d = modalElement
-                    .querySelector('#callInAdd--callInType_returnToWork')) === null || _d === void 0 ? void 0 : _d.addEventListener('change', toggleCallInType);
+                    .querySelector('#callInAdd--callInType_returnToWork')) === null || _c === void 0 ? void 0 : _c.addEventListener('change', toggleCallInType);
             },
             onremoved() {
                 bulmaJS.toggleHtmlClipped();

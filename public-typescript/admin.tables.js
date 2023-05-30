@@ -185,11 +185,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         cityssm.openHtmlModal('tableAdmin-addAbsenceType', {
             onshown(modalElement, closeModalFunction) {
-                var _a;
+                var _a, _b;
                 bulmaJS.toggleHtmlClipped();
                 addCloseModalFunction = closeModalFunction;
-                (_a = modalElement
-                    .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', addAbsenceType);
+                (_a = modalElement.querySelector('input')) === null || _a === void 0 ? void 0 : _a.focus();
+                (_b = modalElement
+                    .querySelector('form')) === null || _b === void 0 ? void 0 : _b.addEventListener('submit', addAbsenceType);
             },
             onremoved() {
                 bulmaJS.toggleHtmlClipped();
@@ -389,11 +390,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         cityssm.openHtmlModal('tableAdmin-addCallOutResponseType', {
             onshown(modalElement, closeModalFunction) {
-                var _a;
+                var _a, _b;
                 bulmaJS.toggleHtmlClipped();
                 addCloseModalFunction = closeModalFunction;
-                (_a = modalElement
-                    .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', addCallOutResponseType);
+                (_a = modalElement.querySelector('input')) === null || _a === void 0 ? void 0 : _a.focus();
+                (_b = modalElement
+                    .querySelector('form')) === null || _b === void 0 ? void 0 : _b.addEventListener('submit', addCallOutResponseType);
             },
             onremoved() {
                 bulmaJS.toggleHtmlClipped();
@@ -577,11 +579,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         cityssm.openHtmlModal('tableAdmin-addAfterHoursReason', {
             onshown(modalElement, closeModalFunction) {
-                var _a;
+                var _a, _b;
                 bulmaJS.toggleHtmlClipped();
                 addCloseModalFunction = closeModalFunction;
-                (_a = modalElement
-                    .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', addAfterHoursReason);
+                (_a = modalElement.querySelector('input')) === null || _a === void 0 ? void 0 : _a.focus();
+                (_b = modalElement
+                    .querySelector('form')) === null || _b === void 0 ? void 0 : _b.addEventListener('submit', addAfterHoursReason);
             },
             onremoved() {
                 bulmaJS.toggleHtmlClipped();

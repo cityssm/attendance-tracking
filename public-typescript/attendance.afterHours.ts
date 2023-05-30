@@ -52,6 +52,8 @@ declare const cityssm: cityssmGlobal
         todayCount += 1
       }
 
+      panelBlockElement.tabIndex = 0
+
       panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
           <i class="fas fa-clock" aria-hidden="true"></i>
@@ -185,9 +187,13 @@ declare const cityssm: cityssmGlobal
             .querySelector('form')
             ?.addEventListener('submit', recordAfterHours)
 
-          modalElement
-            .querySelector('#afterHoursAdd--employeeNumber')
-            ?.addEventListener('keyup', populateEmployeeName)
+          const employeeNumberElement = modalElement.querySelector(
+            '#afterHoursAdd--employeeNumber'
+          ) as HTMLInputElement
+
+          employeeNumberElement.focus()
+
+          employeeNumberElement.addEventListener('keyup', populateEmployeeName)
         },
         onremoved() {
           bulmaJS.toggleHtmlClipped()

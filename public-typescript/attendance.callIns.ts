@@ -105,6 +105,7 @@ declare const cityssm: cityssmGlobal
       const panelBlockElement = document.createElement('div')
       panelBlockElement.className = 'panel-block is-block'
       panelBlockElement.dataset.recordId = absenceRecord.recordId
+      panelBlockElement.tabIndex = 0
 
       if (Date.now() - absenceDate.getTime() <= 86_400 * 1000) {
         panelBlockElement.classList.add('has-background-success-light')
@@ -236,6 +237,7 @@ declare const cityssm: cityssmGlobal
       const panelBlockElement = document.createElement('div')
       panelBlockElement.className = 'panel-block is-block'
       panelBlockElement.dataset.recordId = returnToWorkRecord.recordId
+      panelBlockElement.tabIndex = 0
 
       if (Date.now() - returnDate.getTime() <= 86_400 * 1000) {
         panelBlockElement.classList.add('has-background-success-light')
@@ -443,9 +445,13 @@ declare const cityssm: cityssmGlobal
           .querySelector('form')
           ?.addEventListener('submit', recordCallIn)
 
-        modalElement
-          .querySelector('#callInAdd--employeeNumber')
-          ?.addEventListener('keyup', populateEmployeeName)
+        const employeeNumberElement = modalElement.querySelector(
+          '#callInAdd--employeeNumber'
+        ) as HTMLInputElement
+
+        employeeNumberElement.focus()
+
+        employeeNumberElement.addEventListener('keyup', populateEmployeeName)
 
         modalElement
           .querySelector('#callInAdd--callInType_absence')
