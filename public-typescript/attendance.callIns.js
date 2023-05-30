@@ -91,7 +91,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         </div>`;
             if (absenceRecord.canUpdate) {
                 (_d = panelBlockElement.querySelector('.columns')) === null || _d === void 0 ? void 0 : _d.insertAdjacentHTML('beforeend', `<div class="column is-narrow">
-            <button class="button is-small is-danger is-delete-button" type="button">
+            <button class="button is-small is-danger is-delete-button" type="button" aria-label="Delete Record">
               <i class="fas fa-trash" aria-hidden="true"></i>
             </button>
           </div>`);
@@ -170,7 +170,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         <div class="column is-3">
           <strong data-tooltip="Return Date">${returnDate.toLocaleDateString()}</strong>
         </div>
-        <div class="column">
+        <div class="column is-4">
           <strong>${returnToWorkRecord.employeeName}</strong><br />
           <span class="is-size-7">${(_a = returnToWorkRecord.employeeNumber) !== null && _a !== void 0 ? _a : ''}</span>
         </div>
@@ -181,7 +181,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         </div>`;
             if (returnToWorkRecord.canUpdate) {
                 (_d = panelBlockElement.querySelector('.columns')) === null || _d === void 0 ? void 0 : _d.insertAdjacentHTML('beforeend', `<div class="column is-narrow">
-              <button class="button is-small is-danger is-delete-button" type="button">
+              <button class="button is-small is-danger is-delete-button" type="button" aria-label="Delete Record">
                 <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
             </div>`);
@@ -283,7 +283,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 else {
                     (_a = modalElement.querySelector('#callInAdd--callInType_absence')) === null || _a === void 0 ? void 0 : _a.remove();
                 }
-                if (!canUpdateReturnsToWork) {
+                if (canUpdateReturnsToWork) {
+                    ;
+                    modalElement.querySelector('#callInAdd--returnDateString-returnToWork').valueAsDate = new Date();
+                }
+                else {
                     (_b = modalElement
                         .querySelector('#callInAdd--callInType_returnToWork')) === null || _b === void 0 ? void 0 : _b.remove();
                 }

@@ -136,7 +136,7 @@ declare const cityssm: cityssmGlobal
         panelBlockElement.querySelector('.columns')?.insertAdjacentHTML(
           'beforeend',
           `<div class="column is-narrow">
-            <button class="button is-small is-danger is-delete-button" type="button">
+            <button class="button is-small is-danger is-delete-button" type="button" aria-label="Delete Record">
               <i class="fas fa-trash" aria-hidden="true"></i>
             </button>
           </div>`
@@ -249,7 +249,7 @@ declare const cityssm: cityssmGlobal
         <div class="column is-3">
           <strong data-tooltip="Return Date">${returnDate.toLocaleDateString()}</strong>
         </div>
-        <div class="column">
+        <div class="column is-4">
           <strong>${returnToWorkRecord.employeeName}</strong><br />
           <span class="is-size-7">${
             returnToWorkRecord.employeeNumber ?? ''
@@ -269,7 +269,7 @@ declare const cityssm: cityssmGlobal
         panelBlockElement.querySelector('.columns')?.insertAdjacentHTML(
           'beforeend',
           `<div class="column is-narrow">
-              <button class="button is-small is-danger is-delete-button" type="button">
+              <button class="button is-small is-danger is-delete-button" type="button" aria-label="Delete Record">
                 <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
             </div>`
@@ -424,7 +424,11 @@ declare const cityssm: cityssmGlobal
           modalElement.querySelector('#callInAdd--callInType_absence')?.remove()
         }
 
-        if (!canUpdateReturnsToWork) {
+        if (canUpdateReturnsToWork) {
+          ;(modalElement.querySelector(
+            '#callInAdd--returnDateString-returnToWork'
+          ) as HTMLInputElement)!.valueAsDate = new Date()
+        } else {
           modalElement
             .querySelector('#callInAdd--callInType_returnToWork')
             ?.remove()
