@@ -63,10 +63,13 @@ export async function handler(
       'attendance.returnsToWork.canView'
     )
   ) {
-    returnToWorkRecords = await getReturnToWorkRecords({
-      recentOnly: true,
-      todayOnly: false
-    })
+    returnToWorkRecords = await getReturnToWorkRecords(
+      {
+        recentOnly: true,
+        todayOnly: false
+      },
+      request.session
+    )
   }
 
   /*

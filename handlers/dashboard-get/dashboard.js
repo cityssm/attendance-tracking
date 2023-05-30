@@ -19,7 +19,7 @@ export async function handler(request, response) {
         returnToWorkRecords = await getReturnToWorkRecords({
             recentOnly: true,
             todayOnly: true
-        });
+        }, request.session);
     }
     let callOutLists = [];
     let callOutResponseTypes = [];

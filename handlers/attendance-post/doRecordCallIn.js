@@ -28,7 +28,7 @@ export async function handler(request, response) {
                 returnToWorkRecords = await getReturnToWorkRecords({
                     recentOnly: true,
                     todayOnly: false
-                });
+                }, request.session);
             }
             break;
         }

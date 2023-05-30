@@ -18,6 +18,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             cityssm.postJSON(MonTY.urlPrefix + '/attendance/doDeleteAbsenceRecord', {
                 recordId
             }, (rawResponseJSON) => {
+                var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     bulmaJS.alert({
@@ -26,6 +27,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     });
                     absenceRecords = responseJSON.absenceRecords;
                     renderAbsenceRecords();
+                }
+                else {
+                    bulmaJS.alert({
+                        title: 'Error Deleting Record',
+                        message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                        contextualColorName: 'danger'
+                    });
                 }
             });
         }
@@ -96,8 +104,43 @@ Object.defineProperty(exports, "__esModule", { value: true });
         containerElement.append(panelElement);
         document.querySelector('#menu--attendance a[href="#tab--absences"] .tag').textContent = todayCount.toString();
     }
+    function deleteReturnToWorkRecord(clickEvent) {
+        const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
+        function doDelete() {
+            cityssm.postJSON(MonTY.urlPrefix + '/attendance/doDeleteReturnToWorkRecord', {
+                recordId
+            }, (rawResponseJSON) => {
+                var _a;
+                const responseJSON = rawResponseJSON;
+                if (responseJSON.success) {
+                    bulmaJS.alert({
+                        message: 'Return to work record deleted successfully.',
+                        contextualColorName: 'success'
+                    });
+                    returnToWorkRecords = responseJSON.returnToWorkRecords;
+                    renderReturnToWorkRecords();
+                }
+                else {
+                    bulmaJS.alert({
+                        title: 'Error Deleting Record',
+                        message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                        contextualColorName: 'danger'
+                    });
+                }
+            });
+        }
+        bulmaJS.confirm({
+            title: 'Delete Return to Work Record',
+            message: 'Are you sure you want to delete this return to work record?',
+            contextualColorName: 'warning',
+            okButton: {
+                text: 'Yes, Delete Record',
+                callbackFunction: doDelete
+            }
+        });
+    }
     function renderReturnToWorkRecords() {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e;
         const containerElement = document.querySelector('#container--returnsToWork');
         if (containerElement === null) {
             return;
@@ -115,6 +158,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const returnDate = new Date(returnToWorkRecord.returnDateTime);
             const panelBlockElement = document.createElement('div');
             panelBlockElement.className = 'panel-block is-block';
+            panelBlockElement.dataset.recordId = returnToWorkRecord.recordId;
             if (Date.now() - returnDate.getTime() <= 86400 * 1000) {
                 panelBlockElement.classList.add('has-background-success-light');
                 todayCount += 1;
@@ -135,6 +179,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
           <span class="is-size-7">${(_c = returnToWorkRecord.recordComment) !== null && _c !== void 0 ? _c : ''}</span>
         </div>
         </div>`;
+            if (returnToWorkRecord.canUpdate) {
+                (_d = panelBlockElement.querySelector('.columns')) === null || _d === void 0 ? void 0 : _d.insertAdjacentHTML('beforeend', `<div class="column is-narrow">
+              <button class="button is-small is-danger is-delete-button" type="button">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+              </button>
+            </div>`);
+                (_e = panelBlockElement
+                    .querySelector('.is-delete-button')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', deleteReturnToWorkRecord);
+            }
             panelElement.append(panelBlockElement);
         }
         containerElement.innerHTML = '';

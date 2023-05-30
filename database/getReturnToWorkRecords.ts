@@ -2,16 +2,22 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type { ReturnToWorkRecord } from '../types/recordTypes.js'
+import * as permissionFunctions from '../helpers/functions.permissions.js'
+import type {
+  PartialSession,
+  ReturnToWorkRecord
+} from '../types/recordTypes.js'
 
 interface GetReturnToWorkRecordsFilters {
+  recordId?: string
   employeeNumber?: string
   recentOnly: boolean
   todayOnly: boolean
 }
 
 export async function getReturnToWorkRecords(
-  filters: GetReturnToWorkRecordsFilters
+  filters: GetReturnToWorkRecordsFilters,
+  requestSession: PartialSession
 ): Promise<ReturnToWorkRecord[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -24,6 +30,11 @@ export async function getReturnToWorkRecords(
     where r.recordDelete_dateTime is null`
 
   let request = pool.request()
+
+  if ((filters.recordId ?? '') !== '') {
+    sql += ' and r.recordId = @recordId'
+    request = request.input('recordId', filters.recordId)
+  }
 
   if ((filters.employeeNumber ?? '') !== '') {
     sql += ' and r.employeeNumber = @employeeNumber'
@@ -44,5 +55,26 @@ export async function getReturnToWorkRecords(
 
   const recordsResult: IResult<ReturnToWorkRecord> = await request.query(sql)
 
-  return recordsResult.recordset
+  const returnToWorkRecords = recordsResult.recordset
+
+  if (
+    permissionFunctions.hasPermission(
+      requestSession.user!,
+      'attendance.returnsToWork.canUpdate'
+    )
+  ) {
+    for (const returnToWorkRecord of returnToWorkRecords) {
+      returnToWorkRecord.canUpdate =
+        permissionFunctions.hasPermission(
+          requestSession.user!,
+          'attendance.returnsToWork.canManage'
+        ) ||
+        (returnToWorkRecord.recordCreate_userName ===
+          requestSession.user?.userName &&
+          Date.now() - returnToWorkRecord.recordCreate_dateTime!.getTime() <=
+            configFunctions.getProperty('settings.updateDays') * 86_400 * 1000)
+    }
+  }
+
+  return returnToWorkRecords
 }

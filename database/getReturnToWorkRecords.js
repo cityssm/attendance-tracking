@@ -1,6 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
-export async function getReturnToWorkRecords(filters) {
+import * as permissionFunctions from '../helpers/functions.permissions.js';
+export async function getReturnToWorkRecords(filters, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let sql = `select r.recordId,
     r.employeeNumber, r.employeeName,
@@ -10,6 +11,10 @@ export async function getReturnToWorkRecords(filters) {
     from MonTY.ReturnToWorkRecords r
     where r.recordDelete_dateTime is null`;
     let request = pool.request();
+    if ((filters.recordId ?? '') !== '') {
+        sql += ' and r.recordId = @recordId';
+        request = request.input('recordId', filters.recordId);
+    }
     if ((filters.employeeNumber ?? '') !== '') {
         sql += ' and r.employeeNumber = @employeeNumber';
         request = request.input('employeeNumber', filters.employeeNumber);
@@ -23,5 +28,16 @@ export async function getReturnToWorkRecords(filters) {
     }
     sql += ' order by r.returnDateTime desc, r.recordId desc';
     const recordsResult = await request.query(sql);
-    return recordsResult.recordset;
+    const returnToWorkRecords = recordsResult.recordset;
+    if (permissionFunctions.hasPermission(requestSession.user, 'attendance.returnsToWork.canUpdate')) {
+        for (const returnToWorkRecord of returnToWorkRecords) {
+            returnToWorkRecord.canUpdate =
+                permissionFunctions.hasPermission(requestSession.user, 'attendance.returnsToWork.canManage') ||
+                    (returnToWorkRecord.recordCreate_userName ===
+                        requestSession.user?.userName &&
+                        Date.now() - returnToWorkRecord.recordCreate_dateTime.getTime() <=
+                            configFunctions.getProperty('settings.updateDays') * 86400 * 1000);
+        }
+    }
+    return returnToWorkRecords;
 }

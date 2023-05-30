@@ -9,6 +9,7 @@ import handler_doDeleteAbsenceRecord from '../handlers/attendance-post/doDeleteA
 import handler_doDeleteCallOutList from '../handlers/attendance-post/doDeleteCallOutList.js';
 import handler_doDeleteCallOutListMember from '../handlers/attendance-post/doDeleteCallOutListMember.js';
 import handler_doDeleteCallOutRecord from '../handlers/attendance-post/doDeleteCallOutRecord.js';
+import handler_doDeleteReturnToWorkRecord from '../handlers/attendance-post/doDeleteReturnToWorkRecord.js';
 import handler_doGetAttendanceRecords from '../handlers/attendance-post/doGetAttendanceRecords.js';
 import handler_doGetCallOutListMembers from '../handlers/attendance-post/doGetCallOutListMembers.js';
 import handler_doGetCallOutRecords from '../handlers/attendance-post/doGetCallOutRecords.js';
@@ -52,6 +53,7 @@ if (configFunctions.getProperty('features.attendance.absences') ||
     configFunctions.getProperty('features.attendance.returnsToWork')) {
     router.post('/doRecordCallIn', handler_doRecordCallIn);
     router.post('/doDeleteAbsenceRecord', handler_doDeleteAbsenceRecord);
+    router.post('/doDeleteReturnToWorkRecord', handler_doDeleteReturnToWorkRecord);
 }
 if (configFunctions.getProperty('features.attendance.callOuts')) {
     router.post('/doAddFavouriteCallOutList', handler_doAddFavouriteCallOutList);

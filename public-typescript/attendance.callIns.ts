@@ -55,6 +55,12 @@ declare const cityssm: cityssmGlobal
 
             absenceRecords = responseJSON.absenceRecords!
             renderAbsenceRecords()
+          } else {
+            bulmaJS.alert({
+              title: 'Error Deleting Record',
+              message: responseJSON.errorMessage ?? '',
+              contextualColorName: 'danger'
+            })
           }
         }
       )
@@ -152,6 +158,56 @@ declare const cityssm: cityssmGlobal
     )!.textContent = todayCount.toString()
   }
 
+  function deleteReturnToWorkRecord(clickEvent: Event): void {
+    const recordId = (
+      (clickEvent.currentTarget as HTMLButtonElement).closest(
+        '.panel-block'
+      ) as HTMLElement
+    ).dataset.recordId
+
+    function doDelete(): void {
+      cityssm.postJSON(
+        MonTY.urlPrefix + '/attendance/doDeleteReturnToWorkRecord',
+        {
+          recordId
+        },
+        (rawResponseJSON) => {
+          const responseJSON = rawResponseJSON as {
+            success: boolean
+            errorMessage?: string
+            returnToWorkRecords?: recordTypes.ReturnToWorkRecord[]
+          }
+
+          if (responseJSON.success) {
+            bulmaJS.alert({
+              message: 'Return to work record deleted successfully.',
+              contextualColorName: 'success'
+            })
+
+            returnToWorkRecords = responseJSON.returnToWorkRecords!
+            renderReturnToWorkRecords()
+          } else {
+            bulmaJS.alert({
+              title: 'Error Deleting Record',
+              message: responseJSON.errorMessage ?? '',
+              contextualColorName: 'danger'
+            })
+          }
+        }
+      )
+    }
+
+    bulmaJS.confirm({
+      title: 'Delete Return to Work Record',
+      message: 'Are you sure you want to delete this return to work record?',
+      contextualColorName: 'warning',
+      okButton: {
+        text: 'Yes, Delete Record',
+        callbackFunction: doDelete
+      }
+    })
+  }
+
   function renderReturnToWorkRecords(): void {
     const containerElement = document.querySelector(
       '#container--returnsToWork'
@@ -179,6 +235,7 @@ declare const cityssm: cityssmGlobal
 
       const panelBlockElement = document.createElement('div')
       panelBlockElement.className = 'panel-block is-block'
+      panelBlockElement.dataset.recordId = returnToWorkRecord.recordId
 
       if (Date.now() - returnDate.getTime() <= 86_400 * 1000) {
         panelBlockElement.classList.add('has-background-success-light')
@@ -207,6 +264,21 @@ declare const cityssm: cityssmGlobal
           }</span>
         </div>
         </div>`
+
+      if (returnToWorkRecord.canUpdate as boolean) {
+        panelBlockElement.querySelector('.columns')?.insertAdjacentHTML(
+          'beforeend',
+          `<div class="column is-narrow">
+              <button class="button is-small is-danger is-delete-button" type="button">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+              </button>
+            </div>`
+        )
+
+        panelBlockElement
+          .querySelector('.is-delete-button')
+          ?.addEventListener('click', deleteReturnToWorkRecord)
+      }
 
       panelElement.append(panelBlockElement)
     }

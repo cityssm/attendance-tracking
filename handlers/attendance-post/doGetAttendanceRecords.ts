@@ -39,11 +39,14 @@ export async function handler(
       'attendance.returnsToWork.canView'
     )
   ) {
-    returnToWorkRecords = await getReturnToWorkRecords({
-      employeeNumber: request.body.employeeNumber,
-      recentOnly: true,
-      todayOnly: false
-    })
+    returnToWorkRecords = await getReturnToWorkRecords(
+      {
+        employeeNumber: request.body.employeeNumber,
+        recentOnly: true,
+        todayOnly: false
+      },
+      request.session
+    )
   }
 
   let callOutRecords: recordTypes.CallOutRecord[] = []

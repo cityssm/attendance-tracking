@@ -20,7 +20,7 @@ export async function handler(request, response) {
             employeeNumber: request.body.employeeNumber,
             recentOnly: true,
             todayOnly: false
-        });
+        }, request.session);
     }
     let callOutRecords = [];
     if (configFunctions.getProperty('features.attendance.callOuts') &&

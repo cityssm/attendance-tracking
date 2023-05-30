@@ -78,6 +78,8 @@ export interface ReturnToWorkRecord extends RecordUserNameDateTime {
   returnDateTime: string | Date
   returnShift?: string
   recordComment?: string
+
+  canUpdate?: boolean
 }
 
 /*

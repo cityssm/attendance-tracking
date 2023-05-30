@@ -50,10 +50,13 @@ export async function handler(
       ) {
         recordId = await addReturnToWorkRecord(request.body, request.session)
         success = true
-        returnToWorkRecords = await getReturnToWorkRecords({
-          recentOnly: true,
-          todayOnly: false
-        })
+        returnToWorkRecords = await getReturnToWorkRecords(
+          {
+            recentOnly: true,
+            todayOnly: false
+          },
+          request.session
+        )
       }
 
       break
