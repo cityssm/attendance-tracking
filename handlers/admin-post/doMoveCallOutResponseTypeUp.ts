@@ -2,8 +2,8 @@
 
 import type { Request, Response } from 'express'
 
-import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js'
 import { moveRecordUp, moveRecordUpToTop } from '../../database/moveRecord.js'
+import { getCallOutResponseTypes } from '../../helpers/functions.cache.js'
 
 export async function handler(
   request: Request,

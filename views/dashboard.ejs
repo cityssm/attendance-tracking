@@ -83,7 +83,7 @@
                   <% } else { %>
                     <div class="panel" style="overflow:auto;max-height:min(300px,80vh)">
                       <% for (const absenceRecord of absenceRecords) {%>
-                        <div class="panel-block is-block">
+                        <div class="panel-block is-block" tabindex="0">
                           <div class="columns is-mobile">
                             <div class="column is-4">
                               <strong data-tooltip="Absence Date">
@@ -112,7 +112,7 @@
                   <% } else { %>
                     <div class="panel" style="overflow:auto;max-height:min(300px,80vh)">
                       <% for (const returnToWorkRecord of returnToWorkRecords) {%>
-                        <div class="panel-block is-block">
+                        <div class="panel-block is-block" tabindex="0">
                           <div class="columns is-mobile">
                             <div class="column is-4">
                               <strong data-tooltip="Return Date">

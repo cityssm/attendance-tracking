@@ -5,7 +5,7 @@ import type { BulmaJS } from '@cityssm/bulma-js/types'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 
 import type * as globalTypes from '../types/globalTypes.js'
-import type * as recordTypes from '../types/recordTypes.js'
+import type * as recordTypes from '../types/recordTypes'
 
 declare const bulmaJS: BulmaJS
 
@@ -383,7 +383,7 @@ declare const cityssm: cityssmGlobal
         <td>
           <div class="control has-icons-left">
             <div class="select">
-              <select data-field="canLogin">
+              <select data-field="canLogin" aria-label="Can Login">
                 <option value="1" ${user.canLogin ? ' selected' : ''}>
                   Can Log In
                 </option>
@@ -402,7 +402,7 @@ declare const cityssm: cityssmGlobal
         <td>
           <div class="control has-icons-left">
             <div class="select">
-              <select data-field="isAdmin">
+              <select data-field="isAdmin" aria-label="Is Administrator">
                 <option value="0" ${user.isAdmin ? '' : ' selected'}>
                   No Admin Access
                 </option>

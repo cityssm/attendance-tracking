@@ -1,5 +1,6 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
+import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import * as configFunctions from '../helpers/functions.config.js'
 
 type RecordTable = 'AbsenceTypes' | 'AfterHoursReasons' | 'CallOutResponseTypes'
@@ -26,6 +27,8 @@ export async function updateRecordOrderNumber(
         where recordDelete_dateTime is null
         and ${recordIdColumns.get(recordTable)!} = @recordId`
     )
+
+  clearCacheByTableName(recordTable)
 
   return result.rowsAffected[0] > 0
 }

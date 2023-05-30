@@ -260,7 +260,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         <td>
           <div class="control has-icons-left">
             <div class="select">
-              <select data-field="canLogin">
+              <select data-field="canLogin" aria-label="Can Login">
                 <option value="1" ${user.canLogin ? ' selected' : ''}>
                   Can Log In
                 </option>
@@ -277,7 +277,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         <td>
           <div class="control has-icons-left">
             <div class="select">
-              <select data-field="isAdmin">
+              <select data-field="isAdmin" aria-label="Is Administrator">
                 <option value="0" ${user.isAdmin ? '' : ' selected'}>
                   No Admin Access
                 </option>

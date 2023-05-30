@@ -1,4 +1,5 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { clearCacheByTableName } from '../helpers/functions.cache.js';
 import * as configFunctions from '../helpers/functions.config.js';
 import { updateRecordOrderNumber } from './updateRecordOrderNumber.js';
 const recordIdColumns = new Map();
@@ -26,6 +27,7 @@ export async function moveRecordDown(recordTable, recordId) {
         where recordDelete_dateTime is null
         and orderNumber = @currentOrderNumber + 1`);
     const success = await updateRecordOrderNumber(recordTable, recordId, currentOrderNumber + 1);
+    clearCacheByTableName(recordTable);
     return success;
 }
 export async function moveRecordDownToBottom(recordTable, recordId) {
@@ -46,6 +48,7 @@ export async function moveRecordDownToBottom(recordTable, recordId) {
           set orderNumber = orderNumber - 1
           where recordDelete_dateTime is null
           and orderNumber > @currentOrderNumber`);
+        clearCacheByTableName(recordTable);
     }
     return true;
 }
@@ -63,6 +66,7 @@ export async function moveRecordUp(recordTable, recordId) {
         where recordDelete_dateTime is null
         and orderNumber = @currentOrderNumber - 1`);
     const success = await updateRecordOrderNumber(recordTable, recordId, currentOrderNumber - 1);
+    clearCacheByTableName(recordTable);
     return success;
 }
 export async function moveRecordUpToTop(recordTable, recordId) {
@@ -77,6 +81,7 @@ export async function moveRecordUpToTop(recordTable, recordId) {
           set orderNumber = orderNumber + 1
           where recordDelete_dateTime is null
           and orderNumber < @currentOrderNumber`);
+        clearCacheByTableName(recordTable);
     }
     return true;
 }

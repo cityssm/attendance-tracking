@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express'
 
 import { deleteAbsenceType } from '../../database/deleteAbsenceType.js'
-import { getAbsenceTypes } from '../../database/getAbsenceTypes.js'
+import { getAbsenceTypes } from '../../helpers/functions.cache.js'
 
 export async function handler(
   request: Request,

@@ -2,7 +2,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes.js'
+import type * as recordTypes from '../types/recordTypes'
 
 export async function createEmployee(
   employee: recordTypes.Employee,

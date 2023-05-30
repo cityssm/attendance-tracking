@@ -1,12 +1,9 @@
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js';
-import { getAbsenceTypes } from '../../database/getAbsenceTypes.js';
-import { getAfterHoursReasons } from '../../database/getAfterHoursReasons.js';
 import { getAfterHoursRecords } from '../../database/getAfterHoursRecords.js';
 import { getCallOutLists } from '../../database/getCallOutLists.js';
-import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js';
 import { getEmployees } from '../../database/getEmployees.js';
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js';
-import { getEmployeePropertyNames } from '../../helpers/functions.cache.js';
+import { getAbsenceTypes, getAfterHoursReasons, getCallOutResponseTypes, getEmployeePropertyNames } from '../../helpers/functions.cache.js';
 import * as configFunctions from '../../helpers/functions.config.js';
 import * as permissionFunctions from '../../helpers/functions.permissions.js';
 export async function handler(request, response) {

@@ -1,7 +1,34 @@
 import cluster from 'node:cluster';
 import Debug from 'debug';
+import { getAbsenceTypes as getAbsenceTypesFromDatabase } from '../database/getAbsenceTypes.js';
+import { getAfterHoursReasons as getAfterHoursReasonsFromDatabase } from '../database/getAfterHoursReasons.js';
+import { getCallOutResponseTypes as getCallOutResponseTypesFromDatabase } from '../database/getCallOutResponseTypes.js';
 import { getEmployeePropertyNames as getEmployeePropertyNamesFromDatabase } from '../database/getEmployeePropertyNames.js';
 const debug = Debug(`monty:functions.cache:${process.pid}`);
+let absenceTypes;
+export async function getAbsenceTypes() {
+    if (absenceTypes === undefined) {
+        debug('Cache miss: AbsenceTypes');
+        absenceTypes = await getAbsenceTypesFromDatabase();
+    }
+    return absenceTypes;
+}
+let afterHoursReasons;
+export async function getAfterHoursReasons() {
+    if (afterHoursReasons === undefined) {
+        debug('Cache miss: AfterHoursReasons');
+        afterHoursReasons = await getAfterHoursReasonsFromDatabase();
+    }
+    return afterHoursReasons;
+}
+let callOutResponseTypes;
+export async function getCallOutResponseTypes() {
+    if (callOutResponseTypes === undefined) {
+        debug('Cache miss: CallOutResponseTypes');
+        callOutResponseTypes = await getCallOutResponseTypesFromDatabase();
+    }
+    return callOutResponseTypes;
+}
 let employeeProperties;
 export async function getEmployeePropertyNames() {
     if (employeeProperties === undefined) {
@@ -12,6 +39,18 @@ export async function getEmployeePropertyNames() {
 }
 export function clearCacheByTableName(tableName, relayMessage = true) {
     switch (tableName) {
+        case 'AbsenceTypes': {
+            absenceTypes = undefined;
+            break;
+        }
+        case 'AfterHoursReasons': {
+            afterHoursReasons = undefined;
+            break;
+        }
+        case 'CallOutResponseTypes': {
+            callOutResponseTypes = undefined;
+            break;
+        }
         case 'EmployeeProperties': {
             employeeProperties = undefined;
             break;

@@ -1,4 +1,5 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { clearCacheByTableName } from '../helpers/functions.cache.js';
 import * as configFunctions from '../helpers/functions.config.js';
 export async function deleteCallOutResponseType(responseTypeId, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
@@ -12,5 +13,6 @@ export async function deleteCallOutResponseType(responseTypeId, requestSession) 
       recordDelete_dateTime = @record_dateTime
       where responseTypeId = @responseTypeId
       and recordDelete_dateTime is null`);
+    clearCacheByTableName('CallOutResponseTypes');
     return result.rowsAffected[0] > 0;
 }

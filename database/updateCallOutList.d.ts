@@ -1,4 +1,4 @@
-import type * as recordTypes from '../types/recordTypes.js';
+import type * as recordTypes from '../types/recordTypes';
 interface UpdateCallOutListReturn {
     success: boolean;
     sortKeyFunctionChanged: boolean;

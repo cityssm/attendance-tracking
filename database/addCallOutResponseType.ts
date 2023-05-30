@@ -1,8 +1,9 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
+import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes.js'
+import type * as recordTypes from '../types/recordTypes'
 
 interface AddCallOutResponseTypeForm {
   responseType: string
@@ -28,6 +29,8 @@ export async function addCallOutResponseType(
       output inserted.responseTypeId
       values (@responseType, @isSuccessful, @orderNumber,
         @record_userName, @record_dateTime, @record_userName, @record_dateTime)`)
+
+  clearCacheByTableName('CallOutResponseTypes')
 
   return result.recordset[0].responseTypeId
 }

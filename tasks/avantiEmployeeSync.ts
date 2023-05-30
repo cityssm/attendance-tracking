@@ -10,7 +10,7 @@ import { getEmployee } from '../database/getEmployee.js'
 import { setEmployeeProperty } from '../database/setEmployeeProperty.js'
 import { updateEmployee } from '../database/updateEmployee.js'
 import * as configFunctions from '../helpers/functions.config.js'
-import type { Employee, PartialSession } from '../types/recordTypes.js'
+import type { Employee, PartialSession } from '../types/recordTypes'
 
 const debug = Debug('monty:avantiEmployeeSync')
 

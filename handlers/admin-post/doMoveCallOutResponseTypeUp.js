@@ -1,5 +1,5 @@
-import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js';
 import { moveRecordUp, moveRecordUpToTop } from '../../database/moveRecord.js';
+import { getCallOutResponseTypes } from '../../helpers/functions.cache.js';
 export async function handler(request, response) {
     const success = request.body.moveToEnd === '1'
         ? await moveRecordUpToTop('CallOutResponseTypes', request.body.responseTypeId)

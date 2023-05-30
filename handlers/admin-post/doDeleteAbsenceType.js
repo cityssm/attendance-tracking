@@ -1,5 +1,5 @@
 import { deleteAbsenceType } from '../../database/deleteAbsenceType.js';
-import { getAbsenceTypes } from '../../database/getAbsenceTypes.js';
+import { getAbsenceTypes } from '../../helpers/functions.cache.js';
 export async function handler(request, response) {
     const success = await deleteAbsenceType(request.body.absenceTypeKey, request.session);
     const absenceTypes = await getAbsenceTypes();

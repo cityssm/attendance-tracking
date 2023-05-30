@@ -1,4 +1,4 @@
-import type { User } from '../types/recordTypes.js';
+import type { User } from '../types/recordTypes';
 export interface UserRequest {
     session?: {
         user?: User;

@@ -1,8 +1,10 @@
 import type { Request, Response } from 'express'
 
-import { getAbsenceTypes } from '../../database/getAbsenceTypes.js'
-import { getAfterHoursReasons } from '../../database/getAfterHoursReasons.js'
-import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js'
+import {
+  getAbsenceTypes,
+  getAfterHoursReasons,
+  getCallOutResponseTypes
+} from '../../helpers/functions.cache.js'
 
 export async function handler(
   request: Request,

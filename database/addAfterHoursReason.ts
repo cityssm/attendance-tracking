@@ -1,8 +1,9 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
+import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes.js'
+import type * as recordTypes from '../types/recordTypes'
 
 interface AddAfterHGoursReasonForm {
   afterHoursReason: string
@@ -26,6 +27,8 @@ export async function addAfterHoursReason(
       output inserted.afterHoursReasonId
       values (@afterHoursReason, @orderNumber,
         @record_userName, @record_dateTime, @record_userName, @record_dateTime)`)
+
+  clearCacheByTableName('AfterHoursReasons')
 
   return result.recordset[0].afterHoursReasonId
 }

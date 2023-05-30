@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express'
 
 import { addAfterHoursReason } from '../../database/addAfterHoursReason.js'
-import { getAfterHoursReasons } from '../../database/getAfterHoursReasons.js'
+import { getAfterHoursReasons } from '../../helpers/functions.cache.js'
 
 export async function handler(
   request: Request,

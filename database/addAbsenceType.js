@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import camelCase from 'camelcase';
+import { clearCacheByTableName } from '../helpers/functions.cache.js';
 import * as configFunctions from '../helpers/functions.config.js';
 export async function addAbsenceType(form, requestSession) {
     let absenceTypeKey = await getAvailableAbsenceTypeKey(form.absenceType);
@@ -19,6 +20,7 @@ export async function addAbsenceType(form, requestSession) {
         recordCreate_userName, recordCreate_dateTime, recordUpdate_userName, recordUpdate_dateTime)
       values (@absenceTypeKey, @absenceType, @orderNumber,
         @record_userName, @record_dateTime, @record_userName, @record_dateTime)`);
+    clearCacheByTableName('AbsenceTypes');
     return absenceTypeKey;
 }
 async function getAvailableAbsenceTypeKey(absenceType) {

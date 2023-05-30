@@ -1,4 +1,5 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { clearCacheByTableName } from '../helpers/functions.cache.js';
 import * as configFunctions from '../helpers/functions.config.js';
 export async function updateAfterHoursReason(afterHoursReason, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
@@ -14,5 +15,6 @@ export async function updateAfterHoursReason(afterHoursReason, requestSession) {
       recordUpdate_dateTime = @record_dateTime
       where afterHoursReasonId = @afterHoursReasonId
       and recordDelete_dateTime is null`);
+    clearCacheByTableName('AfterHoursReasons');
     return result.rowsAffected[0] > 0;
 }

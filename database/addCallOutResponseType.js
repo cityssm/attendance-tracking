@@ -1,4 +1,5 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { clearCacheByTableName } from '../helpers/functions.cache.js';
 import * as configFunctions from '../helpers/functions.config.js';
 export async function addCallOutResponseType(form, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
@@ -15,5 +16,6 @@ export async function addCallOutResponseType(form, requestSession) {
       output inserted.responseTypeId
       values (@responseType, @isSuccessful, @orderNumber,
         @record_userName, @record_dateTime, @record_userName, @record_dateTime)`);
+    clearCacheByTableName('CallOutResponseTypes');
     return result.recordset[0].responseTypeId;
 }

@@ -2,7 +2,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type { User } from '../types/recordTypes.js'
+import type { User } from '../types/recordTypes'
 
 export async function getUsers(): Promise<User[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))

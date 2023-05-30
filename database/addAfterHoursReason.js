@@ -1,4 +1,5 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { clearCacheByTableName } from '../helpers/functions.cache.js';
 import * as configFunctions from '../helpers/functions.config.js';
 export async function addAfterHoursReason(form, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
@@ -14,5 +15,6 @@ export async function addAfterHoursReason(form, requestSession) {
       output inserted.afterHoursReasonId
       values (@afterHoursReason, @orderNumber,
         @record_userName, @record_dateTime, @record_userName, @record_dateTime)`);
+    clearCacheByTableName('AfterHoursReasons');
     return result.recordset[0].afterHoursReasonId;
 }

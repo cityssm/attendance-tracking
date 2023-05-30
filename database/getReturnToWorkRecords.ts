@@ -6,7 +6,7 @@ import * as permissionFunctions from '../helpers/functions.permissions.js'
 import type {
   PartialSession,
   ReturnToWorkRecord
-} from '../types/recordTypes.js'
+} from '../types/recordTypes'
 
 interface GetReturnToWorkRecordsFilters {
   recordId?: string

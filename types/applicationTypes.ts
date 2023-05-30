@@ -4,7 +4,11 @@ export interface WorkerMessage {
   pid: number
 }
 
-export type CacheTableName = 'EmployeeProperties'
+export type CacheTableName =
+  | 'AbsenceTypes'
+  | 'AfterHoursReasons'
+  | 'CallOutResponseTypes'
+  | 'EmployeeProperties'
 
 export interface ClearCacheWorkerMessage extends WorkerMessage {
   messageType: 'clearCache'

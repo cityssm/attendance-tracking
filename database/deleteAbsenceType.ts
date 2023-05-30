@@ -1,7 +1,8 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
+import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes.js'
+import type * as recordTypes from '../types/recordTypes'
 
 export async function deleteAbsenceType(
   absenceTypeKey: string,
@@ -18,6 +19,8 @@ export async function deleteAbsenceType(
       recordDelete_dateTime = @record_dateTime
       where absenceTypeKey = @absenceTypeKey
       and recordDelete_dateTime is null`)
+
+  clearCacheByTableName('AbsenceTypes')
 
   return result.rowsAffected[0] > 0
 }

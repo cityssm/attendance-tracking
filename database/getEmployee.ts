@@ -2,7 +2,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type { Employee } from '../types/recordTypes.js'
+import type { Employee } from '../types/recordTypes'
 
 import { getEmployeeProperties } from './getEmployeeProperties.js'
 

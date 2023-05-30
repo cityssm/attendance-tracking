@@ -3,8 +3,9 @@ import crypto from 'node:crypto'
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import camelCase from 'camelcase'
 
+import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes.js'
+import type * as recordTypes from '../types/recordTypes'
 
 interface AddAbsenceTypeForm {
   absenceType: string
@@ -33,6 +34,8 @@ export async function addAbsenceType(
         recordCreate_userName, recordCreate_dateTime, recordUpdate_userName, recordUpdate_dateTime)
       values (@absenceTypeKey, @absenceType, @orderNumber,
         @record_userName, @record_dateTime, @record_userName, @record_dateTime)`)
+
+  clearCacheByTableName('AbsenceTypes')
 
   return absenceTypeKey
 }

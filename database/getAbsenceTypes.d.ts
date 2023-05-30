@@ -1,2 +1,2 @@
-import type { AbsenceType } from '../types/recordTypes.js';
+import type { AbsenceType } from '../types/recordTypes';
 export declare function getAbsenceTypes(): Promise<AbsenceType[]>;

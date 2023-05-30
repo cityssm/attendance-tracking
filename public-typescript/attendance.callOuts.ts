@@ -5,7 +5,7 @@ import type { BulmaJS } from '@cityssm/bulma-js/types'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 
 import type * as globalTypes from '../types/globalTypes.js'
-import type * as recordTypes from '../types/recordTypes.js'
+import type * as recordTypes from '../types/recordTypes'
 
 declare const bulmaJS: BulmaJS
 

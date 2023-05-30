@@ -1,7 +1,7 @@
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js';
 import { getCallOutLists } from '../../database/getCallOutLists.js';
-import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js';
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js';
+import { getCallOutResponseTypes } from '../../helpers/functions.cache.js';
 import * as configFunctions from '../../helpers/functions.config.js';
 import * as permissionFunctions from '../../helpers/functions.permissions.js';
 export async function handler(request, response) {

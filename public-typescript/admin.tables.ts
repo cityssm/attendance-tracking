@@ -4,7 +4,7 @@ import type { BulmaJS } from '@cityssm/bulma-js/types'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 
 import type * as globalTypes from '../types/globalTypes.js'
-import type * as recordTypes from '../types/recordTypes.js'
+import type * as recordTypes from '../types/recordTypes'
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
@@ -170,7 +170,7 @@ declare const cityssm: cityssmGlobal
       rowElement.dataset.absenceTypeKey = absenceType.absenceTypeKey
 
       rowElement.innerHTML = `<td>
-        <input class="input" name="absenceType" maxlength="100" required />
+        <input class="input" name="absenceType" maxlength="100" aria-label="Absence Type" required />
         </td>
         <td>
           <button class="button is-success is-update-button" type="button" aria-label="Update Absence Type">
@@ -432,7 +432,7 @@ declare const cityssm: cityssmGlobal
         callOutResponseType.responseTypeId.toString()
 
       rowElement.innerHTML = `<td>
-        <input class="input" name="responseType" maxlength="100" required />
+        <input class="input" name="responseType" maxlength="100" aria-label="Call Out Response Type" required />
         </td>
         <td>
           <div class="select is-fullwidth">
@@ -707,7 +707,7 @@ declare const cityssm: cityssmGlobal
         afterHoursReason.afterHoursReasonId.toString()
 
       rowElement.innerHTML = `<td>
-        <input class="input" name="afterHoursReason" maxlength="100" required />
+        <input class="input" name="afterHoursReason" maxlength="100" aria-label="After Hours Reason" required />
         </td>
         <td>
           <button class="button is-success is-update-button" type="button" aria-label="Update Reason">

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/indent */
 import type { Request, Response } from 'express'
 
-import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.js'
 import {
   moveRecordDown,
   moveRecordDownToBottom
 } from '../../database/moveRecord.js'
+import { getCallOutResponseTypes } from '../../helpers/functions.cache.js'
 
 export async function handler(
   request: Request,

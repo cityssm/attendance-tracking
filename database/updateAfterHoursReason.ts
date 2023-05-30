@@ -1,7 +1,8 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
+import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes.js'
+import type * as recordTypes from '../types/recordTypes'
 
 export async function updateAfterHoursReason(
   afterHoursReason: recordTypes.AfterHoursReason,
@@ -21,6 +22,8 @@ export async function updateAfterHoursReason(
       recordUpdate_dateTime = @record_dateTime
       where afterHoursReasonId = @afterHoursReasonId
       and recordDelete_dateTime is null`)
+
+  clearCacheByTableName('AfterHoursReasons')
 
   return result.rowsAffected[0] > 0
 }

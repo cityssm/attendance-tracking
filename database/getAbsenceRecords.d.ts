@@ -1,4 +1,4 @@
-import type { AbsenceRecord, PartialSession } from '../types/recordTypes.js';
+import type { AbsenceRecord, PartialSession } from '../types/recordTypes';
 interface GetAbsenceRecordsFilters {
     recordId?: string;
     employeeNumber?: string;

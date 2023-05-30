@@ -1,4 +1,4 @@
-import type { PartialSession, ReturnToWorkRecord } from '../types/recordTypes.js';
+import type { PartialSession, ReturnToWorkRecord } from '../types/recordTypes';
 interface GetReturnToWorkRecordsFilters {
     recordId?: string;
     employeeNumber?: string;

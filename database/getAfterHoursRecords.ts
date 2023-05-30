@@ -2,7 +2,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type { AfterHoursRecord } from '../types/recordTypes.js'
+import type { AfterHoursRecord } from '../types/recordTypes'
 
 interface GetAfterHoursRecordsFilters {
   employeeNumber?: string

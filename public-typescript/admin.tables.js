@@ -119,7 +119,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const rowElement = document.createElement('tr');
             rowElement.dataset.absenceTypeKey = absenceType.absenceTypeKey;
             rowElement.innerHTML = `<td>
-        <input class="input" name="absenceType" maxlength="100" required />
+        <input class="input" name="absenceType" maxlength="100" aria-label="Absence Type" required />
         </td>
         <td>
           <button class="button is-success is-update-button" type="button" aria-label="Update Absence Type">
@@ -310,7 +310,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             rowElement.dataset.responseTypeId =
                 callOutResponseType.responseTypeId.toString();
             rowElement.innerHTML = `<td>
-        <input class="input" name="responseType" maxlength="100" required />
+        <input class="input" name="responseType" maxlength="100" aria-label="Call Out Response Type" required />
         </td>
         <td>
           <div class="select is-fullwidth">
@@ -511,7 +511,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             rowElement.dataset.afterHoursReasonId =
                 afterHoursReason.afterHoursReasonId.toString();
             rowElement.innerHTML = `<td>
-        <input class="input" name="afterHoursReason" maxlength="100" required />
+        <input class="input" name="afterHoursReason" maxlength="100" aria-label="After Hours Reason" required />
         </td>
         <td>
           <button class="button is-success is-update-button" type="button" aria-label="Update Reason">
