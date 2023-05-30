@@ -117,7 +117,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 panelBlockElement.classList.add(record.isSuccessful
                     ? 'has-background-success-light'
                     : 'has-background-danger-light');
-                panelBlockElement.innerHTML = `<div class="columns">
+                panelBlockElement.innerHTML = `<div class="columns is-mobile">
           <div class="column is-narrow">
             ${record.isSuccessful
                     ? '<i class="fas fa-fw fa-check has-text-success" aria-label="Yes"></i>'

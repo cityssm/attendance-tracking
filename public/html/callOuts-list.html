@@ -20,10 +20,8 @@
               <li>
                 <a class="is-active" href="#tab--callOuts-members"> Members </a>
               </li>
-              <li class="is-hidden">
-                <a href="#tab--callOuts-memberManagement">
-                  Member Management
-                </a>
+              <li>
+                <a href="#tab--callOuts-reports"> Reports </a>
               </li>
             </ul>
           </aside>
@@ -153,7 +151,7 @@
               </form>
             </article>
             <article id="tab--callOuts-members">
-              <div class="tabs is-boxed">
+              <div class="tabs is-boxed is-size-7 is-size-6-tablet">
                 <ul>
                   <li>
                     <a class="is-hidden" href="#tab--callOutMembers-manage">
@@ -225,49 +223,49 @@
                 </div>
               </div>
             </article>
+            <article class="is-hidden" id="tab--callOuts-reports">
+              <div class="panel">
+                <a class="panel-block" id="reportingLink--callOutListReport" href="#" target="_blank">
+                  <div class="columns is-mobile">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      Print Friendly Call Out List
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <h2 class="title is-5">CSV Exports</h2>
+              <div class="panel">
+                <a class="panel-block" id="reportingLink--callOutListMembersCSV" href="#" target="_blank" download>
+                  <div class="columns is-mobile">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      Call Out List Members
+                    </div>
+                  </div>
+                </a>
+                <a class="panel-block" id="reportingLink--callOutRecordsCSV" href="#" target="_blank" download>
+                  <div class="columns is-mobile">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      Call Out Record Recent History
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </article>
           </div>
         </div>
       </div>
     </section>
     <div class="modal-card-foot is-justify-content-right">
-      <div class="dropdown is-right is-up mr-2">
-        <div class="dropdown-trigger">
-          <button class="button" type="button">
-            <span class="icon is-small">
-              <i class="fas fa-file" aria-hidden="true"></i>
-            </span>
-            <span>Reports</span>
-            <span class="icon is-small">
-              <i class="fas fa-angle-up" aria-hidden="true"></i>
-            </span>
-          </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-          <div class="dropdown-content">
-            <div class="dropdown-item is-uppercase has-text-weight-bold">Reports</div>
-            <a class="dropdown-item" id="reportingLink--callOutListReport" href="#" target="_blank">
-              <span class="icon is-small">
-                <i class="fas fa-file" aria-hidden="true"></i>
-              </span>
-              <span>Call Out List</span>
-            </a>
-            <div class="dropdown-item is-uppercase has-text-weight-bold">CSV Exports</div>
-            <a class="dropdown-item" id="reportingLink--callOutListMembersCSV" href="#" target="_blank" download>
-              <span class="icon is-small">
-                <i class="fas fa-file-csv" aria-hidden="true"></i>
-              </span>
-              <span>Call Out List Members</span>
-            </a>
-            <a class="dropdown-item" id="reportingLink--callOutRecordsCSV" href="#" target="_blank" download>
-              <span class="icon is-small">
-                <i class="fas fa-file-csv" aria-hidden="true"></i>
-              </span>
-              <span>Call Out Record Recent History</span>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="dropdown is-right is-up is-hidden mr-2">
+      <div class="dropdown is-right is-up is-hidden">
         <div class="dropdown-trigger">
           <button class="button" type="button">
             <span class="icon is-small">
@@ -291,7 +289,7 @@
         </div>
       </div>
 
-      <button class="button is-close-modal-button" type="button">Close</button>
+      <button class="button is-close-modal-button ml-2" type="button">Close</button>
     </div>
   </div>
 </div>

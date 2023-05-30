@@ -207,7 +207,7 @@ declare const cityssm: cityssmGlobal
             : 'has-background-danger-light'
         )
 
-        panelBlockElement.innerHTML = `<div class="columns">
+        panelBlockElement.innerHTML = `<div class="columns is-mobile">
           <div class="column is-narrow">
             ${
               (record.isSuccessful as boolean)
