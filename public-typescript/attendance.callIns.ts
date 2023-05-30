@@ -3,8 +3,8 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 
-import type * as globalTypes from '../types/globalTypes.js'
-import type * as recordTypes from '../types/recordTypes.js'
+import type * as globalTypes from '../types/globalTypes'
+import type * as recordTypes from '../types/recordTypes'
 
 declare const bulmaJS: BulmaJS
 
@@ -15,12 +15,61 @@ declare const cityssm: cityssmGlobal
   const absenceTypes = exports.absenceTypes as recordTypes.AbsenceType[]
   const employees = exports.employees as recordTypes.Employee[]
 
+  // const updateDays = exports.updateDays as number
+
   const canUpdateAbsences = exports.absencesCanUpdate as boolean
+  // const canManageAbsences = exports.absencesCanManage as boolean
+
   const canUpdateReturnsToWork = exports.returnsToWorkCanUpdate as boolean
+  // const canManageReturnsToWork = exports.returnsToWorkCanManage as boolean
 
   let absenceRecords = exports.absenceRecords as recordTypes.AbsenceRecord[]
   let returnToWorkRecords =
     exports.returnToWorkRecords as recordTypes.ReturnToWorkRecord[]
+
+  function deleteAbsenceRecord(clickEvent: Event): void {
+    const recordId = (
+      (clickEvent.currentTarget as HTMLButtonElement).closest(
+        '.panel-block'
+      ) as HTMLElement
+    ).dataset.recordId
+
+    function doDelete(): void {
+      cityssm.postJSON(
+        MonTY.urlPrefix + '/attendance/doDeleteAbsenceRecord',
+        {
+          recordId
+        },
+        (rawResponseJSON) => {
+          const responseJSON = rawResponseJSON as {
+            success: boolean
+            errorMessage?: string
+            absenceRecords?: recordTypes.AbsenceRecord[]
+          }
+
+          if (responseJSON.success) {
+            bulmaJS.alert({
+              message: 'Absence record deleted successfully.',
+              contextualColorName: 'success'
+            })
+
+            absenceRecords = responseJSON.absenceRecords!
+            renderAbsenceRecords()
+          }
+        }
+      )
+    }
+
+    bulmaJS.confirm({
+      title: 'Delete Absence Record',
+      message: 'Are you sure you want to delete this absence record?',
+      contextualColorName: 'warning',
+      okButton: {
+        text: 'Yes, Delete Record',
+        callbackFunction: doDelete
+      }
+    })
+  }
 
   function renderAbsenceRecords(): void {
     const containerElement = document.querySelector(
@@ -49,6 +98,7 @@ declare const cityssm: cityssmGlobal
 
       const panelBlockElement = document.createElement('div')
       panelBlockElement.className = 'panel-block is-block'
+      panelBlockElement.dataset.recordId = absenceRecord.recordId
 
       if (Date.now() - absenceDate.getTime() <= 86_400 * 1000) {
         panelBlockElement.classList.add('has-background-success-light')
@@ -64,7 +114,7 @@ declare const cityssm: cityssmGlobal
             ${absenceDate.toLocaleDateString()}
           </strong>
         </div>
-        <div class="column">
+        <div class="column is-4">
           <strong>${absenceRecord.employeeName}</strong><br />
           <span class="is-size-7">${absenceRecord.employeeNumber ?? ''}</span>
         </div>
@@ -75,6 +125,21 @@ declare const cityssm: cityssmGlobal
           <span class="is-size-7">${absenceRecord.recordComment ?? ''}</span>
         </div>
         </div>`
+
+      if (absenceRecord.canUpdate as boolean) {
+        panelBlockElement.querySelector('.columns')?.insertAdjacentHTML(
+          'beforeend',
+          `<div class="column is-narrow">
+            <button class="button is-small is-danger is-delete-button" type="button">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>`
+        )
+
+        panelBlockElement
+          .querySelector('.is-delete-button')
+          ?.addEventListener('click', deleteAbsenceRecord)
+      }
 
       panelElement.append(panelBlockElement)
     }

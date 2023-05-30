@@ -17,7 +17,7 @@ export async function handler(request, response) {
                 absenceRecords = await getAbsenceRecords({
                     recentOnly: true,
                     todayOnly: false
-                });
+                }, request.session);
             }
             break;
         }

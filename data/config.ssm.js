@@ -37,7 +37,8 @@ export const config = {
             configFunctions.sortKey_propertyValue,
             configFunctions.sortKey_alphabetical
         ],
-        recentDays: 14
+        recentDays: 14,
+        updateDays: 4
     }
 };
 export default config;

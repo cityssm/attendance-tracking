@@ -44,6 +44,7 @@ export interface AbsenceRecord extends Partial<AbsenceType>, RecordUserNameDateT
     absenceTypeKey: string;
     recordComment?: string;
     returnDateTime?: string | Date;
+    canUpdate?: boolean;
 }
 export interface ReturnToWorkRecord extends RecordUserNameDateTime {
     recordId: string;

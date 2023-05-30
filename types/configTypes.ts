@@ -59,6 +59,7 @@ export interface Config {
     employeeSortKeyFunctions?: ConfigEmployeeSortKeyFunction[]
     employeeEligibilityFunctions?: ConfigEmployeeEligibilityFunction[]
     recentDays?: number
+    updateDays?: number
   }
 }
 

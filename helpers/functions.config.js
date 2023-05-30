@@ -25,6 +25,7 @@ configFallbackValues.set('settings.employeeEligibilityFunctions', []);
 configFallbackValues.set('settings.employeeSortKeyFunctions', []);
 configFallbackValues.set('settings.printPdf.contentDisposition', 'attachment');
 configFallbackValues.set('settings.recentDays', 10);
+configFallbackValues.set('settings.updateDays', 5);
 export function getProperty(propertyName) {
     const propertyNameSplit = propertyName.split('.');
     let currentObject = config;

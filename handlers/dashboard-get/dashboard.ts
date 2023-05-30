@@ -6,7 +6,7 @@ import { getCallOutResponseTypes } from '../../database/getCallOutResponseTypes.
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 import * as configFunctions from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
-import type * as recordTypes from '../../types/recordTypes.js'
+import type * as recordTypes from '../../types/recordTypes'
 
 export async function handler(
   request: Request,
@@ -21,10 +21,13 @@ export async function handler(
       'attendance.absences.canView'
     )
   ) {
-    absenceRecords = await getAbsenceRecords({
-      recentOnly: true,
-      todayOnly: true
-    })
+    absenceRecords = await getAbsenceRecords(
+      {
+        recentOnly: true,
+        todayOnly: true
+      },
+      request.session
+    )
   }
 
   let returnToWorkRecords: recordTypes.ReturnToWorkRecord[] = []

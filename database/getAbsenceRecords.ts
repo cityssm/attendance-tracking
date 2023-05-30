@@ -2,16 +2,19 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type { AbsenceRecord } from '../types/recordTypes.js'
+import * as permissionFunctions from '../helpers/functions.permissions.js'
+import type { AbsenceRecord, PartialSession } from '../types/recordTypes.js'
 
 interface GetAbsenceRecordsFilters {
+  recordId?: string
   employeeNumber?: string
   recentOnly: boolean
   todayOnly: boolean
 }
 
 export async function getAbsenceRecords(
-  filters: GetAbsenceRecordsFilters
+  filters: GetAbsenceRecordsFilters,
+  requestSession: PartialSession
 ): Promise<AbsenceRecord[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -20,12 +23,18 @@ export async function getAbsenceRecords(
     r.absenceDateTime, r.returnDateTime,
     r.absenceTypeKey, t.absenceType,
     r.recordComment,
-    r.recordCreate_userName, r.recordCreate_dateTime
+    r.recordCreate_userName, r.recordCreate_dateTime,
+    0 as canUpdate
     from MonTY.AbsenceRecords r
     left join MonTY.AbsenceTypes t on r.absenceTypeKey = t.absenceTypeKey
     where r.recordDelete_dateTime is null`
 
   let request = pool.request()
+
+  if ((filters.recordId ?? '') !== '') {
+    sql += ' and r.recordId = @recordId'
+    request = request.input('recordId', filters.recordId)
+  }
 
   if ((filters.employeeNumber ?? '') !== '') {
     sql += ' and r.employeeNumber = @employeeNumber'
@@ -46,5 +55,26 @@ export async function getAbsenceRecords(
 
   const recordsResult: IResult<AbsenceRecord> = await request.query(sql)
 
-  return recordsResult.recordset
+  const absenceRecords = recordsResult.recordset
+
+  if (
+    permissionFunctions.hasPermission(
+      requestSession.user!,
+      'attendance.absences.canUpdate'
+    )
+  ) {
+    for (const absenceRecord of absenceRecords) {
+      absenceRecord.canUpdate =
+        permissionFunctions.hasPermission(
+          requestSession.user!,
+          'attendance.absences.canManage'
+        ) ||
+        (absenceRecord.recordCreate_userName ===
+          requestSession.user?.userName &&
+          Date.now() - absenceRecord.recordCreate_dateTime!.getTime() <=
+            configFunctions.getProperty('settings.updateDays') * 86_400 * 1000)
+    }
+  }
+
+  return absenceRecords
 }

@@ -63,14 +63,15 @@ export interface AbsenceRecord
   absenceTypeKey: string
   recordComment?: string
   returnDateTime?: string | Date
+
+  canUpdate?: boolean
 }
 
 /*
  * RETURN TO WORK
  */
 
-export interface ReturnToWorkRecord
-  extends RecordUserNameDateTime {
+export interface ReturnToWorkRecord extends RecordUserNameDateTime {
   recordId: string // bigint
   employeeNumber?: string
   employeeName: string
@@ -136,7 +137,9 @@ export interface AfterHoursReason extends RecordUserNameDateTime {
   orderNumber?: number
 }
 
-export interface AfterHoursRecord extends Partial<AfterHoursReason>, RecordUserNameDateTime {
+export interface AfterHoursRecord
+  extends Partial<AfterHoursReason>,
+    RecordUserNameDateTime {
   recordId: string // bigint
   employeeNumber: string
   employeeName: string

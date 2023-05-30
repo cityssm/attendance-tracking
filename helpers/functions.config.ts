@@ -51,6 +51,7 @@ configFallbackValues.set('settings.employeeSortKeyFunctions', [])
 configFallbackValues.set('settings.printPdf.contentDisposition', 'attachment')
 
 configFallbackValues.set('settings.recentDays', 10)
+configFallbackValues.set('settings.updateDays', 5)
 
 /*
  * Set up function overloads
@@ -132,6 +133,7 @@ export function getProperty(
 ): configTypes.ConfigEmployeeSortKeyFunction[]
 
 export function getProperty(propertyName: 'settings.recentDays'): number
+export function getProperty(propertyName: 'settings.updateDays'): number
 
 export function getProperty(propertyName: string): unknown {
   const propertyNameSplit = propertyName.split('.')

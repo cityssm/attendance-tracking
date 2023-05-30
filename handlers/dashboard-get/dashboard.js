@@ -11,7 +11,7 @@ export async function handler(request, response) {
         absenceRecords = await getAbsenceRecords({
             recentOnly: true,
             todayOnly: true
-        });
+        }, request.session);
     }
     let returnToWorkRecords = [];
     if (configFunctions.getProperty('features.attendance.returnsToWork') &&

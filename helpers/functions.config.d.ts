@@ -32,5 +32,6 @@ export declare function getProperty(propertyName: 'settings.printPdf.contentDisp
 export declare function getProperty(propertyName: 'settings.employeeEligibilityFunctions'): configTypes.ConfigEmployeeEligibilityFunction[];
 export declare function getProperty(propertyName: 'settings.employeeSortKeyFunctions'): configTypes.ConfigEmployeeSortKeyFunction[];
 export declare function getProperty(propertyName: 'settings.recentDays'): number;
+export declare function getProperty(propertyName: 'settings.updateDays'): number;
 export declare function includeAttendance(): boolean;
 export declare const keepAliveMillis: number;

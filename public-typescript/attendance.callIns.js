@@ -5,12 +5,42 @@ Object.defineProperty(exports, "__esModule", { value: true });
     const MonTY = exports.MonTY;
     const absenceTypes = exports.absenceTypes;
     const employees = exports.employees;
+    // const updateDays = exports.updateDays as number
     const canUpdateAbsences = exports.absencesCanUpdate;
+    // const canManageAbsences = exports.absencesCanManage as boolean
     const canUpdateReturnsToWork = exports.returnsToWorkCanUpdate;
+    // const canManageReturnsToWork = exports.returnsToWorkCanManage as boolean
     let absenceRecords = exports.absenceRecords;
     let returnToWorkRecords = exports.returnToWorkRecords;
+    function deleteAbsenceRecord(clickEvent) {
+        const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
+        function doDelete() {
+            cityssm.postJSON(MonTY.urlPrefix + '/attendance/doDeleteAbsenceRecord', {
+                recordId
+            }, (rawResponseJSON) => {
+                const responseJSON = rawResponseJSON;
+                if (responseJSON.success) {
+                    bulmaJS.alert({
+                        message: 'Absence record deleted successfully.',
+                        contextualColorName: 'success'
+                    });
+                    absenceRecords = responseJSON.absenceRecords;
+                    renderAbsenceRecords();
+                }
+            });
+        }
+        bulmaJS.confirm({
+            title: 'Delete Absence Record',
+            message: 'Are you sure you want to delete this absence record?',
+            contextualColorName: 'warning',
+            okButton: {
+                text: 'Yes, Delete Record',
+                callbackFunction: doDelete
+            }
+        });
+    }
     function renderAbsenceRecords() {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e;
         const containerElement = document.querySelector('#container--absences');
         if (containerElement === null) {
             return;
@@ -28,6 +58,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const absenceDate = new Date(absenceRecord.absenceDateTime);
             const panelBlockElement = document.createElement('div');
             panelBlockElement.className = 'panel-block is-block';
+            panelBlockElement.dataset.recordId = absenceRecord.recordId;
             if (Date.now() - absenceDate.getTime() <= 86400 * 1000) {
                 panelBlockElement.classList.add('has-background-success-light');
                 todayCount += 1;
@@ -41,7 +72,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             ${absenceDate.toLocaleDateString()}
           </strong>
         </div>
-        <div class="column">
+        <div class="column is-4">
           <strong>${absenceRecord.employeeName}</strong><br />
           <span class="is-size-7">${(_a = absenceRecord.employeeNumber) !== null && _a !== void 0 ? _a : ''}</span>
         </div>
@@ -50,6 +81,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
           <span class="is-size-7">${(_c = absenceRecord.recordComment) !== null && _c !== void 0 ? _c : ''}</span>
         </div>
         </div>`;
+            if (absenceRecord.canUpdate) {
+                (_d = panelBlockElement.querySelector('.columns')) === null || _d === void 0 ? void 0 : _d.insertAdjacentHTML('beforeend', `<div class="column is-narrow">
+            <button class="button is-small is-danger is-delete-button" type="button">
+              <i class="fas fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>`);
+                (_e = panelBlockElement
+                    .querySelector('.is-delete-button')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', deleteAbsenceRecord);
+            }
             panelElement.append(panelBlockElement);
         }
         containerElement.innerHTML = '';

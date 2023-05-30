@@ -144,6 +144,7 @@
 <script>
   exports.employees = <%- JSON.stringify(employees) %>;
   exports.recentDays = <%- configFunctions.getProperty('settings.recentDays') %>;
+  exports.updateDays = <%- configFunctions.getProperty('settings.updateDays') %>;
 </script>
 <script src="<%= urlPrefix %>/javascripts/attendance.employees.min.js"></script>
 
@@ -158,7 +159,9 @@
     exports.returnToWorkRecords = <%- JSON.stringify(returnToWorkRecords) %>;
 
     exports.absencesCanUpdate = <%= permissionFunctions.hasPermission(user, 'attendance.absences.canUpdate') ? 'true' : 'false' %>;
+    exports.absencesCanManage = <%= permissionFunctions.hasPermission(user, 'attendance.absences.canManage') ? 'true' : 'false' %>;
     exports.returnsToWorkCanUpdate = <%= permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canUpdate') ? 'true' : 'false' %>;
+    exports.returnsToWorkCanManage = <%= permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canManage') ? 'true' : 'false' %>;
   </script>
   <script src="<%= urlPrefix %>/javascripts/attendance.callIns.min.js"></script>
 <% } %>

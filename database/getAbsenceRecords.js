@@ -1,17 +1,23 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
-export async function getAbsenceRecords(filters) {
+import * as permissionFunctions from '../helpers/functions.permissions.js';
+export async function getAbsenceRecords(filters, requestSession) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let sql = `select r.recordId,
     r.employeeNumber, r.employeeName,
     r.absenceDateTime, r.returnDateTime,
     r.absenceTypeKey, t.absenceType,
     r.recordComment,
-    r.recordCreate_userName, r.recordCreate_dateTime
+    r.recordCreate_userName, r.recordCreate_dateTime,
+    0 as canUpdate
     from MonTY.AbsenceRecords r
     left join MonTY.AbsenceTypes t on r.absenceTypeKey = t.absenceTypeKey
     where r.recordDelete_dateTime is null`;
     let request = pool.request();
+    if ((filters.recordId ?? '') !== '') {
+        sql += ' and r.recordId = @recordId';
+        request = request.input('recordId', filters.recordId);
+    }
     if ((filters.employeeNumber ?? '') !== '') {
         sql += ' and r.employeeNumber = @employeeNumber';
         request = request.input('employeeNumber', filters.employeeNumber);
@@ -25,5 +31,16 @@ export async function getAbsenceRecords(filters) {
     }
     sql += ' order by r.absenceDateTime desc, r.recordId desc';
     const recordsResult = await request.query(sql);
-    return recordsResult.recordset;
+    const absenceRecords = recordsResult.recordset;
+    if (permissionFunctions.hasPermission(requestSession.user, 'attendance.absences.canUpdate')) {
+        for (const absenceRecord of absenceRecords) {
+            absenceRecord.canUpdate =
+                permissionFunctions.hasPermission(requestSession.user, 'attendance.absences.canManage') ||
+                    (absenceRecord.recordCreate_userName ===
+                        requestSession.user?.userName &&
+                        Date.now() - absenceRecord.recordCreate_dateTime.getTime() <=
+                            configFunctions.getProperty('settings.updateDays') * 86400 * 1000);
+        }
+    }
+    return absenceRecords;
 }

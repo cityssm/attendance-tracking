@@ -5,7 +5,7 @@ import { addReturnToWorkRecord } from '../../database/addReturnToWorkRecord.js'
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
-import type * as recordTypes from '../../types/recordTypes.js'
+import type * as recordTypes from '../../types/recordTypes'
 
 export async function handler(
   request: Request,
@@ -29,10 +29,13 @@ export async function handler(
       ) {
         recordId = await addAbsenceRecord(request.body, request.session)
         success = true
-        absenceRecords = await getAbsenceRecords({
-          recentOnly: true,
-          todayOnly: false
-        })
+        absenceRecords = await getAbsenceRecords(
+          {
+            recentOnly: true,
+            todayOnly: false
+          },
+          request.session
+        )
       }
 
       break
