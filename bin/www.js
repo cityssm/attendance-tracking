@@ -36,7 +36,8 @@ cluster.on('exit', (worker, code, signal) => {
     debug(`Worker ${worker.process.pid.toString()} has been killed`);
     activeWorkers.delete(worker.process.pid);
     debug('Starting another worker');
-    cluster.fork();
+    const newWorker = cluster.fork();
+    activeWorkers.set(newWorker.process.pid, newWorker);
 });
 if (process.env.STARTUP_TEST === 'true') {
     const killSeconds = 10;
