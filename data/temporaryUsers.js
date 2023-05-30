@@ -24,3 +24,14 @@ export const manageUser = {
         'reports.hasRawExports': 'true'
     }
 };
+export const readOnlyUser = {
+    userName: '~~monty.read',
+    isAdmin: false,
+    canLogin: true,
+    permissions: {
+        'attendance.absences.canView': 'true',
+        'attendance.afterHours.canView': 'true',
+        'attendance.callOuts.canView': 'true',
+        'attendance.returnsToWork.canView': 'true'
+    }
+};
