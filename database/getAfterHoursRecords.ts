@@ -2,16 +2,19 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type { AfterHoursRecord } from '../types/recordTypes'
+import * as permissionFunctions from '../helpers/functions.permissions.js'
+import type { AfterHoursRecord, PartialSession } from '../types/recordTypes'
 
 interface GetAfterHoursRecordsFilters {
+  recordId?: string
   employeeNumber?: string
   recentOnly: boolean
   todayOnly: boolean
 }
 
 export async function getAfterHoursRecords(
-  filters: GetAfterHoursRecordsFilters
+  filters: GetAfterHoursRecordsFilters,
+  requestSession: PartialSession
 ): Promise<AfterHoursRecord[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -20,12 +23,18 @@ export async function getAfterHoursRecords(
     r.attendanceDateTime,
     r.afterHoursReasonId, t.afterHoursReason,
     r.recordComment,
-    r.recordCreate_userName, r.recordCreate_dateTime
+    r.recordCreate_userName, r.recordCreate_dateTime,
+    0 as canUpdate
     from MonTY.AfterHoursRecords r
     left join MonTY.AfterHoursReasons t on r.afterHoursReasonId = t.afterHoursReasonId
     where r.recordDelete_dateTime is null`
 
   let request = pool.request()
+
+  if ((filters.recordId ?? '') !== '') {
+    sql += ' and r.recordId = @recordId'
+    request = request.input('recordId', filters.recordId)
+  }
 
   if ((filters.employeeNumber ?? '') !== '') {
     sql += ' and r.employeeNumber = @employeeNumber'
@@ -46,5 +55,26 @@ export async function getAfterHoursRecords(
 
   const recordsResult: IResult<AfterHoursRecord> = await request.query(sql)
 
-  return recordsResult.recordset
+  const afterHoursRecords = recordsResult.recordset
+
+  if (
+    permissionFunctions.hasPermission(
+      requestSession.user!,
+      'attendance.afterHours.canUpdate'
+    )
+  ) {
+    for (const afterHoursRecord of afterHoursRecords) {
+      afterHoursRecord.canUpdate =
+        permissionFunctions.hasPermission(
+          requestSession.user!,
+          'attendance.afterHours.canManage'
+        ) ||
+        (afterHoursRecord.recordCreate_userName ===
+          requestSession.user?.userName &&
+          Date.now() - afterHoursRecord.recordCreate_dateTime!.getTime() <=
+            configFunctions.getProperty('settings.updateDays') * 86_400 * 1000)
+    }
+  }
+
+  return afterHoursRecords
 }

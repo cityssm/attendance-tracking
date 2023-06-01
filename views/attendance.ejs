@@ -186,6 +186,8 @@
   <script>
     exports.afterHoursRecords = <%- JSON.stringify(afterHoursRecords) %>;
     exports.afterHoursReasons = <%- JSON.stringify(afterHoursReasons) %>;
+
+    exports.afterHoursCanUpdate = <%= permissionFunctions.hasPermission(user, 'attendance.afterHours.canUpdate') ? 'true' : 'false' %>;
   </script>
   <script src="<%= urlPrefix %>/javascripts/attendance.afterHours.min.js"></script>
 <% } %>

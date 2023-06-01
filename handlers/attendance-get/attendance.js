@@ -61,7 +61,7 @@ export async function handler(request, response) {
             afterHoursRecords = await getAfterHoursRecords({
                 recentOnly: true,
                 todayOnly: false
-            });
+            }, request.session);
         }
         if (permissionFunctions.hasPermission(request.session.user, 'attendance.afterHours.canUpdate')) {
             afterHoursReasons = await getAfterHoursReasons();

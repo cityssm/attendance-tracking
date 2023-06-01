@@ -102,6 +102,7 @@ export interface AfterHoursRecord extends Partial<AfterHoursReason>, RecordUserN
     attendanceDateTime: string | Date;
     afterHoursReasonId: number;
     recordComment?: string;
+    canUpdate?: boolean;
 }
 export interface User extends RecordUserNameDateTime {
     userName: string;

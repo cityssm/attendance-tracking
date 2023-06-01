@@ -5,7 +5,7 @@ export async function handler(request, response) {
     const afterHoursRecords = await getAfterHoursRecords({
         recentOnly: true,
         todayOnly: false
-    });
+    }, request.session);
     response.json({
         success: true,
         recordId,

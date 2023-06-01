@@ -22,6 +22,58 @@ declare const cityssm: cityssmGlobal
   const employeeNumberRegularExpression =
     exports.employeeNumberRegularExpression as RegExp | undefined
 
+  // const canUpdateAfterHours = exports.afterHoursCanUpdate as boolean
+
+  function deleteAfterHoursRecord(clickEvent: Event): void {
+    const recordId = (
+      (clickEvent.currentTarget as HTMLButtonElement).closest(
+        '.panel-block'
+      ) as HTMLElement
+    ).dataset.recordId
+
+    function doDelete(): void {
+      cityssm.postJSON(
+        MonTY.urlPrefix + '/attendance/doDeleteAfterHoursRecord',
+        {
+          recordId
+        },
+        (rawResponseJSON) => {
+          const responseJSON = rawResponseJSON as {
+            success: boolean
+            errorMessage?: string
+            afterHoursRecords?: recordTypes.AfterHoursRecord[]
+          }
+
+          if (responseJSON.success) {
+            bulmaJS.alert({
+              message: 'After hours record deleted successfully.',
+              contextualColorName: 'success'
+            })
+
+            afterHoursRecords = responseJSON.afterHoursRecords!
+            renderAfterHoursRecords()
+          } else {
+            bulmaJS.alert({
+              title: 'Error Deleting Record',
+              message: responseJSON.errorMessage ?? '',
+              contextualColorName: 'danger'
+            })
+          }
+        }
+      )
+    }
+
+    bulmaJS.confirm({
+      title: 'Delete After Hours Record',
+      message: 'Are you sure you want to delete this after hours record?',
+      contextualColorName: 'warning',
+      okButton: {
+        text: 'Yes, Delete Record',
+        callbackFunction: doDelete
+      }
+    })
+  }
+
   function renderAfterHoursRecords(): void {
     const containerElement = document.querySelector(
       '#container--afterHours'
@@ -49,6 +101,7 @@ declare const cityssm: cityssmGlobal
 
       const panelBlockElement = document.createElement('div')
       panelBlockElement.className = 'panel-block is-block'
+      panelBlockElement.dataset.recordId = afterHoursRecord.recordId
 
       if (Date.now() - attendanceDateTime.getTime() <= 86_400 * 1000) {
         panelBlockElement.classList.add('has-background-success-light')
@@ -67,7 +120,7 @@ declare const cityssm: cityssmGlobal
             </strong><br />
             <span class="is-size-7">${attendanceDateTime.toLocaleTimeString()}</span>
         </div>
-        <div class="column">
+        <div class="column is-4">
           <strong>${afterHoursRecord.employeeName}</strong><br />
           <span class="is-size-7">${
             afterHoursRecord.employeeNumber ?? ''
@@ -78,6 +131,21 @@ declare const cityssm: cityssmGlobal
           <span class="is-size-7">${afterHoursRecord.recordComment ?? ''}</span>
         </div>
         </div>`
+
+      if (afterHoursRecord.canUpdate as boolean) {
+        panelBlockElement.querySelector('.columns')?.insertAdjacentHTML(
+          'beforeend',
+          `<div class="column is-narrow">
+              <button class="button is-small is-inverted is-danger is-delete-button" type="button" aria-label="Delete Record">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+              </button>
+            </div>`
+        )
+
+        panelBlockElement
+          .querySelector('.is-delete-button')
+          ?.addEventListener('click', deleteAfterHoursRecord)
+      }
 
       panelElement.append(panelBlockElement)
     }
@@ -195,7 +263,8 @@ declare const cityssm: cityssmGlobal
           ) as HTMLInputElement
 
           if (employeeNumberRegularExpression !== undefined) {
-            employeeNumberElement.pattern = employeeNumberRegularExpression.source
+            employeeNumberElement.pattern =
+              employeeNumberRegularExpression.source
           }
 
           employeeNumberElement.focus()

@@ -148,6 +148,8 @@ export interface AfterHoursRecord
   attendanceDateTime: string | Date
   afterHoursReasonId: number
   recordComment?: string
+
+  canUpdate?: boolean
 }
 
 /*

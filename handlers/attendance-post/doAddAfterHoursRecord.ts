@@ -9,10 +9,13 @@ export async function handler(
 ): Promise<void> {
   const recordId = await addAfterHoursRecord(request.body, request.session)
 
-  const afterHoursRecords = await getAfterHoursRecords({
-    recentOnly: true,
-    todayOnly: false
-  })
+  const afterHoursRecords = await getAfterHoursRecords(
+    {
+      recentOnly: true,
+      todayOnly: false
+    },
+    request.session
+  )
 
   response.json({
     success: true,

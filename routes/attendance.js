@@ -6,6 +6,7 @@ import handler_doAddCallOutRecord from '../handlers/attendance-post/doAddCallOut
 import handler_doAddFavouriteCallOutList from '../handlers/attendance-post/doAddFavouriteCallOutList.js';
 import handler_doCreateCallOutList from '../handlers/attendance-post/doCreateCallOutList.js';
 import handler_doDeleteAbsenceRecord from '../handlers/attendance-post/doDeleteAbsenceRecord.js';
+import handler_doDeleteAfterHoursRecord from '../handlers/attendance-post/doDeleteAfterHoursRecord.js';
 import handler_doDeleteCallOutList from '../handlers/attendance-post/doDeleteCallOutList.js';
 import handler_doDeleteCallOutListMember from '../handlers/attendance-post/doDeleteCallOutListMember.js';
 import handler_doDeleteCallOutRecord from '../handlers/attendance-post/doDeleteCallOutRecord.js';
@@ -70,6 +71,7 @@ if (configFunctions.getProperty('features.attendance.callOuts')) {
 }
 if (configFunctions.getProperty('features.attendance.afterHours')) {
     router.post('/doAddAfterHoursRecord', afterHoursUpdatePostHandler, handler_doAddAfterHoursRecord);
+    router.post('/doDeleteAfterHoursRecord', afterHoursUpdatePostHandler, handler_doDeleteAfterHoursRecord);
 }
 router.post('/doGetAttendanceRecords', handler_doGetAttendanceRecords);
 export default router;

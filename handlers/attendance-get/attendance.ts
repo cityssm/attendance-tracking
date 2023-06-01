@@ -148,10 +148,13 @@ export async function handler(
         'attendance.afterHours.canView'
       )
     ) {
-      afterHoursRecords = await getAfterHoursRecords({
-        recentOnly: true,
-        todayOnly: false
-      })
+      afterHoursRecords = await getAfterHoursRecords(
+        {
+          recentOnly: true,
+          todayOnly: false
+        },
+        request.session
+      )
     }
 
     if (
