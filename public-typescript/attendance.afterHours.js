@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     const afterHoursReasons = exports.afterHoursReasons;
     const employees = exports.employees;
     let afterHoursRecords = exports.afterHoursRecords;
+    const employeeNumberRegularExpression = exports.employeeNumberRegularExpression;
     function renderAfterHoursRecords() {
         var _a, _b;
         const containerElement = document.querySelector('#container--afterHours');
@@ -118,6 +119,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 (_a = modalElement
                     .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', recordAfterHours);
                 const employeeNumberElement = modalElement.querySelector('#afterHoursAdd--employeeNumber');
+                if (employeeNumberRegularExpression !== undefined) {
+                    employeeNumberElement.pattern = employeeNumberRegularExpression.source;
+                }
                 employeeNumberElement.focus();
                 employeeNumberElement.addEventListener('keyup', populateEmployeeName);
             },

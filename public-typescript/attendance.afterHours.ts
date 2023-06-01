@@ -19,6 +19,9 @@ declare const cityssm: cityssmGlobal
   let afterHoursRecords =
     exports.afterHoursRecords as recordTypes.AfterHoursRecord[]
 
+  const employeeNumberRegularExpression =
+    exports.employeeNumberRegularExpression as RegExp | undefined
+
   function renderAfterHoursRecords(): void {
     const containerElement = document.querySelector(
       '#container--afterHours'
@@ -190,6 +193,10 @@ declare const cityssm: cityssmGlobal
           const employeeNumberElement = modalElement.querySelector(
             '#afterHoursAdd--employeeNumber'
           ) as HTMLInputElement
+
+          if (employeeNumberRegularExpression !== undefined) {
+            employeeNumberElement.pattern = employeeNumberRegularExpression.source
+          }
 
           employeeNumberElement.focus()
 

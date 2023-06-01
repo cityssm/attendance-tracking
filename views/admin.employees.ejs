@@ -77,6 +77,10 @@
 
 <script>
   exports.employees = <%- JSON.stringify(employees) %>;
+
+  <% if (configFunctions.getProperty('settings.employeeNumberRegularExpression')) { %>
+    exports.employeeNumberRegularExpression = <%- configFunctions.getProperty('settings.employeeNumberRegularExpression').toString() %>;
+  <% } %>
 </script>
 
 <script src="<%= urlPrefix %>/javascripts/admin.employees.min.js"></script>

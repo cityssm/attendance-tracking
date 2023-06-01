@@ -40,6 +40,7 @@ export const config: Config = {
       configFunctions.sortKey_propertyValue,
       configFunctions.sortKey_alphabetical
     ],
+    employeeNumberRegularExpression: /^\d{5,9}$/,
     recentDays: 14,
     updateDays: 4
   }

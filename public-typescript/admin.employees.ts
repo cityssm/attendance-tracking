@@ -16,6 +16,9 @@ declare const cityssm: cityssmGlobal
 
   let filteredEmployees = unfilteredEmployees
 
+  const employeeNumberRegularExpression =
+    exports.employeeNumberRegularExpression as RegExp | undefined
+
   // Employee Modal
 
   function openEmployeeModal(employeeNumber: string): void {
@@ -476,11 +479,17 @@ declare const cityssm: cityssmGlobal
           addCloseModalFunction = closeModalFunction
 
           bulmaJS.toggleHtmlClipped()
-          ;(
-            modalElement.querySelector(
-              '#employeeAdd--employeeNumber'
-            ) as HTMLInputElement
-          ).focus()
+
+          const employeeNumberElement = modalElement.querySelector(
+            '#employeeAdd--employeeNumber'
+          ) as HTMLInputElement
+
+          if (employeeNumberRegularExpression !== undefined) {
+            employeeNumberElement.pattern =
+              employeeNumberRegularExpression.source
+          }
+
+          employeeNumberElement.focus()
 
           modalElement
             .querySelector('form')

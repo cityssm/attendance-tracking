@@ -132,6 +132,10 @@ export function getProperty(
   propertyName: 'settings.employeeSortKeyFunctions'
 ): configTypes.ConfigEmployeeSortKeyFunction[]
 
+export function getProperty(
+  propertyName: 'settings.employeeNumberRegularExpression'
+): RegExp
+
 export function getProperty(propertyName: 'settings.recentDays'): number
 export function getProperty(propertyName: 'settings.updateDays'): number
 

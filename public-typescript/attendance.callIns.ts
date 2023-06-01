@@ -15,6 +15,9 @@ declare const cityssm: cityssmGlobal
   const absenceTypes = exports.absenceTypes as recordTypes.AbsenceType[]
   const employees = exports.employees as recordTypes.Employee[]
 
+  const employeeNumberRegularExpression =
+    exports.employeeNumberRegularExpression as RegExp | undefined
+
   // const updateDays = exports.updateDays as number
 
   const canUpdateAbsences = exports.absencesCanUpdate as boolean
@@ -448,6 +451,10 @@ declare const cityssm: cityssmGlobal
         const employeeNumberElement = modalElement.querySelector(
           '#callInAdd--employeeNumber'
         ) as HTMLInputElement
+
+        if (employeeNumberRegularExpression !== undefined) {
+          employeeNumberElement.pattern = employeeNumberRegularExpression.source
+        }
 
         employeeNumberElement.focus()
 

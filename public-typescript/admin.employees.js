@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     let unfilteredEmployees = exports.employees;
     delete exports.employees;
     let filteredEmployees = unfilteredEmployees;
+    const employeeNumberRegularExpression = exports.employeeNumberRegularExpression;
     // Employee Modal
     function openEmployeeModal(employeeNumber) {
         let employeeModalElement;
@@ -279,7 +280,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 var _a;
                 addCloseModalFunction = closeModalFunction;
                 bulmaJS.toggleHtmlClipped();
-                modalElement.querySelector('#employeeAdd--employeeNumber').focus();
+                const employeeNumberElement = modalElement.querySelector('#employeeAdd--employeeNumber');
+                if (employeeNumberRegularExpression !== undefined) {
+                    employeeNumberElement.pattern =
+                        employeeNumberRegularExpression.source;
+                }
+                employeeNumberElement.focus();
                 (_a = modalElement
                     .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', addEmployee);
             },

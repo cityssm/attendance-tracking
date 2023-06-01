@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     const MonTY = exports.MonTY;
     const absenceTypes = exports.absenceTypes;
     const employees = exports.employees;
+    const employeeNumberRegularExpression = exports.employeeNumberRegularExpression;
     // const updateDays = exports.updateDays as number
     const canUpdateAbsences = exports.absencesCanUpdate;
     // const canManageAbsences = exports.absencesCanManage as boolean
@@ -301,6 +302,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 (_a = modalElement
                     .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', recordCallIn);
                 const employeeNumberElement = modalElement.querySelector('#callInAdd--employeeNumber');
+                if (employeeNumberRegularExpression !== undefined) {
+                    employeeNumberElement.pattern = employeeNumberRegularExpression.source;
+                }
                 employeeNumberElement.focus();
                 employeeNumberElement.addEventListener('keyup', populateEmployeeName);
                 (_b = modalElement

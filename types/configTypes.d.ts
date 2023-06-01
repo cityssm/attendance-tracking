@@ -50,6 +50,7 @@ export interface Config {
         };
         employeeSortKeyFunctions?: ConfigEmployeeSortKeyFunction[];
         employeeEligibilityFunctions?: ConfigEmployeeEligibilityFunction[];
+        employeeNumberRegularExpression?: RegExp;
         recentDays?: number;
         updateDays?: number;
     };

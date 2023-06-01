@@ -143,6 +143,11 @@
 
 <script>
   exports.employees = <%- JSON.stringify(employees) %>;
+  
+  <% if (configFunctions.getProperty('settings.employeeNumberRegularExpression')) { %>
+    exports.employeeNumberRegularExpression = <%- configFunctions.getProperty('settings.employeeNumberRegularExpression').toString() %>;
+  <% } %>
+
   exports.recentDays = <%- configFunctions.getProperty('settings.recentDays') %>;
   exports.updateDays = <%- configFunctions.getProperty('settings.updateDays') %>;
 </script>
