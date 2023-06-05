@@ -1,6 +1,6 @@
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 
-import type * as globalTypes from '../types/globalTypes.js'
+import type * as globalTypes from '../types/globalTypes'
 
 declare const cityssm: cityssmGlobal
 ;(() => {
