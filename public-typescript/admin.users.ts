@@ -344,7 +344,6 @@ declare const cityssm: cityssmGlobal
 
     cityssm.openHtmlModal('userAdmin-userPermissions', {
       onshow(modalElement) {
-        bulmaJS.toggleHtmlClipped()
         cityssm.enableNavBlocker()
 
         permissionsModalElement = modalElement
@@ -352,6 +351,9 @@ declare const cityssm: cityssmGlobal
         modalElement.querySelector('.modal-card-title')!.textContent = userName
 
         populatePermissionsTable()
+      },
+      onshown() {
+        bulmaJS.toggleHtmlClipped()
       },
       onremoved() {
         bulmaJS.toggleHtmlClipped()

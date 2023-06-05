@@ -230,11 +230,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         cityssm.openHtmlModal('userAdmin-userPermissions', {
             onshow(modalElement) {
-                bulmaJS.toggleHtmlClipped();
                 cityssm.enableNavBlocker();
                 permissionsModalElement = modalElement;
                 modalElement.querySelector('.modal-card-title').textContent = userName;
                 populatePermissionsTable();
+            },
+            onshown() {
+                bulmaJS.toggleHtmlClipped();
             },
             onremoved() {
                 bulmaJS.toggleHtmlClipped();
