@@ -127,6 +127,11 @@ export async function getReportData(
       break
     }
 
+    case 'absenceTypes-all': {
+      sql = 'select * from MonTY.AbsenceTypes'
+      break
+    }
+
     /*
      * Return to Work Records
      */
@@ -242,6 +247,11 @@ export async function getReportData(
       break
     }
 
+    case 'callOutResponseTypes-all': {
+      sql = 'select * from MonTY.CallOutResponseTypes'
+      break
+    }
+
     /*
      * After Hours Records
      */
@@ -263,6 +273,15 @@ export async function getReportData(
 
       break
     }
+
+    case 'afterHoursReasons-all': {
+      sql = 'select * from MonTY.AfterHoursReasons'
+      break
+    }
+
+    /*
+     * Default
+     */
 
     default: {
       return undefined
