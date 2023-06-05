@@ -36,7 +36,7 @@
       </p>
     </div>
 
-    <table class="table is-fullwidth is-hoverable is-fade-hoverable is-striped">
+    <table class="table is-fullwidth is-hoverable is-fade-hoverable is-striped has-sticky-header">
       <thead>
         <tr>
           <th>User Name</th>
@@ -51,6 +51,42 @@
         </tr>
       </thead>
       <tbody id="tbody--users"></tbody>
+      <% if (tempUsers.length > 0) { %>
+        <tbody>
+          <tr>
+            <th colspan="5">
+              Temporary Users
+            </th>
+          </tr>
+          <% for (const tempUser of tempUsers) { %>
+            <% const user = tempUser.user %>
+            <tr>
+              <td><%= user.userName %></td>
+              <td>
+                <% if (user.canLogin) { %>
+                  <i class="fas fa-check" aria-hidden="true"></i>
+                  Can Log In
+                <% } else { %>
+                  <i class="fas fa-times" aria-hidden="true"></i>
+                  Access Denied
+                <% } %>
+              </td>
+              <td>
+                <% if (user.isAdmin) { %>
+                  <i class="fas fa-check" aria-hidden="true"></i>
+                  Administrator
+                <% } else { %>
+                  <i class="fas fa-times" aria-hidden="true"></i>
+                  No Admin Access
+                <% } %>
+              </td>
+              <td colspan="2">
+                <em>Managed in config file</em>
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      <% } %>
     </table>
   </div>
 </div>
