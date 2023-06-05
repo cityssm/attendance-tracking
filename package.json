@@ -95,8 +95,8 @@
     "bulma-tooltip": "^3.0.2",
     "cypress": "^12.13.0",
     "cypress-axe": "^1.4.0",
-    "eslint": "^8.41.0",
-    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint": "^8.42.0",
+    "eslint-config-standard-with-typescript": "^35.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
@@ -107,6 +107,6 @@
     "gulp-sass": "^5.1.0",
     "nodemon": "^2.0.22",
     "sass": "^1.62.1",
-    "webpack": "^5.84.1"
+    "webpack": "^5.85.0"
   }
 }
