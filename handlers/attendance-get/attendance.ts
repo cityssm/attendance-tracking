@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/indent */
+
 import type { Request, Response } from 'express'
 
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
@@ -15,6 +17,183 @@ import * as configFunctions from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
 import type * as recordTypes from '../../types/recordTypes'
 
+async function populateAbsenceVariables(
+  requestSession: recordTypes.PartialSession
+): Promise<{
+  absenceRecords: recordTypes.AbsenceRecord[]
+  absenceTypes: recordTypes.AbsenceType[]
+}> {
+  let absenceRecords: recordTypes.AbsenceRecord[] = []
+  let absenceTypes: recordTypes.AbsenceType[] = []
+
+  if (
+    permissionFunctions.hasPermission(
+      requestSession.user!,
+      'attendance.absences.canView'
+    )
+  ) {
+    absenceRecords = await getAbsenceRecords(
+      {
+        recentOnly: true,
+        todayOnly: false
+      },
+      requestSession
+    )
+  }
+
+  if (
+    permissionFunctions.hasPermission(
+      requestSession.user!,
+      'attendance.absences.canUpdate'
+    )
+  ) {
+    absenceTypes = await getAbsenceTypes()
+  }
+
+  return {
+    absenceRecords,
+    absenceTypes
+  }
+}
+
+async function populateReturnToWorkVariables(
+  requestSession: recordTypes.PartialSession
+): Promise<{
+  returnToWorkRecords: recordTypes.ReturnToWorkRecord[]
+}> {
+  let returnToWorkRecords: recordTypes.ReturnToWorkRecord[] = []
+
+  if (
+    permissionFunctions.hasPermission(
+      requestSession.user!,
+      'attendance.returnsToWork.canView'
+    )
+  ) {
+    returnToWorkRecords = await getReturnToWorkRecords(
+      {
+        recentOnly: true,
+        todayOnly: false
+      },
+      requestSession
+    )
+  }
+
+  return {
+    returnToWorkRecords
+  }
+}
+
+async function populateCallOutVariables(
+  requestSession: recordTypes.PartialSession
+): Promise<{
+  callOutLists: recordTypes.CallOutList[]
+  callOutResponseTypes: recordTypes.CallOutResponseType[]
+  employeeEligibilityFunctionNames: string[]
+  employeeSortKeyFunctionNames: string[]
+  employeePropertyNames: string[]
+}> {
+  let callOutLists: recordTypes.CallOutList[] = []
+  let callOutResponseTypes: recordTypes.CallOutResponseType[] = []
+  const employeeEligibilityFunctionNames: string[] = []
+  const employeeSortKeyFunctionNames: string[] = []
+  let employeePropertyNames: string[] = []
+
+  if (
+    permissionFunctions.hasPermission(
+      requestSession.user!,
+      'attendance.callOuts.canView'
+    )
+  ) {
+    callOutLists = await getCallOutLists(
+      {
+        favouriteOnly: false
+      },
+      requestSession
+    )
+  }
+
+  if (
+    permissionFunctions.hasPermission(
+      requestSession.user!,
+      'attendance.callOuts.canUpdate'
+    )
+  ) {
+    callOutResponseTypes = await getCallOutResponseTypes()
+  }
+
+  if (
+    permissionFunctions.hasPermission(
+      requestSession.user!,
+      'attendance.callOuts.canManage'
+    )
+  ) {
+    const employeeEligibilityFunctions = configFunctions.getProperty(
+      'settings.employeeEligibilityFunctions'
+    )
+
+    for (const eligibilityFunction of employeeEligibilityFunctions) {
+      employeeEligibilityFunctionNames.push(eligibilityFunction.functionName)
+    }
+
+    const employeeSortKeyFunctions = configFunctions.getProperty(
+      'settings.employeeSortKeyFunctions'
+    )
+
+    for (const sortKeyFunction of employeeSortKeyFunctions) {
+      employeeSortKeyFunctionNames.push(sortKeyFunction.functionName)
+    }
+
+    employeePropertyNames = await getEmployeePropertyNames()
+  }
+
+  return {
+    callOutLists,
+    callOutResponseTypes,
+    employeeEligibilityFunctionNames,
+    employeeSortKeyFunctionNames,
+    employeePropertyNames
+  }
+}
+
+async function populateAfterHoursVariables(
+  requestSession: recordTypes.PartialSession
+): Promise<{
+  afterHoursRecords: recordTypes.AfterHoursRecord[]
+  afterHoursReasons: recordTypes.AfterHoursReason[]
+}> {
+  let afterHoursRecords: recordTypes.AfterHoursRecord[] = []
+  let afterHoursReasons: recordTypes.AfterHoursReason[] = []
+
+  if (
+    permissionFunctions.hasPermission(
+      requestSession.user!,
+      'attendance.afterHours.canView'
+    )
+  ) {
+    afterHoursRecords = await getAfterHoursRecords(
+      {
+        recentOnly: true,
+        todayOnly: false
+      },
+      requestSession
+    )
+  }
+
+  if (
+    permissionFunctions.hasPermission(
+      requestSession.user!,
+      'attendance.afterHours.canUpdate'
+    )
+  ) {
+    afterHoursReasons = await getAfterHoursReasons()
+  }
+
+  return {
+    afterHoursRecords,
+    afterHoursReasons
+  }
+}
+
 export async function handler(
   request: Request,
   response: Response
@@ -27,29 +206,9 @@ export async function handler(
   let absenceTypes: recordTypes.AbsenceType[] = []
 
   if (configFunctions.getProperty('features.attendance.absences')) {
-    if (
-      permissionFunctions.hasPermission(
-        request.session.user!,
-        'attendance.absences.canView'
-      )
-    ) {
-      absenceRecords = await getAbsenceRecords(
-        {
-          recentOnly: true,
-          todayOnly: false
-        },
-        request.session
-      )
-    }
-
-    if (
-      permissionFunctions.hasPermission(
-        request.session.user!,
-        'attendance.absences.canUpdate'
-      )
-    ) {
-      absenceTypes = await getAbsenceTypes()
-    }
+    const absenceVariables = await populateAbsenceVariables(request.session)
+    absenceRecords = absenceVariables.absenceRecords
+    absenceTypes = absenceVariables.absenceTypes
   }
 
   /*
@@ -58,20 +217,12 @@ export async function handler(
 
   let returnToWorkRecords: recordTypes.ReturnToWorkRecord[] = []
 
-  if (
-    configFunctions.getProperty('features.attendance.returnsToWork') &&
-    permissionFunctions.hasPermission(
-      request.session.user!,
-      'attendance.returnsToWork.canView'
-    )
-  ) {
-    returnToWorkRecords = await getReturnToWorkRecords(
-      {
-        recentOnly: true,
-        todayOnly: false
-      },
+  if (configFunctions.getProperty('features.attendance.returnsToWork')) {
+    const returnToWorkVariables = await populateReturnToWorkVariables(
       request.session
     )
+
+    returnToWorkRecords = returnToWorkVariables.returnToWorkRecords
   }
 
   /*
@@ -80,58 +231,20 @@ export async function handler(
 
   let callOutLists: recordTypes.CallOutList[] = []
   let callOutResponseTypes: recordTypes.CallOutResponseType[] = []
-  const employeeEligibilityFunctionNames: string[] = []
-  const employeeSortKeyFunctionNames: string[] = []
+  let employeeEligibilityFunctionNames: string[] = []
+  let employeeSortKeyFunctionNames: string[] = []
   let employeePropertyNames: string[] = []
 
   if (configFunctions.getProperty('features.attendance.callOuts')) {
-    if (
-      permissionFunctions.hasPermission(
-        request.session.user!,
-        'attendance.callOuts.canView'
-      )
-    ) {
-      callOutLists = await getCallOutLists(
-        {
-          favouriteOnly: false
-        },
-        request.session
-      )
-    }
+    const callOutVariables = await populateCallOutVariables(request.session)
+    callOutLists = callOutVariables.callOutLists
+    callOutResponseTypes = callOutVariables.callOutResponseTypes
 
-    if (
-      permissionFunctions.hasPermission(
-        request.session.user!,
-        'attendance.callOuts.canUpdate'
-      )
-    ) {
-      callOutResponseTypes = await getCallOutResponseTypes()
-    }
+    employeeEligibilityFunctionNames =
+      callOutVariables.employeeEligibilityFunctionNames
 
-    if (
-      permissionFunctions.hasPermission(
-        request.session.user!,
-        'attendance.callOuts.canManage'
-      )
-    ) {
-      const employeeEligibilityFunctions = configFunctions.getProperty(
-        'settings.employeeEligibilityFunctions'
-      )
-
-      for (const eligibilityFunction of employeeEligibilityFunctions) {
-        employeeEligibilityFunctionNames.push(eligibilityFunction.functionName)
-      }
-
-      const employeeSortKeyFunctions = configFunctions.getProperty(
-        'settings.employeeSortKeyFunctions'
-      )
-
-      for (const sortKeyFunction of employeeSortKeyFunctions) {
-        employeeSortKeyFunctionNames.push(sortKeyFunction.functionName)
-      }
-
-      employeePropertyNames = await getEmployeePropertyNames()
-    }
+    employeeSortKeyFunctionNames = callOutVariables.employeeSortKeyFunctionNames
+    employeePropertyNames = callOutVariables.employeePropertyNames
   }
 
   /*
@@ -142,29 +255,11 @@ export async function handler(
   let afterHoursReasons: recordTypes.AfterHoursReason[] = []
 
   if (configFunctions.getProperty('features.attendance.afterHours')) {
-    if (
-      permissionFunctions.hasPermission(
-        request.session.user!,
-        'attendance.afterHours.canView'
-      )
-    ) {
-      afterHoursRecords = await getAfterHoursRecords(
-        {
-          recentOnly: true,
-          todayOnly: false
-        },
-        request.session
-      )
-    }
-
-    if (
-      permissionFunctions.hasPermission(
-        request.session.user!,
-        'attendance.afterHours.canUpdate'
-      )
-    ) {
-      afterHoursReasons = await getAfterHoursReasons()
-    }
+    const afterHoursVariables = await populateAfterHoursVariables(
+      request.session
+    )
+    afterHoursRecords = afterHoursVariables.afterHoursRecords
+    afterHoursReasons = afterHoursVariables.afterHoursReasons
   }
 
   /*
