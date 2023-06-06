@@ -1,5 +1,5 @@
 import { testAdmin } from '../../../test/_globals.js'
-import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes.js'
+import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes'
 import { logout, login } from '../../support/index.js'
 
 describe('Admin - User Maintenance', () => {

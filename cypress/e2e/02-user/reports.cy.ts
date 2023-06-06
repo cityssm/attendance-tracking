@@ -1,5 +1,5 @@
 import { testUser } from '../../../test/_globals.js'
-import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes.js'
+import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes'
 import { logout, login, ajaxDelayMillis } from '../../support/index.js'
 
 describe('Reports', () => {
