@@ -53,7 +53,7 @@ if (!configFunctions.getProperty('reverseProxy.disableCompression')) {
 }
 
 app.use((request, _response, next) => {
-  debug(`${request.method} ${request.url}`)
+  debug(`${request.method.toString()} ${request.url.toString()}`)
   next()
 })
 
@@ -276,7 +276,7 @@ app.get(urlPrefix + '/logout', (request, response) => {
 // Catch 404 and forward to error handler
 app.use((request, _response, next) => {
   debug(request.url)
-  next(createError(404, 'File not found: ' + request.url))
+  next(createError(404, 'File not found: ' + request.url.toString()))
 })
 
 export default app

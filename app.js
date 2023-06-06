@@ -37,7 +37,7 @@ if (!configFunctions.getProperty('reverseProxy.disableCompression')) {
     app.use(compression());
 }
 app.use((request, _response, next) => {
-    debug(`${request.method} ${request.url}`);
+    debug(`${request.method.toString()} ${request.url.toString()}`);
     next();
 });
 app.use(express.json());
@@ -150,6 +150,6 @@ app.get(urlPrefix + '/logout', (request, response) => {
 });
 app.use((request, _response, next) => {
     debug(request.url);
-    next(createError(404, 'File not found: ' + request.url));
+    next(createError(404, 'File not found: ' + request.url.toString()));
 });
 export default app;
