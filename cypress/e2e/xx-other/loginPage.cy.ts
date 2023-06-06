@@ -40,9 +40,13 @@ describe('Login Page', () => {
     cy.location('pathname').should('contain', '/login')
   })
 
-  it(`Redirects to login when invalid credentials are used: ${testUser!.user.userName}`, () => {
-    cy.get("form [name='userName']").type(testUser!.user.userName)
-    cy.get("form [name='password']").type(testUser!.password + 'x')
+  it('Redirects to login when invalid credentials are used', () => {
+    if (testUser === undefined) {
+      throw new Error('testUser not available')
+    }
+
+    cy.get("form [name='userName']").type(testUser.user.userName)
+    cy.get("form [name='password']").type(testUser.password + 'x')
 
     cy.get('form').submit()
 
