@@ -48,6 +48,7 @@
         }
       }
     ],
+    "node/no-missing-import": "off", // disabled due to false positives in Codacy 
     "unicorn/consistent-function-scoping": "warn",
     "unicorn/empty-brace-spaces": "off",
     "unicorn/filename-case": [
