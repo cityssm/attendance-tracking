@@ -1,12 +1,12 @@
 /* eslint-disable unicorn/prefer-module */
 
+import type { BulmaJS } from '@cityssm/bulma-js/types'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
-// import type { BulmaJS } from '@cityssm/bulma-js/types'
 
 import type * as globalTypes from '../types/globalTypes'
 import type * as recordTypes from '../types/recordTypes'
 
-// declare const bulmaJS: BulmaJS
+declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
@@ -203,6 +203,12 @@ declare const cityssm: cityssmGlobal
             )
           }
         )
+      },
+      onshown() {
+        bulmaJS.toggleHtmlClipped()
+      },
+      onremoved() {
+        bulmaJS.toggleHtmlClipped()
       }
     })
   }

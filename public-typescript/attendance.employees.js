@@ -126,6 +126,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }, (rawResponseJSON) => {
                     renderAttendanceRecords(rawResponseJSON);
                 });
+            },
+            onshown() {
+                bulmaJS.toggleHtmlClipped();
+            },
+            onremoved() {
+                bulmaJS.toggleHtmlClipped();
             }
         });
     }
