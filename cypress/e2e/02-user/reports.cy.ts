@@ -1,10 +1,11 @@
 import { testUser } from '../../../test/_globals.js'
+import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes.js'
 import { logout, login, ajaxDelayMillis } from '../../support/index.js'
 
 describe('Reports', () => {
   beforeEach(() => {
     logout()
-    login(testUser!)
+    login(testUser as ConfigTemporaryUserCredentials)
     cy.visit('/reports')
   })
 

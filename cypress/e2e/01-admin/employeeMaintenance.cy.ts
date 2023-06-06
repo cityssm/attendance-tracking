@@ -1,10 +1,11 @@
 import { testAdmin } from '../../../test/_globals.js'
+import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes.js'
 import { logout, login } from '../../support/index.js'
 
 describe('Admin - Employee Maintenance', () => {
   beforeEach(() => {
     logout()
-    login(testAdmin!)
+    login(testAdmin as ConfigTemporaryUserCredentials)
     cy.visit('/admin/employees')
   })
 

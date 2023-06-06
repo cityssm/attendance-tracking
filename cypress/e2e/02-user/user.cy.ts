@@ -1,10 +1,11 @@
 import { testUser } from '../../../test/_globals.js'
+import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes.js'
 import { logout, login } from '../../support/index.js'
 
 describe('Read Only User', () => {
   beforeEach(() => {
     logout()
-    login(testUser!)
+    login(testUser as ConfigTemporaryUserCredentials)
   })
 
   afterEach(logout)
