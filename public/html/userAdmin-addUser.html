@@ -12,27 +12,27 @@
     <section class="modal-card-body">
       <form id="form--userAdd">
         <div class="field">
-          <label class="label" for="userAdd--userName">User Name</label>
-          <div class="control">
+          <label class="label" for="userAdd--userName">New User Name</label>
+          <div class="control has-icons-right">
             <input
               class="input"
               id="userAdd--userName"
               name="userName"
               type="text"
               maxlength="20"
-              autocomplete="off"
+              autocomplete="new-username"
+              list="datalist--unusedEmployeeUserNames"
               required
             />
+            <span class="icon is-small is-right">
+              <i class="fas fa-asterisk" aria-hidden="true"></i>
+            </span>
           </div>
         </div>
       </form>
     </section>
     <div class="modal-card-foot justify-right">
-      <button
-        class="button is-success"
-        type="submit"
-        form="form--userAdd"
-      >
+      <button class="button is-success" type="submit" form="form--userAdd">
         <span class="icon"><i class="fas fa-plus" aria-hidden="true"></i></span>
         <span>Add User</span>
       </button>

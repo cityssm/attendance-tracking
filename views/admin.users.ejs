@@ -91,6 +91,12 @@
   </div>
 </div>
 
+<datalist id="datalist--unusedEmployeeUserNames">
+  <% for (const userName of unusedEmployeeUserNames) { %>
+    <option value="<%= userName %>"></option>
+  <% } %>
+</datalist>
+
 <%- include('_footerA'); -%>
 
 <script>
