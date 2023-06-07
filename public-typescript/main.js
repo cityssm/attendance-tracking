@@ -37,6 +37,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
             for (const tabContainerElement of tabContainerElements) {
                 if (tabContainerElement.id === selectedTabContainerId) {
                     tabContainerElement.classList.remove('is-hidden');
+                    if (tabContainerElement.closest('.modal') === null) {
+                        window.scrollTo({ top: 0 });
+                    }
+                    else {
+                        tabContainerElement.scrollIntoView(true);
+                    }
                 }
                 else {
                     tabContainerElement.classList.add('is-hidden');
