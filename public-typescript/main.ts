@@ -63,7 +63,9 @@ declare const cityssm: cityssmGlobal
     }
 
     for (const menuTabElement of menuTabElements) {
-      menuTabElement.addEventListener('click', selectTab)
+      if (menuTabElement.target === '') {
+        menuTabElement.addEventListener('click', selectTab)
+      }
     }
   }
 

@@ -44,7 +44,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
             }
         }
         for (const menuTabElement of menuTabElements) {
-            menuTabElement.addEventListener('click', selectTab);
+            if (menuTabElement.target === '') {
+                menuTabElement.addEventListener('click', selectTab);
+            }
         }
     }
     const MonTY = {
