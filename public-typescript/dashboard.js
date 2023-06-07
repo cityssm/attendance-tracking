@@ -19,7 +19,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
             panelBlockElement.className = 'panel-block';
             panelBlockElement.dataset.listId = callOutList.listId;
             panelBlockElement.href = '#';
-            panelBlockElement.textContent = callOutList.listName;
+            panelBlockElement.innerHTML = `<div class="columns is-mobile">
+        <div class="column is-narrow"><i class="fas fa-phone" aria-hidden="true"></i></div>
+        <div class="column">${callOutList.listName}</div>
+        </div>`;
             panelBlockElement.addEventListener('click', openCallOutListByClick);
             callOutListContainerElement.append(panelBlockElement);
         }
