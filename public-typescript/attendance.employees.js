@@ -37,7 +37,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 panelBlockElement.dataset.recordCreate_timeMillis = new Date(absenceRecord.recordCreate_dateTime)
                     .getTime()
                     .toString();
-                panelBlockElement.innerHTML = `<div class="columns">
+                panelBlockElement.innerHTML = `<div class="columns is-mobile">
           <div class="column is-narrow has-tooltip-right" data-tooltip="Absence">
             <i class="fas fa-fw fa-sign-out-alt" aria-label="Absence"></i>
           </div>
@@ -57,7 +57,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 panelBlockElement.dataset.recordCreate_timeMillis = new Date(returnToWorkRecord.recordCreate_dateTime)
                     .getTime()
                     .toString();
-                panelBlockElement.innerHTML = `<div class="columns">
+                panelBlockElement.innerHTML = `<div class="columns is-mobile">
           <div class="column is-narrow has-tooltip-right" data-tooltip="Return to Work">
             <i class="fas fa-fw fa-sign-in-alt" aria-label="Return to Work"></i>
           </div>
@@ -78,7 +78,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 panelBlockElement.dataset.recordCreate_timeMillis = new Date(callOutRecord.recordCreate_dateTime)
                     .getTime()
                     .toString();
-                panelBlockElement.innerHTML = `<div class="columns">
+                panelBlockElement.innerHTML = `<div class="columns is-mobile">
           <div class="column is-narrow has-tooltip-right" data-tooltip="Call Out">
             <i class="fas fa-fw fa-phone" aria-label="Call Out"></i>
           </div>
@@ -175,8 +175,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
             panelBlockElement.className = 'panel-block is-block';
             panelBlockElement.dataset.employeeNumber = employee.employeeNumber;
             panelBlockElement.href = '#';
-            panelBlockElement.innerHTML = `<div class="columns">
-        <div class="column">
+            panelBlockElement.innerHTML = `<div class="columns is-mobile">
+        <div class="column is-narrow">
+          <i class="fas fa-hard-hat" aria-hidden="true"></i>
+        </div>
+        <div class="column is-4">
           <strong>${employee.employeeNumber}</strong>
         </div>
         <div class="column">
