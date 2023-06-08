@@ -168,6 +168,26 @@ create table MonTY.CallOutRecords (
 )
 GO
 
+create table MonTY.HistoricalCallOutRecords (
+	recordId bigint primary key not null,
+	listId bigint not null,
+	employeeNumber varchar(20) not null,
+	callOutDateTime datetime2 not null,
+	callOutHours numeric(5, 2) not null default 0,
+	responseTypeId smallint not null,
+	recordComment nvarchar(max),
+	recordCreate_userName varchar(20) not null default CURRENT_USER,
+	recordCreate_dateTime datetime2 not null default getdate(),
+	recordUpdate_userName varchar(20) not null default CURRENT_USER,
+	recordUpdate_dateTime datetime2 not null default getdate(),
+	recordDelete_userName varchar(20),
+	recordDelete_dateTime datetime2,
+	foreign key (listId) references MonTY.CallOutLists (listId) on update cascade on delete no action,
+	foreign key (employeeNumber) references MonTY.Employees (employeeNumber) on update cascade on delete no action,
+	foreign key (responseTypeId) references MonTY.CallOutResponseTypes (responseTypeId) on update cascade on delete no action
+)
+GO
+
 -- Absence Records
 
 create table MonTY.AbsenceTypes (
@@ -233,10 +253,44 @@ create table MonTY.AbsenceRecords (
 )
 GO
 
+create table MonTY.HistoricalAbsenceRecords (
+	recordId bigint primary key not null,
+	employeeNumber varchar(20),
+	employeeName varchar(200) not null,
+	absenceDateTime datetime2 not null,
+	absenceTypeKey varchar(10) not null,
+	recordComment nvarchar(max),
+	returnDateTime datetime2,
+	recordCreate_userName varchar(20) not null default CURRENT_USER,
+	recordCreate_dateTime datetime2 not null default getdate(),
+	recordUpdate_userName varchar(20) not null default CURRENT_USER,
+	recordUpdate_dateTime datetime2 not null default getdate(),
+	recordDelete_userName varchar(20),
+	recordDelete_dateTime datetime2,
+	foreign key (absenceTypeKey) references MonTY.AbsenceTypes (absenceTypeKey) on update cascade on delete no action
+)
+GO
+
 -- Return to Work Records
 
 create table MonTY.ReturnToWorkRecords (
 	recordId bigint primary key identity,
+	employeeNumber varchar(20),
+	employeeName varchar(200) not null,
+	returnDateTime datetime2 not null,
+	returnShift varchar(100),
+	recordComment nvarchar(max),
+	recordCreate_userName varchar(20) not null default CURRENT_USER,
+	recordCreate_dateTime datetime2 not null default getdate(),
+	recordUpdate_userName varchar(20) not null default CURRENT_USER,
+	recordUpdate_dateTime datetime2 not null default getdate(),
+	recordDelete_userName varchar(20),
+	recordDelete_dateTime datetime2
+)
+GO
+
+create table MonTY.HistoricalReturnToWorkRecords (
+	recordId bigint primary key not null,
 	employeeNumber varchar(20),
 	employeeName varchar(200) not null,
 	returnDateTime datetime2 not null,
@@ -276,6 +330,23 @@ GO
 
 create table MonTY.AfterHoursRecords (
 	recordId bigint primary key identity,
+	employeeNumber varchar(20),
+	employeeName varchar(200) not null,
+	attendanceDateTime datetime2 not null,
+	afterHoursReasonId smallint not null,
+	recordComment nvarchar(max),
+	recordCreate_userName varchar(20) not null default CURRENT_USER,
+	recordCreate_dateTime datetime2 not null default getdate(),
+	recordUpdate_userName varchar(20) not null default CURRENT_USER,
+	recordUpdate_dateTime datetime2 not null default getdate(),
+	recordDelete_userName varchar(20),
+	recordDelete_dateTime datetime2,
+	foreign key (afterHoursReasonId) references MonTY.AfterHoursReasons (afterHoursReasonId) on update cascade on delete no action
+)
+GO
+
+create table MonTY.HistoricalAfterHoursRecords (
+	recordId bigint primary key not null,
 	employeeNumber varchar(20),
 	employeeName varchar(200) not null,
 	attendanceDateTime datetime2 not null,

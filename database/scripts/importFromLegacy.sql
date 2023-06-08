@@ -1,6 +1,9 @@
 truncate table MonTY.AbsenceRecords
 GO
 
+truncate table MonTY.HistoricalAbsenceRecords
+GO
+
 insert into MonTY.AbsenceRecords
 (employeeNumber, employeeName, absenceDateTime, absenceTypeKey, recordComment, returnDateTime, recordCreate_userName, recordCreate_dateTime, recordUpdate_userName, recordUpdate_dateTime)
 
@@ -12,6 +15,9 @@ GO
 ---
 
 truncate table MonTY.ReturnToWorkRecords
+GO
+
+truncate table MonTY.HistoricalReturnToWorkRecords
 GO
 
 insert into MonTY.ReturnToWorkRecords

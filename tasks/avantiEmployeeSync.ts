@@ -12,7 +12,7 @@ import { updateEmployee } from '../database/updateEmployee.js'
 import * as configFunctions from '../helpers/functions.config.js'
 import type { Employee, PartialSession } from '../types/recordTypes'
 
-const debug = Debug('monty:avantiEmployeeSync')
+const debug = Debug('monty:task:avantiEmployeeSync')
 
 let terminateTask = false
 

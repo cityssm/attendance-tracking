@@ -90,6 +90,10 @@ export async function getReportData(reportName, reportParameters = {}) {
                 .input('employeeNumber', reportParameters.employeeNumber);
             break;
         }
+        case 'historicalAbsenceRecords-all': {
+            sql = 'select * from MonTY.HistoricalAbsenceRecords';
+            break;
+        }
         case 'absenceTypes-all': {
             sql = 'select * from MonTY.AbsenceTypes';
             break;
@@ -120,6 +124,10 @@ export async function getReportData(reportName, reportParameters = {}) {
             request = request
                 .input('recentDays', configFunctions.getProperty('settings.recentDays'))
                 .input('employeeNumber', reportParameters.employeeNumber);
+            break;
+        }
+        case 'historicalReturnToWorkRecords-all': {
+            sql = 'select * from MonTY.HistoricalReturnToWorkRecords';
             break;
         }
         case 'callOutListMembers-formatted': {
@@ -177,6 +185,10 @@ export async function getReportData(reportName, reportParameters = {}) {
                 .input('employeeNumber', reportParameters.employeeNumber);
             break;
         }
+        case 'historicalCallOutRecords-all': {
+            sql = 'select * from MonTY.HistoricalCallOutRecords';
+            break;
+        }
         case 'callOutResponseTypes-all': {
             sql = 'select * from MonTY.CallOutResponseTypes';
             break;
@@ -198,6 +210,10 @@ export async function getReportData(reportName, reportParameters = {}) {
                 afterHoursRecordsRecentSQL +
                     ' order by r.attendanceDateTime, r.recordId';
             request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
+            break;
+        }
+        case 'historicalAfterHoursRecords-all': {
+            sql = 'select * from MonTY.HistoricalAfterHoursRecords';
             break;
         }
         case 'afterHoursReasons-all': {

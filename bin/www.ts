@@ -74,6 +74,8 @@ if (process.env.STARTUP_TEST === 'true') {
     process.exit(0)
   }, 10_000)
 } else {
+  fork('./tasks/databaseCleanup.js')
+
   if (configFunctions.getProperty('features.employees.avantiSync')) {
     fork('./tasks/avantiEmployeeSync.js')
   }

@@ -9,7 +9,7 @@ import { getEmployee } from '../database/getEmployee.js';
 import { setEmployeeProperty } from '../database/setEmployeeProperty.js';
 import { updateEmployee } from '../database/updateEmployee.js';
 import * as configFunctions from '../helpers/functions.config.js';
-const debug = Debug('monty:avantiEmployeeSync');
+const debug = Debug('monty:task:avantiEmployeeSync');
 let terminateTask = false;
 const partialSession = {
     user: {

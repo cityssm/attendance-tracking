@@ -127,6 +127,11 @@ export async function getReportData(
       break
     }
 
+    case 'historicalAbsenceRecords-all': {
+      sql = 'select * from MonTY.HistoricalAbsenceRecords'
+      break
+    }
+
     case 'absenceTypes-all': {
       sql = 'select * from MonTY.AbsenceTypes'
       break
@@ -172,6 +177,11 @@ export async function getReportData(
         .input('recentDays', configFunctions.getProperty('settings.recentDays'))
         .input('employeeNumber', reportParameters.employeeNumber)
 
+      break
+    }
+
+    case 'historicalReturnToWorkRecords-all': {
+      sql = 'select * from MonTY.HistoricalReturnToWorkRecords'
       break
     }
 
@@ -256,6 +266,11 @@ export async function getReportData(
       break
     }
 
+    case 'historicalCallOutRecords-all': {
+      sql = 'select * from MonTY.HistoricalCallOutRecords'
+      break
+    }
+
     case 'callOutResponseTypes-all': {
       sql = 'select * from MonTY.CallOutResponseTypes'
       break
@@ -289,6 +304,11 @@ export async function getReportData(
         configFunctions.getProperty('settings.recentDays')
       )
 
+      break
+    }
+
+    case 'historicalAfterHoursRecords-all': {
+      sql = 'select * from MonTY.HistoricalAfterHoursRecords'
       break
     }
 
