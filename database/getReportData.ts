@@ -132,6 +132,15 @@ export async function getReportData(
       break
     }
 
+    case 'absenceTypes-active': {
+      sql = `select absenceTypeKey, absenceType, orderNumber,
+        recordUpdate_userName, recordUpdate_dateTime
+        from MonTY.AbsenceTypes
+        where recordDelete_dateTime is null
+        order by orderNumber, absenceType`
+      break
+    }
+
     /*
      * Return to Work Records
      */
@@ -252,6 +261,15 @@ export async function getReportData(
       break
     }
 
+    case 'callOutResponseTypes-active': {
+      sql = `select responseTypeId, responseType, isSuccessful, orderNumber,
+        recordUpdate_userName, recordUpdate_dateTime
+        from MonTY.CallOutResponseTypes
+        where recordDelete_dateTime is null
+        order by orderNumber, responseType`
+      break
+    }
+
     /*
      * After Hours Records
      */
@@ -276,6 +294,15 @@ export async function getReportData(
 
     case 'afterHoursReasons-all': {
       sql = 'select * from MonTY.AfterHoursReasons'
+      break
+    }
+
+    case 'afterHoursReasons-active': {
+      sql = `select afterHoursReasonId, afterHoursReason, orderNumber,
+        recordUpdate_userName, recordUpdate_dateTime
+        from MonTY.AfterHoursReasons
+        where recordDelete_dateTime is null
+        order by orderNumber, afterHoursReason`
       break
     }
 

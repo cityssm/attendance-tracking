@@ -94,6 +94,14 @@ export async function getReportData(reportName, reportParameters = {}) {
             sql = 'select * from MonTY.AbsenceTypes';
             break;
         }
+        case 'absenceTypes-active': {
+            sql = `select absenceTypeKey, absenceType, orderNumber,
+        recordUpdate_userName, recordUpdate_dateTime
+        from MonTY.AbsenceTypes
+        where recordDelete_dateTime is null
+        order by orderNumber, absenceType`;
+            break;
+        }
         case 'returnToWorkRecords-all': {
             sql = 'select * from MonTY.ReturnToWorkRecords';
             break;
@@ -173,6 +181,14 @@ export async function getReportData(reportName, reportParameters = {}) {
             sql = 'select * from MonTY.CallOutResponseTypes';
             break;
         }
+        case 'callOutResponseTypes-active': {
+            sql = `select responseTypeId, responseType, isSuccessful, orderNumber,
+        recordUpdate_userName, recordUpdate_dateTime
+        from MonTY.CallOutResponseTypes
+        where recordDelete_dateTime is null
+        order by orderNumber, responseType`;
+            break;
+        }
         case 'afterHoursRecords-all': {
             sql = 'select * from MonTY.AfterHoursRecords';
             break;
@@ -186,6 +202,14 @@ export async function getReportData(reportName, reportParameters = {}) {
         }
         case 'afterHoursReasons-all': {
             sql = 'select * from MonTY.AfterHoursReasons';
+            break;
+        }
+        case 'afterHoursReasons-active': {
+            sql = `select afterHoursReasonId, afterHoursReason, orderNumber,
+        recordUpdate_userName, recordUpdate_dateTime
+        from MonTY.AfterHoursReasons
+        where recordDelete_dateTime is null
+        order by orderNumber, afterHoursReason`;
             break;
         }
         default: {
