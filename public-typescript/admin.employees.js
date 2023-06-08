@@ -319,11 +319,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
             }
             panelBlockElement.href = '#';
             panelBlockElement.dataset.employeeNumber = (_a = employee.employeeNumber) !== null && _a !== void 0 ? _a : '';
-            panelBlockElement.innerHTML = `<div class="columns">
+            panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
           <i class="fas fa-hard-hat" aria-hidden="true"></i>
         </div>
-        <div class="column">${employee.employeeNumber}</div>
+        <div class="column is-4">${employee.employeeNumber}</div>
         <div class="column">
           ${employee.employeeSurname}, ${employee.employeeGivenName}<br />
           <span class="is-size-7">
@@ -368,6 +368,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
     }
     function goToPrevious() {
         offset = Math.max(offset - limit, 0);
+        employeesContainerElement.scrollIntoView(true);
+        window.scrollTo({ top: window.scrollY - 60 });
         renderEmployees();
     }
     function goToNext() {
@@ -375,6 +377,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
         if (offset >= filteredEmployees.length) {
             offset = 0;
         }
+        employeesContainerElement.scrollIntoView(true);
+        window.scrollTo({ top: window.scrollY - 60 });
         renderEmployees();
     }
     function refreshFilteredEmployees() {

@@ -549,11 +549,11 @@ declare const cityssm: cityssmGlobal
       panelBlockElement.href = '#'
       panelBlockElement.dataset.employeeNumber = employee.employeeNumber ?? ''
 
-      panelBlockElement.innerHTML = `<div class="columns">
+      panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
           <i class="fas fa-hard-hat" aria-hidden="true"></i>
         </div>
-        <div class="column">${employee.employeeNumber}</div>
+        <div class="column is-4">${employee.employeeNumber}</div>
         <div class="column">
           ${employee.employeeSurname}, ${employee.employeeGivenName}<br />
           <span class="is-size-7">
@@ -610,6 +610,10 @@ declare const cityssm: cityssmGlobal
 
   function goToPrevious(): void {
     offset = Math.max(offset - limit, 0)
+
+    employeesContainerElement.scrollIntoView(true)
+    window.scrollTo({ top: window.scrollY - 60 })
+
     renderEmployees()
   }
 
@@ -618,6 +622,9 @@ declare const cityssm: cityssmGlobal
     if (offset >= filteredEmployees.length) {
       offset = 0
     }
+    employeesContainerElement.scrollIntoView(true)
+    window.scrollTo({ top: window.scrollY - 60 })
+
     renderEmployees()
   }
 
