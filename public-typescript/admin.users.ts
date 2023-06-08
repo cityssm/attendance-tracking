@@ -495,6 +495,8 @@ declare const cityssm: cityssmGlobal
         onshown(modalElement, closeModalFunction) {
           addCloseModalFunction = closeModalFunction
 
+          bulmaJS.toggleHtmlClipped()
+
           const userNameElement = modalElement.querySelector(
             '#userAdd--userName'
           ) as HTMLInputElement
@@ -507,6 +509,9 @@ declare const cityssm: cityssmGlobal
           modalElement
             .querySelector('form')
             ?.addEventListener('submit', doAddUser)
+        },
+        onremoved() {
+          bulmaJS.toggleHtmlClipped()
         }
       })
     })
