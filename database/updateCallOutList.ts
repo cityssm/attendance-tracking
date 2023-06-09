@@ -26,6 +26,8 @@ export async function updateCallOutList(
     .request()
     .input('listName', callOutList.listName)
     .input('listDescription', callOutList.listDescription)
+    .input('allowSelfSignUp', callOutList.allowSelfSignUp)
+    .input('selfSignUpKey', callOutList.selfSignUpKey)
     .input('sortKeyFunction', callOutList.sortKeyFunction)
     .input('eligibilityFunction', callOutList.eligibilityFunction)
     .input('employeePropertyName', callOutList.employeePropertyName)
@@ -34,6 +36,8 @@ export async function updateCallOutList(
     .input('listId', callOutList.listId).query(`update MonTY.CallOutLists
       set listName = @listName,
         listDescription = @listDescription,
+        allowSelfSignUp = @allowSelfSignUp,
+        selfSignUpKey = @selfSignUpKey,
         sortKeyFunction = @sortKeyFunction,
         eligibilityFunction = @eligibilityFunction,
         employeePropertyName = @employeePropertyName,

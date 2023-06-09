@@ -517,6 +517,16 @@ declare const cityssm: cityssmGlobal
           '#callOutListEdit--listDescription'
         ) as HTMLTextAreaElement
       ).value = callOutList.listDescription ?? ''
+      ;(
+        callOutListModalElement.querySelector(
+          '#callOutListEdit--allowSelfSignUp'
+        ) as HTMLTextAreaElement
+      ).value = callOutList.allowSelfSignUp ?? false ? '1' : '0'
+      ;(
+        callOutListModalElement.querySelector(
+          '#callOutListEdit--selfSignUpKey'
+        ) as HTMLTextAreaElement
+      ).value = callOutList.selfSignUpKey ?? ''
 
       // Eligibility Function
 

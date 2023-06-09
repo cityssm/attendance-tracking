@@ -12,7 +12,7 @@
     <section class="modal-card-body">
       <div class="columns">
         <div class="column is-3">
-          <aside class="menu" style="position:sticky;top:0">
+          <aside class="menu" style="position: sticky; top: 0">
             <ul class="menu-list">
               <li>
                 <a href="#tab--callOuts-details">
@@ -80,6 +80,47 @@
                         name="listDescription"
                         maxlength="500"
                       ></textarea>
+                    </div>
+                  </div>
+                  <div class="columns">
+                    <div class="column">
+                      <div class="field">
+                        <label
+                          class="label"
+                          for="callOutListEdit--allowSelfSignUp"
+                          >Self Sign Up</label
+                        >
+                        <div class="control">
+                          <div class="select is-fullwidth">
+                            <select
+                              id="callOutListEdit--allowSelfSignUp"
+                              name="allowSelfSignUp"
+                            >
+                              <option value="0">Not Allowed</option>
+                              <option value="1">Self Sign Up Allowed</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="field">
+                        <label
+                          class="label"
+                          for="callOutListEdit--selfSignUpKey"
+                          >Self Sign Up Key</label
+                        >
+                        <div class="control">
+                          <input
+                            class="input"
+                            id="callOutListEdit--selfSignUpKey"
+                            name="selfSignUpKey"
+                            type="text"
+                            maxlength="10"
+                            pattern="^\w*$"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="columns">
@@ -177,9 +218,7 @@
                     </a>
                   </li>
                   <li class="is-active">
-                    <a href="#tab--callOutMembers-current">
-                      Current Members
-                    </a>
+                    <a href="#tab--callOutMembers-current"> Current Members </a>
                   </li>
                 </ul>
               </div>
@@ -240,37 +279,48 @@
             </article>
             <article class="is-hidden" id="tab--callOuts-reports">
               <div class="panel">
-                <a class="panel-block" id="reportingLink--callOutListReport" href="#" target="_blank">
+                <a
+                  class="panel-block"
+                  id="reportingLink--callOutListReport"
+                  href="#"
+                  target="_blank"
+                >
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file" aria-hidden="true"></i>
                     </div>
-                    <div class="column">
-                      Print Friendly Call Out List
-                    </div>
+                    <div class="column">Print Friendly Call Out List</div>
                   </div>
                 </a>
               </div>
               <h2 class="title is-5">CSV Exports</h2>
               <div class="panel">
-                <a class="panel-block" id="reportingLink--callOutListMembersCSV" href="#" target="_blank" download>
+                <a
+                  class="panel-block"
+                  id="reportingLink--callOutListMembersCSV"
+                  href="#"
+                  target="_blank"
+                  download
+                >
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
-                    <div class="column">
-                      Call Out List Members
-                    </div>
+                    <div class="column">Call Out List Members</div>
                   </div>
                 </a>
-                <a class="panel-block" id="reportingLink--callOutRecordsCSV" href="#" target="_blank" download>
+                <a
+                  class="panel-block"
+                  id="reportingLink--callOutRecordsCSV"
+                  href="#"
+                  target="_blank"
+                  download
+                >
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
-                    <div class="column">
-                      Call Out Record Recent History
-                    </div>
+                    <div class="column">Call Out Record Recent History</div>
                   </div>
                 </a>
               </div>
@@ -296,7 +346,10 @@
           <div class="dropdown-content">
             <a class="dropdown-item is-delete-call-out-list" href="#">
               <span class="icon is-small">
-                <i class="fas fa-trash-alt has-text-danger" aria-hidden="true"></i>
+                <i
+                  class="fas fa-trash-alt has-text-danger"
+                  aria-hidden="true"
+                ></i>
               </span>
               <span>Delete Call Out List</span>
             </a>
@@ -304,7 +357,9 @@
         </div>
       </div>
 
-      <button class="button is-close-modal-button ml-2" type="button">Close</button>
+      <button class="button is-close-modal-button ml-2" type="button">
+        Close
+      </button>
     </div>
   </div>
 </div>

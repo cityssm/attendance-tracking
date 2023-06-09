@@ -18,7 +18,8 @@ export const config = {
         },
         employees: {
             avantiSync: true
-        }
+        },
+        selfService: true
     },
     settings: {
         printPdf: {

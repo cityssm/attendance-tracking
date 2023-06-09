@@ -90,6 +90,8 @@ export interface CallOutList extends RecordUserNameDateTime {
   listId: string // bigint
   listName: string
   listDescription?: string
+  allowSelfSignUp?: boolean
+  selfSignUpKey?: string
   sortKeyFunction?: string
   eligibilityFunction?: string
   employeePropertyName?: string

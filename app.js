@@ -21,6 +21,7 @@ import routerDashboard from './routes/dashboard.js';
 import routerLogin from './routes/login.js';
 import routerPrint from './routes/print.js';
 import routerReports from './routes/reports.js';
+import routerSelfService from './routes/selfService.js';
 import { version } from './version.js';
 const debug = Debug(`monty:app:${process.pid}`);
 if (configFunctions.getProperty('tempUsers').length > 0) {
@@ -148,6 +149,9 @@ app.get(urlPrefix + '/logout', (request, response) => {
         response.redirect(urlPrefix + '/login');
     }
 });
+if (configFunctions.getProperty('features.selfService')) {
+    app.use(urlPrefix + configFunctions.getProperty('settings.selfService.path'), routerSelfService);
+}
 app.use((request, _response, next) => {
     debug(request.url);
     next(createError(404, 'File not found: ' + request.url.toString()));

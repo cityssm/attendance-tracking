@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html class="has-background-dark" id="is-self-service-page" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="csrf-token" content="<%= csrfToken %>" />
+
+  <title>
+    Self Service:
+    <%= configFunctions.getProperty("application.applicationName") %>
+  </title>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="<%= urlPrefix %>/images/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="<%= urlPrefix %>/images/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="<%= urlPrefix %>/images/favicon/favicon-16x16.png" />
+  <link rel="icon" type="image/svg+xml" href="<%= urlPrefix %>/images/favicon/favicon.svg" />
+  <link rel="mask-icon" href="<%= urlPrefix %>/images/favicon/safari-pinned-tab.svg" color="#5bbad5" />
+  <link rel="shortcut icon" href="<%= urlPrefix %>/images/favicon/favicon.ico" />
+
+  <link rel="stylesheet" href="<%= urlPrefix %>/stylesheets/style.css" />
+</head>
+
+<body>
+  <input name="_csrf" type="hidden" value="<%= csrfToken %>" />
+  <main class="panel m-2">
+    <h1 class="panel-heading">
+      Self Service:
+      <%= configFunctions.getProperty("application.applicationName") %>
+    </h1>
+    <div class="panel-block is-block has-background-white" style="height:calc(100vh - 72px);overflow:auto">
+      <div class="panel-tab" id="tab--employee">
+        <div class="columns">
+          <div class="column is-5">
+            <div class="message is-info">
+              <div class="message-header">Getting Started</div>
+              <div class="message-body">
+                <p>
+                  To manage aspects of your employee record,
+                  enter your employee number
+                  and the last four digits of your home phone number.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label" for="employee--employeeNumber">
+                Employee Number
+              </label>
+              <div class="control">
+                <input class="input is-large" id="employee--employeeNumber" name="employeeNumber"
+                  <%- (configFunctions.getProperty('settings.employeeNumberRegularExpression')
+                    ? ' pattern="' + configFunctions.getProperty('settings.employeeNumberRegularExpression').source + '"'
+                    : '') %>
+                  maxlength="20"
+                  autocomplete="off"
+                  required />
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="employee--homeContact_lastFourDigits">
+                Last Four Digits of Home Phone Number
+              </label>
+              <div class="control">
+                <input class="input is-large" id="employee--homeContact_lastFourDigits" name="homeContact_lastFourDigits"
+                  inputmode="numeric"
+                  pattern="\d{4}"
+                  minlength="4" maxlength="4"
+                  autocomplete="off"
+                  required />
+              </div>
+            </div>
+            <div class="has-text-right">
+              <button class="button is-large is-primary" id="employee--nextButton" type="button">
+                <span>Load Employee and Continue</span>
+                <span class="icon"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+              </button>
+            </div>
+            <div class="mt-4" id="employee--message"></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-tab is-hidden" id="tab--employeeOptions">
+        <div class="columns">
+          <div class="column is-5">
+            <div class="message is-info">
+              <div class="message-header">
+                <span>Welcome <span id="employeeOptions--employeeName"></span></span>
+              </div>
+              <div class="message-body">
+                <p>
+                  Select the option you would like to perform.
+                </p>
+              </div>
+            </div>
+            <button class="button is-block is-large is-primary">Sign Out</button>
+          </div>
+          <div class="column">
+            <div class="panel">
+              <% if (configFunctions.getProperty('features.attendance.callOuts')) { %>
+                <a class="panel-block" href="#tab--employeeOptions_callOutListAdd">
+                  <div class="columns is-mobile">
+                    <div class="column is-narrow">
+                      <i class="fas fa-fw fa-3x fa-phone" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      <strong>Join a Call Out List</strong><br />
+                      Choose a call out list with open sign up that you are eligible to join.
+                    </div>
+                  </div>
+                </a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% if (configFunctions.getProperty('features.attendance.callOuts')) { %>
+        <div class="panel-tab is-hidden" id="tab--employeeOptions_callOutListAdd">
+
+        </div>
+      <% } %>
+    </div>
+  </main>
+  <script>
+    window.exports = window.exports || {};
+    exports.urlPrefix = "<%= urlPrefix %>" + "<%= configFunctions.getProperty('settings.selfService.path') %>";
+  </script>
+  <script src="<%= urlPrefix %>/lib/cityssm-bulma-js/bulma-js.js"></script>
+  <script src="<%= urlPrefix %>/lib/cityssm-bulma-webapp-js/cityssm.min.js"></script>
+  <script src="<%= urlPrefix %>/lib/fa/js/all.min.js" defer></script>
+
+  <script src="<%= urlPrefix %>/javascripts/selfService.min.js" defer></script>
+</body>
+
+</html>

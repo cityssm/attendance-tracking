@@ -284,11 +284,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
             });
         }
         function initializeListDetailsTab() {
-            var _a, _b, _c, _d, _e;
+            var _a, _b, _c, _d, _e, _f, _g;
             ;
             callOutListModalElement.querySelector('#callOutListEdit--listId').value = callOutList.listId;
             callOutListModalElement.querySelector('#callOutListEdit--listName').value = callOutList.listName;
             callOutListModalElement.querySelector('#callOutListEdit--listDescription').value = (_a = callOutList.listDescription) !== null && _a !== void 0 ? _a : '';
+            callOutListModalElement.querySelector('#callOutListEdit--allowSelfSignUp').value = ((_b = callOutList.allowSelfSignUp) !== null && _b !== void 0 ? _b : false) ? '1' : '0';
+            callOutListModalElement.querySelector('#callOutListEdit--selfSignUpKey').value = (_c = callOutList.selfSignUpKey) !== null && _c !== void 0 ? _c : '';
             // Eligibility Function
             let eligibilityFunctionFound = false;
             const eligibilityFunctionElement = callOutListModalElement.querySelector('#callOutListEdit--eligibilityFunction');
@@ -303,7 +305,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 eligibilityFunctionElement.append(optionElement);
             }
             if (!eligibilityFunctionFound &&
-                ((_b = callOutList.eligibilityFunction) !== null && _b !== void 0 ? _b : '') !== '') {
+                ((_d = callOutList.eligibilityFunction) !== null && _d !== void 0 ? _d : '') !== '') {
                 const optionElement = document.createElement('option');
                 optionElement.value = callOutList.eligibilityFunction;
                 optionElement.textContent = callOutList.eligibilityFunction;
@@ -323,7 +325,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
                 sortKeyFunctionElement.append(optionElement);
             }
-            if (!sortKeyFunctionFound && ((_c = callOutList.sortKeyFunction) !== null && _c !== void 0 ? _c : '') !== '') {
+            if (!sortKeyFunctionFound && ((_e = callOutList.sortKeyFunction) !== null && _e !== void 0 ? _e : '') !== '') {
                 const optionElement = document.createElement('option');
                 optionElement.value = callOutList.sortKeyFunction;
                 optionElement.textContent = callOutList.sortKeyFunction;
@@ -331,12 +333,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 sortKeyFunctionElement.append(optionElement);
             }
             ;
-            callOutListModalElement.querySelector('#callOutListEdit--employeePropertyName').value = (_d = callOutList.employeePropertyName) !== null && _d !== void 0 ? _d : '';
+            callOutListModalElement.querySelector('#callOutListEdit--employeePropertyName').value = (_f = callOutList.employeePropertyName) !== null && _f !== void 0 ? _f : '';
             if (canManage) {
                 const unlockButtonsContainerElement = callOutListModalElement.querySelector('#callOutListEdit--unlockButtons');
                 unlockButtonsContainerElement.classList.remove('is-hidden');
-                (_e = unlockButtonsContainerElement
-                    .querySelector('button')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', () => {
+                (_g = unlockButtonsContainerElement
+                    .querySelector('button')) === null || _g === void 0 ? void 0 : _g.addEventListener('click', () => {
                     var _a;
                     unlockButtonsContainerElement.remove();
                     (_a = callOutListModalElement

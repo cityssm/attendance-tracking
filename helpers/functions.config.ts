@@ -42,6 +42,7 @@ configFallbackValues.set('features.attendance.returnsToWork', true)
 configFallbackValues.set('features.attendance.afterHours', true)
 
 configFallbackValues.set('features.employees.avantiSync', false)
+configFallbackValues.set('features.selfService', false)
 
 configFallbackValues.set('settings.avantiSync.locationCodes', [])
 
@@ -52,6 +53,8 @@ configFallbackValues.set('settings.printPdf.contentDisposition', 'attachment')
 
 configFallbackValues.set('settings.recentDays', 10)
 configFallbackValues.set('settings.updateDays', 5)
+
+configFallbackValues.set('settings.selfService.path', '/selfService')
 
 /*
  * Set up function overloads
@@ -111,6 +114,8 @@ export function getProperty(
   propertyName: 'features.employees.avantiSync'
 ): boolean
 
+export function getProperty(propertyName: 'features.selfService'): boolean
+
 export function getProperty(propertyName: 'mssql'): MSSQLConfig
 
 export function getProperty(
@@ -138,6 +143,10 @@ export function getProperty(
 
 export function getProperty(propertyName: 'settings.recentDays'): number
 export function getProperty(propertyName: 'settings.updateDays'): number
+
+export function getProperty(
+  propertyName: 'settings.selfService.path'
+): `/${string}`
 
 export function getProperty(propertyName: string): unknown {
   const propertyNameSplit = propertyName.split('.')

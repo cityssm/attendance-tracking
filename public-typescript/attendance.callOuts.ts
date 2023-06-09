@@ -105,6 +105,14 @@ declare const cityssm: cityssmGlobal
           </a>
         </div>
         <div class="column is-narrow">
+        ${
+          callOutList.allowSelfSignUp!
+            ? `<span class="tag is-light is-info">
+              <span class="icon is-small"><i class="fas fa-hand-paper" aria-hidden="true"></i></span>
+              <span>Self Sign Up</span>
+              </span>`
+            : ''
+        } 
           <span class="tag" data-tooltip="Members">
             <span class="icon is-small"><i class="fas fa-hard-hat" aria-hidden="true"></i></span>
             <span>${callOutList.callOutListMembersCount ?? ''}</span>

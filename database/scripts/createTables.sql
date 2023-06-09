@@ -81,6 +81,8 @@ create table MonTY.CallOutLists (
 	sortKeyFunction varchar(100),
 	eligibilityFunction varchar(100),
 	employeePropertyName varchar(100),
+	allowSelfSignUp bit not null default 0,
+	selfSignUpKey varchar(10) not null default '',
 	recordCreate_userName varchar(20) not null default CURRENT_USER,
 	recordCreate_dateTime datetime2 not null default getdate(),
 	recordUpdate_userName varchar(20) not null default CURRENT_USER,

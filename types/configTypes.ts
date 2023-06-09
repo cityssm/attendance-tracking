@@ -47,6 +47,7 @@ export interface Config {
     employees?: {
       avantiSync?: boolean
     }
+    selfService?: boolean
   }
   settings: {
     printPdf?: {
@@ -61,6 +62,10 @@ export interface Config {
     employeeNumberRegularExpression?: RegExp
     recentDays?: number
     updateDays?: number
+
+    selfService?: {
+      path?: `/${string}`
+    }
   }
 }
 

@@ -25,6 +25,7 @@ export declare function getProperty(propertyName: 'features.attendance.callOuts'
 export declare function getProperty(propertyName: 'features.attendance.returnsToWork'): boolean;
 export declare function getProperty(propertyName: 'features.attendance.afterHours'): boolean;
 export declare function getProperty(propertyName: 'features.employees.avantiSync'): boolean;
+export declare function getProperty(propertyName: 'features.selfService'): boolean;
 export declare function getProperty(propertyName: 'mssql'): MSSQLConfig;
 export declare function getProperty(propertyName: 'settings.avantiSync.config'): AvantiConfig;
 export declare function getProperty(propertyName: 'settings.avantiSync.locationCodes'): string[];
@@ -34,5 +35,6 @@ export declare function getProperty(propertyName: 'settings.employeeSortKeyFunct
 export declare function getProperty(propertyName: 'settings.employeeNumberRegularExpression'): RegExp;
 export declare function getProperty(propertyName: 'settings.recentDays'): number;
 export declare function getProperty(propertyName: 'settings.updateDays'): number;
+export declare function getProperty(propertyName: 'settings.selfService.path'): `/${string}`;
 export declare function includeAttendance(): boolean;
 export declare const keepAliveMillis: number;
