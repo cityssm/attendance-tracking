@@ -1,20 +1,17 @@
 import type { Request, Response } from 'express'
 
-import { getEmployeeName } from '../../database/getEmployeeName.js'
+import { validateEmployeeFields } from '../../helpers/functions.selfService.js'
 
 export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const employeeName = await getEmployeeName(
-    request.body.employeeNumber,
-    request.body.employeeHomeContactLastFourDigits
-  )
+  const employee = await validateEmployeeFields(request)
 
-  if (employeeName === undefined) {
+  if (!employee.success) {
     response.json({
       success: false,
-      errorMessage: 'Employee not found'
+      errorMessage: employee.errorMessage
     })
 
     return
@@ -22,7 +19,9 @@ export async function handler(
 
   response.json({
     success: true,
-    employeeName
+    employeeName: `${employee.employeeSurname ?? ''}, ${
+      employee.employeeGivenName ?? ''
+    }`
   })
 }
 

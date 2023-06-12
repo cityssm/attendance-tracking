@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
      */
     let callOutLists = exports.callOutLists;
     function getCallOutListById(listId) {
-        return callOutLists.find((possibleCallOutList) => {
+        return MonTY.callOuts.callOutLists.find((possibleCallOutList) => {
             return possibleCallOutList.listId === currentListId;
         });
     }

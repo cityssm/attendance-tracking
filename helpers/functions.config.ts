@@ -139,7 +139,7 @@ export function getProperty(
 
 export function getProperty(
   propertyName: 'settings.employeeNumberRegularExpression'
-): RegExp
+): RegExp | undefined
 
 export function getProperty(propertyName: 'settings.recentDays'): number
 export function getProperty(propertyName: 'settings.updateDays'): number

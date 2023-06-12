@@ -7,7 +7,7 @@
   <meta name="csrf-token" content="<%= csrfToken %>" />
 
   <title>
-    Self Service:
+    Employee Self Service:
     <%= configFunctions.getProperty("application.applicationName") %>
   </title>
 
@@ -27,11 +27,10 @@
 <body>
   <input name="_csrf" type="hidden" value="<%= csrfToken %>" />
   <main class="panel m-2">
-    <h1 class="panel-heading">
-      Self Service:
-      <%= configFunctions.getProperty("application.applicationName") %>
-    </h1>
-    <div class="panel-block is-block has-background-white" style="height:calc(100vh - 72px);overflow:auto">
+    <header class="panel-heading">
+      Employee Self Service
+    </header>
+    <div class="panel-block is-block has-background-white" style="height:calc(100vh - 112px);overflow:auto">
       <div class="panel-tab" id="tab--employee">
         <div class="columns">
           <div class="column is-5">
@@ -58,6 +57,7 @@
                     : '') %>
                   maxlength="20"
                   autocomplete="off"
+                  value="32125"
                   required />
               </div>
             </div>
@@ -71,6 +71,7 @@
                   pattern="\d{4}"
                   minlength="4" maxlength="4"
                   autocomplete="off"
+                  value="1032"
                   required />
               </div>
             </div>
@@ -97,7 +98,7 @@
                 </p>
               </div>
             </div>
-            <button class="button is-block is-large is-primary">Sign Out</button>
+            <button class="button is-fullwidth is-large is-primary is-sign-out-button" type="button">Sign Out</button>
           </div>
           <div class="column">
             <div class="panel">
@@ -120,10 +121,31 @@
       </div>
       <% if (configFunctions.getProperty('features.attendance.callOuts')) { %>
         <div class="panel-tab is-hidden" id="tab--employeeOptions_callOutListAdd">
-
+          <div class="columns">
+            <div class="column is-5">
+              <div class="message is-info">
+                <div class="message-header">
+                  <span>Select a Call Out List</span>
+                </div>
+                <div class="message-body">
+                  <p>
+                    Note that only call out lists with open sign ups
+                    that you are eligible to join are shown.
+                  </p>
+                </div>
+              </div>
+              <button class="button is-fullwidth is-large is-primary is-sign-out-button" type="button">Sign Out</button>
+            </div>
+            <div class="column">
+              <div id="container--callOutListAdd"></div>
+            </div>
+          </div>
         </div>
       <% } %>
     </div>
+    <footer class="panel-block has-background-grey">
+      <em><%= configFunctions.getProperty("application.applicationName") %></em>
+    </footer>
   </main>
   <script>
     window.exports = window.exports || {};

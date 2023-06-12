@@ -24,7 +24,7 @@ declare const cityssm: cityssmGlobal
   function getCallOutListById(
     listId: string
   ): recordTypes.CallOutList | undefined {
-    return callOutLists.find((possibleCallOutList) => {
+    return MonTY.callOuts!.callOutLists.find((possibleCallOutList) => {
       return possibleCallOutList.listId === currentListId
     })
   }

@@ -32,7 +32,7 @@ export declare function getProperty(propertyName: 'settings.avantiSync.locationC
 export declare function getProperty(propertyName: 'settings.printPdf.contentDisposition'): 'attachment' | 'inline';
 export declare function getProperty(propertyName: 'settings.employeeEligibilityFunctions'): configTypes.ConfigEmployeeEligibilityFunction[];
 export declare function getProperty(propertyName: 'settings.employeeSortKeyFunctions'): configTypes.ConfigEmployeeSortKeyFunction[];
-export declare function getProperty(propertyName: 'settings.employeeNumberRegularExpression'): RegExp;
+export declare function getProperty(propertyName: 'settings.employeeNumberRegularExpression'): RegExp | undefined;
 export declare function getProperty(propertyName: 'settings.recentDays'): number;
 export declare function getProperty(propertyName: 'settings.updateDays'): number;
 export declare function getProperty(propertyName: 'settings.selfService.path'): `/${string}`;
