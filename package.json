@@ -44,7 +44,7 @@
     "camelcase": "^7.0.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
-    "core-js": "^3.30.2",
+    "core-js": "^3.31.0",
     "cross-env": "^7.0.3",
     "csurf": "^1.11.0",
     "debug": "^4.3.4",
