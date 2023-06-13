@@ -34,8 +34,13 @@
       <div class="panel-tab" id="tab--employee">
         <div class="columns">
           <div class="column is-5">
+            <p class="has-text-centered">
+              <img src="<%= urlPrefix + configFunctions.getProperty('application.bigLogoURL') %>" alt="" style="max-height:400px" />
+            </p>
+          </div>
+          <div class="column">
+            <h2 class="title is-4">Log into Employee Self Service</h2>
             <div class="message is-info">
-              <div class="message-header">Getting Started</div>
               <div class="message-body">
                 <p>
                   To manage aspects of your employee record,
@@ -44,8 +49,6 @@
                 </p>
               </div>
             </div>
-          </div>
-          <div class="column">
             <div class="field">
               <label class="label" for="employee--employeeNumber">
                 Employee Number
@@ -140,7 +143,7 @@
         </div>
       </div>
     </div>
-    <footer class="panel-block is-justify-content-flex-end has-background-grey">
+    <footer class="panel-block is-justify-content-flex-end has-background-grey-lighter">
       <em><%= configFunctions.getProperty("application.applicationName") %> - Build <%= buildNumber %></em>
     </footer>
   </main>
