@@ -4,7 +4,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a;
     const urlPrefix = exports.urlPrefix;
-    // Employee Tab
+    /*
+     * Employee Tab
+     */
     const employeeMessageContainerElement = document.querySelector('#employee--message');
     const employeeNumberElement = document.querySelector('#employee--employeeNumber');
     function employeeKeyUp(event) {
@@ -65,6 +67,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
     }
     (_a = document
         .querySelector('#employee--nextButton')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', validateEmployee);
+    /*
+     * Sign Out
+     */
     function signOut(clickEvent) {
         var _a;
         if (clickEvent !== undefined) {
@@ -84,7 +89,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
     for (const signOutButtonElement of signOutButtonElements) {
         signOutButtonElement.addEventListener('click', signOut);
     }
-    // Select Employee Option
+    function monitorInactivity() {
+        let time;
+        window.addEventListener('load', resetTimer);
+        // DOM Events
+        document.addEventListener('mousemove', resetTimer);
+        document.addEventListener('keydown', resetTimer);
+        function resetTimer() {
+            window.clearTimeout(time);
+            time = window.setTimeout(signOut, 2 * 60 * 1000); // 2 minutes
+        }
+    }
+    window.addEventListener('load', monitorInactivity);
+    /*
+     * Select Employee Option
+     */
     function selectEmployeeOptionTab(clickEvent) {
         var _a, _b;
         clickEvent.preventDefault();
@@ -102,7 +121,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
     for (const employeeOptionTabElement of employeeOptionTabElements) {
         employeeOptionTabElement.addEventListener('click', selectEmployeeOptionTab);
     }
-    // Call Out List Add
+    function backToOptions(clickEvent) {
+        var _a;
+        if (clickEvent !== undefined) {
+            clickEvent.preventDefault();
+        }
+        // Hide all tabs
+        const panelTabElements = document.querySelectorAll('.panel-tab');
+        for (const panelTabElement of panelTabElements) {
+            panelTabElement.classList.add('is-hidden');
+        }
+        (_a = document
+            .querySelector('#tab--employeeOptions')) === null || _a === void 0 ? void 0 : _a.classList.remove('is-hidden');
+    }
+    const backToOptionsElements = document.querySelectorAll('.is-back-to-options-button');
+    for (const backToOptionsElement of backToOptionsElements) {
+        backToOptionsElement.addEventListener('click', backToOptions);
+    }
+    /*
+     * Call Out List Add
+     */
     function addEmployeeToCallOutList(clickEvent) {
         var _a;
         clickEvent.preventDefault();

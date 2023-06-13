@@ -10,7 +10,9 @@ declare const cityssm: cityssmGlobal
 ;(() => {
   const urlPrefix = exports.urlPrefix as string
 
-  // Employee Tab
+  /*
+   * Employee Tab
+   */
 
   const employeeMessageContainerElement = document.querySelector(
     '#employee--message'
@@ -109,6 +111,10 @@ declare const cityssm: cityssmGlobal
     .querySelector('#employee--nextButton')
     ?.addEventListener('click', validateEmployee)
 
+  /*
+   * Sign Out
+   */
+
   function signOut(clickEvent?: Event): void {
     if (clickEvent !== undefined) {
       clickEvent.preventDefault()
@@ -135,7 +141,24 @@ declare const cityssm: cityssmGlobal
     signOutButtonElement.addEventListener('click', signOut)
   }
 
-  // Select Employee Option
+  function monitorInactivity(): void {
+    let time: number
+    window.addEventListener('load', resetTimer)
+    // DOM Events
+    document.addEventListener('mousemove', resetTimer)
+    document.addEventListener('keydown', resetTimer)
+
+    function resetTimer(): void {
+      window.clearTimeout(time)
+      time = window.setTimeout(signOut, 2 * 60 * 1000) // 2 minutes
+    }
+  }
+
+  window.addEventListener('load', monitorInactivity)
+
+  /*
+   * Select Employee Option
+   */
 
   function selectEmployeeOptionTab(clickEvent: Event): void {
     clickEvent.preventDefault()
@@ -162,7 +185,35 @@ declare const cityssm: cityssmGlobal
     employeeOptionTabElement.addEventListener('click', selectEmployeeOptionTab)
   }
 
-  // Call Out List Add
+  function backToOptions(clickEvent?: Event): void {
+    if (clickEvent !== undefined) {
+      clickEvent.preventDefault()
+    }
+
+    // Hide all tabs
+
+    const panelTabElements = document.querySelectorAll('.panel-tab')
+
+    for (const panelTabElement of panelTabElements) {
+      panelTabElement.classList.add('is-hidden')
+    }
+
+    document
+      .querySelector('#tab--employeeOptions')
+      ?.classList.remove('is-hidden')
+  }
+
+  const backToOptionsElements = document.querySelectorAll(
+    '.is-back-to-options-button'
+  )
+
+  for (const backToOptionsElement of backToOptionsElements) {
+    backToOptionsElement.addEventListener('click', backToOptions)
+  }
+
+  /*
+   * Call Out List Add
+   */
 
   function addEmployeeToCallOutList(clickEvent: Event): void {
     clickEvent.preventDefault()
