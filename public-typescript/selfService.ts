@@ -96,6 +96,10 @@ declare const cityssm: cityssmGlobal
           document
             .querySelector('#tab--employeeOptions')
             ?.classList.remove('is-hidden')
+
+          document
+            .querySelector('#employeeOptionsTab--menu')
+            ?.classList.remove('is-hidden')
         } else {
           employeeMessageContainerElement.innerHTML = `<div class="message is-danger">
             <p class="message-body">
@@ -122,7 +126,9 @@ declare const cityssm: cityssmGlobal
 
     // Hide all tabs
 
-    const panelTabElements = document.querySelectorAll('.panel-tab')
+    const panelTabElements = document.querySelectorAll(
+      '.panel-tab, .employeeOptionsTab'
+    )
 
     for (const panelTabElement of panelTabElements) {
       panelTabElement.classList.add('is-hidden')
@@ -144,7 +150,6 @@ declare const cityssm: cityssmGlobal
   function monitorInactivity(): void {
     let time: number
     window.addEventListener('load', resetTimer)
-    // DOM Events
     document.addEventListener('mousemove', resetTimer)
     document.addEventListener('keydown', resetTimer)
 
@@ -165,10 +170,12 @@ declare const cityssm: cityssmGlobal
 
     const tabHash = (clickEvent.currentTarget as HTMLAnchorElement).hash
 
-    document.querySelector('#tab--employeeOptions')?.classList.add('is-hidden')
+    document
+      .querySelector('#employeeOptionsTab--menu')
+      ?.classList.add('is-hidden')
 
     switch (tabHash) {
-      case '#tab--employeeOptions_callOutListAdd': {
+      case '#employeeOptionsTab--callOutListAdd': {
         loadCallOutLists()
         break
       }
@@ -178,7 +185,7 @@ declare const cityssm: cityssmGlobal
   }
 
   const employeeOptionTabElements = document.querySelectorAll(
-    '#tab--employeeOptions a.panel-block'
+    '#employeeOptionsTab--menu a.panel-block'
   )
 
   for (const employeeOptionTabElement of employeeOptionTabElements) {
@@ -192,14 +199,14 @@ declare const cityssm: cityssmGlobal
 
     // Hide all tabs
 
-    const panelTabElements = document.querySelectorAll('.panel-tab')
+    const panelTabElements = document.querySelectorAll('.employeeOptionsTab')
 
     for (const panelTabElement of panelTabElements) {
       panelTabElement.classList.add('is-hidden')
     }
 
     document
-      .querySelector('#tab--employeeOptions')
+      .querySelector('#employeeOptionsTab--menu')
       ?.classList.remove('is-hidden')
   }
 

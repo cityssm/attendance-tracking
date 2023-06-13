@@ -47,7 +47,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             employeeNumber: employeeNumberElement.value,
             employeeHomeContactLastFourDigits: employeeHomeContactLastFourDigitsElement.value
         }, (rawResponseJSON) => {
-            var _a, _b, _c, _d;
+            var _a, _b, _c, _d, _e;
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
                 employeeMessageContainerElement.innerHTML = '';
@@ -55,11 +55,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 document.querySelector('#employeeOptions--employeeName').textContent = (_b = responseJSON.employeeName) !== null && _b !== void 0 ? _b : '';
                 (_c = document
                     .querySelector('#tab--employeeOptions')) === null || _c === void 0 ? void 0 : _c.classList.remove('is-hidden');
+                (_d = document
+                    .querySelector('#employeeOptionsTab--menu')) === null || _d === void 0 ? void 0 : _d.classList.remove('is-hidden');
             }
             else {
                 employeeMessageContainerElement.innerHTML = `<div class="message is-danger">
             <p class="message-body">
-            <strong>${(_d = responseJSON.errorMessage) !== null && _d !== void 0 ? _d : ''}</strong><br />
+            <strong>${(_e = responseJSON.errorMessage) !== null && _e !== void 0 ? _e : ''}</strong><br />
             If errors persist, please contact a manager for assistance.</p>
             </div>`;
             }
@@ -76,7 +78,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             clickEvent.preventDefault();
         }
         // Hide all tabs
-        const panelTabElements = document.querySelectorAll('.panel-tab');
+        const panelTabElements = document.querySelectorAll('.panel-tab, .employeeOptionsTab');
         for (const panelTabElement of panelTabElements) {
             panelTabElement.classList.add('is-hidden');
         }
@@ -92,7 +94,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
     function monitorInactivity() {
         let time;
         window.addEventListener('load', resetTimer);
-        // DOM Events
         document.addEventListener('mousemove', resetTimer);
         document.addEventListener('keydown', resetTimer);
         function resetTimer() {
@@ -108,16 +109,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
         var _a, _b;
         clickEvent.preventDefault();
         const tabHash = clickEvent.currentTarget.hash;
-        (_a = document.querySelector('#tab--employeeOptions')) === null || _a === void 0 ? void 0 : _a.classList.add('is-hidden');
+        (_a = document
+            .querySelector('#employeeOptionsTab--menu')) === null || _a === void 0 ? void 0 : _a.classList.add('is-hidden');
         switch (tabHash) {
-            case '#tab--employeeOptions_callOutListAdd': {
+            case '#employeeOptionsTab--callOutListAdd': {
                 loadCallOutLists();
                 break;
             }
         }
         (_b = document.querySelector(tabHash)) === null || _b === void 0 ? void 0 : _b.classList.remove('is-hidden');
     }
-    const employeeOptionTabElements = document.querySelectorAll('#tab--employeeOptions a.panel-block');
+    const employeeOptionTabElements = document.querySelectorAll('#employeeOptionsTab--menu a.panel-block');
     for (const employeeOptionTabElement of employeeOptionTabElements) {
         employeeOptionTabElement.addEventListener('click', selectEmployeeOptionTab);
     }
@@ -127,12 +129,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
             clickEvent.preventDefault();
         }
         // Hide all tabs
-        const panelTabElements = document.querySelectorAll('.panel-tab');
+        const panelTabElements = document.querySelectorAll('.employeeOptionsTab');
         for (const panelTabElement of panelTabElements) {
             panelTabElement.classList.add('is-hidden');
         }
         (_a = document
-            .querySelector('#tab--employeeOptions')) === null || _a === void 0 ? void 0 : _a.classList.remove('is-hidden');
+            .querySelector('#employeeOptionsTab--menu')) === null || _a === void 0 ? void 0 : _a.classList.remove('is-hidden');
     }
     const backToOptionsElements = document.querySelectorAll('.is-back-to-options-button');
     for (const backToOptionsElement of backToOptionsElements) {

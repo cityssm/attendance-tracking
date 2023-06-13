@@ -86,70 +86,62 @@
       <div class="panel-tab is-hidden" id="tab--employeeOptions">
         <div class="columns">
           <div class="column is-5">
-            <div class="message is-info">
-              <div class="message-header">
-                <span>Welcome <span id="employeeOptions--employeeName"></span></span>
+            <h1 class="title is-3 has-text-centered">
+              Welcome <span id="employeeOptions--employeeName"></span>
+            </h1>
+            <div class="columns">
+              <div class="column">
+                <button class="button is-fullwidth is-large is-info is-back-to-options-button" type="button">
+                  <span class="icon"><i class="fas fa-arrow-left" aria-hidden="true"></i></span>
+                  <span>Back to Options</span>
+                </button>
               </div>
-              <div class="message-body">
-                <p>
-                  Select the option you would like to perform.
-                </p>
+              <div class="column">
+                <button class="button is-fullwidth is-large is-primary is-sign-out-button" type="button">
+                  <span class="icon"><i class="fas fa-sign-out-alt" aria-hidden="true"></i></span>
+                  <span>Sign Out</span>
+                </button>
               </div>
             </div>
-            <button class="button is-fullwidth is-large is-primary is-sign-out-button" type="button">Sign Out</button>
           </div>
           <div class="column">
-            <div class="panel">
-              <% if (configFunctions.getProperty('features.attendance.callOuts')) { %>
-                <a class="panel-block" href="#tab--employeeOptions_callOutListAdd">
-                  <div class="columns is-mobile">
-                    <div class="column is-narrow">
-                      <i class="fas fa-fw fa-3x fa-phone" aria-hidden="true"></i>
+            <div class="employeeOptionsTab" id="employeeOptionsTab--menu">
+              <h2 class="title is-4">
+                Employee Self Service Menu
+              </h2>
+              <div class="panel">
+                <% if (configFunctions.getProperty('features.attendance.callOuts')) { %>
+                  <a class="panel-block" href="#employeeOptionsTab--callOutListAdd">
+                    <div class="columns is-mobile">
+                      <div class="column is-narrow">
+                        <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
+                          <i class="fas fa-phone"></i>
+                          <i class="fas fa-plus" data-fa-transform="shrink-8 right-8 down-4" data-fa-glow="10"></i>
+                        </span>
+                      </div>
+                      <div class="column">
+                        <strong>Join a Call Out List</strong><br />
+                        Choose a call out list with open sign up that you are eligible to join.
+                      </div>
                     </div>
-                    <div class="column">
-                      <strong>Join a Call Out List</strong><br />
-                      Choose a call out list with open sign up that you are eligible to join.
-                    </div>
-                  </div>
-                </a>
-              <% } %>
+                  </a>
+                <% } %>
+              </div>
             </div>
+            <% if (configFunctions.getProperty('features.attendance.callOuts')) { %>
+              <div class="employeeOptionsTab is-hidden" id="employeeOptionsTab--callOutListAdd">
+                <h2 class="title is-4">
+                  Join a Call Out List
+                </h2>
+                <div class="mb-4" id="container--callOutListAdd"></div>
+              </div>
+            <% } %>
           </div>
         </div>
       </div>
-      <% if (configFunctions.getProperty('features.attendance.callOuts')) { %>
-        <div class="panel-tab is-hidden" id="tab--employeeOptions_callOutListAdd">
-          <div class="columns">
-            <div class="column is-5">
-              <div class="message is-info">
-                <div class="message-header">
-                  <span>Select a Call Out List</span>
-                </div>
-                <div class="message-body">
-                  <p>
-                    Note that only call out lists with open sign ups
-                    that you are eligible to join are shown.
-                  </p>
-                </div>
-              </div>
-              <div class="columns">
-                <div class="column">
-                  <button class="button is-fullwidth is-large is-info is-back-to-options-button" type="button">Back to Options</button>
-                </div>
-                <div class="column">
-                  <button class="button is-fullwidth is-large is-primary is-sign-out-button" type="button">Sign Out</button>
-                </div>
-              </div>
-            </div>
-            <div class="column">
-              <div id="container--callOutListAdd"></div>
-            </div>
-          </div>
-        </div>
-      <% } %>
     </div>
-    <footer class="panel-block has-background-grey">
-      <em><%= configFunctions.getProperty("application.applicationName") %></em>
+    <footer class="panel-block is-justify-content-flex-end has-background-grey">
+      <em><%= configFunctions.getProperty("application.applicationName") %> - Build <%= buildNumber %></em>
     </footer>
   </main>
   <script>
