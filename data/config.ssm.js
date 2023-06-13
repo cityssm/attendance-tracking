@@ -40,7 +40,8 @@ export const config = {
         ],
         employeeNumberRegularExpression: /^\d{5,9}$/,
         recentDays: 14,
-        updateDays: 4
+        updateDays: 4,
+        selfService: {}
     }
 };
 export default config;

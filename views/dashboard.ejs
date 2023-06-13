@@ -180,6 +180,24 @@
           <span>GitHub</span>
         </a>
       </div>
+      <% if (configFunctions.getProperty('features.selfService')) { %>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
+                <i class="fas fa-hard-hat"></i>
+                <i class="fas fa-exchange-alt" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+              </span>
+            </div>
+            <a class="media-content" href="<%= urlPrefix + configFunctions.getProperty('settings.selfService.path') %>" target="_blank">
+              <h2 class="title is-4 is-marginless has-text-link">
+                Employee Self Service
+              </h2>
+              <p>The interface for employees to manage aspects of their employee records.</p>
+            </a>
+          </div>
+        </div>
+      <% } %>
     </div>
   </div>
 </div>
