@@ -51,11 +51,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
             userName,
             canLogin: canLoginSelectElement.value
         }, (rawResponseJSON) => {
+            var _a, _b;
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
                 canLoginSelectElement
                     .closest('.control')
                     .querySelector('.icon').innerHTML = `<i class="fas ${canLoginSelectElement.value === '1' ? 'fa-check' : 'fa-times'}" aria-hidden="true"></i>`;
+                (_a = canLoginSelectElement
+                    .closest('.select')) === null || _a === void 0 ? void 0 : _a.classList.remove('is-danger', 'is-success');
+                (_b = canLoginSelectElement
+                    .closest('.select')) === null || _b === void 0 ? void 0 : _b.classList.add(canLoginSelectElement.value === '1' ? 'is-success' : 'is-danger');
             }
             else {
                 bulmaJS.alert({
@@ -76,11 +81,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
             userName,
             isAdmin: isAdminSelectElement.value
         }, (rawResponseJSON) => {
+            var _a, _b;
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
                 isAdminSelectElement
                     .closest('.control')
                     .querySelector('.icon').innerHTML = `<i class="fas ${isAdminSelectElement.value === '1' ? 'fa-check' : 'fa-times'}" aria-hidden="true"></i>`;
+                (_a = isAdminSelectElement
+                    .closest('.select')) === null || _a === void 0 ? void 0 : _a.classList.remove('is-danger', 'is-success');
+                (_b = isAdminSelectElement
+                    .closest('.select')) === null || _b === void 0 ? void 0 : _b.classList.add(isAdminSelectElement.value === '1' ? 'is-success' : 'is-danger');
             }
             else {
                 bulmaJS.alert({
@@ -255,13 +265,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
             ${((_a = user.employeeSurname) !== null && _a !== void 0 ? _a : '') === ''
                 ? ''
                 : `<br />
-                  <span class="is-size-7">
+                  <span class="is-size-7 has-tooltip-right" data-tooltip="Employee">
                   <i class="fas fa-hard-hat" aria-hidden="true"></i> ${(_b = user.employeeSurname) !== null && _b !== void 0 ? _b : ''}, ${(_c = user.employeeGivenName) !== null && _c !== void 0 ? _c : ''}
                   </span>`}
         </td>
         <td>
           <div class="control has-icons-left">
-            <div class="select">
+            <div class="select ${user.canLogin ? 'is-success' : 'is-danger'}">
               <select data-field="canLogin" aria-label="Can Login">
                 <option value="1" ${user.canLogin ? ' selected' : ''}>
                   Can Log In
@@ -278,7 +288,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         </td>
         <td>
           <div class="control has-icons-left">
-            <div class="select">
+            <div class="select ${user.isAdmin ? 'is-success' : 'is-danger'}">
               <select data-field="isAdmin" aria-label="Is Administrator">
                 <option value="0" ${user.isAdmin ? '' : ' selected'}>
                   No Admin Access

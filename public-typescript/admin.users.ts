@@ -99,6 +99,16 @@ declare const cityssm: cityssmGlobal
             .querySelector('.icon')!.innerHTML = `<i class="fas ${
             canLoginSelectElement.value === '1' ? 'fa-check' : 'fa-times'
           }" aria-hidden="true"></i>`
+
+          canLoginSelectElement
+            .closest('.select')
+            ?.classList.remove('is-danger', 'is-success')
+
+          canLoginSelectElement
+            .closest('.select')
+            ?.classList.add(
+              canLoginSelectElement.value === '1' ? 'is-success' : 'is-danger'
+            )
         } else {
           bulmaJS.alert({
             title: 'Error Updating Permission',
@@ -137,6 +147,16 @@ declare const cityssm: cityssmGlobal
             .querySelector('.icon')!.innerHTML = `<i class="fas ${
             isAdminSelectElement.value === '1' ? 'fa-check' : 'fa-times'
           }" aria-hidden="true"></i>`
+
+          isAdminSelectElement
+            .closest('.select')
+            ?.classList.remove('is-danger', 'is-success')
+
+          isAdminSelectElement
+            .closest('.select')
+            ?.classList.add(
+              isAdminSelectElement.value === '1' ? 'is-success' : 'is-danger'
+            )
         } else {
           bulmaJS.alert({
             title: 'Error Updating Permission',
@@ -375,7 +395,7 @@ declare const cityssm: cityssmGlobal
               (user.employeeSurname ?? '') === ''
                 ? ''
                 : `<br />
-                  <span class="is-size-7">
+                  <span class="is-size-7 has-tooltip-right" data-tooltip="Employee">
                   <i class="fas fa-hard-hat" aria-hidden="true"></i> ${
                     user.employeeSurname ?? ''
                   }, ${user.employeeGivenName ?? ''}
@@ -384,7 +404,7 @@ declare const cityssm: cityssmGlobal
         </td>
         <td>
           <div class="control has-icons-left">
-            <div class="select">
+            <div class="select ${user.canLogin ? 'is-success' : 'is-danger'}">
               <select data-field="canLogin" aria-label="Can Login">
                 <option value="1" ${user.canLogin ? ' selected' : ''}>
                   Can Log In
@@ -403,7 +423,7 @@ declare const cityssm: cityssmGlobal
         </td>
         <td>
           <div class="control has-icons-left">
-            <div class="select">
+            <div class="select ${user.isAdmin ? 'is-success' : 'is-danger'}">
               <select data-field="isAdmin" aria-label="Is Administrator">
                 <option value="0" ${user.isAdmin ? '' : ' selected'}>
                   No Admin Access
