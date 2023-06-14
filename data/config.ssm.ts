@@ -5,7 +5,7 @@ import * as configFunctionsSSM from './functions.ssm.js'
 
 export const config: Config = {
   application: {
-    applicationName: 'MonTY Attendance - TESTING'
+    applicationName: 'MonTY Call Outs and Attendance - TESTING'
   },
   reverseProxy: {
     urlPrefix: '/monty'
