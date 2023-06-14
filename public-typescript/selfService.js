@@ -47,7 +47,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             employeeNumber: employeeNumberElement.value,
             employeeHomeContactLastFourDigits: employeeHomeContactLastFourDigitsElement.value
         }, (rawResponseJSON) => {
-            var _a, _b, _c, _d, _e;
+            var _a, _b, _c, _d, _e, _f;
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
                 employeeMessageContainerElement.innerHTML = '';
@@ -59,9 +59,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     .querySelector('#employeeOptionsTab--menu')) === null || _d === void 0 ? void 0 : _d.classList.remove('is-hidden');
             }
             else {
+                if ((_e = responseJSON.isAbuser) !== null && _e !== void 0 ? _e : false) {
+                    window.location.reload();
+                }
                 employeeMessageContainerElement.innerHTML = `<div class="message is-danger">
             <p class="message-body">
-            <strong>${(_e = responseJSON.errorMessage) !== null && _e !== void 0 ? _e : ''}</strong><br />
+            <strong>${(_f = responseJSON.errorMessage) !== null && _f !== void 0 ? _f : ''}</strong><br />
             If errors persist, please contact a manager for assistance.</p>
             </div>`;
             }

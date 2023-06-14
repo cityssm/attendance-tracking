@@ -1,5 +1,6 @@
 import './helpers/polyfills.js';
 import path from 'node:path';
+import { abuseCheck } from '@cityssm/express-abuse-points';
 import * as htmlFns from '@cityssm/expressjs-server-js/htmlFns.js';
 import * as stringFns from '@cityssm/expressjs-server-js/stringFns.js';
 import * as dateTimeFns from '@cityssm/utils-datetime';
@@ -53,6 +54,7 @@ app.use(rateLimit({
     windowMs: 10000,
     max: 200
 }));
+const abuseCheckHandler = abuseCheck({});
 const urlPrefix = configFunctions.getProperty('reverseProxy.urlPrefix');
 if (urlPrefix !== '') {
     debug('urlPrefix = ' + urlPrefix);
@@ -136,7 +138,7 @@ if (configFunctions.getProperty('session.doKeepAlive')) {
         response.json(true);
     });
 }
-app.use(urlPrefix + '/login', routerLogin);
+app.use(urlPrefix + '/login', abuseCheckHandler, routerLogin);
 app.get(urlPrefix + '/logout', (request, response) => {
     if (Object.hasOwn(request.session, 'user') &&
         Object.hasOwn(request.cookies, sessionCookieName)) {
@@ -150,7 +152,7 @@ app.get(urlPrefix + '/logout', (request, response) => {
     }
 });
 if (configFunctions.getProperty('features.selfService')) {
-    app.use(urlPrefix + configFunctions.getProperty('settings.selfService.path'), routerSelfService);
+    app.use(urlPrefix + configFunctions.getProperty('settings.selfService.path'), abuseCheckHandler, routerSelfService);
 }
 app.use((request, _response, next) => {
     debug(request.url);

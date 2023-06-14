@@ -270,6 +270,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     renderCallOutListMembers();
                     renderAvailableEmployees();
                     callOutLists = responseJSON.callOutLists;
+                    MonTY.callOuts.callOutLists = responseJSON.callOutLists;
                     if (onUpdateCallbackFunction !== undefined) {
                         onUpdateCallbackFunction();
                     }
@@ -560,6 +561,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                             message: 'Call Out List deleted successfully.'
                         });
                         callOutLists = responseJSON.callOutLists;
+                        MonTY.callOuts.callOutLists = responseJSON.callOutLists;
                         if (onUpdateCallbackFunction !== undefined) {
                             onUpdateCallbackFunction();
                         }

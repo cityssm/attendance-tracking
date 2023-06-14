@@ -4,6 +4,7 @@ import type { BulmaJS } from '@cityssm/bulma-js/types'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 
 import type * as recordTypes from '../types/recordTypes'
+import { isAbuser } from '@cityssm/express-abuse-points'
 
 declare const bulmaJS: BulmaJS
 declare const cityssm: cityssmGlobal
@@ -81,6 +82,7 @@ declare const cityssm: cityssmGlobal
       (rawResponseJSON) => {
         const responseJSON = rawResponseJSON as {
           success: boolean
+          isAbuser?: boolean
           errorMessage?: string
           employeeName?: string
         }
@@ -101,6 +103,10 @@ declare const cityssm: cityssmGlobal
             .querySelector('#employeeOptionsTab--menu')
             ?.classList.remove('is-hidden')
         } else {
+          if (responseJSON.isAbuser ?? false) {
+            window.location.reload()
+          }
+
           employeeMessageContainerElement.innerHTML = `<div class="message is-danger">
             <p class="message-body">
             <strong>${responseJSON.errorMessage ?? ''}</strong><br />

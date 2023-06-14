@@ -1,3 +1,4 @@
+import { isAbuser, recordAbuse } from '@cityssm/express-abuse-points';
 import { Router } from 'express';
 import { getUser } from '../database/getUser.js';
 import * as authenticationFunctions from '../helpers/functions.authentication.js';
@@ -14,6 +15,7 @@ function getHandler(request, response) {
         response.render('login', {
             userName: '',
             message: '',
+            isAbuser: false,
             redirect: request.query.redirect
         });
     }
@@ -52,9 +54,12 @@ async function postHandler(request, response) {
         response.redirect(redirectURL);
     }
     else {
+        recordAbuse(request);
+        const isAbuserBoolean = await isAbuser(request);
         response.render('login', {
             userName,
             message: 'Login Failed',
+            isAbuser: isAbuserBoolean,
             redirect: redirectURL
         });
     }

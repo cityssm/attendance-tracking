@@ -1,3 +1,5 @@
+import { isAbuser, recordAbuse } from '@cityssm/express-abuse-points'
+import type { AbuseRequest } from '@cityssm/express-abuse-points/types.js'
 import {
   Router,
   type RequestHandler,
@@ -28,6 +30,7 @@ function getHandler(request: Request, response: Response): void {
     response.render('login', {
       userName: '',
       message: '',
+      isAbuser: false,
       redirect: request.query.redirect
     })
   }
@@ -89,9 +92,14 @@ async function postHandler(
 
     response.redirect(redirectURL)
   } else {
+    recordAbuse(request as AbuseRequest)
+
+    const isAbuserBoolean = await isAbuser(request as AbuseRequest)
+
     response.render('login', {
       userName,
       message: 'Login Failed',
+      isAbuser: isAbuserBoolean,
       redirect: redirectURL
     })
   }

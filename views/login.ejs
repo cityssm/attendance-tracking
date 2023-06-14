@@ -91,6 +91,12 @@
   </div>
 
   <script src="<%= urlPrefix %>/lib/fa/js/all.min.js" defer></script>
+
+  <% if (isAbuser) { %>
+    <script defer>
+      window.location.reload();
+    </script>
+  <% } %>
 </body>
 
 </html>

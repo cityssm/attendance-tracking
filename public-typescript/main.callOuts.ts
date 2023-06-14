@@ -486,6 +486,7 @@ declare const cityssm: cityssmGlobal
             renderAvailableEmployees()
 
             callOutLists = responseJSON.callOutLists!
+            MonTY.callOuts!.callOutLists = responseJSON.callOutLists!
 
             if (onUpdateCallbackFunction !== undefined) {
               onUpdateCallbackFunction()
@@ -930,6 +931,7 @@ declare const cityssm: cityssmGlobal
               })
 
               callOutLists = responseJSON.callOutLists
+              MonTY.callOuts!.callOutLists = responseJSON.callOutLists
 
               if (onUpdateCallbackFunction !== undefined) {
                 onUpdateCallbackFunction()

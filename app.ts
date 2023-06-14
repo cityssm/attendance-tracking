@@ -2,6 +2,7 @@ import './helpers/polyfills.js'
 
 import path from 'node:path'
 
+import { abuseCheck } from '@cityssm/express-abuse-points'
 import * as htmlFns from '@cityssm/expressjs-server-js/htmlFns.js'
 import * as stringFns from '@cityssm/expressjs-server-js/stringFns.js'
 import * as dateTimeFns from '@cityssm/utils-datetime'
@@ -83,6 +84,13 @@ app.use(
     max: 200
   })
 )
+
+/*
+ * Abuse Check
+ */
+
+const abuseCheckHandler = abuseCheck({
+})
 
 /*
  * STATIC ROUTES
@@ -258,7 +266,7 @@ if (configFunctions.getProperty('session.doKeepAlive')) {
   })
 }
 
-app.use(urlPrefix + '/login', routerLogin)
+app.use(urlPrefix + '/login', abuseCheckHandler, routerLogin)
 
 app.get(urlPrefix + '/logout', (request, response) => {
   if (
@@ -277,6 +285,7 @@ app.get(urlPrefix + '/logout', (request, response) => {
 if (configFunctions.getProperty('features.selfService')) {
   app.use(
     urlPrefix + configFunctions.getProperty('settings.selfService.path'),
+    abuseCheckHandler,
     routerSelfService
   )
 }
