@@ -45,6 +45,8 @@ export function includeAttendance() {
         getProperty('features.attendance.callOuts') ||
         getProperty('features.attendance.returnsToWork'));
 }
+export const historicalDays = getProperty('settings.recentDays') * 3;
+export const deleteDays = historicalDays * 3;
 export const keepAliveMillis = getProperty('session.doKeepAlive')
     ? Math.max(getProperty('session.maxAgeMillis') / 2, getProperty('session.maxAgeMillis') - 10 * 60 * 1000)
     : 0;

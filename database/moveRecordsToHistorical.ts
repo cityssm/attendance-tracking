@@ -3,8 +3,6 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import * as configFunctions from '../helpers/functions.config.js'
 
 export async function moveRecordsToHistorical(): Promise<number> {
-  const historicalDays = configFunctions.getProperty('settings.recentDays') * 3
-
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
   let rowsAffected = 0
@@ -12,7 +10,9 @@ export async function moveRecordsToHistorical(): Promise<number> {
   // Absence Records
 
   if (configFunctions.getProperty('features.attendance.absences')) {
-    const result = await pool.request().input('historicalDays', historicalDays)
+    const result = await pool
+      .request()
+      .input('historicalDays', configFunctions.historicalDays)
       .query(`insert into MonTY.HistoricalAbsenceRecords
         (recordId, employeeNumber, employeeName, absenceDateTime, absenceTypeKey, returnDateTime, recordComment,
           recordCreate_userName, recordCreate_dateTime,
@@ -40,7 +40,9 @@ export async function moveRecordsToHistorical(): Promise<number> {
   // Return to Work Records
 
   if (configFunctions.getProperty('features.attendance.returnsToWork')) {
-    const result = await pool.request().input('historicalDays', historicalDays)
+    const result = await pool
+      .request()
+      .input('historicalDays', configFunctions.historicalDays)
       .query(`insert into MonTY.HistoricalReturnToWorkRecords
         (recordId, employeeNumber, employeeName, returnDateTime, returnShift, recordComment,
           recordCreate_userName, recordCreate_dateTime,
@@ -67,7 +69,9 @@ export async function moveRecordsToHistorical(): Promise<number> {
   // Call Out Records
 
   if (configFunctions.getProperty('features.attendance.callOuts')) {
-    const result = await pool.request().input('historicalDays', historicalDays)
+    const result = await pool
+      .request()
+      .input('historicalDays', configFunctions.historicalDays)
       .query(`insert into MonTY.HistoricalCallOutRecords
         (recordId, listId, employeeNumber, callOutDateTime, callOutHours, responseTypeId, recordComment,
           recordCreate_userName, recordCreate_dateTime,
@@ -94,7 +98,9 @@ export async function moveRecordsToHistorical(): Promise<number> {
   // After Hours Records
 
   if (configFunctions.getProperty('features.attendance.afterHours')) {
-    const result = await pool.request().input('historicalDays', historicalDays)
+    const result = await pool
+      .request()
+      .input('historicalDays', configFunctions.historicalDays)
       .query(`insert into MonTY.HistoricalAfterHoursRecords
         (recordId, employeeNumber, employeeName, attendanceDateTime, afterHoursReasonId, recordComment,
           recordCreate_userName, recordCreate_dateTime,

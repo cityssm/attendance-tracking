@@ -173,6 +173,9 @@ export function includeAttendance(): boolean {
   )
 }
 
+export const historicalDays = getProperty('settings.recentDays') * 3
+export const deleteDays = historicalDays * 3
+
 export const keepAliveMillis = getProperty('session.doKeepAlive')
   ? Math.max(
       getProperty('session.maxAgeMillis') / 2,

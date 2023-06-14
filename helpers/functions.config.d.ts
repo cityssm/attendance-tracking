@@ -37,4 +37,6 @@ export declare function getProperty(propertyName: 'settings.recentDays'): number
 export declare function getProperty(propertyName: 'settings.updateDays'): number;
 export declare function getProperty(propertyName: 'settings.selfService.path'): `/${string}`;
 export declare function includeAttendance(): boolean;
+export declare const historicalDays: number;
+export declare const deleteDays: number;
 export declare const keepAliveMillis: number;
