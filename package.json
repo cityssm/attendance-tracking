@@ -41,7 +41,7 @@
     "@cityssm/mssql-multi-pool": "^2.2.3",
     "@cityssm/utils-datetime": "^0.1.1",
     "@fortawesome/fontawesome-free": "^5.15.4",
-    "activedirectory2": "^2.1.0",
+    "activedirectory2": "^2.2.0",
     "camelcase": "^7.0.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
@@ -108,6 +108,6 @@
     "gulp-sass": "^5.1.0",
     "nodemon": "^2.0.22",
     "sass": "^1.63.4",
-    "webpack": "^5.86.0"
+    "webpack": "^5.87.0"
   }
 }
