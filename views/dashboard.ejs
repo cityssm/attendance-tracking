@@ -204,60 +204,71 @@
 
 <% if (user.isAdmin) { %>
   <h2 class="title is-3">Administrator Tools</h2>
-  
-  <div class="card">
-    <div class="card-content">
-      <div class="media">
-        <div class="media-left">
-          <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
-            <i class="fas fa-hard-hat"></i>
-            <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
-          </span>
+  <div class="columns">
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
+                <i class="fas fa-hard-hat"></i>
+                <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+              </span>
+            </div>
+            <a class="media-content" href="<%= urlPrefix %>/admin/employees">
+              <h2 class="title is-4 is-marginless has-text-link">
+                Employee Maintenance
+              </h2>
+              <p>
+                Manage employees and their attributes.
+              </p>
+            </a>
+          </div>
         </div>
-        <a class="media-content" href="<%= urlPrefix %>/admin/employees">
-          <h2 class="title is-4 is-marginless has-text-link">
-            Employee Maintenance
-          </h2>
-          <p>
-            Manage employees and their attributes.
-          </p>
-        </a>
       </div>
     </div>
-    <div class="card-content">
-      <div class="media">
-        <div class="media-left">
-          <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
-            <i class="fas fa-table"></i>
-            <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
-          </span>
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
+                <i class="fas fa-table"></i>
+                <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+              </span>
+            </div>
+            <a class="media-content" href="<%= urlPrefix %>/admin/tables">
+              <h2 class="title is-4 is-marginless has-text-link">
+                Table Maintenance
+              </h2>
+              <p>
+                Maintain configuration tables.
+              </p>
+            </a>
+          </div>
         </div>
-        <a class="media-content" href="<%= urlPrefix %>/admin/tables">
-          <h2 class="title is-4 is-marginless has-text-link">
-            Table Maintenance
-          </h2>
-          <p>
-            Maintain configuration tables.
-          </p>
-        </a>
       </div>
     </div>
-    <div class="card-content">
-      <div class="media">
-        <div class="media-left">
-          <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
-            <i class="fas fa-users"></i>
-            <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
-          </span>
+    <div class="column">
+      <div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
+                <i class="fas fa-users"></i>
+                <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+              </span>
+            </div>
+            <a class="media-content" href="<%= urlPrefix %>/admin/users">
+              <h2 class="title is-4 is-marginless has-text-link">
+                User Maintenance
+              </h2>
+              <p>
+                Manage users and permissions.
+              </p>
+            </a>
+          </div>
         </div>
-        <a class="media-content" href="<%= urlPrefix %>/admin/users">
-          <h2 class="title is-4 is-marginless has-text-link">
-            User Maintenance
-          </h2>
-          <p>
-            Manage users and permissions.
-          </p>
-        </a>
       </div>
     </div>
   </div>
