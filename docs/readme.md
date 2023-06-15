@@ -6,6 +6,9 @@
 
 ![Call Out Lists](images/callOutLists.png)
 
+**[Employee Self Service](employeeSelfService.md)**<br />
+An interface for employees to manage aspects of their employee records.
+
 **[Employee Attendance](employeeAttendance.md)**<br />
 Track absences, returns to work, call outs, and after hours attendance
 all in one place.

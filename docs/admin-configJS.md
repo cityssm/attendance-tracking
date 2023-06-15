@@ -102,20 +102,23 @@ See the configuration for [node-mssql on npm](https://www.npmjs.com/package/mssq
 | `attendance.afterHours`    | boolean | `true`  |
 | `attendance.callOuts`      | boolean | `true`  |
 | `attendance.returnsToWork` | boolean | `true`  |
-| `employees.avantiSync`     | boolean | `true`  |
+| `employees.avantiSync`     | boolean | `false` |
+| `selfService`              | boolean | `false` |
 
 ---
 
 ## config.settings = {}
 
-| Property                       | Type                                                                                                                                    | Description                                                                  | Default      |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------ |
-| `printPdf.contentDisposition`  | string                                                                                                                                  | Either `attachment` or `inline`.                                             | `attachment` |
-| `avantiSync.config`            | [node-avanti-api Configuration](https://github.com/cityssm/node-avanti-api/blob/41d5c051641d3d1242e2b3d20046e7b501223009/apiCall.ts#L7) | Client details for connecting to the Avanti API.                             | `null`       |
-| `avantiSync.locationCodes`     | string[]                                                                                                                                | The location codes to sync from the Avanti API.                              | `[]`         |
-| `employeeSortKeyFunctions`     | _See below_                                                                                                                             | Options to sort employees within call out lists.                             | `[]`         |
-| `employeeEligibilityFunctions` | _See below_                                                                                                                             | Options to test employee eligibility for call out lists.                     | `[]`         |
-| `recentDays`                   | number                                                                                                                                  | The number of days of data to display to users without raw export abilities. | `10`         |
+| Property                       | Type                                                                                                                                    | Description                                                                  | Default          |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------- |
+| `printPdf.contentDisposition`  | string                                                                                                                                  | Either `attachment` or `inline`.                                             | `attachment`     |
+| `avantiSync.config`            | [node-avanti-api Configuration](https://github.com/cityssm/node-avanti-api/blob/41d5c051641d3d1242e2b3d20046e7b501223009/apiCall.ts#L7) | Client details for connecting to the Avanti API.                             | `null`           |
+| `avantiSync.locationCodes`     | string[]                                                                                                                                | The location codes to sync from the Avanti API.                              | `[]`             |
+| `employeeSortKeyFunctions`     | _See below_                                                                                                                             | Options to sort employees within call out lists.                             | `[]`             |
+| `employeeEligibilityFunctions` | _See below_                                                                                                                             | Options to test employee eligibility for call out lists.                     | `[]`             |
+| `recentDays`                   | number                                                                                                                                  | The number of days of data to display to users without raw export abilities. | `10`             |
+| `updateDays`                   | number                                                                                                                                  | The number of days users with update permissions can update past records.    | `5`              |
+| `selfService.path`             | string                                                                                                                                  | The path after the main application URL to get to the self service area.     | `"/selfService"` |
 
 ### config.settings.employeeSortKeyFunctions = []
 

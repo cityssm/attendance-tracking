@@ -27,8 +27,12 @@
 <body>
   <input name="_csrf" type="hidden" value="<%= csrfToken %>" />
   <main class="panel m-2">
-    <header class="panel-heading">
-      Employee Self Service
+    <header class="panel-heading is-flex is-justify-content-space-between">
+      <h1 class="title is-5 mb-0">Employee Self Service</h1>
+      <a href="https://cityssm.github.io/MonTY/docs/employeeSelfService.html" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-question-circle" aria-label="Help"></i>
+        Help
+      </a>
     </header>
     <div class="panel-block is-block has-background-white" style="height:calc(100vh - 112px);overflow:auto">
       <div class="panel-tab" id="tab--employee">
