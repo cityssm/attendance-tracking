@@ -2,7 +2,7 @@
 
 <div class="columns">
   <div class="column is-3">
-    <aside class="menu" id="menu--reports">
+    <aside class="menu" id="menu--reports" style="position:sticky;top:60px">
       <h2 class="menu-label">
         Reports
       </h2>
@@ -54,7 +54,7 @@
               <div class="panel">
                 <h2 class="panel-heading">Absence Reports</h2>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/absenceRecords-recent" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -71,7 +71,7 @@
               <div class="panel">
                 <h2 class="panel-heading">Return to Work Reports</h2>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/returnToWorkRecords-recent" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -88,7 +88,7 @@
               <div class="panel">
                 <h2 class="panel-heading">Call Out Reports</h2>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutListMembers-formatted" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -99,7 +99,7 @@
                   </div>
                 </a>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutRecords-recent" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -116,7 +116,7 @@
               <div class="panel">
                 <h2 class="panel-heading">After Hours Reports</h2>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/afterHoursRecords-recent" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -142,7 +142,7 @@
                   </div>
                 </div>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/absenceRecords-all" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -152,7 +152,7 @@
                   </div>
                 </a>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/historicalAbsenceRecords-all" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -162,7 +162,7 @@
                   </div>
                 </a>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/returnToWorkRecords-all" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -172,7 +172,7 @@
                   </div>
                 </a>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/historicalReturnToWorkRecords-all" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -182,7 +182,7 @@
                   </div>
                 </a>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutRecords-all" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -192,7 +192,7 @@
                   </div>
                 </a>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/historicalCallOutRecords-all" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -202,7 +202,7 @@
                   </div>
                 </a>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/afterHoursRecords-all" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -212,7 +212,7 @@
                   </div>
                 </a>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/historicalAfterHoursRecords-all" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -233,7 +233,7 @@
                   </div>
                 </div>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/absenceTypes-all" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -243,7 +243,7 @@
                   </div>
                 </a>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutResponseTypes-all" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -253,7 +253,7 @@
                   </div>
                 </a>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/afterHoursReasons-all" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
@@ -290,7 +290,7 @@
             <div class="panel">
               <h2 class="panel-heading">Employee Reports</h2>
               <a class="panel-block is-block" href="<%= urlPrefix %>/reports/employees-contacts" download>
-                <div class="columns">
+                <div class="columns is-mobile">
                   <div class="column is-narrow">
                     <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                   </div>
@@ -301,7 +301,7 @@
                 </div>
               </a>
               <a class="panel-block is-block" href="<%= urlPrefix %>/reports/employees-inactive" download>
-                <div class="columns">
+                <div class="columns is-mobile">
                   <div class="column is-narrow">
                     <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                   </div>
@@ -326,7 +326,7 @@
                   </div>
                 </div>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/employees-all" download>
-                  <div class="columns">
+                  <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
