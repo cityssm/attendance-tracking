@@ -14,6 +14,23 @@ declare const cityssm: cityssmGlobal
 
   const employees = exports.employees as recordTypes.Employee[]
 
+  const absencesCanView = Object.prototype.hasOwnProperty.call(
+    exports,
+    'absenceRecords'
+  ) as boolean
+  const returnsToWorkCanView = Object.prototype.hasOwnProperty.call(
+    exports,
+    'returnToWorkRecords'
+  ) as boolean
+  const callOutsCanView = Object.prototype.hasOwnProperty.call(
+    exports,
+    'callOutLists'
+  ) as boolean
+  const afterHoursCanView = Object.prototype.hasOwnProperty.call(
+    exports,
+    'afterHoursRecords'
+  ) as boolean
+
   const filterElement = document.querySelector(
     '#employees--searchFilter'
   ) as HTMLInputElement
@@ -204,8 +221,81 @@ declare const cityssm: cityssmGlobal
           }
         )
       },
-      onshown() {
+      onshown(modalElement) {
         bulmaJS.toggleHtmlClipped()
+
+        MonTY.initializeMenuTabs(
+          modalElement.querySelectorAll('.menu a'),
+          modalElement.querySelectorAll('article')
+        )
+
+        const reportsPanelElement = modalElement.querySelector(
+          '#tab--attendanceReports .panel'
+        )
+
+        if (absencesCanView) {
+          reportsPanelElement?.insertAdjacentHTML(
+            'beforeend',
+            `<a class="panel-block" href="${MonTY.urlPrefix}/reports/absenceRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
+              <div class="columns is-mobile">
+                <div class="column is-narrow">
+                  <i class="fas fa-2x fa-file" aria-hidden="true"></i>
+                </div>
+                <div class="column">
+                Recent Absence Records
+                </div>
+              </div>
+            </a>`
+          )
+        }
+
+        if (returnsToWorkCanView) {
+          reportsPanelElement?.insertAdjacentHTML(
+            'beforeend',
+            `<a class="panel-block" href="${MonTY.urlPrefix}/reports/returnToWorkRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
+              <div class="columns is-mobile">
+                <div class="column is-narrow">
+                  <i class="fas fa-2x fa-file" aria-hidden="true"></i>
+                </div>
+                <div class="column">
+                Recent Return to Work Records
+                </div>
+              </div>
+            </a>`
+          )
+        }
+
+        if (callOutsCanView) {
+          reportsPanelElement?.insertAdjacentHTML(
+            'beforeend',
+            `<a class="panel-block" href="${MonTY.urlPrefix}/reports/callOutRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
+              <div class="columns is-mobile">
+                <div class="column is-narrow">
+                  <i class="fas fa-2x fa-file" aria-hidden="true"></i>
+                </div>
+                <div class="column">
+                Recent Call Out Records
+                </div>
+              </div>
+            </a>`
+          )
+        }
+
+        if (afterHoursCanView) {
+          reportsPanelElement?.insertAdjacentHTML(
+            'beforeend',
+            `<a class="panel-block" href="${MonTY.urlPrefix}/reports/afterHoursRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
+              <div class="columns is-mobile">
+                <div class="column is-narrow">
+                  <i class="fas fa-2x fa-file" aria-hidden="true"></i>
+                </div>
+                <div class="column">
+                Recent After Hours Records
+                </div>
+              </div>
+            </a>`
+          )
+        }
       },
       onremoved() {
         bulmaJS.toggleHtmlClipped()

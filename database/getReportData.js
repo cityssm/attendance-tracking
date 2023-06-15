@@ -212,6 +212,16 @@ export async function getReportData(reportName, reportParameters = {}) {
             request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
             break;
         }
+        case 'afterHoursRecords-recent-byEmployeeNumber': {
+            sql =
+                afterHoursRecordsRecentSQL +
+                    ` and r.employeeNumber = @employeeNumber
+          order by r.attendanceDateTime, r.recordId`;
+            request = request
+                .input('recentDays', configFunctions.getProperty('settings.recentDays'))
+                .input('employeeNumber', reportParameters.employeeNumber);
+            break;
+        }
         case 'historicalAfterHoursRecords-all': {
             sql = 'select * from MonTY.HistoricalAfterHoursRecords';
             break;

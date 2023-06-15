@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     const MonTY = exports.MonTY;
     const employees = exports.employees;
+    const absencesCanView = Object.prototype.hasOwnProperty.call(exports, 'absenceRecords');
+    const returnsToWorkCanView = Object.prototype.hasOwnProperty.call(exports, 'returnToWorkRecords');
+    const callOutsCanView = Object.prototype.hasOwnProperty.call(exports, 'callOutLists');
+    const afterHoursCanView = Object.prototype.hasOwnProperty.call(exports, 'afterHoursRecords');
     const filterElement = document.querySelector('#employees--searchFilter');
     const employeesContainerElement = document.querySelector('#container--employees');
     function insertRecord(panelElement, panelBlockElementToInsert) {
@@ -127,8 +131,58 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     renderAttendanceRecords(rawResponseJSON);
                 });
             },
-            onshown() {
+            onshown(modalElement) {
                 bulmaJS.toggleHtmlClipped();
+                MonTY.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('article'));
+                const reportsPanelElement = modalElement.querySelector('#tab--attendanceReports .panel');
+                if (absencesCanView) {
+                    reportsPanelElement === null || reportsPanelElement === void 0 ? void 0 : reportsPanelElement.insertAdjacentHTML('beforeend', `<a class="panel-block" href="${MonTY.urlPrefix}/reports/absenceRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
+              <div class="columns is-mobile">
+                <div class="column is-narrow">
+                  <i class="fas fa-2x fa-file" aria-hidden="true"></i>
+                </div>
+                <div class="column">
+                Recent Absence Records
+                </div>
+              </div>
+            </a>`);
+                }
+                if (returnsToWorkCanView) {
+                    reportsPanelElement === null || reportsPanelElement === void 0 ? void 0 : reportsPanelElement.insertAdjacentHTML('beforeend', `<a class="panel-block" href="${MonTY.urlPrefix}/reports/returnToWorkRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
+              <div class="columns is-mobile">
+                <div class="column is-narrow">
+                  <i class="fas fa-2x fa-file" aria-hidden="true"></i>
+                </div>
+                <div class="column">
+                Recent Return to Work Records
+                </div>
+              </div>
+            </a>`);
+                }
+                if (callOutsCanView) {
+                    reportsPanelElement === null || reportsPanelElement === void 0 ? void 0 : reportsPanelElement.insertAdjacentHTML('beforeend', `<a class="panel-block" href="${MonTY.urlPrefix}/reports/callOutRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
+              <div class="columns is-mobile">
+                <div class="column is-narrow">
+                  <i class="fas fa-2x fa-file" aria-hidden="true"></i>
+                </div>
+                <div class="column">
+                Recent Call Out Records
+                </div>
+              </div>
+            </a>`);
+                }
+                if (afterHoursCanView) {
+                    reportsPanelElement === null || reportsPanelElement === void 0 ? void 0 : reportsPanelElement.insertAdjacentHTML('beforeend', `<a class="panel-block" href="${MonTY.urlPrefix}/reports/afterHoursRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
+              <div class="columns is-mobile">
+                <div class="column is-narrow">
+                  <i class="fas fa-2x fa-file" aria-hidden="true"></i>
+                </div>
+                <div class="column">
+                Recent After Hours Records
+                </div>
+              </div>
+            </a>`);
+                }
             },
             onremoved() {
                 bulmaJS.toggleHtmlClipped();

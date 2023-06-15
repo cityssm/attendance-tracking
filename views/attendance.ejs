@@ -159,7 +159,6 @@
   exports.recentDays = <%- configFunctions.getProperty('settings.recentDays') %>;
   exports.updateDays = <%- configFunctions.getProperty('settings.updateDays') %>;
 </script>
-<script src="<%= urlPrefix %>/javascripts/attendance.employees.min.js"></script>
 
 <% 
   if (
@@ -200,5 +199,6 @@
   <script src="<%= urlPrefix %>/javascripts/attendance.afterHours.min.js"></script>
 <% } %>
 
+<script src="<%= urlPrefix %>/javascripts/attendance.employees.min.js"></script>
 
 <%- include('_footerB'); -%>
