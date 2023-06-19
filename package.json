@@ -96,7 +96,7 @@
     "bulma-tooltip": "^3.0.2",
     "cypress": "^12.14.0",
     "cypress-axe": "^1.4.0",
-    "eslint": "^8.42.0",
+    "eslint": "^8.43.0",
     "eslint-config-standard-with-typescript": "^35.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-node": "^11.1.0",
