@@ -11,11 +11,7 @@ export const logout = (): void => {
 export const login = (user: configTypes.ConfigTemporaryUserCredentials): void => {
   cy.visit('/login')
 
-  /*
-  cy.get('.message').contains('Testing', {
-    matchCase: false
-  })
-  */
+  cy.get('[data-cy="allowTesting"]').should('exist')
 
   cy.get("form [name='userName']").type(user.user.userName)
   cy.get("form [name='password']").type(user.password)

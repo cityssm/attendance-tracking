@@ -8,6 +8,9 @@ export default defineConfig({
         projectId: 'szu5cb',
         setupNodeEvents(on, config) {
             on('file:preprocessor', wp());
+        },
+        env: {
+            TEST_DATABASES: 'true'
         }
     }
 });

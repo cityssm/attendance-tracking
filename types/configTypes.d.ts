@@ -12,6 +12,7 @@ export interface Config {
         httpPort?: number;
         userDomain?: string;
         maximumProcesses?: number;
+        allowTesting?: boolean;
     };
     session: {
         cookieName?: string;

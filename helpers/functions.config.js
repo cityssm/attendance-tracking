@@ -7,6 +7,7 @@ configFallbackValues.set('application.bigLogoURL', '/images/monty-big.svg');
 configFallbackValues.set('application.smallLogoURL', '/images/monty-small.svg');
 configFallbackValues.set('application.httpPort', 7000);
 configFallbackValues.set('application.maximumProcesses', 4);
+configFallbackValues.set('application.allowTesting', false);
 configFallbackValues.set('tempUsers', []);
 configFallbackValues.set('reverseProxy.disableCompression', false);
 configFallbackValues.set('reverseProxy.disableEtag', false);

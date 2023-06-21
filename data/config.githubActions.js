@@ -26,7 +26,9 @@ export const config = {
             password: '3rJr3oHUt8i74DZe1ypoitKLoxzzWLxzeBZ8eCfCSdYd1frywB18xuguMlwwCWFI'
         }
     ],
-    application: {},
+    application: {
+        allowTesting: true
+    },
     reverseProxy: {},
     session: {},
     aliases: {},

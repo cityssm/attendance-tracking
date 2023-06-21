@@ -32,6 +32,11 @@
             <h1 class="title is-3 has-text-centered">
               <%= configFunctions.getProperty("application.applicationName") %>
             </h1>
+            <% if (configFunctions.getProperty('application.allowTesting')) { %>
+              <div class="message is-warning is-small" data-cy="allowTesting">
+                <p class="message-body">Application is testing mode.</p>
+              </div>
+            <% } %>
             <form id="form--login" method="post" action="<%= urlPrefix %>/login">
               <input name="_csrf" type="hidden" value="<%= csrfToken %>" />
               <input name="redirect" type="hidden" value="<%= redirect %>" />

@@ -9,6 +9,7 @@ export declare function getProperty(propertyName: 'application.bigLogoURL'): str
 export declare function getProperty(propertyName: 'application.smallLogoURL'): string;
 export declare function getProperty(propertyName: 'application.httpPort'): number;
 export declare function getProperty(propertyName: 'application.userDomain'): string;
+export declare function getProperty(propertyName: 'application.allowTesting'): boolean;
 export declare function getProperty(propertyName: 'tempUsers'): configTypes.ConfigTemporaryUserCredentials[];
 export declare function getProperty(propertyName: 'activeDirectory'): configTypes.ConfigActiveDirectory | undefined;
 export declare function getProperty(propertyName: 'adWebAuthConfig'): ADWebAuthConfig | undefined;

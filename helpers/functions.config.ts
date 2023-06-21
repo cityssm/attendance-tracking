@@ -24,6 +24,7 @@ configFallbackValues.set('application.bigLogoURL', '/images/monty-big.svg')
 configFallbackValues.set('application.smallLogoURL', '/images/monty-small.svg')
 configFallbackValues.set('application.httpPort', 7000)
 configFallbackValues.set('application.maximumProcesses', 4)
+configFallbackValues.set('application.allowTesting', false)
 
 configFallbackValues.set('tempUsers', [])
 
@@ -68,6 +69,8 @@ export function getProperty(propertyName: 'application.smallLogoURL'): string
 
 export function getProperty(propertyName: 'application.httpPort'): number
 export function getProperty(propertyName: 'application.userDomain'): string
+
+export function getProperty(propertyName: 'application.allowTesting'): boolean
 
 export function getProperty(
   propertyName: 'tempUsers'
