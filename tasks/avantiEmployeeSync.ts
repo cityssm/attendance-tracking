@@ -61,14 +61,14 @@ async function doSync(): Promise<void> {
       break
     }
 
-    if (!avantiEmployee.empNo || !(avantiEmployee.active ?? false)) {
+    if ((avantiEmployee.empNo ?? '') === '' || !(avantiEmployee.active ?? false)) {
       // Avanti employee record has no employee number
       // Skip the record
       continue
     }
 
     try {
-      const currentEmployee = await getEmployee(avantiEmployee.empNo)
+      const currentEmployee = await getEmployee(avantiEmployee.empNo!)
 
       if (
         currentEmployee !== undefined &&
@@ -77,10 +77,10 @@ async function doSync(): Promise<void> {
         continue
       }
 
-      debug(`Processing ${avantiEmployee.empNo}...`)
+      debug(`Processing ${avantiEmployee.empNo!}...`)
 
       const newEmployee: Employee = {
-        employeeNumber: avantiEmployee.empNo,
+        employeeNumber: avantiEmployee.empNo!,
         employeeSurname: avantiEmployee.surname ?? '',
         employeeGivenName: avantiEmployee.givenName ?? '',
         jobTitle: avantiEmployee.positionName ?? '',
@@ -91,7 +91,7 @@ async function doSync(): Promise<void> {
       }
 
       const avantiEmployeePersonalResponse =
-        await avanti.getEmployeePersonalInfo(avantiEmployee.empNo)
+        await avanti.getEmployeePersonalInfo(avantiEmployee.empNo!)
 
       if (avantiEmployeePersonalResponse.success) {
         const avantiEmployeePersonal = avantiEmployeePersonalResponse.response

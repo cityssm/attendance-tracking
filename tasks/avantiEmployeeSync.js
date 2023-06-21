@@ -40,7 +40,7 @@ async function doSync() {
         if (terminateTask) {
             break;
         }
-        if (!avantiEmployee.empNo || !(avantiEmployee.active ?? false)) {
+        if ((avantiEmployee.empNo ?? '') === '' || !(avantiEmployee.active ?? false)) {
             continue;
         }
         try {
