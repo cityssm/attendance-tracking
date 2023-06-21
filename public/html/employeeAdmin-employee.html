@@ -2,7 +2,7 @@
   <div class="modal-background"></div>
   <div class="modal-card" style="width: 1000px">
     <div class="modal-card-head">
-      <h3 class="modal-card-title">Employee View</h3>
+      <h2 class="modal-card-title">Employee View</h2>
       <button
         class="delete is-close-modal-button"
         aria-label="close"
@@ -12,7 +12,7 @@
     <section class="modal-card-body">
       <div class="columns">
         <div class="column is-3">
-          <aside class="menu" style="position:sticky;top:0">
+          <div class="menu" style="position:sticky;top:0">
             <ul class="menu-list">
               <li>
                 <a class="is-active" href="#tab--employeeDetails">
@@ -31,7 +31,7 @@
                 </a>
               </li>
             </ul>
-          </aside>
+          </div>
         </div>
         <div class="column">
           <div class="tabs-container">
@@ -84,7 +84,7 @@
                 <div>
                   <div class="columns">
                     <div class="column">
-                      <h2 class="title is-4">Main Details</h2>
+                      <h3 class="title is-4">Main Details</h3>
                     </div>
                     <div class="column is-narrow">
                       <div class="control has-icons-left">
@@ -92,6 +92,7 @@
                           <select
                             id="employeeEdit--isSynced"
                             name="isSynced"
+                            aria-label="Sync Details"
                             required
                           >
                             <option value="1">Details Synced</option>
@@ -236,7 +237,7 @@
                 <div>
                   <div class="columns">
                     <div class="column">
-                      <h2 class="title is-4">Contact Information</h2>
+                      <h3 class="title is-4">Contact Information</h3>
                     </div>
                     <div class="column is-narrow">
                       <div class="control has-icons-left">
@@ -244,6 +245,7 @@
                           <select
                             id="employeeEdit--syncContacts"
                             name="syncContacts"
+                            aria-label="Sync Contacts"
                             required
                           >
                             <option value="1">Contacts Synced</option>
@@ -442,7 +444,7 @@
           </div>
         </div>
       </div>
-      <button class="button is-close-modal-button" type="button">Close</button>
+      <button class="button is-close-modal-button" data-cy="close" type="button">Close</button>
     </div>
   </div>
 </div>

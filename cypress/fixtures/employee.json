@@ -1,0 +1,13 @@
+{
+  "employeeNumber": "",
+  "employeeSurname": "Tester",
+  "employeeGivenName": "Susan",
+  "userName": "susan.tester",
+  "workContact1": "555-555-1000",
+  "workContact2": "555-555-2000",
+  "homeContact1": "555-555-3000",
+  "homeContact2": "555-555-4000",
+  "jobTitle": "Test Employee",
+  "department": "Quality Control",
+  "seniorityDateTime": "2023-04-05"
+}
