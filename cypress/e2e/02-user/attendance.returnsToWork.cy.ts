@@ -5,13 +5,13 @@ import { testUser } from '../../../test/_globals.js'
 import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes'
 import { logout, login } from '../../support/index.js'
 
-describe('Attendance - Absences', () => {
+describe('Attendance - Returns to Work', () => {
   beforeEach(() => {
     logout()
     login(testUser as ConfigTemporaryUserCredentials)
     cy.visit('/attendance')
     cy.location('pathname').should('equal', '/attendance')
-    cy.get('.menu-list a[href="#tab--absences"]')
+    cy.get('.menu-list a[href="#tab--returnsToWork"]')
       .click()
       .should('have.class', 'is-active')
   })
@@ -23,10 +23,10 @@ describe('Attendance - Absences', () => {
     cy.checkA11y()
   })
 
-  it('Adds an absence request', () => {
+  it('Adds a return to work record', () => {
     // Open the add modal
 
-    cy.get('#tab--absences [data-cy="add-call-in"]').click()
+    cy.get('#tab--returnsToWork [data-cy="add-call-in"]').click()
 
     cy.get('.modal').should('exist')
     cy.get('html').should('have.class', 'is-clipped')
@@ -50,13 +50,11 @@ describe('Attendance - Absences', () => {
           .should('have.prop', 'value')
           .should('not.be.empty')
 
-        cy.get('.modal input[name="callInType"][value="absence"]').click({
+        cy.get('.modal input[name="callInType"][value="returnToWork"]').click({
           force: true
         })
 
-        cy.get(
-          '.modal fieldset[data-call-in-type="absence"] select[name="absenceTypeKey"]'
-        ).select(1)
+        cy.get('.modal input[name="returnShift"]').clear().type('Days')
 
         cy.get('.modal textarea[name="recordComment"]')
           .clear()

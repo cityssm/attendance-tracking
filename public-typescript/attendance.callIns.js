@@ -250,17 +250,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
         function recordCallIn(formEvent) {
             formEvent.preventDefault();
             cityssm.postJSON(MonTY.urlPrefix + '/attendance/doRecordCallIn', formEvent.currentTarget, (rawResponseJSON) => {
+                var _a, _b;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     callInCloseModalFunction();
                     switch (responseJSON.callInType) {
                         case 'absence': {
-                            absenceRecords = responseJSON.absenceRecords;
+                            absenceRecords = (_a = responseJSON.absenceRecords) !== null && _a !== void 0 ? _a : [];
                             renderAbsenceRecords();
                             break;
                         }
                         case 'returnToWork': {
-                            returnToWorkRecords = responseJSON.returnToWorkRecords;
+                            returnToWorkRecords = (_b = responseJSON.returnToWorkRecords) !== null && _b !== void 0 ? _b : [];
                             renderReturnToWorkRecords();
                             break;
                         }

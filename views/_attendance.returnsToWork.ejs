@@ -22,7 +22,7 @@
       <span>Export</span>
     </a>
     <% if (permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canUpdate')) { %>
-      <button class="button is-success is-new-call-in-button" type="button">
+      <button class="button is-success is-new-call-in-button" data-cy="add-call-in" type="button">
         <span class="icon"><i class="fas fa-plus" aria-hidden="true"></i></span>
         <span>New Call In</span>
       </button>

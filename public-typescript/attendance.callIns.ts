@@ -391,12 +391,12 @@ declare const cityssm: cityssmGlobal
 
             switch (responseJSON.callInType) {
               case 'absence': {
-                absenceRecords = responseJSON.absenceRecords!
+                absenceRecords = responseJSON.absenceRecords ?? []
                 renderAbsenceRecords()
                 break
               }
               case 'returnToWork': {
-                returnToWorkRecords = responseJSON.returnToWorkRecords!
+                returnToWorkRecords = responseJSON.returnToWorkRecords ?? []
                 renderReturnToWorkRecords()
                 break
               }

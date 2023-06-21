@@ -1,12 +1,12 @@
 import { testUser } from '../../../test/_globals.js';
 import { logout, login } from '../../support/index.js';
-describe('Attendance - Absences', () => {
+describe('Attendance - Returns to Work', () => {
     beforeEach(() => {
         logout();
         login(testUser);
         cy.visit('/attendance');
         cy.location('pathname').should('equal', '/attendance');
-        cy.get('.menu-list a[href="#tab--absences"]')
+        cy.get('.menu-list a[href="#tab--returnsToWork"]')
             .click()
             .should('have.class', 'is-active');
     });
@@ -15,8 +15,8 @@ describe('Attendance - Absences', () => {
         cy.injectAxe();
         cy.checkA11y();
     });
-    it('Adds an absence request', () => {
-        cy.get('#tab--absences [data-cy="add-call-in"]').click();
+    it('Adds a return to work record', () => {
+        cy.get('#tab--returnsToWork [data-cy="add-call-in"]').click();
         cy.get('.modal').should('exist');
         cy.get('html').should('have.class', 'is-clipped');
         cy.injectAxe();
@@ -33,10 +33,10 @@ describe('Attendance - Absences', () => {
             cy.get('.modal input[name="employeeName"]')
                 .should('have.prop', 'value')
                 .should('not.be.empty');
-            cy.get('.modal input[name="callInType"][value="absence"]').click({
+            cy.get('.modal input[name="callInType"][value="returnToWork"]').click({
                 force: true
             });
-            cy.get('.modal fieldset[data-call-in-type="absence"] select[name="absenceTypeKey"]').select(1);
+            cy.get('.modal input[name="returnShift"]').clear().type('Days');
             cy.get('.modal textarea[name="recordComment"]')
                 .clear()
                 .type('Test Comment');
