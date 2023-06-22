@@ -17,12 +17,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 ? '/attendance/doRemoveFavouriteCallOutList'
                 : '/attendance/doAddFavouriteCallOutList'), { listId }, (rawResponseJSON) => {
             const responseJSON = rawResponseJSON;
-            MonTY.callOuts.callOutLists = responseJSON.callOutLists;
-            renderCallOutLists();
+            if (responseJSON.success) {
+                MonTY.callOuts.callOutLists = responseJSON.callOutLists;
+                renderCallOutLists();
+            }
+            else {
+                bulmaJS.alert({
+                    title: 'Error Updating Favourites',
+                    message: 'Please try again.'
+                });
+            }
         });
     }
     function renderCallOutLists() {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d;
         const panelElement = document.createElement('div');
         panelElement.className = 'panel';
         const searchFilterPieces = searchFilterElement.value
@@ -48,10 +56,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
             panelBlockElement.dataset.listId = callOutList.listId.toString();
             panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
-          <button class="button is-white" data-is-favourite="${callOutList.isFavourite ? '1' : '0'}" data-tooltip="Toggle Favourite" type="button">
+          <button class="button is-white" data-is-favourite="${callOutList.isFavourite ? '1' : '0'}" data-tooltip="Toggle Favourite" type="button" aria-label="Toggle Favourite">
             ${callOutList.isFavourite
-                ? '<i class="fas fa-star" aria-label="Favourite"></i>'
-                : '<i class="far fa-star" aria-label="Not Favourite"></i>'}
+                ? '<i class="fas fa-star" aria-hidden="true"></i><span class="is-sr-only">Favourite</span>'
+                : '<i class="far fa-star" aria-hidden="true"></i><span class="is-sr-only">Not Favourite</span>'}
           </button>
         </div>
         <div class="column">
@@ -75,8 +83,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
         </div>`;
             (_d = panelBlockElement
                 .querySelector('button')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', toggleCallOutListFavourite);
-            (_e = panelBlockElement
-                .querySelector('a')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', openCallOutListByClick);
+            const listAnchorElement = panelBlockElement.querySelector('a');
+            listAnchorElement.dataset.cy = callOutList.listName;
+            listAnchorElement.addEventListener('click', openCallOutListByClick);
             panelElement.append(panelBlockElement);
         }
         if (panelElement.hasChildNodes()) {

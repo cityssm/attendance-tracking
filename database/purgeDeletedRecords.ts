@@ -27,6 +27,7 @@ const foreignKeySQLStatements = [
 
   `delete from MonTY.FavouriteCallOutLists
     where userName in (select userName from MonTY.Users where ${deletedWhereClause})
+    or userName not in (select userName from MonTY.Users)
     or listId in (select listId from MonTY.CallOutLists where ${deletedWhereClause})`,
 
   `delete from MonTY.CallOutResponseTypes

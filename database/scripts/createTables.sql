@@ -96,7 +96,6 @@ create table MonTY.FavouriteCallOutLists (
 	userName varchar(20) not null,
 	listId bigint not null,
 	primary key (userName, listId),
-	foreign key (userName) references MonTY.Users (userName) on update cascade on delete cascade,
 	foreign key (listId) references MonTY.CallOutLists (listId) on update cascade on delete cascade
 )
 

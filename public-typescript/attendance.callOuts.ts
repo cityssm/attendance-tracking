@@ -40,12 +40,20 @@ declare const cityssm: cityssmGlobal
       { listId },
       (rawResponseJSON) => {
         const responseJSON = rawResponseJSON as {
+          success: boolean
           callOutLists: recordTypes.CallOutList[]
         }
 
-        MonTY.callOuts!.callOutLists = responseJSON.callOutLists
+        if (responseJSON.success) {
+          MonTY.callOuts!.callOutLists = responseJSON.callOutLists
 
-        renderCallOutLists()
+          renderCallOutLists()
+        } else {
+          bulmaJS.alert({
+            title: 'Error Updating Favourites',
+            message: 'Please try again.'
+          })
+        }
       }
     )
   }
@@ -88,11 +96,11 @@ declare const cityssm: cityssmGlobal
         <div class="column is-narrow">
           <button class="button is-white" data-is-favourite="${
             callOutList.isFavourite! ? '1' : '0'
-          }" data-tooltip="Toggle Favourite" type="button">
+          }" data-tooltip="Toggle Favourite" type="button" aria-label="Toggle Favourite">
             ${
               callOutList.isFavourite!
-                ? '<i class="fas fa-star" aria-label="Favourite"></i>'
-                : '<i class="far fa-star" aria-label="Not Favourite"></i>'
+                ? '<i class="fas fa-star" aria-hidden="true"></i><span class="is-sr-only">Favourite</span>'
+                : '<i class="far fa-star" aria-hidden="true"></i><span class="is-sr-only">Not Favourite</span>'
             }
           </button>
         </div>
@@ -124,9 +132,10 @@ declare const cityssm: cityssmGlobal
         .querySelector('button')
         ?.addEventListener('click', toggleCallOutListFavourite)
 
-      panelBlockElement
-        .querySelector('a')
-        ?.addEventListener('click', openCallOutListByClick)
+      const listAnchorElement = panelBlockElement.querySelector('a')!
+
+      listAnchorElement.dataset.cy = callOutList.listName
+      listAnchorElement.addEventListener('click', openCallOutListByClick)
 
       panelElement.append(panelBlockElement)
     }

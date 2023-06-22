@@ -2,7 +2,7 @@
   <div class="modal-background"></div>
   <div class="modal-card" style="width: 1000px">
     <div class="modal-card-head">
-      <h3 class="modal-card-title">Call Out List View</h3>
+      <h2 class="modal-card-title">Call Out List View</h2>
       <button
         class="delete is-close-modal-button"
         aria-label="close"
@@ -12,7 +12,7 @@
     <section class="modal-card-body">
       <div class="columns">
         <div class="column is-3">
-          <aside class="menu" style="position: sticky; top: 0">
+          <div class="menu" style="position: sticky; top: 0">
             <ul class="menu-list">
               <li>
                 <a href="#tab--callOuts-details">
@@ -39,7 +39,7 @@
                 </a>
               </li>
             </ul>
-          </aside>
+          </div>
         </div>
         <div class="column">
           <div class="tabs-container">
@@ -197,7 +197,7 @@
                   class="has-text-right is-hidden"
                   id="callOutListEdit--unlockButtons"
                 >
-                  <button class="button is-primary" type="button">
+                  <button class="button is-primary" data-cy="unlock" type="button">
                     <span class="icon is-small">
                       <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                     </span>
@@ -208,7 +208,7 @@
             </article>
             <article id="tab--callOuts-members">
               <div class="tabs is-boxed is-size-7 is-size-6-tablet">
-                <ul>
+                <ul role="presentation">
                   <li>
                     <a class="is-hidden" href="#tab--callOutMembers-manage">
                       <span class="icon is-small">
