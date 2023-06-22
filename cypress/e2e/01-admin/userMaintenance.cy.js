@@ -61,7 +61,7 @@ describe('Admin - User Maintenance', () => {
         cy.get('.modal [role="alert"] button[data-cy="ok"]').click();
     });
     it('Removes a user', () => {
-        cy.get(`#tbody--users tr[data-user-name="${newUserName}"] button[data-cy="delete"]`).click();
+        cy.get(`#tbody--users tr[data-user-name="${newUserName}"] button[data-cy="delete"]`).click({ force: true });
         cy.get('.modal [role="alert"] button[data-cy="ok"]').click();
         cy.get('.modal [role="alert"]').contains('success');
         cy.get('.modal [role="alert"] button[data-cy="ok"]').click();

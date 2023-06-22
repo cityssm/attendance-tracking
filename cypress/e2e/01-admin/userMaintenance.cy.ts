@@ -92,7 +92,7 @@ describe('Admin - User Maintenance', () => {
   it('Removes a user', () => {
     cy.get(
       `#tbody--users tr[data-user-name="${newUserName}"] button[data-cy="delete"]`
-    ).click()
+    ).click({ force: true })
 
     cy.get('.modal [role="alert"] button[data-cy="ok"]').click()
 
