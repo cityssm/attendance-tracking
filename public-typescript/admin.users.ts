@@ -211,12 +211,14 @@ declare const cityssm: cityssmGlobal
 
     let permissionsModalElement: HTMLElement
 
-    const userName =
-      (clickEvent.currentTarget as HTMLElement).closest('tr')!.dataset
-        .userName ?? ''
+    const buttonElement = clickEvent.currentTarget as HTMLButtonElement
+
+    const userName = buttonElement.closest('tr')!.dataset.userName ?? ''
 
     function populatePermissionsTable(): void {
       const tableBodyElement = permissionsModalElement.querySelector('tbody')!
+
+      let uidCounter = 0
 
       for (const [permissionKey, permissionValues] of Object.entries(
         availablePermissionValues
@@ -241,7 +243,14 @@ declare const cityssm: cityssmGlobal
           }
         }
 
-        tableRowElement.innerHTML = `<td class="is-vcentered">${permissionKey}</td>
+        uidCounter += 1
+        const uid = 'permissionValue_' + uidCounter.toString()
+
+        tableRowElement.innerHTML = `<td class="is-vcentered">
+          <label for="${uid}">
+            ${permissionKey}
+          </label>
+          </td>
           <td>
             <form>
               <input name="userName" value="${userName}" type="hidden" />
@@ -249,7 +258,7 @@ declare const cityssm: cityssmGlobal
               <div class="field has-addons">
                 <div class="control has-icons-left is-expanded">
                   <div class="select is-fullwidth">
-                    <select name="permissionValue">
+                    <select id="${uid}" name="permissionValue">
                       <option value="">(Not Set)</option>
                     </select>
                   </div>
@@ -373,11 +382,13 @@ declare const cityssm: cityssmGlobal
         populatePermissionsTable()
       },
       onshown() {
+        buttonElement.blur()
         bulmaJS.toggleHtmlClipped()
       },
       onremoved() {
         bulmaJS.toggleHtmlClipped()
         cityssm.disableNavBlocker()
+        buttonElement.focus()
       }
     })
   }
@@ -441,13 +452,13 @@ declare const cityssm: cityssmGlobal
           </div>
         </td>
         <td class="has-width-1 has-text-centered">
-          <button class="button is-user-permissions-button" type="button">
+          <button class="button is-user-permissions-button" data-cy="permissions" type="button">
             <span class="icon is-small"><i class="fas fa-th-list" aria-hidden="true"></i></span>
             <span>Permissions</span>
           </button>
         </td>
         <td class="has-width-1">
-          <button class="button is-danger is-delete-button" type="button" aria-label="Delete">
+          <button class="button is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete">
             <span class="icon is-small"><i class="fas fa-trash" aria-hidden="true"></i></span>
           </button>
         </td>`
