@@ -44,4 +44,11 @@ describe('Attendance - Absences', () => {
         cy.get('.modal form').submit();
         cy.get('.modal').should('not.exist');
     });
+    it('Removes an absence request', () => {
+        cy.get('#container--absences [data-record-id] button[data-cy="delete"]')
+            .first()
+            .click();
+        cy.get('.modal button[data-cy="ok"]').click();
+        cy.get('.modal [role="alert"]').contains('success');
+    });
 });

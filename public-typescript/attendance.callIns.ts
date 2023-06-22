@@ -140,7 +140,7 @@ declare const cityssm: cityssmGlobal
         panelBlockElement.querySelector('.columns')?.insertAdjacentHTML(
           'beforeend',
           `<div class="column is-narrow">
-            <button class="button is-small is-inverted is-danger is-delete-button" type="button" aria-label="Delete Record">
+            <button class="button is-small is-inverted is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete Record">
               <i class="fas fa-trash" aria-hidden="true"></i>
             </button>
           </div>`
@@ -221,7 +221,7 @@ declare const cityssm: cityssmGlobal
       return
     }
 
-    if (absenceRecords.length === 0) {
+    if (returnToWorkRecords.length === 0) {
       containerElement.innerHTML = `<div class="message is-info">
         <p class="message-body">There are no recent return to work records to show.</p>
         </div>`
@@ -274,7 +274,7 @@ declare const cityssm: cityssmGlobal
         panelBlockElement.querySelector('.columns')?.insertAdjacentHTML(
           'beforeend',
           `<div class="column is-narrow">
-              <button class="button is-small is-inverted is-danger is-delete-button" type="button" aria-label="Delete Record">
+              <button class="button is-small is-inverted is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete Record">
                 <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
             </div>`
