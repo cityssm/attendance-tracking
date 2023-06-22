@@ -138,4 +138,15 @@ describe('Attendance - Call Out Lists', () => {
             .find('button[data-is-favourite="1"]')
             .should('exist');
     });
+    it('Removes call out list to user favourites', () => {
+        cy.get(`#callOuts--searchResults a[data-cy="${newCallOutListName}"]`)
+            .closest('[data-list-id]')
+            .find('button[data-is-favourite="1"]')
+            .click();
+        cy.get('.modal').should('not.exist');
+        cy.get(`#callOuts--searchResults a[data-cy="${newCallOutListName}"]`)
+            .closest('[data-list-id]')
+            .find('button[data-is-favourite="0"]')
+            .should('exist');
+    });
 });
