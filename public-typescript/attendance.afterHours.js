@@ -90,7 +90,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         </div>`;
             if (afterHoursRecord.canUpdate) {
                 (_c = panelBlockElement.querySelector('.columns')) === null || _c === void 0 ? void 0 : _c.insertAdjacentHTML('beforeend', `<div class="column is-narrow">
-              <button class="button is-small is-inverted is-danger is-delete-button" type="button" aria-label="Delete Record">
+              <button class="button is-small is-inverted is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete Record">
                 <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
             </div>`);

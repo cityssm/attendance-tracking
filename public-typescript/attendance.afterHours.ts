@@ -136,7 +136,7 @@ declare const cityssm: cityssmGlobal
         panelBlockElement.querySelector('.columns')?.insertAdjacentHTML(
           'beforeend',
           `<div class="column is-narrow">
-              <button class="button is-small is-inverted is-danger is-delete-button" type="button" aria-label="Delete Record">
+              <button class="button is-small is-inverted is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete Record">
                 <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
             </div>`

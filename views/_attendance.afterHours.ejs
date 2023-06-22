@@ -22,7 +22,7 @@
       <span>Export</span>
     </a>
     <% if (permissionFunctions.hasPermission(user, 'attendance.afterHours.canUpdate')) { %>
-      <button class="button is-success is-new-after-hours-button" type="button">
+      <button class="button is-success is-new-after-hours-button" data-cy="add" type="button">
         <span class="icon"><i class="fas fa-plus" aria-hidden="true"></i></span>
         <span>New After Hours</span>
       </button>
