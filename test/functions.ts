@@ -3,58 +3,24 @@ import * as assert from 'node:assert'
 // eslint-disable-next-line node/no-unpublished-import
 import { v4 } from 'uuid'
 
-import { getEmployees } from '../database/getEmployees.js'
 import * as selfServiceFunctions from '../helpers/functions.selfService.js'
 import * as userFunctions from '../helpers/functions.user.js'
 
+import { getSelfServiceUser, type TestSelfServiceUser } from './_globals.js'
+
 describe('functions.selfService', () => {
-  let employeeNumber = ''
-  let validFourDigits = ''
-  let invalidFourDigits = ''
+  let testSelfService: TestSelfServiceUser
 
   before(async () => {
-    const employees = await getEmployees(
-      {
-        isActive: true
-      },
-      {
-        includeProperties: false
-      }
-    )
-
-    for (const employee of employees) {
-      employeeNumber = employee.employeeNumber
-
-      const possibleFourDigits1 = (employee.homeContact1 ?? '').slice(-4)
-      const possibleFourDigits2 = (employee.homeContact2 ?? '').slice(-4)
-
-      if (/\d{4}/.test(possibleFourDigits1)) {
-        validFourDigits = possibleFourDigits1
-      } else if (/\d{4}/.test(possibleFourDigits2)) {
-        validFourDigits = possibleFourDigits2
-      } else {
-        continue
-      }
-
-      let counter = 1000
-
-      while (
-        invalidFourDigits === '' ||
-        invalidFourDigits === validFourDigits
-      ) {
-        invalidFourDigits = counter.toString()
-        counter += 1
-      }
-
-      break
-    }
+    testSelfService = await getSelfServiceUser()
   })
 
   it('validates employee', async () => {
     const validation = await selfServiceFunctions.validateEmployeeFields({
       body: {
-        employeeNumber,
-        employeeHomeContactLastFourDigits: validFourDigits
+        employeeNumber: testSelfService.employeeNumber,
+        employeeHomeContactLastFourDigits:
+          testSelfService.employeeHomeContactLastFourDigits.valid
       }
     })
 
@@ -65,7 +31,8 @@ describe('functions.selfService', () => {
     const validation = await selfServiceFunctions.validateEmployeeFields({
       body: {
         employeeNumber: v4(),
-        employeeHomeContactLastFourDigits: validFourDigits
+        employeeHomeContactLastFourDigits:
+          testSelfService.employeeHomeContactLastFourDigits.valid
       }
     })
 
@@ -75,8 +42,9 @@ describe('functions.selfService', () => {
   it('blocks employee with invalid four digits', async () => {
     const validation = await selfServiceFunctions.validateEmployeeFields({
       body: {
-        employeeNumber,
-        employeeHomeContactLastFourDigits: invalidFourDigits
+        employeeNumber: testSelfService.employeeNumber,
+        employeeHomeContactLastFourDigits:
+          testSelfService.employeeHomeContactLastFourDigits.invalid
       }
     })
 
@@ -87,7 +55,8 @@ describe('functions.selfService', () => {
     const validation = await selfServiceFunctions.validateEmployeeFields({
       body: {
         employeeNumber: '',
-        employeeHomeContactLastFourDigits: validFourDigits
+        employeeHomeContactLastFourDigits:
+          testSelfService.employeeHomeContactLastFourDigits.valid
       }
     })
 
@@ -97,7 +66,7 @@ describe('functions.selfService', () => {
   it('blocks employee with missing four digits', async () => {
     const validation = await selfServiceFunctions.validateEmployeeFields({
       body: {
-        employeeNumber,
+        employeeNumber: testSelfService.employeeNumber,
         employeeHomeContactLastFourDigits: ''
       }
     })
