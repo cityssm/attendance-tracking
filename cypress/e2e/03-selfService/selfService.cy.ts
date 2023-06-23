@@ -1,15 +1,33 @@
+/* eslint-disable promise/always-return */
+/* eslint-disable promise/catch-or-return */
 /* eslint-disable node/no-unpublished-import */
 
-import { config } from '../../../data/config.js'
-
-import '../../support/index.js'
-
-const selfServicePath = config.settings.selfService?.path ?? '/selfService'
+import { testUser } from '../../../test/_globals.js'
+import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes'
+import { logout, login } from '../../support/index.js'
 
 describe('Self Service', () => {
+  let selfServiceURL: string
+
+  before(() => {
+    logout()
+    login(testUser as ConfigTemporaryUserCredentials)
+    cy.visit('/dashboard')
+
+    cy.get('a')
+      .contains('self service', { matchCase: false })
+      .closest('a')
+      .invoke('attr', 'href')
+      .then(($href) => {
+        selfServiceURL = $href as string
+      })
+
+    cy.log(selfServiceURL)
+  })
+
   beforeEach(() => {
-    cy.visit(selfServicePath)
-    cy.location('pathname').should('equal', selfServicePath)
+    cy.visit(selfServiceURL)
+    cy.location('pathname').should('equal', selfServiceURL)
   })
 
   it('Has no detectable accessibility issues', () => {

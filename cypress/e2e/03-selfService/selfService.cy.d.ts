@@ -1,1 +1,1 @@
-import '../../support/index.js';
+export {};

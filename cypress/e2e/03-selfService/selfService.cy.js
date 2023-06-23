@@ -1,10 +1,23 @@
-import { config } from '../../../data/config.js';
-import '../../support/index.js';
-const selfServicePath = config.settings.selfService?.path ?? '/selfService';
+import { testUser } from '../../../test/_globals.js';
+import { logout, login } from '../../support/index.js';
 describe('Self Service', () => {
+    let selfServiceURL;
+    before(() => {
+        logout();
+        login(testUser);
+        cy.visit('/dashboard');
+        cy.get('a')
+            .contains('self service', { matchCase: false })
+            .closest('a')
+            .invoke('attr', 'href')
+            .then(($href) => {
+            selfServiceURL = $href;
+        });
+        cy.log(selfServiceURL);
+    });
     beforeEach(() => {
-        cy.visit(selfServicePath);
-        cy.location('pathname').should('equal', selfServicePath);
+        cy.visit(selfServiceURL);
+        cy.location('pathname').should('equal', selfServiceURL);
     });
     it('Has no detectable accessibility issues', () => {
         cy.injectAxe();

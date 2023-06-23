@@ -1,7 +1,6 @@
 /* eslint-disable node/no-unpublished-import */
 
 import { config } from '../data/config.js'
-import { getEmployees } from '../database/getEmployees.js'
 
 export const testAdmin = (config.tempUsers ?? []).find((possibleUser) => {
   return possibleUser.user.canLogin && possibleUser.user.isAdmin
@@ -21,62 +20,6 @@ export const testUser = (config.tempUsers ?? []).find((possibleUser) => {
 
 if (testUser === undefined) {
   console.error('No testUser available')
-}
-
-export interface TestSelfServiceUser {
-  employeeNumber: string
-  employeeHomeContactLastFourDigits: { valid: string; invalid: string }
-}
-
-export async function getSelfServiceUser(): Promise<TestSelfServiceUser> {
-  let employeeNumber = ''
-  let employeeHomeContactLastFourDigitsValid = ''
-  let employeeHomeContactLastFourDigitsInvalid = ''
-
-  const employees = await getEmployees(
-    {
-      isActive: true
-    },
-    {
-      includeProperties: false
-    }
-  )
-
-  for (const employee of employees) {
-    employeeNumber = employee.employeeNumber
-
-    const possibleFourDigits1 = (employee.homeContact1 ?? '').slice(-4)
-    const possibleFourDigits2 = (employee.homeContact2 ?? '').slice(-4)
-
-    if (/\d{4}/.test(possibleFourDigits1)) {
-      employeeHomeContactLastFourDigitsValid = possibleFourDigits1
-    } else if (/\d{4}/.test(possibleFourDigits2)) {
-      employeeHomeContactLastFourDigitsValid = possibleFourDigits2
-    } else {
-      continue
-    }
-
-    let counter = 1000
-
-    while (
-      employeeHomeContactLastFourDigitsInvalid === '' ||
-      employeeHomeContactLastFourDigitsInvalid ===
-        employeeHomeContactLastFourDigitsValid
-    ) {
-      employeeHomeContactLastFourDigitsInvalid = counter.toString()
-      counter += 1
-    }
-
-    break
-  }
-
-  return {
-    employeeNumber,
-    employeeHomeContactLastFourDigits: {
-      valid: employeeHomeContactLastFourDigitsValid,
-      invalid: employeeHomeContactLastFourDigitsInvalid
-    }
-  }
 }
 
 export const portNumber = 7000
