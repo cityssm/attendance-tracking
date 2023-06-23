@@ -9,7 +9,7 @@ export async function validateEmployeeFields(request) {
             errorMessage: 'No employee number.'
         };
     }
-    if ((employeeHomeContactLastFourDigits ?? '').length !== 4) {
+    if (!/^\d{4}$/.test(employeeHomeContactLastFourDigits ?? '')) {
         return {
             success: false,
             errorMessage: 'Invalid home contact number.'

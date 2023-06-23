@@ -6,5 +6,11 @@ interface EmployeeValidation {
     employeeSurname?: string;
     employeeGivenName?: string;
 }
-export declare function validateEmployeeFields(request: Request): Promise<EmployeeValidation>;
+interface ValidateEmployeeFieldsRequest extends Partial<Request> {
+    body: {
+        employeeNumber: string;
+        employeeHomeContactLastFourDigits: string;
+    };
+}
+export declare function validateEmployeeFields(request: ValidateEmployeeFieldsRequest): Promise<EmployeeValidation>;
 export {};

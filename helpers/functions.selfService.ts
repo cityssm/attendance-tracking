@@ -12,8 +12,15 @@ interface EmployeeValidation {
   employeeGivenName?: string
 }
 
+interface ValidateEmployeeFieldsRequest extends Partial<Request> {
+  body: {
+    employeeNumber: string
+    employeeHomeContactLastFourDigits: string
+  }
+}
+
 export async function validateEmployeeFields(
-  request: Request
+  request: ValidateEmployeeFieldsRequest
 ): Promise<EmployeeValidation> {
   const employeeNumber = request.body.employeeNumber
   const employeeHomeContactLastFourDigits =
@@ -34,7 +41,7 @@ export async function validateEmployeeFields(
    * Ensure the last four digits of the phone number are given.
    */
 
-  if ((employeeHomeContactLastFourDigits ?? '').length !== 4) {
+  if (!/^\d{4}$/.test(employeeHomeContactLastFourDigits ?? '')) {
     return {
       success: false,
       errorMessage: 'Invalid home contact number.'
