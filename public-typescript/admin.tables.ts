@@ -173,7 +173,7 @@ declare const cityssm: cityssmGlobal
         <input class="input" name="absenceType" maxlength="100" aria-label="Absence Type" required />
         </td>
         <td>
-          <button class="button is-success is-update-button" type="button" aria-label="Update Absence Type">
+          <button class="button is-success is-update-button" data-cy="save" type="button" aria-label="Update Absence Type">
             <i class="fas fa-save" aria-hidden="true"></i>
           </button>
         </td>
@@ -192,7 +192,7 @@ declare const cityssm: cityssmGlobal
           </div>
         </td>
         <td>
-        <button class="button is-danger is-delete-button" type="button" aria-label="Delete Absence Type">
+        <button class="button is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete Absence Type">
           <i class="fas fa-trash" aria-hidden="true"></i>
         </button>
         </td>`
@@ -438,14 +438,14 @@ declare const cityssm: cityssmGlobal
         </td>
         <td>
           <div class="select is-fullwidth">
-            <select name="isSuccessful" required>
+            <select name="isSuccessful" aria-label="Is Successful" required>
               <option value="1">Successful</option>
               <option value="0">Unsuccessful</option>
             </select>
           </div>
         </td>
         <td>
-          <button class="button is-success is-update-button" type="button" aria-label="Update Response Type">
+          <button class="button is-success is-update-button" data-cy="save" type="button" aria-label="Update Response Type">
             <i class="fas fa-save" aria-hidden="true"></i>
           </button>
         </td>
@@ -464,7 +464,7 @@ declare const cityssm: cityssmGlobal
           </div>
         </td>
         <td>
-        <button class="button is-danger is-delete-button" type="button" aria-label="Delete Response Type">
+        <button class="button is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete Response Type">
           <i class="fas fa-trash" aria-hidden="true"></i>
         </button>
         </td>`
@@ -714,7 +714,7 @@ declare const cityssm: cityssmGlobal
         <input class="input" name="afterHoursReason" maxlength="100" aria-label="After Hours Reason" required />
         </td>
         <td>
-          <button class="button is-success is-update-button" type="button" aria-label="Update Reason">
+          <button class="button is-success is-update-button" data-cy="save" type="button" aria-label="Update Reason">
             <i class="fas fa-save" aria-hidden="true"></i>
           </button>
         </td>
@@ -733,7 +733,7 @@ declare const cityssm: cityssmGlobal
           </div>
         </td>
         <td>
-        <button class="button is-danger is-delete-button" type="button" aria-label="Delete Reason">
+        <button class="button is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete Reason">
           <i class="fas fa-trash" aria-hidden="true"></i>
         </button>
         </td>`
