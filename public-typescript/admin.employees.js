@@ -79,7 +79,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             for (const employeeProperty of employeeProperties) {
                 const rowElement = document.createElement('tr');
                 rowElement.dataset.propertyName = employeeProperty.propertyName;
-                rowElement.innerHTML = `<td class="is-size-7">${employeeProperty.propertyName}</td>
+                rowElement.innerHTML = `<td class="is-size-7 is-vcentered">${employeeProperty.propertyName}</td>
           <td>
             <div class="control">
               <input class="input is-small" name="propertyValue" type="text" maxlength="500" />
