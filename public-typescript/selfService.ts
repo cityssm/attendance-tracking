@@ -4,7 +4,6 @@ import type { BulmaJS } from '@cityssm/bulma-js/types'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
 
 import type * as recordTypes from '../types/recordTypes'
-import { isAbuser } from '@cityssm/express-abuse-points'
 
 declare const bulmaJS: BulmaJS
 declare const cityssm: cityssmGlobal

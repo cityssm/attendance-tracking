@@ -40,7 +40,7 @@ describe('Self Service', () => {
     cy.checkA11y()
   })
 
-  it('Logs in and out', () => {
+  it('Logs in and out successfully', () => {
     cy.get('#employee--employeeNumber').clear().type(employeeNumber)
     cy.get('#employee--homeContact_lastFourDigits').clear().type(lastFourDigits)
     cy.get('#employee--nextButton').click()
@@ -61,6 +61,36 @@ describe('Self Service', () => {
     })
 
     cy.get('.is-sign-out-button').first().click()
+
+    cy.get('#tab--employeeOptions').should('have.class', 'is-hidden')
+    cy.get('#tab--employee').should('not.have.class', 'is-hidden')
+
+    cy.get('#employee--employeeNumber').should('have.value', '')
+  })
+  
+  it('Blocks invalid login', () => {
+    cy.get('#employee--employeeNumber').clear().type(employeeNumber)
+    cy.get('#employee--homeContact_lastFourDigits')
+      .clear()
+      .type(lastFourDigitsBad)
+    cy.get('#employee--nextButton').click()
+
+    cy.get('#tab--employee').should('not.have.class', 'is-hidden')
+    cy.get('#tab--employeeOptions').should('have.class', 'is-hidden')
+
+    cy.get('#employee--message').should('not.be.empty')
+  })
+
+  it('Resets form after two minutes of inactivity', () => {
+    cy.get('#employee--employeeNumber').clear().type(employeeNumber)
+    cy.get('#employee--homeContact_lastFourDigits').clear().type(lastFourDigits)
+    cy.get('#employee--nextButton').click()
+
+    cy.get('#tab--employee').should('have.class', 'is-hidden')
+    cy.get('#tab--employeeOptions').should('not.have.class', 'is-hidden')
+
+    cy.log('Waiting two minutes...')
+    cy.wait((2 * 60 * 1000) + 1000) // Wait two minutes
 
     cy.get('#tab--employeeOptions').should('have.class', 'is-hidden')
     cy.get('#tab--employee').should('not.have.class', 'is-hidden')
