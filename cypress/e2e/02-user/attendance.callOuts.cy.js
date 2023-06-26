@@ -149,4 +149,23 @@ describe('Attendance - Call Out Lists', () => {
             .find('button[data-is-favourite="0"]')
             .should('exist');
     });
+    it('Prints a call out list', () => {
+        cy.get(`#callOuts--searchResults a[data-cy="${newCallOutListName}"]`).click();
+        cy.get('.modal').should('exist');
+        cy.get('html').should('have.class', 'is-clipped');
+        cy.injectAxe();
+        cy.checkA11y();
+        cy.log('Switch to Reports section');
+        cy.get('.modal .menu-list a[href="#tab--callOuts-reports"]')
+            .click()
+            .should('have.class', 'is-active');
+        cy.injectAxe();
+        cy.checkA11y();
+        cy.log('Click the report links');
+        cy.get('#reportingLink--callOutListReport').click();
+        cy.get("#tab--callOuts-reports a[download][href*='/reports/']").each(($reportLink) => {
+            cy.wrap($reportLink).click({ force: true });
+            cy.wait(2000);
+        });
+    });
 });
