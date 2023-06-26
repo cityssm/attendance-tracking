@@ -22,12 +22,6 @@ export function getScreenPrintConfig(
   return screenPrintConfigs[printName]
 }
 
-const pdfPrintConfigs: Record<string, PrintConfig> = {}
-
-export function getPdfPrintConfig(printName: string): PrintConfig | undefined {
-  return pdfPrintConfigs[printName]
-}
-
 export async function getReportData(
   printConfig: PrintConfig,
   requestQuery: Record<string, unknown>,

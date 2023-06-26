@@ -10,10 +10,6 @@ const screenPrintConfigs = {
 export function getScreenPrintConfig(printName) {
     return screenPrintConfigs[printName];
 }
-const pdfPrintConfigs = {};
-export function getPdfPrintConfig(printName) {
-    return pdfPrintConfigs[printName];
-}
 export async function getReportData(printConfig, requestQuery, requestSession) {
     const reportData = {
         headTitle: printConfig.title
