@@ -32,7 +32,9 @@ export const config = {
     reverseProxy: {},
     session: {},
     aliases: {},
-    features: {},
+    features: {
+        selfService: true
+    },
     settings: {
         employeeEligibilityFunctions: [configFunctions.eligibility_hasProperty],
         employeeSortKeyFunctions: [
