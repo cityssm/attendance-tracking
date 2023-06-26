@@ -28,23 +28,6 @@ export function getPdfPrintConfig(printName: string): PrintConfig | undefined {
   return pdfPrintConfigs[printName]
 }
 
-export function getPrintConfig(
-  screenOrPdfPrintName: string
-): PrintConfig | undefined {
-  const printNameSplit = screenOrPdfPrintName.split('/')
-
-  switch (printNameSplit[0]) {
-    case 'screen': {
-      return getScreenPrintConfig(printNameSplit[1])
-    }
-    case 'pdf': {
-      return getPdfPrintConfig(printNameSplit[1])
-    }
-  }
-
-  return undefined
-}
-
 export async function getReportData(
   printConfig: PrintConfig,
   requestQuery: Record<string, unknown>,

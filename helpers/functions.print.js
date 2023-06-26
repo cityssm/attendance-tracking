@@ -14,18 +14,6 @@ const pdfPrintConfigs = {};
 export function getPdfPrintConfig(printName) {
     return pdfPrintConfigs[printName];
 }
-export function getPrintConfig(screenOrPdfPrintName) {
-    const printNameSplit = screenOrPdfPrintName.split('/');
-    switch (printNameSplit[0]) {
-        case 'screen': {
-            return getScreenPrintConfig(printNameSplit[1]);
-        }
-        case 'pdf': {
-            return getPdfPrintConfig(printNameSplit[1]);
-        }
-    }
-    return undefined;
-}
 export async function getReportData(printConfig, requestQuery, requestSession) {
     const reportData = {
         headTitle: printConfig.title
