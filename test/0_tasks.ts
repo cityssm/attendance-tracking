@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/filename-case */
+
 import * as assert from 'node:assert'
 
 import { doDatabaseCleanup } from '../tasks/functions/doDatabaseCleanup.js'

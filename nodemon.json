@@ -6,6 +6,7 @@
     "cypress/*",
     "data/sessions/*",
     "public/javascripts/*",
-    "public-typescript/*"
+    "public-typescript/*",
+    "test/*"
   ]
 }
