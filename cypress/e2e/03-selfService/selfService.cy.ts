@@ -67,7 +67,7 @@ describe('Self Service', () => {
 
     cy.get('#employee--employeeNumber').should('have.value', '')
   })
-  
+
   it('Blocks invalid login', () => {
     cy.get('#employee--employeeNumber').clear().type(employeeNumber)
     cy.get('#employee--homeContact_lastFourDigits')
@@ -90,7 +90,7 @@ describe('Self Service', () => {
     cy.get('#tab--employeeOptions').should('not.have.class', 'is-hidden')
 
     cy.log('Waiting two minutes...')
-    cy.wait((2 * 60 * 1000) + 1000) // Wait two minutes
+    cy.wait(2 * 60 * 1000 + 1000) // Wait two minutes, plus a second
 
     cy.get('#tab--employeeOptions').should('have.class', 'is-hidden')
     cy.get('#tab--employee').should('not.have.class', 'is-hidden')

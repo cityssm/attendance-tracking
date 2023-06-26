@@ -64,7 +64,7 @@ describe('Self Service', () => {
         cy.get('#tab--employee').should('have.class', 'is-hidden');
         cy.get('#tab--employeeOptions').should('not.have.class', 'is-hidden');
         cy.log('Waiting two minutes...');
-        cy.wait((2 * 60 * 1000) + 1000);
+        cy.wait(2 * 60 * 1000 + 1000);
         cy.get('#tab--employeeOptions').should('have.class', 'is-hidden');
         cy.get('#tab--employee').should('not.have.class', 'is-hidden');
         cy.get('#employee--employeeNumber').should('have.value', '');
