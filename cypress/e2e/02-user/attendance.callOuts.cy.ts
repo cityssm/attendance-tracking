@@ -84,6 +84,8 @@ describe('Attendance - Call Out Lists', () => {
       newCallOutListName
     )
 
+    cy.get(formSelector + ' select[name="allowSelfSignUp"]').select('1')
+
     cy.get(formSelector + ' input[name="selfSignUpKey"]')
       .clear()
       .type('abcd')

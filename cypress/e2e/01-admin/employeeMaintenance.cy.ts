@@ -34,7 +34,7 @@ describe('Admin - Employee Maintenance', () => {
 
     cy.log('Populate employee form')
 
-    const newEmployeeNumber = Date.now().toString()
+    const newEmployeeNumber = Date.now().toString().slice(-6)
 
     cy.fixture('employee.json').then((employee: recordTypes.Employee) => {
       cy.get('.modal form input[name="employeeNumber"]')

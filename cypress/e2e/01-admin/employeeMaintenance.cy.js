@@ -20,7 +20,7 @@ describe('Admin - Employee Maintenance', () => {
         cy.injectAxe();
         cy.checkA11y();
         cy.log('Populate employee form');
-        const newEmployeeNumber = Date.now().toString();
+        const newEmployeeNumber = Date.now().toString().slice(-6);
         cy.fixture('employee.json').then((employee) => {
             cy.get('.modal form input[name="employeeNumber"]')
                 .should('have.focus')

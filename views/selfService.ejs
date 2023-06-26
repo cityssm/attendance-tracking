@@ -59,9 +59,6 @@
               </label>
               <div class="control">
                 <input class="input is-large" id="employee--employeeNumber" name="employeeNumber"
-                  <%- (configFunctions.getProperty('settings.employeeNumberRegularExpression')
-                    ? ' pattern="' + configFunctions.getProperty('settings.employeeNumberRegularExpression').source + '"'
-                    : '') %>
                   maxlength="20"
                   autocomplete="off"
                   required />
