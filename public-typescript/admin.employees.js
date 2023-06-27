@@ -273,6 +273,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     unfilteredEmployees = responseJSON.employees;
                     refreshFilteredEmployees();
                 }
+                else {
+                    bulmaJS.alert({
+                        title: 'Error Adding Employee',
+                        message: 'Please check to make sure that an employee does not already exist with the same employee number.',
+                        contextualColorName: 'danger'
+                    });
+                }
             });
         }
         cityssm.openHtmlModal('employeeAdmin-addEmployee', {
