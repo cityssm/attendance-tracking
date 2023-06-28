@@ -37,6 +37,14 @@ function canUpdateCallOuts(user: recordTypes.User): boolean {
   )
 }
 
+function isTemporaryAdmin(user: recordTypes.User): boolean {
+  return (
+    configFunctions.getProperty('application.allowTesting') &&
+    (user.userName.startsWith('~~') ?? false) &&
+    (user.isAdmin ?? false)
+  )
+}
+
 export async function handler(
   request: Request,
   response: Response
@@ -84,11 +92,7 @@ export async function handler(
   let lastFourDigits = ''
   let lastFourDigitsBad = 1000
 
-  if (
-    configFunctions.getProperty('application.allowTesting') &&
-    (request.session.user?.userName.startsWith('~~') ?? false) &&
-    (request.session.user?.isAdmin ?? false)
-  ) {
+  if (isTemporaryAdmin(request.session.user!)) {
     const employees = await getEmployees(
       {
         isActive: true

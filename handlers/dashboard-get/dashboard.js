@@ -21,6 +21,11 @@ function canUpdateCallOuts(user) {
     return (canViewCallOuts(user) &&
         permissionFunctions.hasPermission(user, 'attendance.callOuts.canUpdate'));
 }
+function isTemporaryAdmin(user) {
+    return (configFunctions.getProperty('application.allowTesting') &&
+        (user.userName.startsWith('~~') ?? false) &&
+        (user.isAdmin ?? false));
+}
 export async function handler(request, response) {
     let absenceRecords = [];
     if (canViewAbsences(request.session.user)) {
@@ -47,9 +52,7 @@ export async function handler(request, response) {
     let employeeNumber = '';
     let lastFourDigits = '';
     let lastFourDigitsBad = 1000;
-    if (configFunctions.getProperty('application.allowTesting') &&
-        (request.session.user?.userName.startsWith('~~') ?? false) &&
-        (request.session.user?.isAdmin ?? false)) {
+    if (isTemporaryAdmin(request.session.user)) {
         const employees = await getEmployees({
             isActive: true
         }, { includeProperties: false });
