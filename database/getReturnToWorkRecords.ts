@@ -3,10 +3,7 @@ import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
 import * as permissionFunctions from '../helpers/functions.permissions.js'
-import type {
-  PartialSession,
-  ReturnToWorkRecord
-} from '../types/recordTypes'
+import type { ReturnToWorkRecord, User } from '../types/recordTypes'
 
 interface GetReturnToWorkRecordsFilters {
   recordId?: string
@@ -17,7 +14,7 @@ interface GetReturnToWorkRecordsFilters {
 
 export async function getReturnToWorkRecords(
   filters: GetReturnToWorkRecordsFilters,
-  requestSession: PartialSession
+  sessionUser: User
 ): Promise<ReturnToWorkRecord[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -59,18 +56,18 @@ export async function getReturnToWorkRecords(
 
   if (
     permissionFunctions.hasPermission(
-      requestSession.user!,
+      sessionUser,
       'attendance.returnsToWork.canUpdate'
     )
   ) {
     for (const returnToWorkRecord of returnToWorkRecords) {
       returnToWorkRecord.canUpdate =
         permissionFunctions.hasPermission(
-          requestSession.user!,
+          sessionUser,
           'attendance.returnsToWork.canManage'
         ) ||
         (returnToWorkRecord.recordCreate_userName ===
-          requestSession.user?.userName &&
+          sessionUser.userName &&
           Date.now() - returnToWorkRecord.recordCreate_dateTime!.getTime() <=
             configFunctions.getProperty('settings.updateDays') * 86_400 * 1000)
     }

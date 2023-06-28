@@ -26,7 +26,7 @@ export async function handler(
         recentOnly: true,
         todayOnly: false
       },
-      request.session
+      request.session.user!
     )
   }
 
@@ -45,7 +45,7 @@ export async function handler(
         recentOnly: true,
         todayOnly: false
       },
-      request.session
+      request.session.user!
     )
   }
 

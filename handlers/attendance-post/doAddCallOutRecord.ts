@@ -7,7 +7,7 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const recordId = await addCallOutRecord(request.body, request.session)
+  const recordId = await addCallOutRecord(request.body, request.session.user!)
 
   const callOutRecords = await getCallOutRecords({
     listId: request.body.listId,

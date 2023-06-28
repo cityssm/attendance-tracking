@@ -7,11 +7,11 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const listId = await createCallOutList(request.body, request.session)
+  const listId = await createCallOutList(request.body, request.session.user!)
 
   const callOutLists = await getCallOutLists(
     { favouriteOnly: false },
-    request.session
+    request.session.user!
   )
 
   response.json({

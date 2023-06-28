@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
 import { updateCallOutListMemberSortKeys } from './updateCallOutListMemberSortKeys.js';
-export async function updateCallOutList(callOutList, requestSession) {
+export async function updateCallOutList(callOutList, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     const result = await pool
         .request()
@@ -12,7 +12,7 @@ export async function updateCallOutList(callOutList, requestSession) {
         .input('sortKeyFunction', callOutList.sortKeyFunction)
         .input('eligibilityFunction', callOutList.eligibilityFunction)
         .input('employeePropertyName', callOutList.employeePropertyName)
-        .input('record_userName', requestSession.user?.userName)
+        .input('record_userName', sessionUser.userName)
         .input('record_dateTime', new Date())
         .input('listId', callOutList.listId).query(`update MonTY.CallOutLists
       set listName = @listName,
@@ -34,7 +34,7 @@ export async function updateCallOutList(callOutList, requestSession) {
         result.recordset[0].employeePropertyNameChanged === 1) {
         await updateCallOutListMemberSortKeys({
             listId: callOutList.listId
-        }, requestSession);
+        }, sessionUser);
     }
     return {
         success: result.rowsAffected[0] > 0,

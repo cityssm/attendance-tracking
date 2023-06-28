@@ -13,7 +13,7 @@ interface AddAbsenceTypeForm {
 
 export async function addAbsenceType(
   form: AddAbsenceTypeForm,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<string> {
   let absenceTypeKey = await getAvailableAbsenceTypeKey(form.absenceType)
 
@@ -28,7 +28,7 @@ export async function addAbsenceType(
     .input('absenceTypeKey', absenceTypeKey)
     .input('absenceType', form.absenceType)
     .input('orderNumber', -1)
-    .input('record_userName', requestSession.user?.userName)
+    .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date()).query(`insert into MonTY.AbsenceTypes
       (absenceTypeKey, absenceType, orderNumber,
         recordCreate_userName, recordCreate_dateTime, recordUpdate_userName, recordUpdate_dateTime)

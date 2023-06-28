@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
 import * as permissionFunctions from '../helpers/functions.permissions.js';
-export async function getAbsenceRecords(filters, requestSession) {
+export async function getAbsenceRecords(filters, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let sql = `select r.recordId,
     r.employeeNumber, r.employeeName,
@@ -32,12 +32,11 @@ export async function getAbsenceRecords(filters, requestSession) {
     sql += ' order by r.absenceDateTime desc, r.recordId desc';
     const recordsResult = await request.query(sql);
     const absenceRecords = recordsResult.recordset;
-    if (permissionFunctions.hasPermission(requestSession.user, 'attendance.absences.canUpdate')) {
+    if (permissionFunctions.hasPermission(sessionUser, 'attendance.absences.canUpdate')) {
         for (const absenceRecord of absenceRecords) {
             absenceRecord.canUpdate =
-                permissionFunctions.hasPermission(requestSession.user, 'attendance.absences.canManage') ||
-                    (absenceRecord.recordCreate_userName ===
-                        requestSession.user?.userName &&
+                permissionFunctions.hasPermission(sessionUser, 'attendance.absences.canManage') ||
+                    (absenceRecord.recordCreate_userName === sessionUser.userName &&
                         Date.now() - absenceRecord.recordCreate_dateTime.getTime() <=
                             configFunctions.getProperty('settings.updateDays') * 86400 * 1000);
         }

@@ -9,11 +9,11 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const success = await updateCallOutList(request.body, request.session)
+  const success = await updateCallOutList(request.body, request.session.user!)
 
   const callOutLists = await getCallOutLists(
     { favouriteOnly: false },
-    request.session
+    request.session.user!
   )
 
   const callOutListMembers = await getCallOutListMembers(

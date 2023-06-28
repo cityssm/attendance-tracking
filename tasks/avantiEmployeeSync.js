@@ -11,12 +11,10 @@ import { updateEmployee } from '../database/updateEmployee.js';
 import * as configFunctions from '../helpers/functions.config.js';
 const debug = Debug('monty:task:avantiEmployeeSync');
 let terminateTask = false;
-const partialSession = {
-    user: {
-        userName: 'sys.employeeSync',
-        canLogin: true,
-        isAdmin: false
-    }
+const sessionUser = {
+    userName: 'sys.employeeSync',
+    canLogin: true,
+    isAdmin: false
 };
 const avantiConfig = configFunctions.getProperty('settings.avantiSync.config');
 avanti.setConfiguration(avantiConfig);
@@ -40,7 +38,8 @@ async function doSync() {
         if (terminateTask) {
             break;
         }
-        if ((avantiEmployee.empNo ?? '') === '' || !(avantiEmployee.active ?? false)) {
+        if ((avantiEmployee.empNo ?? '') === '' ||
+            !(avantiEmployee.active ?? false)) {
             continue;
         }
         try {
@@ -93,9 +92,9 @@ async function doSync() {
                 }
             }
             currentEmployee === undefined
-                ? await createEmployee(newEmployee, partialSession)
-                : await updateEmployee(newEmployee, true, partialSession);
-            await deleteEmployeeProperties(newEmployee.employeeNumber, true, partialSession);
+                ? await createEmployee(newEmployee, sessionUser)
+                : await updateEmployee(newEmployee, true, sessionUser);
+            await deleteEmployeeProperties(newEmployee.employeeNumber, true, sessionUser);
             if (avantiEmployeePersonalResponse.success) {
                 const avantiEmployeePersonal = avantiEmployeePersonalResponse.response;
                 await setEmployeeProperty({
@@ -103,25 +102,25 @@ async function doSync() {
                     propertyName: 'position',
                     propertyValue: avantiEmployeePersonal.position ?? '',
                     isSynced: true
-                }, true, partialSession);
+                }, true, sessionUser);
                 await setEmployeeProperty({
                     employeeNumber: newEmployee.employeeNumber,
                     propertyName: 'payGroup',
                     propertyValue: avantiEmployeePersonal.payGroup ?? '',
                     isSynced: true
-                }, true, partialSession);
+                }, true, sessionUser);
                 await setEmployeeProperty({
                     employeeNumber: newEmployee.employeeNumber,
                     propertyName: 'location',
                     propertyValue: avantiEmployeePersonal.location ?? '',
                     isSynced: true
-                }, true, partialSession);
+                }, true, sessionUser);
                 await setEmployeeProperty({
                     employeeNumber: newEmployee.employeeNumber,
                     propertyName: 'workGroup',
                     propertyValue: avantiEmployeePersonal.workGroup ?? '',
                     isSynced: true
-                }, true, partialSession);
+                }, true, sessionUser);
                 for (let otherTextIndex = 1; otherTextIndex <= 20; otherTextIndex += 1) {
                     if (avantiEmployeePersonal[`otherText${otherTextIndex}`] !== '') {
                         await setEmployeeProperty({
@@ -129,7 +128,7 @@ async function doSync() {
                             propertyName: `otherText${otherTextIndex}`,
                             propertyValue: avantiEmployeePersonal[`otherText${otherTextIndex}`],
                             isSynced: true
-                        }, true, partialSession);
+                        }, true, sessionUser);
                     }
                 }
             }
@@ -138,7 +137,7 @@ async function doSync() {
             debug(error);
         }
     }
-    const employeesDeleted = await deleteMissingSyncedEmployees(syncDateTime, partialSession);
+    const employeesDeleted = await deleteMissingSyncedEmployees(syncDateTime, sessionUser);
     debug(`${employeesDeleted} employee(s) deleted`);
 }
 await doSync().catch(() => {

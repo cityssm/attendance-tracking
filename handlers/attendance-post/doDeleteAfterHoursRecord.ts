@@ -10,7 +10,7 @@ export async function handler(
 ): Promise<unknown> {
   const recordId = request.body.recordId
 
-  const afterHoursRecord = await getAfterHoursRecord(recordId, request.session)
+  const afterHoursRecord = await getAfterHoursRecord(recordId, request.session.user!)
 
   if (afterHoursRecord === undefined) {
     return response.json({
@@ -26,14 +26,14 @@ export async function handler(
     })
   }
 
-  const success = await deleteAfterHoursRecord(recordId, request.session)
+  const success = await deleteAfterHoursRecord(recordId, request.session.user!)
 
   const afterHoursRecords = await getAfterHoursRecords(
     {
       recentOnly: true,
       todayOnly: false
     },
-    request.session
+    request.session.user!
   )
 
   response.json({

@@ -1,10 +1,10 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
-export async function addUser(userName, requestSession) {
+export async function addUser(userName, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let result = await pool
         .request()
-        .input('record_userName', requestSession.user?.userName)
+        .input('record_userName', sessionUser.userName)
         .input('record_dateTime', new Date())
         .input('userName', userName)
         .query(`update MonTY.Users
@@ -19,7 +19,7 @@ export async function addUser(userName, requestSession) {
             .input('userName', userName)
             .input('canLogin', 0)
             .input('isAdmin', 0)
-            .input('record_userName', requestSession.user?.userName)
+            .input('record_userName', sessionUser.userName)
             .input('record_dateTime', new Date())
             .query(`insert into MonTY.Users
         (userName, canLogin, isAdmin,

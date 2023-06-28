@@ -6,16 +6,16 @@ import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js
 import { getAbsenceTypes, getAfterHoursReasons, getCallOutResponseTypes, getEmployeePropertyNames } from '../../helpers/functions.cache.js';
 import * as configFunctions from '../../helpers/functions.config.js';
 import * as permissionFunctions from '../../helpers/functions.permissions.js';
-async function populateAbsenceVariables(requestSession) {
+async function populateAbsenceVariables(sessionUser) {
     let absenceRecords = [];
     let absenceTypes = [];
-    if (permissionFunctions.hasPermission(requestSession.user, 'attendance.absences.canView')) {
+    if (permissionFunctions.hasPermission(sessionUser, 'attendance.absences.canView')) {
         absenceRecords = await getAbsenceRecords({
             recentOnly: true,
             todayOnly: false
-        }, requestSession);
+        }, sessionUser);
     }
-    if (permissionFunctions.hasPermission(requestSession.user, 'attendance.absences.canUpdate')) {
+    if (permissionFunctions.hasPermission(sessionUser, 'attendance.absences.canUpdate')) {
         absenceTypes = await getAbsenceTypes();
     }
     return {
@@ -23,33 +23,33 @@ async function populateAbsenceVariables(requestSession) {
         absenceTypes
     };
 }
-async function populateReturnToWorkVariables(requestSession) {
+async function populateReturnToWorkVariables(sessionUser) {
     let returnToWorkRecords = [];
-    if (permissionFunctions.hasPermission(requestSession.user, 'attendance.returnsToWork.canView')) {
+    if (permissionFunctions.hasPermission(sessionUser, 'attendance.returnsToWork.canView')) {
         returnToWorkRecords = await getReturnToWorkRecords({
             recentOnly: true,
             todayOnly: false
-        }, requestSession);
+        }, sessionUser);
     }
     return {
         returnToWorkRecords
     };
 }
-async function populateCallOutVariables(requestSession) {
+async function populateCallOutVariables(sessionUser) {
     let callOutLists = [];
     let callOutResponseTypes = [];
     const employeeEligibilityFunctionNames = [];
     const employeeSortKeyFunctionNames = [];
     let employeePropertyNames = [];
-    if (permissionFunctions.hasPermission(requestSession.user, 'attendance.callOuts.canView')) {
+    if (permissionFunctions.hasPermission(sessionUser, 'attendance.callOuts.canView')) {
         callOutLists = await getCallOutLists({
             favouriteOnly: false
-        }, requestSession);
+        }, sessionUser);
     }
-    if (permissionFunctions.hasPermission(requestSession.user, 'attendance.callOuts.canUpdate')) {
+    if (permissionFunctions.hasPermission(sessionUser, 'attendance.callOuts.canUpdate')) {
         callOutResponseTypes = await getCallOutResponseTypes();
     }
-    if (permissionFunctions.hasPermission(requestSession.user, 'attendance.callOuts.canManage')) {
+    if (permissionFunctions.hasPermission(sessionUser, 'attendance.callOuts.canManage')) {
         const employeeEligibilityFunctions = configFunctions.getProperty('settings.employeeEligibilityFunctions');
         for (const eligibilityFunction of employeeEligibilityFunctions) {
             employeeEligibilityFunctionNames.push(eligibilityFunction.functionName);
@@ -68,16 +68,16 @@ async function populateCallOutVariables(requestSession) {
         employeePropertyNames
     };
 }
-async function populateAfterHoursVariables(requestSession) {
+async function populateAfterHoursVariables(sessionUser) {
     let afterHoursRecords = [];
     let afterHoursReasons = [];
-    if (permissionFunctions.hasPermission(requestSession.user, 'attendance.afterHours.canView')) {
+    if (permissionFunctions.hasPermission(sessionUser, 'attendance.afterHours.canView')) {
         afterHoursRecords = await getAfterHoursRecords({
             recentOnly: true,
             todayOnly: false
-        }, requestSession);
+        }, sessionUser);
     }
-    if (permissionFunctions.hasPermission(requestSession.user, 'attendance.afterHours.canUpdate')) {
+    if (permissionFunctions.hasPermission(sessionUser, 'attendance.afterHours.canUpdate')) {
         afterHoursReasons = await getAfterHoursReasons();
     }
     return {
@@ -89,13 +89,13 @@ export async function handler(request, response) {
     let absenceRecords = [];
     let absenceTypes = [];
     if (configFunctions.getProperty('features.attendance.absences')) {
-        const absenceVariables = await populateAbsenceVariables(request.session);
+        const absenceVariables = await populateAbsenceVariables(request.session.user);
         absenceRecords = absenceVariables.absenceRecords;
         absenceTypes = absenceVariables.absenceTypes;
     }
     let returnToWorkRecords = [];
     if (configFunctions.getProperty('features.attendance.returnsToWork')) {
-        const returnToWorkVariables = await populateReturnToWorkVariables(request.session);
+        const returnToWorkVariables = await populateReturnToWorkVariables(request.session.user);
         returnToWorkRecords = returnToWorkVariables.returnToWorkRecords;
     }
     let callOutLists = [];
@@ -104,7 +104,7 @@ export async function handler(request, response) {
     let employeeSortKeyFunctionNames = [];
     let employeePropertyNames = [];
     if (configFunctions.getProperty('features.attendance.callOuts')) {
-        const callOutVariables = await populateCallOutVariables(request.session);
+        const callOutVariables = await populateCallOutVariables(request.session.user);
         callOutLists = callOutVariables.callOutLists;
         callOutResponseTypes = callOutVariables.callOutResponseTypes;
         employeeEligibilityFunctionNames =
@@ -115,7 +115,7 @@ export async function handler(request, response) {
     let afterHoursRecords = [];
     let afterHoursReasons = [];
     if (configFunctions.getProperty('features.attendance.afterHours')) {
-        const afterHoursVariables = await populateAfterHoursVariables(request.session);
+        const afterHoursVariables = await populateAfterHoursVariables(request.session.user);
         afterHoursRecords = afterHoursVariables.afterHoursRecords;
         afterHoursReasons = afterHoursVariables.afterHoursReasons;
     }

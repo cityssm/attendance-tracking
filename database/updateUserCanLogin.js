@@ -1,11 +1,11 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
-export async function updateUserCanLogin(userName, canLogin, requestSession) {
+export async function updateUserCanLogin(userName, canLogin, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     const result = await pool
         .request()
         .input('canLogin', canLogin)
-        .input('record_userName', requestSession.user?.userName)
+        .input('record_userName', sessionUser.userName)
         .input('record_dateTime', new Date())
         .input('userName', userName).query(`update MonTY.Users
       set canLogin = @canLogin,

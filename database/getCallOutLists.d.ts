@@ -3,5 +3,5 @@ interface GetCallOutListsFilters {
     favouriteOnly: boolean;
     allowSelfSignUp?: boolean;
 }
-export declare function getCallOutLists(filters: GetCallOutListsFilters, requestSession: recordTypes.PartialSession): Promise<recordTypes.CallOutList[]>;
+export declare function getCallOutLists(filters: GetCallOutListsFilters, sessionUser: recordTypes.User): Promise<recordTypes.CallOutList[]>;
 export {};

@@ -11,7 +11,7 @@ export async function handler(request, response) {
             employeeNumber: request.body.employeeNumber,
             recentOnly: true,
             todayOnly: false
-        }, request.session);
+        }, request.session.user);
     }
     let returnToWorkRecords = [];
     if (configFunctions.getProperty('features.attendance.returnsToWork') &&
@@ -20,7 +20,7 @@ export async function handler(request, response) {
             employeeNumber: request.body.employeeNumber,
             recentOnly: true,
             todayOnly: false
-        }, request.session);
+        }, request.session.user);
     }
     let callOutRecords = [];
     if (configFunctions.getProperty('features.attendance.callOuts') &&

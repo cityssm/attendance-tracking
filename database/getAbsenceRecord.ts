@@ -1,10 +1,10 @@
-import type { AbsenceRecord, PartialSession } from '../types/recordTypes'
+import type { AbsenceRecord, User } from '../types/recordTypes'
 
 import { getAbsenceRecords } from './getAbsenceRecords.js'
 
 export async function getAbsenceRecord(
   recordId: string,
-  requestSession: PartialSession
+  sessionUser: User
 ): Promise<AbsenceRecord | undefined> {
   const absenceRecords = await getAbsenceRecords(
     {
@@ -12,7 +12,7 @@ export async function getAbsenceRecord(
       recentOnly: false,
       todayOnly: false
     },
-    requestSession
+    sessionUser
   )
 
   if (absenceRecords.length > 0) {

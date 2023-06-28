@@ -10,7 +10,7 @@ export async function handler(
 ): Promise<unknown> {
   const recordId = request.body.recordId
 
-  const absenceRecord = await getAbsenceRecord(recordId, request.session)
+  const absenceRecord = await getAbsenceRecord(recordId, request.session.user!)
 
   if (absenceRecord === undefined) {
     return response.json({
@@ -26,14 +26,14 @@ export async function handler(
     })
   }
 
-  const success = await deleteAbsenceRecord(recordId, request.session)
+  const success = await deleteAbsenceRecord(recordId, request.session.user!)
 
   const absenceRecords = await getAbsenceRecords(
     {
       recentOnly: true,
       todayOnly: false
     },
-    request.session
+    request.session.user!
   )
 
   response.json({

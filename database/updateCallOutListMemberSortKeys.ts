@@ -15,7 +15,7 @@ interface CallOutListMemberFilters {
 
 export async function updateCallOutListMemberSortKeys(
   filters: CallOutListMemberFilters,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<number> {
   const callOutListMembers = await getCallOutListMembers(filters, {
     includeSortKeyFunction: true
@@ -53,7 +53,7 @@ export async function updateCallOutListMemberSortKeys(
       const result = await pool
         .request()
         .input('sortKey', sortKey)
-        .input('record_userName', requestSession.user?.userName)
+        .input('record_userName', sessionUser.userName)
         .input('record_dateTime', new Date())
         .input('listId', member.listId)
         .input('employeeNumber', member.employeeNumber)

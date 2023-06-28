@@ -1,13 +1,13 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import { clearCacheByTableName } from '../helpers/functions.cache.js';
 import * as configFunctions from '../helpers/functions.config.js';
-export async function addAfterHoursReason(form, requestSession) {
+export async function addAfterHoursReason(form, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     const result = await pool
         .request()
         .input('afterHoursReason', form.afterHoursReason)
         .input('orderNumber', -1)
-        .input('record_userName', requestSession.user?.userName)
+        .input('record_userName', sessionUser.userName)
         .input('record_dateTime', new Date())
         .query(`insert into MonTY.AfterHoursReasons
       (afterHoursReason, orderNumber,

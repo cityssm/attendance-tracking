@@ -5,13 +5,13 @@ import type * as recordTypes from '../types/recordTypes'
 
 export async function addUser(
   userName: string,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
   let result = await pool
     .request()
-    .input('record_userName', requestSession.user?.userName)
+    .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date())
     .input('userName', userName)
     .query(`update MonTY.Users
@@ -27,7 +27,7 @@ export async function addUser(
       .input('userName', userName)
       .input('canLogin', 0)
       .input('isAdmin', 0)
-      .input('record_userName', requestSession.user?.userName)
+      .input('record_userName', sessionUser.userName)
       .input('record_dateTime', new Date())
       .query(`insert into MonTY.Users
         (userName, canLogin, isAdmin,

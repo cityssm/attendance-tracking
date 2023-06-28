@@ -1,2 +1,2 @@
 import type * as recordTypes from '../types/recordTypes';
-export declare function deleteMissingSyncedEmployees(syncDateTime: Date, requestSession: recordTypes.PartialSession): Promise<number>;
+export declare function deleteMissingSyncedEmployees(syncDateTime: Date, sessionUser: recordTypes.User): Promise<number>;

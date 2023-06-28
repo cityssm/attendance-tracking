@@ -6,7 +6,7 @@ import type * as recordTypes from '../types/recordTypes'
 
 export async function createEmployee(
   employee: recordTypes.Employee,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -86,7 +86,7 @@ export async function createEmployee(
     .input('isSynced', employee.isSynced ?? false)
     .input('syncDateTime', employee.syncDateTime)
     .input('isActive', employee.isActive ?? true)
-    .input('record_userName', requestSession.user?.userName)
+    .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date())
     .query(insertSQL)
 

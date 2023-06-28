@@ -3,7 +3,7 @@ import { getAbsenceRecord } from '../../database/getAbsenceRecord.js';
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js';
 export async function handler(request, response) {
     const recordId = request.body.recordId;
-    const absenceRecord = await getAbsenceRecord(recordId, request.session);
+    const absenceRecord = await getAbsenceRecord(recordId, request.session.user);
     if (absenceRecord === undefined) {
         return response.json({
             success: false,
@@ -16,11 +16,11 @@ export async function handler(request, response) {
             errorMessage: 'Access denied.'
         });
     }
-    const success = await deleteAbsenceRecord(recordId, request.session);
+    const success = await deleteAbsenceRecord(recordId, request.session.user);
     const absenceRecords = await getAbsenceRecords({
         recentOnly: true,
         todayOnly: false
-    }, request.session);
+    }, request.session.user);
     response.json({
         success,
         absenceRecords

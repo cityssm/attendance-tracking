@@ -9,7 +9,7 @@ export async function handler(
 ): Promise<void> {
   const success = await deleteCallOutRecord(
     request.body.recordId,
-    request.session
+    request.session.user!
   )
 
   const callOutRecords = await getCallOutRecords({

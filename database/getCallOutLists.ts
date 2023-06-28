@@ -11,7 +11,7 @@ interface GetCallOutListsFilters {
 
 export async function getCallOutLists(
   filters: GetCallOutListsFilters,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<recordTypes.CallOutList[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -23,7 +23,9 @@ export async function getCallOutLists(
     cast (case when f.userName is not null then 1 else 0 end as bit) as isFavourite,
     count(m.employeeNumber) as callOutListMembersCount
     from MonTY.CallOutLists l
-    ${filters.favouriteOnly ? 'inner' : 'left'} join MonTY.FavouriteCallOutLists f
+    ${
+      filters.favouriteOnly ? 'inner' : 'left'
+    } join MonTY.FavouriteCallOutLists f
       on l.listId = f.listId and f.userName = @userName
     left join MonTY.CallOutListMembers m
       on l.listId = m.listId
@@ -43,7 +45,7 @@ export async function getCallOutLists(
       order by isFavourite desc, listName`
 
   const results: IResult<recordTypes.CallOutList> = await request
-    .input('userName', requestSession.user!.userName)
+    .input('userName', sessionUser.userName)
     .query(sql)
 
   return results.recordset

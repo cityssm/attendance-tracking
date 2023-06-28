@@ -4,5 +4,5 @@ interface UpdateCallOutListReturn {
     sortKeyFunctionChanged: boolean;
     eligibilityFunctionChanged: boolean;
 }
-export declare function updateCallOutList(callOutList: recordTypes.CallOutList, requestSession: recordTypes.PartialSession): Promise<UpdateCallOutListReturn>;
+export declare function updateCallOutList(callOutList: recordTypes.CallOutList, sessionUser: recordTypes.User): Promise<UpdateCallOutListReturn>;
 export {};

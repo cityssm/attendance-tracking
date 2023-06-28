@@ -3,7 +3,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool';
 import camelCase from 'camelcase';
 import { clearCacheByTableName } from '../helpers/functions.cache.js';
 import * as configFunctions from '../helpers/functions.config.js';
-export async function addAbsenceType(form, requestSession) {
+export async function addAbsenceType(form, sessionUser) {
     let absenceTypeKey = await getAvailableAbsenceTypeKey(form.absenceType);
     while (absenceTypeKey === '') {
         absenceTypeKey = await getAvailableAbsenceTypeKey(crypto.randomUUID());
@@ -14,7 +14,7 @@ export async function addAbsenceType(form, requestSession) {
         .input('absenceTypeKey', absenceTypeKey)
         .input('absenceType', form.absenceType)
         .input('orderNumber', -1)
-        .input('record_userName', requestSession.user?.userName)
+        .input('record_userName', sessionUser.userName)
         .input('record_dateTime', new Date()).query(`insert into MonTY.AbsenceTypes
       (absenceTypeKey, absenceType, orderNumber,
         recordCreate_userName, recordCreate_dateTime, recordUpdate_userName, recordUpdate_dateTime)

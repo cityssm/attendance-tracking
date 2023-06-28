@@ -1,2 +1,2 @@
 import type * as recordTypes from '../types/recordTypes';
-export declare function createCallOutList(callOutList: recordTypes.CallOutList, requestSession: recordTypes.PartialSession): Promise<number>;
+export declare function createCallOutList(callOutList: recordTypes.CallOutList, sessionUser: recordTypes.User): Promise<number>;

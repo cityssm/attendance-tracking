@@ -10,18 +10,16 @@ import { getEmployee } from '../database/getEmployee.js'
 import { setEmployeeProperty } from '../database/setEmployeeProperty.js'
 import { updateEmployee } from '../database/updateEmployee.js'
 import * as configFunctions from '../helpers/functions.config.js'
-import type { Employee, PartialSession } from '../types/recordTypes'
+import type { Employee, User } from '../types/recordTypes'
 
 const debug = Debug('monty:task:avantiEmployeeSync')
 
 let terminateTask = false
 
-const partialSession: PartialSession = {
-  user: {
-    userName: 'sys.employeeSync',
-    canLogin: true,
-    isAdmin: false
-  }
+const sessionUser: User = {
+  userName: 'sys.employeeSync',
+  canLogin: true,
+  isAdmin: false
 }
 
 const avantiConfig = configFunctions.getProperty('settings.avantiSync.config')
@@ -61,7 +59,10 @@ async function doSync(): Promise<void> {
       break
     }
 
-    if ((avantiEmployee.empNo ?? '') === '' || !(avantiEmployee.active ?? false)) {
+    if (
+      (avantiEmployee.empNo ?? '') === '' ||
+      !(avantiEmployee.active ?? false)
+    ) {
       // Avanti employee record has no employee number
       // Skip the record
       continue
@@ -147,13 +148,13 @@ async function doSync(): Promise<void> {
       }
 
       currentEmployee === undefined
-        ? await createEmployee(newEmployee, partialSession)
-        : await updateEmployee(newEmployee, true, partialSession)
+        ? await createEmployee(newEmployee, sessionUser)
+        : await updateEmployee(newEmployee, true, sessionUser)
 
       await deleteEmployeeProperties(
         newEmployee.employeeNumber,
         true,
-        partialSession
+        sessionUser
       )
 
       if (avantiEmployeePersonalResponse.success) {
@@ -167,7 +168,7 @@ async function doSync(): Promise<void> {
             isSynced: true
           },
           true,
-          partialSession
+          sessionUser
         )
 
         await setEmployeeProperty(
@@ -178,7 +179,7 @@ async function doSync(): Promise<void> {
             isSynced: true
           },
           true,
-          partialSession
+          sessionUser
         )
 
         await setEmployeeProperty(
@@ -189,7 +190,7 @@ async function doSync(): Promise<void> {
             isSynced: true
           },
           true,
-          partialSession
+          sessionUser
         )
 
         await setEmployeeProperty(
@@ -200,7 +201,7 @@ async function doSync(): Promise<void> {
             isSynced: true
           },
           true,
-          partialSession
+          sessionUser
         )
 
         for (
@@ -219,7 +220,7 @@ async function doSync(): Promise<void> {
                 isSynced: true
               },
               true,
-              partialSession
+              sessionUser
             )
           }
         }
@@ -231,7 +232,7 @@ async function doSync(): Promise<void> {
 
   const employeesDeleted = await deleteMissingSyncedEmployees(
     syncDateTime,
-    partialSession
+    sessionUser
   )
 
   debug(`${employeesDeleted} employee(s) deleted`)

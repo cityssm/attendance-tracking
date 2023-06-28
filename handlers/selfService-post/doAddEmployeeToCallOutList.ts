@@ -91,18 +91,16 @@ export async function handler(
   let success = false
 
   if (isEligible) {
-    const partialSession: recordTypes.PartialSession = {
-      user: {
-        userName: employee.employeeNumber,
-        canLogin: false,
-        isAdmin: false
-      }
+    const sessionUser: recordTypes.User = {
+      userName: employee.employeeNumber,
+      canLogin: false,
+      isAdmin: false
     }
 
     success = await addCallOutListMember(
       callOutList.listId,
       employee.employeeNumber,
-      partialSession
+      sessionUser
     )
   } else {
     response.json({

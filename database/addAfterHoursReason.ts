@@ -11,7 +11,7 @@ interface AddAfterHGoursReasonForm {
 
 export async function addAfterHoursReason(
   form: AddAfterHGoursReasonForm,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<number> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -19,7 +19,7 @@ export async function addAfterHoursReason(
     .request()
     .input('afterHoursReason', form.afterHoursReason)
     .input('orderNumber', -1)
-    .input('record_userName', requestSession.user?.userName)
+    .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date())
     .query(`insert into MonTY.AfterHoursReasons
       (afterHoursReason, orderNumber,

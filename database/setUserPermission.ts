@@ -9,7 +9,7 @@ export async function setUserPermission(
     permissionKey: string
     permissionValue: string
   },
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 

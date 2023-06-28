@@ -3,7 +3,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
 import { getCallOutListMembers } from './getCallOutListMembers.js';
 import { getEmployeeProperties } from './getEmployeeProperties.js';
-export async function updateCallOutListMemberSortKeys(filters, requestSession) {
+export async function updateCallOutListMemberSortKeys(filters, sessionUser) {
     const callOutListMembers = await getCallOutListMembers(filters, {
         includeSortKeyFunction: true
     });
@@ -25,7 +25,7 @@ export async function updateCallOutListMemberSortKeys(filters, requestSession) {
             const result = await pool
                 .request()
                 .input('sortKey', sortKey)
-                .input('record_userName', requestSession.user?.userName)
+                .input('record_userName', sessionUser.userName)
                 .input('record_dateTime', new Date())
                 .input('listId', member.listId)
                 .input('employeeNumber', member.employeeNumber)

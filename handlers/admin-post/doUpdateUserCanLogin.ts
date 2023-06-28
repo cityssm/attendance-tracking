@@ -10,7 +10,7 @@ export async function handler(
   const success = await updateUserCanLogin(
     request.body.userName,
     request.body.canLogin,
-    request.session
+    request.session.user!
   )
 
   const users = await getUsers()

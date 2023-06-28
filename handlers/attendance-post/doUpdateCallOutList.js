@@ -3,8 +3,8 @@ import { getCallOutLists } from '../../database/getCallOutLists.js';
 import { getEmployees } from '../../database/getEmployees.js';
 import { updateCallOutList } from '../../database/updateCallOutList.js';
 export async function handler(request, response) {
-    const success = await updateCallOutList(request.body, request.session);
-    const callOutLists = await getCallOutLists({ favouriteOnly: false }, request.session);
+    const success = await updateCallOutList(request.body, request.session.user);
+    const callOutLists = await getCallOutLists({ favouriteOnly: false }, request.session.user);
     const callOutListMembers = await getCallOutListMembers({
         listId: request.body.listId
     }, {

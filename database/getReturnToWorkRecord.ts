@@ -1,10 +1,10 @@
-import type { PartialSession, ReturnToWorkRecord } from '../types/recordTypes'
+import type { ReturnToWorkRecord, User } from '../types/recordTypes'
 
 import { getReturnToWorkRecords } from './getReturnToWorkRecords.js'
 
 export async function getReturnToWorkRecord(
   recordId: string,
-  requestSession: PartialSession
+  sessionUser: User
 ): Promise<ReturnToWorkRecord | undefined> {
   const returnToWorkRecords = await getReturnToWorkRecords(
     {
@@ -12,7 +12,7 @@ export async function getReturnToWorkRecord(
       recentOnly: false,
       todayOnly: false
     },
-    requestSession
+    sessionUser
   )
 
   if (returnToWorkRecords.length > 0) {

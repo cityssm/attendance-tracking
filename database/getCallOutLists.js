@@ -1,6 +1,6 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
-export async function getCallOutLists(filters, requestSession) {
+export async function getCallOutLists(filters, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     const request = pool.request();
     let sql = `select l.listId, l.listName, l.listDescription,
@@ -26,7 +26,7 @@ export async function getCallOutLists(filters, requestSession) {
         l.sortKeyFunction, l.eligibilityFunction, l.employeePropertyName, f.userName
       order by isFavourite desc, listName`;
     const results = await request
-        .input('userName', requestSession.user.userName)
+        .input('userName', sessionUser.userName)
         .query(sql);
     return results.recordset;
 }

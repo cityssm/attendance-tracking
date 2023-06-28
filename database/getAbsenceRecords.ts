@@ -3,7 +3,7 @@ import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
 import * as permissionFunctions from '../helpers/functions.permissions.js'
-import type { AbsenceRecord, PartialSession } from '../types/recordTypes'
+import type { AbsenceRecord, User } from '../types/recordTypes'
 
 interface GetAbsenceRecordsFilters {
   recordId?: string
@@ -14,7 +14,7 @@ interface GetAbsenceRecordsFilters {
 
 export async function getAbsenceRecords(
   filters: GetAbsenceRecordsFilters,
-  requestSession: PartialSession
+  sessionUser: User
 ): Promise<AbsenceRecord[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -59,18 +59,17 @@ export async function getAbsenceRecords(
 
   if (
     permissionFunctions.hasPermission(
-      requestSession.user!,
+      sessionUser,
       'attendance.absences.canUpdate'
     )
   ) {
     for (const absenceRecord of absenceRecords) {
       absenceRecord.canUpdate =
         permissionFunctions.hasPermission(
-          requestSession.user!,
+          sessionUser,
           'attendance.absences.canManage'
         ) ||
-        (absenceRecord.recordCreate_userName ===
-          requestSession.user?.userName &&
+        (absenceRecord.recordCreate_userName === sessionUser.userName &&
           Date.now() - absenceRecord.recordCreate_dateTime!.getTime() <=
             configFunctions.getProperty('settings.updateDays') * 86_400 * 1000)
     }

@@ -8,5 +8,5 @@ interface AddCallOutRecordForm {
     responseTypeId: string;
     recordComment: string;
 }
-export declare function addCallOutRecord(form: AddCallOutRecordForm, requestSession: recordTypes.PartialSession): Promise<string>;
+export declare function addCallOutRecord(form: AddCallOutRecordForm, sessionUser: recordTypes.User): Promise<string>;
 export {};

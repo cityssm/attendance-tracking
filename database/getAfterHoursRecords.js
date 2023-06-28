@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
 import * as permissionFunctions from '../helpers/functions.permissions.js';
-export async function getAfterHoursRecords(filters, requestSession) {
+export async function getAfterHoursRecords(filters, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let sql = `select r.recordId,
     r.employeeNumber, r.employeeName,
@@ -32,12 +32,11 @@ export async function getAfterHoursRecords(filters, requestSession) {
     sql += ' order by r.attendanceDateTime desc, r.recordId desc';
     const recordsResult = await request.query(sql);
     const afterHoursRecords = recordsResult.recordset;
-    if (permissionFunctions.hasPermission(requestSession.user, 'attendance.afterHours.canUpdate')) {
+    if (permissionFunctions.hasPermission(sessionUser, 'attendance.afterHours.canUpdate')) {
         for (const afterHoursRecord of afterHoursRecords) {
             afterHoursRecord.canUpdate =
-                permissionFunctions.hasPermission(requestSession.user, 'attendance.afterHours.canManage') ||
-                    (afterHoursRecord.recordCreate_userName ===
-                        requestSession.user?.userName &&
+                permissionFunctions.hasPermission(sessionUser, 'attendance.afterHours.canManage') ||
+                    (afterHoursRecord.recordCreate_userName === sessionUser.userName &&
                         Date.now() - afterHoursRecord.recordCreate_dateTime.getTime() <=
                             configFunctions.getProperty('settings.updateDays') * 86400 * 1000);
         }

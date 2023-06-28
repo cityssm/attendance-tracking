@@ -1,11 +1,11 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
-export async function addFavouriteCallOutList(listId, requestSession) {
+export async function addFavouriteCallOutList(listId, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     try {
         await pool
             .request()
-            .input('userName', requestSession.user?.userName)
+            .input('userName', sessionUser.userName)
             .input('listId', listId).query(`insert into MonTY.FavouriteCallOutLists
         (userName, listId)
         values (@userName, @listId)`);

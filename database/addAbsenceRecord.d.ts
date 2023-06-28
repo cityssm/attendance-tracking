@@ -7,5 +7,5 @@ interface AddAbsenceRecordForm {
     returnDateString: string;
     recordComment: string;
 }
-export declare function addAbsenceRecord(form: AddAbsenceRecordForm, requestSession: recordTypes.PartialSession): Promise<string>;
+export declare function addAbsenceRecord(form: AddAbsenceRecordForm, sessionUser: recordTypes.User): Promise<string>;
 export {};

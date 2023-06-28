@@ -6,5 +6,5 @@ interface AddReturnToWorkRecordForm {
     returnShift: string;
     recordComment: string;
 }
-export declare function addReturnToWorkRecord(form: AddReturnToWorkRecordForm, requestSession: recordTypes.PartialSession): Promise<string>;
+export declare function addReturnToWorkRecord(form: AddReturnToWorkRecordForm, sessionUser: recordTypes.User): Promise<string>;
 export {};

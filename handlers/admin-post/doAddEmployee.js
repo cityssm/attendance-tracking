@@ -1,7 +1,7 @@
 import { createEmployee } from '../../database/createEmployee.js';
 import { getEmployees } from '../../database/getEmployees.js';
 export async function handler(request, response) {
-    const success = await createEmployee(request.body, request.session);
+    const success = await createEmployee(request.body, request.session.user);
     if (success) {
         const employees = await getEmployees({
             isActive: 'all'

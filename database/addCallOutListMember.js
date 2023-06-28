@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
 import { getEmployee } from './getEmployee.js';
-export async function addCallOutListMember(listId, employeeNumber, requestSession) {
+export async function addCallOutListMember(listId, employeeNumber, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let result = await pool.request().input('listId', listId)
         .query(`select sortKeyFunction, employeePropertyName
@@ -26,7 +26,7 @@ export async function addCallOutListMember(listId, employeeNumber, requestSessio
     result = await pool
         .request()
         .input('sortKey', sortKey)
-        .input('record_userName', requestSession.user?.userName)
+        .input('record_userName', sessionUser.userName)
         .input('record_dateTime', new Date())
         .input('listId', listId)
         .input('employeeNumber', employeeNumber)
@@ -45,7 +45,7 @@ export async function addCallOutListMember(listId, employeeNumber, requestSessio
             .input('employeeNumber', employeeNumber)
             .input('sortKey', sortKey)
             .input('isNext', 0)
-            .input('record_userName', requestSession.user?.userName)
+            .input('record_userName', sessionUser.userName)
             .input('record_dateTime', new Date())
             .query(`insert into MonTY.CallOutListMembers
         (listId, employeeNumber, sortKey, isNext,

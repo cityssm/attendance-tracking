@@ -7,5 +7,5 @@ interface AddAfterHoursRecordForm {
     afterHoursReasonId: string;
     recordComment: string;
 }
-export declare function addAfterHoursRecord(form: AddAfterHoursRecordForm, requestSession: recordTypes.PartialSession): Promise<string>;
+export declare function addAfterHoursRecord(form: AddAfterHoursRecordForm, sessionUser: recordTypes.User): Promise<string>;
 export {};

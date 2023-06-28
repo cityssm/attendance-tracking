@@ -32,18 +32,18 @@ export async function handler(request, response) {
         absenceRecords = await getAbsenceRecords({
             recentOnly: true,
             todayOnly: true
-        }, request.session);
+        }, request.session.user);
     }
     let returnToWorkRecords = [];
     if (canViewReturnsToWork(request.session.user)) {
         returnToWorkRecords = await getReturnToWorkRecords({
             recentOnly: true,
             todayOnly: true
-        }, request.session);
+        }, request.session.user);
     }
     let callOutLists = [];
     if (canViewCallOuts(request.session.user)) {
-        callOutLists = await getCallOutLists({ favouriteOnly: true }, request.session);
+        callOutLists = await getCallOutLists({ favouriteOnly: true }, request.session.user);
     }
     let callOutResponseTypes = [];
     if (canUpdateCallOuts(request.session.user)) {

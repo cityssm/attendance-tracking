@@ -7,7 +7,7 @@ import type * as recordTypes from '../types/recordTypes'
 export async function setEmployeeProperty(
   employeeProperty: recordTypes.EmployeeProperty,
   isSyncUpdate: boolean,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -16,7 +16,7 @@ export async function setEmployeeProperty(
     .input('propertyValue', employeeProperty.propertyValue)
     .input('isSyncUpdate', isSyncUpdate)
     .input('isSynced', employeeProperty.isSynced ?? false)
-    .input('record_userName', requestSession.user?.userName)
+    .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date())
     .input('employeeNumber', employeeProperty.employeeNumber)
     .input('propertyName', employeeProperty.propertyName)
@@ -37,7 +37,7 @@ export async function setEmployeeProperty(
       .input('propertyName', employeeProperty.propertyName)
       .input('propertyValue', employeeProperty.propertyValue)
       .input('isSynced', employeeProperty.isSynced ?? false)
-      .input('record_userName', requestSession.user?.userName)
+      .input('record_userName', sessionUser.userName)
       .input('record_dateTime', new Date())
       .query(`insert into MonTY.EmployeeProperties
         (employeeNumber, propertyName, propertyValue, isSynced,

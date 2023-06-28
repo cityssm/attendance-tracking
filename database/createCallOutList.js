@@ -1,6 +1,6 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
-export async function createCallOutList(callOutList, requestSession) {
+export async function createCallOutList(callOutList, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     const result = await pool
         .request()
@@ -8,7 +8,7 @@ export async function createCallOutList(callOutList, requestSession) {
         .input('listDescription', callOutList.listDescription)
         .input('sortKeyFunction', callOutList.sortKeyFunction)
         .input('eligibilityFunction', callOutList.eligibilityFunction)
-        .input('record_userName', requestSession.user?.userName)
+        .input('record_userName', sessionUser.userName)
         .input('record_dateTime', new Date()).query(`insert into MonTY.CallOutLists
       (listName, listDescription,
         sortKeyFunction, eligibilityFunction,

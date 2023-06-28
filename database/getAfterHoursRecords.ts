@@ -3,7 +3,7 @@ import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
 import * as permissionFunctions from '../helpers/functions.permissions.js'
-import type { AfterHoursRecord, PartialSession } from '../types/recordTypes'
+import type { AfterHoursRecord, User } from '../types/recordTypes'
 
 interface GetAfterHoursRecordsFilters {
   recordId?: string
@@ -14,7 +14,7 @@ interface GetAfterHoursRecordsFilters {
 
 export async function getAfterHoursRecords(
   filters: GetAfterHoursRecordsFilters,
-  requestSession: PartialSession
+  sessionUser: User
 ): Promise<AfterHoursRecord[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -59,18 +59,17 @@ export async function getAfterHoursRecords(
 
   if (
     permissionFunctions.hasPermission(
-      requestSession.user!,
+      sessionUser,
       'attendance.afterHours.canUpdate'
     )
   ) {
     for (const afterHoursRecord of afterHoursRecords) {
       afterHoursRecord.canUpdate =
         permissionFunctions.hasPermission(
-          requestSession.user!,
+          sessionUser,
           'attendance.afterHours.canManage'
         ) ||
-        (afterHoursRecord.recordCreate_userName ===
-          requestSession.user?.userName &&
+        (afterHoursRecord.recordCreate_userName === sessionUser.userName &&
           Date.now() - afterHoursRecord.recordCreate_dateTime!.getTime() <=
             configFunctions.getProperty('settings.updateDays') * 86_400 * 1000)
     }

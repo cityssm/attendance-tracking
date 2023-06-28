@@ -7,7 +7,7 @@ import type * as recordTypes from '../types/recordTypes'
 export async function deleteEmployeeProperty(
   employeeNumber: string,
   propertyName: string,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -15,7 +15,7 @@ export async function deleteEmployeeProperty(
     .request()
     .input('employeeNumber', employeeNumber)
     .input('propertyName', propertyName)
-    .input('record_userName', requestSession.user?.userName)
+    .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date()).query(`update MonTY.EmployeeProperties
       set recordDelete_userName = @record_userName,
       recordDelete_dateTime = @record_dateTime

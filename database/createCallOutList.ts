@@ -6,7 +6,7 @@ import type * as recordTypes from '../types/recordTypes'
 
 export async function createCallOutList(
   callOutList: recordTypes.CallOutList,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<number> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -16,7 +16,7 @@ export async function createCallOutList(
     .input('listDescription', callOutList.listDescription)
     .input('sortKeyFunction', callOutList.sortKeyFunction)
     .input('eligibilityFunction', callOutList.eligibilityFunction)
-    .input('record_userName', requestSession.user?.userName)
+    .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date()).query(`insert into MonTY.CallOutLists
       (listName, listDescription,
         sortKeyFunction, eligibilityFunction,

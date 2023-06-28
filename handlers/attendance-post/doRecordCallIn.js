@@ -12,23 +12,23 @@ export async function handler(request, response) {
     switch (callInType) {
         case 'absence': {
             if (permissionFunctions.hasPermission(request.session.user, 'attendance.absences.canUpdate')) {
-                recordId = await addAbsenceRecord(request.body, request.session);
+                recordId = await addAbsenceRecord(request.body, request.session.user);
                 success = true;
                 absenceRecords = await getAbsenceRecords({
                     recentOnly: true,
                     todayOnly: false
-                }, request.session);
+                }, request.session.user);
             }
             break;
         }
         case 'returnToWork': {
             if (permissionFunctions.hasPermission(request.session.user, 'attendance.returnsToWork.canUpdate')) {
-                recordId = await addReturnToWorkRecord(request.body, request.session);
+                recordId = await addReturnToWorkRecord(request.body, request.session.user);
                 success = true;
                 returnToWorkRecords = await getReturnToWorkRecords({
                     recentOnly: true,
                     todayOnly: false
-                }, request.session);
+                }, request.session.user);
             }
             break;
         }

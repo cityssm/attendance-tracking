@@ -1,10 +1,10 @@
-import type { AfterHoursRecord, PartialSession } from '../types/recordTypes'
+import type { AfterHoursRecord, User } from '../types/recordTypes'
 
 import { getAfterHoursRecords } from './getAfterHoursRecords.js'
 
 export async function getAfterHoursRecord(
   recordId: string,
-  requestSession: PartialSession
+  sessionUser: User
 ): Promise<AfterHoursRecord | undefined> {
   const afterHoursRecords = await getAfterHoursRecords(
     {
@@ -12,7 +12,7 @@ export async function getAfterHoursRecord(
       recentOnly: false,
       todayOnly: false
     },
-    requestSession
+    sessionUser
   )
 
   if (afterHoursRecords.length > 0) {

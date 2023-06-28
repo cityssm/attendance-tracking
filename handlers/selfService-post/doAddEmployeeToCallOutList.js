@@ -51,14 +51,12 @@ export async function handler(request, response) {
     }
     let success = false;
     if (isEligible) {
-        const partialSession = {
-            user: {
-                userName: employee.employeeNumber,
-                canLogin: false,
-                isAdmin: false
-            }
+        const sessionUser = {
+            userName: employee.employeeNumber,
+            canLogin: false,
+            isAdmin: false
         };
-        success = await addCallOutListMember(callOutList.listId, employee.employeeNumber, partialSession);
+        success = await addCallOutListMember(callOutList.listId, employee.employeeNumber, sessionUser);
     }
     else {
         response.json({

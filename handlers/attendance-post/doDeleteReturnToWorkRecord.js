@@ -3,7 +3,7 @@ import { getReturnToWorkRecord } from '../../database/getReturnToWorkRecord.js';
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js';
 export async function handler(request, response) {
     const recordId = request.body.recordId;
-    const returnToWorkRecord = await getReturnToWorkRecord(recordId, request.session);
+    const returnToWorkRecord = await getReturnToWorkRecord(recordId, request.session.user);
     if (returnToWorkRecord === undefined) {
         return response.json({
             success: false,
@@ -16,11 +16,11 @@ export async function handler(request, response) {
             errorMessage: 'Access denied.'
         });
     }
-    const success = await deleteReturnToWorkRecord(recordId, request.session);
+    const success = await deleteReturnToWorkRecord(recordId, request.session.user);
     const returnToWorkRecords = await getReturnToWorkRecords({
         recentOnly: true,
         todayOnly: false
-    }, request.session);
+    }, request.session.user);
     response.json({
         success,
         returnToWorkRecords

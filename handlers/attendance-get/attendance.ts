@@ -18,7 +18,7 @@ import * as permissionFunctions from '../../helpers/functions.permissions.js'
 import type * as recordTypes from '../../types/recordTypes'
 
 async function populateAbsenceVariables(
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<{
   absenceRecords: recordTypes.AbsenceRecord[]
   absenceTypes: recordTypes.AbsenceType[]
@@ -28,7 +28,7 @@ async function populateAbsenceVariables(
 
   if (
     permissionFunctions.hasPermission(
-      requestSession.user!,
+      sessionUser,
       'attendance.absences.canView'
     )
   ) {
@@ -37,13 +37,13 @@ async function populateAbsenceVariables(
         recentOnly: true,
         todayOnly: false
       },
-      requestSession
+      sessionUser
     )
   }
 
   if (
     permissionFunctions.hasPermission(
-      requestSession.user!,
+      sessionUser,
       'attendance.absences.canUpdate'
     )
   ) {
@@ -57,7 +57,7 @@ async function populateAbsenceVariables(
 }
 
 async function populateReturnToWorkVariables(
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<{
   returnToWorkRecords: recordTypes.ReturnToWorkRecord[]
 }> {
@@ -65,7 +65,7 @@ async function populateReturnToWorkVariables(
 
   if (
     permissionFunctions.hasPermission(
-      requestSession.user!,
+      sessionUser,
       'attendance.returnsToWork.canView'
     )
   ) {
@@ -74,7 +74,7 @@ async function populateReturnToWorkVariables(
         recentOnly: true,
         todayOnly: false
       },
-      requestSession
+      sessionUser
     )
   }
 
@@ -84,7 +84,7 @@ async function populateReturnToWorkVariables(
 }
 
 async function populateCallOutVariables(
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<{
   callOutLists: recordTypes.CallOutList[]
   callOutResponseTypes: recordTypes.CallOutResponseType[]
@@ -100,7 +100,7 @@ async function populateCallOutVariables(
 
   if (
     permissionFunctions.hasPermission(
-      requestSession.user!,
+      sessionUser,
       'attendance.callOuts.canView'
     )
   ) {
@@ -108,13 +108,13 @@ async function populateCallOutVariables(
       {
         favouriteOnly: false
       },
-      requestSession
+      sessionUser
     )
   }
 
   if (
     permissionFunctions.hasPermission(
-      requestSession.user!,
+      sessionUser,
       'attendance.callOuts.canUpdate'
     )
   ) {
@@ -123,7 +123,7 @@ async function populateCallOutVariables(
 
   if (
     permissionFunctions.hasPermission(
-      requestSession.user!,
+      sessionUser,
       'attendance.callOuts.canManage'
     )
   ) {
@@ -156,7 +156,7 @@ async function populateCallOutVariables(
 }
 
 async function populateAfterHoursVariables(
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<{
   afterHoursRecords: recordTypes.AfterHoursRecord[]
   afterHoursReasons: recordTypes.AfterHoursReason[]
@@ -166,7 +166,7 @@ async function populateAfterHoursVariables(
 
   if (
     permissionFunctions.hasPermission(
-      requestSession.user!,
+      sessionUser,
       'attendance.afterHours.canView'
     )
   ) {
@@ -175,13 +175,13 @@ async function populateAfterHoursVariables(
         recentOnly: true,
         todayOnly: false
       },
-      requestSession
+      sessionUser
     )
   }
 
   if (
     permissionFunctions.hasPermission(
-      requestSession.user!,
+      sessionUser,
       'attendance.afterHours.canUpdate'
     )
   ) {
@@ -206,7 +206,9 @@ export async function handler(
   let absenceTypes: recordTypes.AbsenceType[] = []
 
   if (configFunctions.getProperty('features.attendance.absences')) {
-    const absenceVariables = await populateAbsenceVariables(request.session)
+    const absenceVariables = await populateAbsenceVariables(
+      request.session.user!
+    )
     absenceRecords = absenceVariables.absenceRecords
     absenceTypes = absenceVariables.absenceTypes
   }
@@ -219,7 +221,7 @@ export async function handler(
 
   if (configFunctions.getProperty('features.attendance.returnsToWork')) {
     const returnToWorkVariables = await populateReturnToWorkVariables(
-      request.session
+      request.session.user!
     )
 
     returnToWorkRecords = returnToWorkVariables.returnToWorkRecords
@@ -236,7 +238,9 @@ export async function handler(
   let employeePropertyNames: string[] = []
 
   if (configFunctions.getProperty('features.attendance.callOuts')) {
-    const callOutVariables = await populateCallOutVariables(request.session)
+    const callOutVariables = await populateCallOutVariables(
+      request.session.user!
+    )
     callOutLists = callOutVariables.callOutLists
     callOutResponseTypes = callOutVariables.callOutResponseTypes
 
@@ -256,7 +260,7 @@ export async function handler(
 
   if (configFunctions.getProperty('features.attendance.afterHours')) {
     const afterHoursVariables = await populateAfterHoursVariables(
-      request.session
+      request.session.user!
     )
     afterHoursRecords = afterHoursVariables.afterHoursRecords
     afterHoursReasons = afterHoursVariables.afterHoursReasons

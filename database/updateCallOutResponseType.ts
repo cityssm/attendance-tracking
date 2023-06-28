@@ -6,7 +6,7 @@ import type * as recordTypes from '../types/recordTypes'
 
 export async function updateCallOutResponseType(
   callOutResponseType: recordTypes.CallOutResponseType,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -14,7 +14,7 @@ export async function updateCallOutResponseType(
     .request()
     .input('responseType', callOutResponseType.responseType)
     .input('isSuccessful', callOutResponseType.isSuccessful)
-    .input('record_userName', requestSession.user?.userName)
+    .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date())
     .input('responseTypeId', callOutResponseType.responseTypeId)
     .query(`update MonTY.CallOutResponseTypes

@@ -10,7 +10,7 @@ export async function handler(
   const success = await updateUserIsAdmin(
     request.body.userName,
     request.body.isAdmin,
-    request.session
+    request.session.user!
   )
 
   const users = await getUsers()

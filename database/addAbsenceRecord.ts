@@ -15,7 +15,7 @@ interface AddAbsenceRecordForm {
 
 export async function addAbsenceRecord(
   form: AddAbsenceRecordForm,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<string> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -30,7 +30,7 @@ export async function addAbsenceRecord(
       form.returnDateString === '' ? undefined : form.returnDateString
     )
     .input('recordComment', form.recordComment)
-    .input('record_userName', requestSession.user?.userName)
+    .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date())
     .query(`insert into MonTY.AbsenceRecords
       (employeeNumber, employeeName, absenceDateTime, absenceTypeKey, returnDateTime, recordComment,

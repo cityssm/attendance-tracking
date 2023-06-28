@@ -1,14 +1,14 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import { clearCacheByTableName } from '../helpers/functions.cache.js';
 import * as configFunctions from '../helpers/functions.config.js';
-export async function setEmployeeProperty(employeeProperty, isSyncUpdate, requestSession) {
+export async function setEmployeeProperty(employeeProperty, isSyncUpdate, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let result = await pool
         .request()
         .input('propertyValue', employeeProperty.propertyValue)
         .input('isSyncUpdate', isSyncUpdate)
         .input('isSynced', employeeProperty.isSynced ?? false)
-        .input('record_userName', requestSession.user?.userName)
+        .input('record_userName', sessionUser.userName)
         .input('record_dateTime', new Date())
         .input('employeeNumber', employeeProperty.employeeNumber)
         .input('propertyName', employeeProperty.propertyName)
@@ -28,7 +28,7 @@ export async function setEmployeeProperty(employeeProperty, isSyncUpdate, reques
             .input('propertyName', employeeProperty.propertyName)
             .input('propertyValue', employeeProperty.propertyValue)
             .input('isSynced', employeeProperty.isSynced ?? false)
-            .input('record_userName', requestSession.user?.userName)
+            .input('record_userName', sessionUser.userName)
             .input('record_dateTime', new Date())
             .query(`insert into MonTY.EmployeeProperties
         (employeeNumber, propertyName, propertyValue, isSynced,

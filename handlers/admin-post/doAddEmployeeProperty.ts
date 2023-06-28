@@ -15,7 +15,7 @@ export async function handler(
 
   const success =
     employeePropertyValue === undefined
-      ? await setEmployeeProperty(request.body, false, request.session)
+      ? await setEmployeeProperty(request.body, false, request.session.user!)
       : false
 
   const employeeProperties = await getEmployeeProperties(

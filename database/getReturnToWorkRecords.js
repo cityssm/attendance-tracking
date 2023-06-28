@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
 import * as permissionFunctions from '../helpers/functions.permissions.js';
-export async function getReturnToWorkRecords(filters, requestSession) {
+export async function getReturnToWorkRecords(filters, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let sql = `select r.recordId,
     r.employeeNumber, r.employeeName,
@@ -29,12 +29,12 @@ export async function getReturnToWorkRecords(filters, requestSession) {
     sql += ' order by r.returnDateTime desc, r.recordId desc';
     const recordsResult = await request.query(sql);
     const returnToWorkRecords = recordsResult.recordset;
-    if (permissionFunctions.hasPermission(requestSession.user, 'attendance.returnsToWork.canUpdate')) {
+    if (permissionFunctions.hasPermission(sessionUser, 'attendance.returnsToWork.canUpdate')) {
         for (const returnToWorkRecord of returnToWorkRecords) {
             returnToWorkRecord.canUpdate =
-                permissionFunctions.hasPermission(requestSession.user, 'attendance.returnsToWork.canManage') ||
+                permissionFunctions.hasPermission(sessionUser, 'attendance.returnsToWork.canManage') ||
                     (returnToWorkRecord.recordCreate_userName ===
-                        requestSession.user?.userName &&
+                        sessionUser.userName &&
                         Date.now() - returnToWorkRecord.recordCreate_dateTime.getTime() <=
                             configFunctions.getProperty('settings.updateDays') * 86400 * 1000);
         }

@@ -14,7 +14,7 @@ interface UpdateCallOutListReturn {
 
 export async function updateCallOutList(
   callOutList: recordTypes.CallOutList,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<UpdateCallOutListReturn> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -31,7 +31,7 @@ export async function updateCallOutList(
     .input('sortKeyFunction', callOutList.sortKeyFunction)
     .input('eligibilityFunction', callOutList.eligibilityFunction)
     .input('employeePropertyName', callOutList.employeePropertyName)
-    .input('record_userName', requestSession.user?.userName)
+    .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date())
     .input('listId', callOutList.listId).query(`update MonTY.CallOutLists
       set listName = @listName,
@@ -58,7 +58,7 @@ export async function updateCallOutList(
       {
         listId: callOutList.listId
       },
-      requestSession
+      sessionUser
     )
   }
 

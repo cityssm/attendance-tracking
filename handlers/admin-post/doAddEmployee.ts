@@ -7,7 +7,7 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const success = await createEmployee(request.body, request.session)
+  const success = await createEmployee(request.body, request.session.user!)
 
   if (success) {
     const employees = await getEmployees(

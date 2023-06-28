@@ -3,5 +3,5 @@ interface AddCallOutResponseTypeForm {
     responseType: string;
     isSuccessful: '0' | '1';
 }
-export declare function addCallOutResponseType(form: AddCallOutResponseTypeForm, requestSession: recordTypes.PartialSession): Promise<string>;
+export declare function addCallOutResponseType(form: AddCallOutResponseTypeForm, sessionUser: recordTypes.User): Promise<string>;
 export {};

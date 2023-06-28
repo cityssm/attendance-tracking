@@ -3,4 +3,4 @@ export declare function setUserPermission(userPermission: {
     userName: string;
     permissionKey: string;
     permissionValue: string;
-}, requestSession: recordTypes.PartialSession): Promise<boolean>;
+}, sessionUser: recordTypes.User): Promise<boolean>;

@@ -15,7 +15,7 @@ interface AddAfterHoursRecordForm {
 
 export async function addAfterHoursRecord(
   form: AddAfterHoursRecordForm,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<string> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -39,7 +39,7 @@ export async function addAfterHoursRecord(
     )
     .input('afterHoursReasonId', form.afterHoursReasonId)
     .input('recordComment', form.recordComment)
-    .input('record_userName', requestSession.user?.userName)
+    .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date())
     .query(`insert into MonTY.AfterHoursRecords
       (employeeNumber, employeeName, attendanceDateTime, afterHoursReasonId, recordComment,

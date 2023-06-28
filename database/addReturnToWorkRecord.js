@@ -1,6 +1,6 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
-export async function addReturnToWorkRecord(form, requestSession) {
+export async function addReturnToWorkRecord(form, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     const result = await pool
         .request()
@@ -9,7 +9,7 @@ export async function addReturnToWorkRecord(form, requestSession) {
         .input('returnDateTime', form.returnDateString === '' ? undefined : form.returnDateString)
         .input('returnShift', form.returnShift)
         .input('recordComment', form.recordComment)
-        .input('record_userName', requestSession.user?.userName)
+        .input('record_userName', sessionUser.userName)
         .input('record_dateTime', new Date())
         .query(`insert into MonTY.ReturnToWorkRecords
       (employeeNumber, employeeName, returnDateTime, returnShift, recordComment,

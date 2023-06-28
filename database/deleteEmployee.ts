@@ -6,14 +6,14 @@ import type * as recordTypes from '../types/recordTypes'
 
 export async function deleteEmployee(
   employeeNumber: string,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
   const result = await pool
     .request()
     .input('employeeNumber', employeeNumber)
-    .input('record_userName', requestSession.user?.userName)
+    .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date()).query(`update MonTY.Employees
       set recordDelete_userName = @record_userName,
       recordDelete_dateTime = @record_dateTime

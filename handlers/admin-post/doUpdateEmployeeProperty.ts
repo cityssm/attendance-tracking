@@ -10,7 +10,7 @@ export async function handler(
   const success = await setEmployeeProperty(
     request.body,
     false,
-    request.session
+    request.session.user!
   )
 
   const employeeProperties = await getEmployeeProperties(

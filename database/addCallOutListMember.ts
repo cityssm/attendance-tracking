@@ -9,7 +9,7 @@ import { getEmployee } from './getEmployee.js'
 export async function addCallOutListMember(
   listId: string,
   employeeNumber: string,
-  requestSession: recordTypes.PartialSession
+  sessionUser: recordTypes.User
 ): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
@@ -50,7 +50,7 @@ export async function addCallOutListMember(
   result = await pool
     .request()
     .input('sortKey', sortKey)
-    .input('record_userName', requestSession.user?.userName)
+    .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date())
     .input('listId', listId)
     .input('employeeNumber', employeeNumber)
@@ -70,7 +70,7 @@ export async function addCallOutListMember(
       .input('employeeNumber', employeeNumber)
       .input('sortKey', sortKey)
       .input('isNext', 0)
-      .input('record_userName', requestSession.user?.userName)
+      .input('record_userName', sessionUser.userName)
       .input('record_dateTime', new Date())
       .query(`insert into MonTY.CallOutListMembers
         (listId, employeeNumber, sortKey, isNext,

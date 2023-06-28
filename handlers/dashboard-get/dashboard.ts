@@ -57,7 +57,7 @@ export async function handler(
         recentOnly: true,
         todayOnly: true
       },
-      request.session
+      request.session.user!
     )
   }
 
@@ -69,7 +69,7 @@ export async function handler(
         recentOnly: true,
         todayOnly: true
       },
-      request.session
+      request.session.user!
     )
   }
 
@@ -78,7 +78,7 @@ export async function handler(
   if (canViewCallOuts(request.session.user!)) {
     callOutLists = await getCallOutLists(
       { favouriteOnly: true },
-      request.session
+      request.session.user!
     )
   }
 

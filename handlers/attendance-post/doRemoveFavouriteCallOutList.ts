@@ -9,12 +9,12 @@ export async function handler(
 ): Promise<void> {
   const success = await removeFavouriteCallOutList(
     request.body.listId,
-    request.session
+    request.session.user!
   )
 
   const callOutLists = await getCallOutLists(
     { favouriteOnly: false },
-    request.session
+    request.session.user!
   )
 
   response.json({
