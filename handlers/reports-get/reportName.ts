@@ -1,11 +1,10 @@
 import type { Request, Response } from 'express'
+import papaparse from 'papaparse'
 
 import {
   getReportData,
   type ReportParameters
 } from '../../database/getReportData.js'
-
-import papaparse from 'papaparse'
 
 export async function handler(
   request: Request,

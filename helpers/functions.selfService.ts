@@ -1,16 +1,22 @@
+/* eslint-disable @typescript-eslint/indent */
+
 import type { Request } from 'express'
 
 import { getValidatedEmployee } from '../database/getValidatedEmployee.js'
 
 import * as configFunctions from './functions.config.js'
 
-interface EmployeeValidation {
-  success: boolean
-  errorMessage?: string
-  employeeNumber?: string
-  employeeSurname?: string
-  employeeGivenName?: string
-}
+type EmployeeValidation =
+  | {
+      success: true
+      employeeNumber: string
+      employeeSurname: string
+      employeeGivenName: string
+    }
+  | {
+      success: false
+      errorMessage: string
+    }
 
 interface ValidateEmployeeFieldsRequest extends Partial<Request> {
   body: {

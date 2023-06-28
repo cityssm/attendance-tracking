@@ -1,11 +1,13 @@
 import type { Request } from 'express';
-interface EmployeeValidation {
-    success: boolean;
-    errorMessage?: string;
-    employeeNumber?: string;
-    employeeSurname?: string;
-    employeeGivenName?: string;
-}
+type EmployeeValidation = {
+    success: true;
+    employeeNumber: string;
+    employeeSurname: string;
+    employeeGivenName: string;
+} | {
+    success: false;
+    errorMessage: string;
+};
 interface ValidateEmployeeFieldsRequest extends Partial<Request> {
     body: {
         employeeNumber: string;

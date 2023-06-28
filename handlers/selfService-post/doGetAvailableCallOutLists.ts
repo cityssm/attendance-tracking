@@ -26,7 +26,7 @@ export async function handler(
   }
 
   const employee = (await getEmployee(
-    validatedEmployee.employeeNumber!
+    validatedEmployee.employeeNumber
   )) as recordTypes.Employee
 
   /*

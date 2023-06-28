@@ -9,19 +9,41 @@ import * as configFunctions from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
 import type * as recordTypes from '../../types/recordTypes'
 
+function canViewAbsences(user: recordTypes.User): boolean {
+  return (
+    configFunctions.getProperty('features.attendance.absences') &&
+    permissionFunctions.hasPermission(user, 'attendance.absences.canView')
+  )
+}
+
+function canViewReturnsToWork(user: recordTypes.User): boolean {
+  return (
+    configFunctions.getProperty('features.attendance.returnsToWork') &&
+    permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')
+  )
+}
+
+function canViewCallOuts(user: recordTypes.User): boolean {
+  return (
+    configFunctions.getProperty('features.attendance.callOuts') &&
+    permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')
+  )
+}
+
+function canUpdateCallOuts(user: recordTypes.User): boolean {
+  return (
+    canViewCallOuts(user) &&
+    permissionFunctions.hasPermission(user, 'attendance.callOuts.canUpdate')
+  )
+}
+
 export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
   let absenceRecords: recordTypes.AbsenceRecord[] = []
 
-  if (
-    configFunctions.getProperty('features.attendance.absences') &&
-    permissionFunctions.hasPermission(
-      request.session.user!,
-      'attendance.absences.canView'
-    )
-  ) {
+  if (canViewAbsences(request.session.user!)) {
     absenceRecords = await getAbsenceRecords(
       {
         recentOnly: true,
@@ -33,13 +55,7 @@ export async function handler(
 
   let returnToWorkRecords: recordTypes.ReturnToWorkRecord[] = []
 
-  if (
-    configFunctions.getProperty('features.attendance.returnsToWork') &&
-    permissionFunctions.hasPermission(
-      request.session.user!,
-      'attendance.returnsToWork.canView'
-    )
-  ) {
+  if (canViewReturnsToWork(request.session.user!)) {
     returnToWorkRecords = await getReturnToWorkRecords(
       {
         recentOnly: true,
@@ -50,29 +66,18 @@ export async function handler(
   }
 
   let callOutLists: recordTypes.CallOutList[] = []
+
+  if (canViewCallOuts(request.session.user!)) {
+    callOutLists = await getCallOutLists(
+      { favouriteOnly: true },
+      request.session
+    )
+  }
+
   let callOutResponseTypes: recordTypes.CallOutResponseType[] = []
 
-  if (configFunctions.getProperty('features.attendance.callOuts')) {
-    if (
-      permissionFunctions.hasPermission(
-        request.session.user!,
-        'attendance.callOuts.canView'
-      )
-    ) {
-      callOutLists = await getCallOutLists(
-        { favouriteOnly: true },
-        request.session
-      )
-    }
-
-    if (
-      permissionFunctions.hasPermission(
-        request.session.user!,
-        'attendance.callOuts.canUpdate'
-      )
-    ) {
-      callOutResponseTypes = await getCallOutResponseTypes()
-    }
+  if (canUpdateCallOuts(request.session.user!)) {
+    callOutResponseTypes = await getCallOutResponseTypes()
   }
 
   let employeeNumber = ''
