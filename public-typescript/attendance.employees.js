@@ -137,7 +137,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 const reportsPanelElement = modalElement.querySelector('#tab--attendanceReports .panel');
                 if (absencesCanView) {
                     reportsPanelElement === null || reportsPanelElement === void 0 ? void 0 : reportsPanelElement.insertAdjacentHTML('beforeend', `<a class="panel-block" href="${MonTY.urlPrefix}/reports/absenceRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
-              <div class="columns is-mobile">
+              <div class="columns is-mobile is-variable is-2">
                 <div class="column is-narrow">
                   <i class="fas fa-2x fa-file" aria-hidden="true"></i>
                 </div>
@@ -149,7 +149,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
                 if (returnsToWorkCanView) {
                     reportsPanelElement === null || reportsPanelElement === void 0 ? void 0 : reportsPanelElement.insertAdjacentHTML('beforeend', `<a class="panel-block" href="${MonTY.urlPrefix}/reports/returnToWorkRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
-              <div class="columns is-mobile">
+              <div class="columns is-mobile is-variable is-2">
                 <div class="column is-narrow">
                   <i class="fas fa-2x fa-file" aria-hidden="true"></i>
                 </div>
@@ -161,7 +161,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
                 if (callOutsCanView) {
                     reportsPanelElement === null || reportsPanelElement === void 0 ? void 0 : reportsPanelElement.insertAdjacentHTML('beforeend', `<a class="panel-block" href="${MonTY.urlPrefix}/reports/callOutRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
-              <div class="columns is-mobile">
+              <div class="columns is-mobile is-variable is-2">
                 <div class="column is-narrow">
                   <i class="fas fa-2x fa-file" aria-hidden="true"></i>
                 </div>
@@ -173,7 +173,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
                 if (afterHoursCanView) {
                     reportsPanelElement === null || reportsPanelElement === void 0 ? void 0 : reportsPanelElement.insertAdjacentHTML('beforeend', `<a class="panel-block" href="${MonTY.urlPrefix}/reports/afterHoursRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
-              <div class="columns is-mobile">
+              <div class="columns is-mobile is-variable is-2">
                 <div class="column is-narrow">
                   <i class="fas fa-2x fa-file" aria-hidden="true"></i>
                 </div>

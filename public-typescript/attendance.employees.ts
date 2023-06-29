@@ -237,7 +237,7 @@ declare const cityssm: cityssmGlobal
           reportsPanelElement?.insertAdjacentHTML(
             'beforeend',
             `<a class="panel-block" href="${MonTY.urlPrefix}/reports/absenceRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
-              <div class="columns is-mobile">
+              <div class="columns is-mobile is-variable is-2">
                 <div class="column is-narrow">
                   <i class="fas fa-2x fa-file" aria-hidden="true"></i>
                 </div>
@@ -253,7 +253,7 @@ declare const cityssm: cityssmGlobal
           reportsPanelElement?.insertAdjacentHTML(
             'beforeend',
             `<a class="panel-block" href="${MonTY.urlPrefix}/reports/returnToWorkRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
-              <div class="columns is-mobile">
+              <div class="columns is-mobile is-variable is-2">
                 <div class="column is-narrow">
                   <i class="fas fa-2x fa-file" aria-hidden="true"></i>
                 </div>
@@ -269,7 +269,7 @@ declare const cityssm: cityssmGlobal
           reportsPanelElement?.insertAdjacentHTML(
             'beforeend',
             `<a class="panel-block" href="${MonTY.urlPrefix}/reports/callOutRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
-              <div class="columns is-mobile">
+              <div class="columns is-mobile is-variable is-2">
                 <div class="column is-narrow">
                   <i class="fas fa-2x fa-file" aria-hidden="true"></i>
                 </div>
@@ -285,7 +285,7 @@ declare const cityssm: cityssmGlobal
           reportsPanelElement?.insertAdjacentHTML(
             'beforeend',
             `<a class="panel-block" href="${MonTY.urlPrefix}/reports/afterHoursRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
-              <div class="columns is-mobile">
+              <div class="columns is-mobile is-variable is-2">
                 <div class="column is-narrow">
                   <i class="fas fa-2x fa-file" aria-hidden="true"></i>
                 </div>
