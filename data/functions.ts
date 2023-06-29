@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import { dateToString } from '@cityssm/utils-datetime'
+
 import type {
   ConfigEmployeeSortKeyFunction,
   ConfigEmployeeEligibilityFunction
 } from '../types/configTypes.js'
-
-import { dateToString } from '@cityssm/utils-datetime'
 
 /*
  * Eligibility
