@@ -93,7 +93,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         </div>`;
             if (absenceRecord.canUpdate) {
                 (_d = panelBlockElement.querySelector('.columns')) === null || _d === void 0 ? void 0 : _d.insertAdjacentHTML('beforeend', `<div class="column is-narrow">
-            <button class="button is-small is-inverted is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete Record">
+            <button class="button is-small is-inverted is-danger has-tooltip-left is-delete-button" data-tooltip="Delete Record" data-cy="delete" type="button" aria-label="Delete Record">
               <i class="fas fa-trash" aria-hidden="true"></i>
             </button>
           </div>`);
@@ -184,7 +184,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         </div>`;
             if (returnToWorkRecord.canUpdate) {
                 (_d = panelBlockElement.querySelector('.columns')) === null || _d === void 0 ? void 0 : _d.insertAdjacentHTML('beforeend', `<div class="column is-narrow">
-              <button class="button is-small is-inverted is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete Record">
+              <button class="button is-small is-inverted is-danger has-tooltip-left is-delete-button" data-tooltip="Delete Record" data-cy="delete" type="button" aria-label="Delete Record">
                 <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
             </div>`);
