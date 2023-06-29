@@ -18,7 +18,7 @@ function runCypress(
       : 'cypress.config.js'
   }`
 
-  cypressCommand += ` --browser ${browser}`
+  cypressCommand += ` --browser ${browser === 'chrome-mobile' ? 'chrome' : browser}`
 
   if ((process.env.CYPRESS_RECORD_KEY ?? '') !== '') {
     cypressCommand += ` --tag "${browser},${process.version}" --record`
