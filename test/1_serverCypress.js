@@ -4,7 +4,10 @@ import * as http from 'node:http';
 import { app } from '../app.js';
 import { portNumber } from './_globals.js';
 function runCypress(browser, done) {
-    let cypressCommand = `cypress run --config-file cypress.config.js --browser ${browser}`;
+    let cypressCommand = `cypress run --config-file ${browser === 'chrome-mobile'
+        ? 'cypress.config.mobile.js'
+        : 'cypress.config.js'}`;
+    cypressCommand += ` --browser ${browser}`;
     if ((process.env.CYPRESS_RECORD_KEY ?? '') !== '') {
         cypressCommand += ` --tag "${browser},${process.version}" --record`;
     }
@@ -45,6 +48,9 @@ describe('MonTY', () => {
         }).timeout(30 * 60 * 60 * 1000);
         it('Should run Cypress tests in Firefox', (done) => {
             runCypress('firefox', done);
+        }).timeout(30 * 60 * 60 * 1000);
+        it('Should run Cypress tests in Chrome Mobile', (done) => {
+            runCypress('chrome-mobile', done);
         }).timeout(30 * 60 * 60 * 1000);
     });
 });

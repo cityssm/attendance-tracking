@@ -8,8 +8,17 @@ import { app } from '../app.js'
 
 import { portNumber } from './_globals.js'
 
-function runCypress(browser: 'chrome' | 'firefox', done: () => void): void {
-  let cypressCommand = `cypress run --config-file cypress.config.js --browser ${browser}`
+function runCypress(
+  browser: 'chrome' | 'chrome-mobile' | 'firefox',
+  done: () => void
+): void {
+  let cypressCommand = `cypress run --config-file ${
+    browser === 'chrome-mobile'
+      ? 'cypress.config.mobile.js'
+      : 'cypress.config.js'
+  }`
+
+  cypressCommand += ` --browser ${browser}`
 
   if ((process.env.CYPRESS_RECORD_KEY ?? '') !== '') {
     cypressCommand += ` --tag "${browser},${process.version}" --record`
@@ -63,6 +72,10 @@ describe('MonTY', () => {
 
     it('Should run Cypress tests in Firefox', (done) => {
       runCypress('firefox', done)
+    }).timeout(30 * 60 * 60 * 1000)
+
+    it('Should run Cypress tests in Chrome Mobile', (done) => {
+      runCypress('chrome-mobile', done)
     }).timeout(30 * 60 * 60 * 1000)
   })
 })
