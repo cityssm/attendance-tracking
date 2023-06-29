@@ -132,8 +132,13 @@
           <% if (permissionFunctions.hasPermission(user, 'reports.hasRawExports')) { %>
             <div class="column">
               <div class="panel">
-                <h2 class="panel-heading">Raw Data Exports</h2>
-                <div class="panel-block">
+                <div class="panel-heading">
+                  <a class="is-flex is-justify-content-space-between is-panel-block-toggle" href="#">
+                    <h2 class="has-text-weight-bold">Raw Data Exports</h2>
+                    <span class="icon"><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
+                  </a>
+                </div>
+                <div class="panel-block is-hidden">
                   <div class="message is-info is-small">
                     <p class="message-body">
                       Note the raw data exports are unfiltered and unformatted.
@@ -141,7 +146,7 @@
                     </p>
                   </div>
                 </div>
-                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/absenceRecords-all" download>
+                <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/absenceRecords-all" download>
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
@@ -151,7 +156,7 @@
                     </div>
                   </div>
                 </a>
-                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/historicalAbsenceRecords-all" download>
+                <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/historicalAbsenceRecords-all" download>
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
@@ -161,7 +166,7 @@
                     </div>
                   </div>
                 </a>
-                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/returnToWorkRecords-all" download>
+                <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/returnToWorkRecords-all" download>
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
@@ -171,7 +176,7 @@
                     </div>
                   </div>
                 </a>
-                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/historicalReturnToWorkRecords-all" download>
+                <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/historicalReturnToWorkRecords-all" download>
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
@@ -181,7 +186,7 @@
                     </div>
                   </div>
                 </a>
-                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutRecords-all" download>
+                <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/callOutRecords-all" download>
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
@@ -191,7 +196,7 @@
                     </div>
                   </div>
                 </a>
-                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/historicalCallOutRecords-all" download>
+                <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/historicalCallOutRecords-all" download>
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
@@ -201,7 +206,7 @@
                     </div>
                   </div>
                 </a>
-                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/afterHoursRecords-all" download>
+                <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/afterHoursRecords-all" download>
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
@@ -211,7 +216,7 @@
                     </div>
                   </div>
                 </a>
-                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/historicalAfterHoursRecords-all" download>
+                <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/historicalAfterHoursRecords-all" download>
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
@@ -223,8 +228,13 @@
                 </a>
               </div>
               <div class="panel">
-                <h2 class="panel-heading">Raw Configuation Exports</h2>
-                <div class="panel-block">
+                <div class="panel-heading">
+                  <a class="is-flex is-justify-content-space-between is-panel-block-toggle" href="#">
+                    <h2 class="has-text-weight-bold">Raw Configuration Exports</h2>
+                    <span class="icon"><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
+                  </a>
+                </div>
+                <div class="panel-block is-hidden">
                   <div class="message is-info is-small">
                     <p class="message-body">
                       Note the raw configuration exports are unfiltered and unformatted.
@@ -232,7 +242,7 @@
                     </p>
                   </div>
                 </div>
-                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/absenceTypes-all" download>
+                <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/absenceTypes-all" download>
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
@@ -242,7 +252,7 @@
                     </div>
                   </div>
                 </a>
-                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutResponseTypes-all" download>
+                <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/callOutResponseTypes-all" download>
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
@@ -252,7 +262,7 @@
                     </div>
                   </div>
                 </a>
-                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/afterHoursReasons-all" download>
+                <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/afterHoursReasons-all" download>
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
@@ -266,7 +276,6 @@
             </div>
           <% } %>
         </div>
-        
       </article>
       <article class="is-hidden" id="tab--employees">
         <nav class="breadcrumb">
@@ -316,8 +325,13 @@
           <% if (permissionFunctions.hasPermission(user, 'reports.hasRawExports')) { %>
             <div class="column">
               <div class="panel">
-                <h2 class="panel-heading">Raw Data Exports</h2>
-                <div class="panel-block">
+                <div class="panel-heading">
+                  <a class="is-flex is-justify-content-space-between is-panel-block-toggle" href="#">
+                    <h2 class="has-text-weight-bold">Raw Data Exports</h2>
+                    <span class="icon"><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
+                  </a>
+                </div>
+                <div class="panel-block is-hidden">
                   <div class="message is-info is-small">
                     <p class="message-body">
                       Note the raw data exports are unfiltered and unformatted.
@@ -325,7 +339,7 @@
                     </p>
                   </div>
                 </div>
-                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/employees-all" download>
+                <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/employees-all" download>
                   <div class="columns is-mobile">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>

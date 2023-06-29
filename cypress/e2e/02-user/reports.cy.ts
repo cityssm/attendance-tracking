@@ -19,7 +19,7 @@ describe('Reports', () => {
   })
 
   it('Exports all reports without parameters', () => {
-    cy.get("a:not(.is-hidden)[download][href*='/reports/']").each(
+    cy.get("a[download][href*='/reports/']").each(
       ($reportLink) => {
         cy.wrap($reportLink).click({ force: true })
         cy.wait(ajaxDelayMillis)
