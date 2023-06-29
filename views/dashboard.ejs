@@ -140,67 +140,54 @@
 
 <div class="columns">
   <div class="column">
-    <div class="card">
-      <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-            <i class="fas fa-4x fa-fw fa-file" aria-hidden="true"></i>
-          </div>
-          <a class="media-content" href="<%= urlPrefix %>/reports">
-            <h2 class="title is-4 is-marginless has-text-link">
-              Report Library
-            </h2>
-            <p>Produce reports and export data.</p>
-          </a>
+    <div class="box">
+      <div class="media">
+        <div class="media-left">
+          <i class="fas fa-4x fa-fw fa-file" aria-hidden="true"></i>
         </div>
+        <a class="media-content" href="<%= urlPrefix %>/reports">
+          <h2 class="title is-4 is-marginless has-text-link">
+            Report Library
+          </h2>
+          <p>Produce reports and export data.</p>
+        </a>
       </div>
     </div>
   </div>
   <div class="column">
-    <div class="card">
-      <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-            <i class="fas fa-4x fa-fw fa-question-circle" aria-hidden="true"></i>
-          </div>
-          <a class="media-content" href="https://cityssm.github.io/MonTY/docs" target="_blank" rel="noopener noreferrer">
-            <h2 class="title is-4 is-marginless has-text-link">
-              Help
-            </h2>
-            <p>
-              Instructions on how to use this application.
-            </p>
-          </a>
+    <div class="box">
+      <div class="media">
+        <div class="media-left">
+          <i class="fas fa-4x fa-fw fa-question-circle" aria-hidden="true"></i>
         </div>
-        <a class="button is-fullwidth is-link is-light has-tooltip-bottom" data-tooltip="Latest Updates, Issue Tracker, Say Hello"
-          href="https://github.com/cityssm/MonTY" target="_blank" rel="noreferrer">
-          <span class="icon">
-            <i class="fab fa-github" aria-hidden="true"></i>
-          </span>
-          <span>GitHub</span>
+        <a class="media-content" href="https://cityssm.github.io/MonTY/docs" target="_blank" rel="noopener noreferrer">
+          <h2 class="title is-4 is-marginless has-text-link">
+            Help
+          </h2>
+          <p>
+            Instructions on how to use this application.
+          </p>
         </a>
       </div>
       <% if (configFunctions.getProperty('features.selfService')) { %>
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
-                <i class="fas fa-hard-hat"></i>
-                <i class="fas fa-exchange-alt" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
-              </span>
-            </div>
-            <a class="media-content"
-              data-employee-number="<%= employeeNumber %>"
-              data-last-four-digits="<%= lastFourDigits %>"
-              data-last-four-digits-bad="<%= lastFourDigitsBad %>"
-              href="<%= urlPrefix + configFunctions.getProperty('settings.selfService.path') %>"
-              target="_blank">
-              <h2 class="title is-4 is-marginless has-text-link">
-                Employee Self Service
-              </h2>
-              <p>The interface for employees to manage aspects of their employee records.</p>
-            </a>
+        <div class="media mt-4">
+          <div class="media-left">
+            <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
+              <i class="fas fa-hard-hat"></i>
+              <i class="fas fa-exchange-alt" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+            </span>
           </div>
+          <a class="media-content"
+            data-employee-number="<%= employeeNumber %>"
+            data-last-four-digits="<%= lastFourDigits %>"
+            data-last-four-digits-bad="<%= lastFourDigitsBad %>"
+            href="<%= urlPrefix + configFunctions.getProperty('settings.selfService.path') %>"
+            target="_blank">
+            <h2 class="title is-4 is-marginless has-text-link">
+              Employee Self Service
+            </h2>
+            <p>The interface for employees to manage aspects of their employee records.</p>
+          </a>
         </div>
       <% } %>
     </div>
@@ -211,68 +198,62 @@
   <h2 class="title is-3">Administrator Tools</h2>
   <div class="columns">
     <div class="column">
-      <div class="card">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
-                <i class="fas fa-hard-hat"></i>
-                <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
-              </span>
-            </div>
-            <a class="media-content" href="<%= urlPrefix %>/admin/employees">
-              <h2 class="title is-4 is-marginless has-text-link">
-                Employee Maintenance
-              </h2>
-              <p>
-                Manage employees and their attributes.
-              </p>
-            </a>
+      <div class="box">
+        <div class="media">
+          <div class="media-left">
+            <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
+              <i class="fas fa-hard-hat"></i>
+              <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+            </span>
           </div>
+          <a class="media-content" href="<%= urlPrefix %>/admin/employees">
+            <h2 class="title is-4 is-marginless has-text-link">
+              Employee Maintenance
+            </h2>
+            <p>
+              Manage employees and their attributes.
+            </p>
+          </a>
         </div>
       </div>
     </div>
     <div class="column">
-      <div class="card">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
-                <i class="fas fa-table"></i>
-                <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
-              </span>
-            </div>
-            <a class="media-content" href="<%= urlPrefix %>/admin/tables">
-              <h2 class="title is-4 is-marginless has-text-link">
-                Table Maintenance
-              </h2>
-              <p>
-                Maintain configuration tables.
-              </p>
-            </a>
+      <div class="box">
+        <div class="media">
+          <div class="media-left">
+            <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
+              <i class="fas fa-table"></i>
+              <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+            </span>
           </div>
+          <a class="media-content" href="<%= urlPrefix %>/admin/tables">
+            <h2 class="title is-4 is-marginless has-text-link">
+              Table Maintenance
+            </h2>
+            <p>
+              Maintain configuration tables.
+            </p>
+          </a>
         </div>
       </div>
     </div>
     <div class="column">
-      <div class="card">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-left">
-              <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
-                <i class="fas fa-users"></i>
-                <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
-              </span>
-            </div>
-            <a class="media-content" href="<%= urlPrefix %>/admin/users">
-              <h2 class="title is-4 is-marginless has-text-link">
-                User Maintenance
-              </h2>
-              <p>
-                Manage users and permissions.
-              </p>
-            </a>
+      <div class="box">
+        <div class="media">
+          <div class="media-left">
+            <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
+              <i class="fas fa-users"></i>
+              <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+            </span>
           </div>
+          <a class="media-content" href="<%= urlPrefix %>/admin/users">
+            <h2 class="title is-4 is-marginless has-text-link">
+              User Maintenance
+            </h2>
+            <p>
+              Manage users and permissions.
+            </p>
+          </a>
         </div>
       </div>
     </div>
