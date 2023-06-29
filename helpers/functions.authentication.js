@@ -35,6 +35,7 @@ export async function authenticate(userName, password) {
 }
 const safeRedirects = new Set([
     '/admin/employees',
+    '/admin/tables',
     '/admin/users',
     '/attendance',
     '/reports'
