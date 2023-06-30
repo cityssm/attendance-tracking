@@ -104,7 +104,7 @@ const reports = [
         reportName: 'afterHoursReasons-active'
     }
 ];
-describe('database/getReportData', () => {
+describe('database/getReportData.js', () => {
     for (const report of reports) {
         it(`Exports "${report.reportName}"`, async () => {
             const data = await getReportData(report.reportName, report.reportParameters ?? {});

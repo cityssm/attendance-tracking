@@ -12,7 +12,7 @@ import type * as recordTypes from '../types/recordTypes'
 
 import { testAdmin } from './_globals.js'
 
-describe('database/employeeProperties', () => {
+describe('database/employeeProperties.js', () => {
   let employee: recordTypes.Employee
   let purgeEmployee = false
 

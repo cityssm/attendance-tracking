@@ -63,7 +63,7 @@ async function getSelfServiceUser(): Promise<TestSelfServiceUser> {
   }
 }
 
-describe('functions.selfService', () => {
+describe('helpers/functions.selfService.js', () => {
   let testSelfService: TestSelfServiceUser
 
   before(async () => {
@@ -130,7 +130,7 @@ describe('functions.selfService', () => {
   })
 })
 
-describe('functions.user', () => {
+describe('helpers/functions.user.js', () => {
   describe('unauthenticated, no user in session', () => {
     const noUserRequest = {
       session: {}

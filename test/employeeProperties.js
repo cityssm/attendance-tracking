@@ -8,7 +8,7 @@ import { getEmployeePropertyValue } from '../database/getEmployeePropertyValue.j
 import { getEmployees } from '../database/getEmployees.js';
 import { setEmployeeProperty } from '../database/setEmployeeProperty.js';
 import { testAdmin } from './_globals.js';
-describe('database/employeeProperties', () => {
+describe('database/employeeProperties.js', () => {
     let employee;
     let purgeEmployee = false;
     const propertyName = 'testProperty.' + Date.now().toString();

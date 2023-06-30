@@ -42,7 +42,7 @@ async function getSelfServiceUser() {
         }
     };
 }
-describe('functions.selfService', () => {
+describe('helpers/functions.selfService.js', () => {
     let testSelfService;
     before(async () => {
         testSelfService = await getSelfServiceUser();
@@ -93,7 +93,7 @@ describe('functions.selfService', () => {
         assert.ok(!validation.success);
     });
 });
-describe('functions.user', () => {
+describe('helpers/functions.user.js', () => {
     describe('unauthenticated, no user in session', () => {
         const noUserRequest = {
             session: {}
