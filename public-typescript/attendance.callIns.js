@@ -198,8 +198,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
         document.querySelector('#menu--attendance a[href="#tab--returnsToWork"] .tag').textContent = todayCount.toString();
     }
     function openCallInModal(clickEvent) {
+        var _a;
         let callInModalElement;
         let callInCloseModalFunction;
+        const callInType = (_a = clickEvent.currentTarget.dataset.callInType) !== null && _a !== void 0 ? _a : '';
         let previousEmployeeNumberPiece = '';
         function populateEmployeeName() {
             const employeeNumberElement = callInModalElement.querySelector('#callInAdd--employeeNumber');
@@ -294,6 +296,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 else {
                     (_b = modalElement
                         .querySelector('#callInAdd--callInType_returnToWork')) === null || _b === void 0 ? void 0 : _b.remove();
+                }
+                if (callInType !== '') {
+                    ;
+                    modalElement.querySelector(`#callInAdd--callInType_${callInType}`).checked = true;
+                    toggleCallInType();
                 }
             },
             onshown(modalElement, closeModalFunction) {

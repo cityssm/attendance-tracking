@@ -300,6 +300,9 @@ declare const cityssm: cityssmGlobal
     let callInModalElement: HTMLElement
     let callInCloseModalFunction: () => void
 
+    const callInType =
+      (clickEvent.currentTarget as HTMLElement).dataset.callInType ?? ''
+
     let previousEmployeeNumberPiece = ''
 
     function populateEmployeeName(): void {
@@ -437,6 +440,16 @@ declare const cityssm: cityssmGlobal
           modalElement
             .querySelector('#callInAdd--callInType_returnToWork')
             ?.remove()
+        }
+
+        if (callInType !== '') {
+          ;(
+            modalElement.querySelector(
+              `#callInAdd--callInType_${callInType}`
+            ) as HTMLInputElement
+          ).checked = true
+
+          toggleCallInType()
         }
       },
       onshown(modalElement, closeModalFunction) {
