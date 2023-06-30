@@ -94,6 +94,10 @@ describe('Admin - Table Maintenance', () => {
                 .first()
                 .should('have.value', updateAbsenceType);
         });
+        it('Exports absence types', () => {
+            cy.get(tabSelector + ' a[download][href*="/reports/"]').click();
+            cy.wait(1000);
+        });
         it('Deletes an absence type', () => {
             cy.get('#container--absenceTypes input[name="absenceType"]')
                 .first()
@@ -191,6 +195,10 @@ describe('Admin - Table Maintenance', () => {
                 .first()
                 .should('have.value', updateResponseType);
         });
+        it('Exports response types', () => {
+            cy.get(tabSelector + ' a[download][href*="/reports/"]').click();
+            cy.wait(1000);
+        });
         it('Deletes a response type', () => {
             cy.get('#container--callOutResponseTypes input[name="responseType"]')
                 .first()
@@ -287,6 +295,10 @@ describe('Admin - Table Maintenance', () => {
             cy.get('#container--afterHoursReasons input[name="afterHoursReason"]')
                 .first()
                 .should('have.value', updateReason);
+        });
+        it('Exports reasons', () => {
+            cy.get(tabSelector + ' a[download][href*="/reports/"]').click();
+            cy.wait(1000);
         });
         it('Deletes a reason', () => {
             cy.get('#container--afterHoursReasons input[name="afterHoursReason"]')
