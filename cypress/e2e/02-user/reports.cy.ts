@@ -19,12 +19,10 @@ describe('Reports', () => {
   })
 
   it('Exports all reports without parameters', () => {
-    cy.get("a[download][href*='/reports/']").each(
-      ($reportLink) => {
-        cy.wrap($reportLink).click({ force: true })
-        cy.wait(ajaxDelayMillis)
-      }
-    )
+    cy.get('a[download][href*="/reports/"]').each(($reportLink) => {
+      cy.wrap($reportLink).click({ force: true })
+      cy.wait(ajaxDelayMillis)
+    })
   })
 
   /*
