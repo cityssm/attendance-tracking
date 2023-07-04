@@ -178,9 +178,11 @@
             </span>
           </div>
           <a class="media-content"
+            <% if (employeeNumber !== '') { %>
             data-employee-number="<%= employeeNumber %>"
             data-last-four-digits="<%= lastFourDigits %>"
             data-last-four-digits-bad="<%= lastFourDigitsBad %>"
+            <% } %>
             href="<%= urlPrefix + configFunctions.getProperty('settings.selfService.path') %>"
             target="_blank"
             rel="noopener noreferrer">
