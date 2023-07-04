@@ -9,34 +9,6 @@ import * as configFunctions from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
 import type * as recordTypes from '../../types/recordTypes'
 
-function canViewAbsences(user: recordTypes.User): boolean {
-  return (
-    configFunctions.getProperty('features.attendance.absences') &&
-    permissionFunctions.hasPermission(user, 'attendance.absences.canView')
-  )
-}
-
-function canViewReturnsToWork(user: recordTypes.User): boolean {
-  return (
-    configFunctions.getProperty('features.attendance.returnsToWork') &&
-    permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')
-  )
-}
-
-function canViewCallOuts(user: recordTypes.User): boolean {
-  return (
-    configFunctions.getProperty('features.attendance.callOuts') &&
-    permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')
-  )
-}
-
-function canUpdateCallOuts(user: recordTypes.User): boolean {
-  return (
-    canViewCallOuts(user) &&
-    permissionFunctions.hasPermission(user, 'attendance.callOuts.canUpdate')
-  )
-}
-
 function isTemporaryAdmin(user: recordTypes.User): boolean {
   return (
     configFunctions.getProperty('application.allowTesting') &&
@@ -45,54 +17,88 @@ function isTemporaryAdmin(user: recordTypes.User): boolean {
   )
 }
 
-export async function handler(
-  request: Request,
-  response: Response
-): Promise<void> {
+async function getAbsenceVariables(user: recordTypes.User): Promise<{
+  absenceRecords: recordTypes.AbsenceRecord[]
+}> {
   let absenceRecords: recordTypes.AbsenceRecord[] = []
 
-  if (canViewAbsences(request.session.user!)) {
+  if (
+    configFunctions.getProperty('features.attendance.absences') &&
+    permissionFunctions.hasPermission(user, 'attendance.absences.canView')
+  ) {
     absenceRecords = await getAbsenceRecords(
       {
         recentOnly: true,
         todayOnly: true
       },
-      request.session.user!
+      user
     )
   }
 
+  return {
+    absenceRecords
+  }
+}
+
+async function getReturnToWorkVariables(user: recordTypes.User): Promise<{
+  returnToWorkRecords: recordTypes.ReturnToWorkRecord[]
+}> {
   let returnToWorkRecords: recordTypes.ReturnToWorkRecord[] = []
 
-  if (canViewReturnsToWork(request.session.user!)) {
+  if (
+    configFunctions.getProperty('features.attendance.returnsToWork') &&
+    permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')
+  ) {
     returnToWorkRecords = await getReturnToWorkRecords(
       {
         recentOnly: true,
         todayOnly: true
       },
-      request.session.user!
+      user
     )
   }
 
+  return {
+    returnToWorkRecords
+  }
+}
+
+async function getCallOutVariables(user: recordTypes.User): Promise<{
+  callOutLists: recordTypes.CallOutList[]
+  callOutResponseTypes: recordTypes.CallOutResponseType[]
+}> {
   let callOutLists: recordTypes.CallOutList[] = []
-
-  if (canViewCallOuts(request.session.user!)) {
-    callOutLists = await getCallOutLists(
-      { favouriteOnly: true },
-      request.session.user!
-    )
-  }
-
   let callOutResponseTypes: recordTypes.CallOutResponseType[] = []
 
-  if (canUpdateCallOuts(request.session.user!)) {
-    callOutResponseTypes = await getCallOutResponseTypes()
+  if (
+    configFunctions.getProperty('features.attendance.callOuts') &&
+    permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')
+  ) {
+    callOutLists = await getCallOutLists({ favouriteOnly: true }, user)
+
+    if (
+      permissionFunctions.hasPermission(user, 'attendance.callOuts.canUpdate')
+    ) {
+      callOutResponseTypes = await getCallOutResponseTypes()
+    }
   }
 
+  return {
+    callOutLists,
+    callOutResponseTypes
+  }
+}
+
+async function getTestingSelfServiceDetails(user: recordTypes.User): Promise<{
+  employeeNumber: string
+  lastFourDigits: string
+  lastFourDigitsBad: string
+}> {
   let employeeNumber = ''
   let lastFourDigits = ''
   let lastFourDigitsBad = 1000
 
-  if (isTemporaryAdmin(request.session.user!)) {
+  if (isTemporaryAdmin(user)) {
     const employees = await getEmployees(
       {
         isActive: true
@@ -133,6 +139,30 @@ export async function handler(
       }
     }
   }
+
+  return {
+    employeeNumber,
+    lastFourDigits,
+    lastFourDigitsBad: lastFourDigitsBad.toString()
+  }
+}
+
+export async function handler(
+  request: Request,
+  response: Response
+): Promise<void> {
+  const { absenceRecords } = await getAbsenceVariables(request.session.user!)
+
+  const { returnToWorkRecords } = await getReturnToWorkVariables(
+    request.session.user!
+  )
+
+  const { callOutLists, callOutResponseTypes } = await getCallOutVariables(
+    request.session.user!
+  )
+
+  const { employeeNumber, lastFourDigits, lastFourDigitsBad } =
+    await getTestingSelfServiceDetails(request.session.user!)
 
   response.render('dashboard', {
     headTitle: 'Dashboard',

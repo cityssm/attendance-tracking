@@ -5,54 +5,57 @@ import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js
 import { getCallOutResponseTypes } from '../../helpers/functions.cache.js';
 import * as configFunctions from '../../helpers/functions.config.js';
 import * as permissionFunctions from '../../helpers/functions.permissions.js';
-function canViewAbsences(user) {
-    return (configFunctions.getProperty('features.attendance.absences') &&
-        permissionFunctions.hasPermission(user, 'attendance.absences.canView'));
-}
-function canViewReturnsToWork(user) {
-    return (configFunctions.getProperty('features.attendance.returnsToWork') &&
-        permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView'));
-}
-function canViewCallOuts(user) {
-    return (configFunctions.getProperty('features.attendance.callOuts') &&
-        permissionFunctions.hasPermission(user, 'attendance.callOuts.canView'));
-}
-function canUpdateCallOuts(user) {
-    return (canViewCallOuts(user) &&
-        permissionFunctions.hasPermission(user, 'attendance.callOuts.canUpdate'));
-}
 function isTemporaryAdmin(user) {
     return (configFunctions.getProperty('application.allowTesting') &&
         (user.userName.startsWith('~~') ?? false) &&
         (user.isAdmin ?? false));
 }
-export async function handler(request, response) {
+async function getAbsenceVariables(user) {
     let absenceRecords = [];
-    if (canViewAbsences(request.session.user)) {
+    if (configFunctions.getProperty('features.attendance.absences') &&
+        permissionFunctions.hasPermission(user, 'attendance.absences.canView')) {
         absenceRecords = await getAbsenceRecords({
             recentOnly: true,
             todayOnly: true
-        }, request.session.user);
+        }, user);
     }
+    return {
+        absenceRecords
+    };
+}
+async function getReturnToWorkVariables(user) {
     let returnToWorkRecords = [];
-    if (canViewReturnsToWork(request.session.user)) {
+    if (configFunctions.getProperty('features.attendance.returnsToWork') &&
+        permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) {
         returnToWorkRecords = await getReturnToWorkRecords({
             recentOnly: true,
             todayOnly: true
-        }, request.session.user);
+        }, user);
     }
+    return {
+        returnToWorkRecords
+    };
+}
+async function getCallOutVariables(user) {
     let callOutLists = [];
-    if (canViewCallOuts(request.session.user)) {
-        callOutLists = await getCallOutLists({ favouriteOnly: true }, request.session.user);
-    }
     let callOutResponseTypes = [];
-    if (canUpdateCallOuts(request.session.user)) {
-        callOutResponseTypes = await getCallOutResponseTypes();
+    if (configFunctions.getProperty('features.attendance.callOuts') &&
+        permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) {
+        callOutLists = await getCallOutLists({ favouriteOnly: true }, user);
+        if (permissionFunctions.hasPermission(user, 'attendance.callOuts.canUpdate')) {
+            callOutResponseTypes = await getCallOutResponseTypes();
+        }
     }
+    return {
+        callOutLists,
+        callOutResponseTypes
+    };
+}
+async function getTestingSelfServiceDetails(user) {
     let employeeNumber = '';
     let lastFourDigits = '';
     let lastFourDigitsBad = 1000;
-    if (isTemporaryAdmin(request.session.user)) {
+    if (isTemporaryAdmin(user)) {
         const employees = await getEmployees({
             isActive: true
         }, { includeProperties: false });
@@ -79,6 +82,17 @@ export async function handler(request, response) {
             }
         }
     }
+    return {
+        employeeNumber,
+        lastFourDigits,
+        lastFourDigitsBad: lastFourDigitsBad.toString()
+    };
+}
+export async function handler(request, response) {
+    const { absenceRecords } = await getAbsenceVariables(request.session.user);
+    const { returnToWorkRecords } = await getReturnToWorkVariables(request.session.user);
+    const { callOutLists, callOutResponseTypes } = await getCallOutVariables(request.session.user);
+    const { employeeNumber, lastFourDigits, lastFourDigitsBad } = await getTestingSelfServiceDetails(request.session.user);
     response.render('dashboard', {
         headTitle: 'Dashboard',
         absenceRecords,
