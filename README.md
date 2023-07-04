@@ -7,7 +7,6 @@
 [![Coverage Testing](https://github.com/cityssm/MonTY/actions/workflows/coverage.yml/badge.svg)](https://github.com/cityssm/MonTY/actions/workflows/coverage.yml)
 [![MonTY](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/szu5cb/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/szu5cb/runs)
 [![codecov](https://codecov.io/gh/cityssm/MonTY/branch/main/graph/badge.svg?token=21LFC3U1Q2)](https://codecov.io/gh/cityssm/MonTY)
-[![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/cityssm/MonTY)](https://app.snyk.io/org/cityssm/project/a2511a35-9290-4424-ad6c-669a8d1566d4)
 
 ## ⭐ UNDER DEVELOPMENT ⭐
 
