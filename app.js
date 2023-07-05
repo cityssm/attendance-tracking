@@ -39,7 +39,7 @@ if (!configFunctions.getProperty('reverseProxy.disableCompression')) {
     app.use(compression());
 }
 app.use((request, _response, next) => {
-    debug(`${request.method.toString()} ${request.url.toString()}`);
+    debug(`${request.method} ${request.url}`);
     next();
 });
 app.use(express.json());
@@ -156,6 +156,6 @@ if (configFunctions.getProperty('features.selfService')) {
 }
 app.use((request, _response, next) => {
     debug(request.url);
-    next(createError(404, 'File not found: ' + request.url.toString()));
+    next(createError(404, 'File not found: ' + request.url));
 });
 export default app;

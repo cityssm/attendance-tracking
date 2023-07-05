@@ -10,7 +10,7 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const printName = request.params.printName
+  const printName: string = request.params.printName
 
   const printConfig = getScreenPrintConfig(printName)
 

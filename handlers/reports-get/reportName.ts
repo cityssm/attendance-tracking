@@ -10,7 +10,7 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const reportName = request.params.reportName
+  const reportName: string = request.params.reportName
 
   let rows: unknown[] | undefined
 
