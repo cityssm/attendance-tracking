@@ -33,7 +33,7 @@ async function doSync() {
         return;
     }
     const syncDateTime = new Date();
-    debug(`Processing ${employees.response.employees?.length ?? 0} employee(s)...`);
+    debug(`Processing ${(employees.response.employees?.length ?? 0).toString()} employee(s)...`);
     for (const avantiEmployee of employees.response.employees ?? []) {
         if (terminateTask) {
             break;
@@ -48,7 +48,7 @@ async function doSync() {
                 !(currentEmployee.isSynced ?? false)) {
                 continue;
             }
-            debug(`Processing ${avantiEmployee.empNo}...`);
+            debug(`Processing ${avantiEmployee.empNo ?? ''}...`);
             const newEmployee = {
                 employeeNumber: avantiEmployee.empNo,
                 employeeSurname: avantiEmployee.surname ?? '',

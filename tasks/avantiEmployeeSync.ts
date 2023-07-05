@@ -51,7 +51,7 @@ async function doSync(): Promise<void> {
   const syncDateTime = new Date()
 
   debug(
-    `Processing ${employees.response.employees?.length ?? 0} employee(s)...`
+    `Processing ${(employees.response.employees?.length ?? 0).toString()} employee(s)...`
   )
 
   for (const avantiEmployee of employees.response.employees ?? []) {
@@ -78,7 +78,7 @@ async function doSync(): Promise<void> {
         continue
       }
 
-      debug(`Processing ${avantiEmployee.empNo!}...`)
+      debug(`Processing ${avantiEmployee.empNo ?? ''}...`)
 
       const newEmployee: Employee = {
         employeeNumber: avantiEmployee.empNo!,
