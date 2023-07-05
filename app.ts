@@ -89,8 +89,7 @@ app.use(
  * Abuse Check
  */
 
-const abuseCheckHandler = abuseCheck({
-})
+const abuseCheckHandler = abuseCheck()
 
 /*
  * STATIC ROUTES

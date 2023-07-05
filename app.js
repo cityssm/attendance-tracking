@@ -54,7 +54,7 @@ app.use(rateLimit({
     windowMs: 10000,
     max: 200
 }));
-const abuseCheckHandler = abuseCheck({});
+const abuseCheckHandler = abuseCheck();
 const urlPrefix = configFunctions.getProperty('reverseProxy.urlPrefix');
 if (urlPrefix !== '') {
     debug('urlPrefix = ' + urlPrefix);

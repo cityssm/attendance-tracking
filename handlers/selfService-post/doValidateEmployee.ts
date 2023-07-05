@@ -1,5 +1,4 @@
 import { recordAbuse, isAbuser } from '@cityssm/express-abuse-points'
-import type { AbuseRequest } from '@cityssm/express-abuse-points/types.js'
 import type { Request, Response } from 'express'
 
 import { validateEmployeeFields } from '../../helpers/functions.selfService.js'
@@ -11,9 +10,9 @@ export async function handler(
   const employee = await validateEmployeeFields(request)
 
   if (!employee.success) {
-    recordAbuse(request as AbuseRequest)
+    recordAbuse(request)
 
-    const isAbuserBoolean = await isAbuser(request as AbuseRequest)
+    const isAbuserBoolean = await isAbuser(request)
 
     response.json({
       success: false,

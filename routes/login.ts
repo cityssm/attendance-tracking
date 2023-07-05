@@ -1,5 +1,4 @@
 import { isAbuser, recordAbuse } from '@cityssm/express-abuse-points'
-import type { AbuseRequest } from '@cityssm/express-abuse-points/types.js'
 import {
   Router,
   type RequestHandler,
@@ -92,9 +91,9 @@ async function postHandler(
 
     response.redirect(redirectURL)
   } else {
-    recordAbuse(request as AbuseRequest)
+    recordAbuse(request)
 
-    const isAbuserBoolean = await isAbuser(request as AbuseRequest)
+    const isAbuserBoolean = await isAbuser(request)
 
     response.render('login', {
       userName,
