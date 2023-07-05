@@ -46,7 +46,7 @@ describe('Login Page', () => {
     }
 
     cy.get("form [name='userName']").type(testUser.user.userName)
-    cy.get("form [name='password']").type(testUser.password + 'x')
+    cy.get("form [name='password']").type(testUser.password).type('extraJunk')
 
     cy.get('form').submit()
 

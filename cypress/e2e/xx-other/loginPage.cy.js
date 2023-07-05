@@ -36,7 +36,7 @@ describe('Login Page', () => {
             throw new Error('testUser not available');
         }
         cy.get("form [name='userName']").type(testUser.user.userName);
-        cy.get("form [name='password']").type(testUser.password + 'x');
+        cy.get("form [name='password']").type(testUser.password).type('extraJunk');
         cy.get('form').submit();
         cy.location('pathname').should('contain', '/login');
         cy.get('form').contains('Login Failed', {
