@@ -17,6 +17,7 @@
     "plugin:import/typescript",
     "plugin:n/recommended",
     "plugin:promise/recommended",
+    "plugin:sonarjs/recommended",
     "plugin:unicorn/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
