@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 /* eslint-disable unicorn/prefer-module */
 
 import type { BulmaJS } from '@cityssm/bulma-js/types'
@@ -9,6 +10,8 @@ import type * as recordTypes from '../types/recordTypes'
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
+
+  // eslint-disable-next-line sonarjs/cognitive-complexity
 ;(() => {
   const MonTY = exports.MonTY as globalTypes.MonTY
 

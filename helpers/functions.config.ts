@@ -13,6 +13,9 @@ import type * as configTypes from '../types/configTypes'
  * SET UP FALLBACK VALUES
  */
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const property_session_maxAgeMillis = 'session.maxAgeMillis'
+
 const configFallbackValues = new Map<string, unknown>()
 
 configFallbackValues.set('application.applicationName', 'MonTY')
@@ -34,7 +37,7 @@ configFallbackValues.set('reverseProxy.urlPrefix', '')
 
 configFallbackValues.set('session.cookieName', 'monty-user-sid')
 configFallbackValues.set('session.secret', 'cityssm/monty')
-configFallbackValues.set('session.maxAgeMillis', 60 * 60 * 1000)
+configFallbackValues.set(property_session_maxAgeMillis, 60 * 60 * 1000)
 configFallbackValues.set('session.doKeepAlive', false)
 
 configFallbackValues.set('features.attendance.absences', true)
@@ -181,7 +184,7 @@ export const deleteDays = historicalDays * 3
 
 export const keepAliveMillis = getProperty('session.doKeepAlive')
   ? Math.max(
-      getProperty('session.maxAgeMillis') / 2,
-      getProperty('session.maxAgeMillis') - 10 * 60 * 1000
+      getProperty(property_session_maxAgeMillis) / 2,
+      getProperty(property_session_maxAgeMillis) - 10 * 60 * 1000
     )
   : 0

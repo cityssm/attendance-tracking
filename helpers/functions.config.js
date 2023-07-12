@@ -1,5 +1,6 @@
 import './polyfills.js';
 import { config } from '../data/config.js';
+const property_session_maxAgeMillis = 'session.maxAgeMillis';
 const configFallbackValues = new Map();
 configFallbackValues.set('application.applicationName', 'MonTY');
 configFallbackValues.set('application.backgroundURL', '/images/truck-background.jpg');
@@ -14,7 +15,7 @@ configFallbackValues.set('reverseProxy.disableEtag', false);
 configFallbackValues.set('reverseProxy.urlPrefix', '');
 configFallbackValues.set('session.cookieName', 'monty-user-sid');
 configFallbackValues.set('session.secret', 'cityssm/monty');
-configFallbackValues.set('session.maxAgeMillis', 60 * 60 * 1000);
+configFallbackValues.set(property_session_maxAgeMillis, 60 * 60 * 1000);
 configFallbackValues.set('session.doKeepAlive', false);
 configFallbackValues.set('features.attendance.absences', true);
 configFallbackValues.set('features.attendance.callOuts', true);
@@ -49,5 +50,5 @@ export function includeAttendance() {
 export const historicalDays = getProperty('settings.recentDays') * 3;
 export const deleteDays = historicalDays * 3;
 export const keepAliveMillis = getProperty('session.doKeepAlive')
-    ? Math.max(getProperty('session.maxAgeMillis') / 2, getProperty('session.maxAgeMillis') - 10 * 60 * 1000)
+    ? Math.max(getProperty(property_session_maxAgeMillis) / 2, getProperty(property_session_maxAgeMillis) - 10 * 60 * 1000)
     : 0;

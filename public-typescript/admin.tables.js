@@ -1,9 +1,14 @@
 "use strict";
+/* eslint-disable unicorn/prefer-query-selector */
 /* eslint-disable unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a, _b, _c;
     const MonTY = exports.MonTY;
+    const updateButtonClassName = 'is-update-button';
+    const upButtonClassName = 'is-up-button';
+    const downButtonClassName = 'is-down-button';
+    const deleteButtonClassName = 'is-delete-button';
     function setRowBackgroundColor(changeEvent) {
         ;
         changeEvent.currentTarget
@@ -89,7 +94,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
         });
     }
     function renderAbsenceTypes() {
-        var _a, _b;
         const containerElement = document.querySelector('#container--absenceTypes');
         if (absenceTypes.length === 0) {
             containerElement.innerHTML = `<div class="message is-warning">
@@ -122,38 +126,40 @@ Object.defineProperty(exports, "__esModule", { value: true });
         <input class="input" name="absenceType" maxlength="100" aria-label="Absence Type" required />
         </td>
         <td>
-          <button class="button is-success is-update-button" data-cy="save" type="button" aria-label="Update Absence Type">
+          <button class="button is-success ${updateButtonClassName}" data-cy="save" type="button" aria-label="Update Absence Type">
             <i class="fas fa-save" aria-hidden="true"></i>
           </button>
         </td>
         <td>
           <div class="field has-addons">
             <div class="control">
-              <button class="button is-up-button" data-direction="up" type="button" aria-label="Move Up">
+              <button class="button ${upButtonClassName}" data-direction="up" type="button" aria-label="Move Up">
                 <i class="fas fa-arrow-up" aria-hidden="true"></i>
               </button>
             </div>
             <div class="control">
-              <button class="button is-down-button" data-direction="down" type="button" aria-label="Move Down">
+              <button class="button ${downButtonClassName}" data-direction="down" type="button" aria-label="Move Down">
                 <i class="fas fa-arrow-down" aria-hidden="true"></i>
               </button>
             </div>
           </div>
         </td>
         <td>
-        <button class="button is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete Absence Type">
+        <button class="button is-danger ${deleteButtonClassName}" data-cy="delete" type="button" aria-label="Delete Absence Type">
           <i class="fas fa-trash" aria-hidden="true"></i>
         </button>
         </td>`;
             const inputElement = rowElement.querySelector('input');
             inputElement.value = absenceType.absenceType;
             inputElement.addEventListener('change', setRowBackgroundColor);
-            (_a = rowElement
-                .querySelector('.is-update-button')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', updateAbsenceType);
-            rowElement.querySelector('.is-up-button').addEventListener('click', moveAbsenceType);
-            rowElement.querySelector('.is-down-button').addEventListener('click', moveAbsenceType);
-            (_b = rowElement
-                .querySelector('.is-delete-button')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', deleteAbsenceType);
+            rowElement
+                .getElementsByClassName(updateButtonClassName)[0]
+                .addEventListener('click', updateAbsenceType);
+            rowElement.getElementsByClassName(upButtonClassName)[0].addEventListener('click', moveAbsenceType);
+            rowElement.getElementsByClassName(downButtonClassName)[0].addEventListener('click', moveAbsenceType);
+            rowElement
+                .getElementsByClassName(deleteButtonClassName)[0]
+                .addEventListener('click', deleteAbsenceType);
             tableBodyElement.append(rowElement);
         }
     }
@@ -279,7 +285,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         });
     }
     function renderCallOutResponseTypes() {
-        var _a, _b, _c;
+        var _a;
         const containerElement = document.querySelector('#container--callOutResponseTypes');
         if (absenceTypes.length === 0) {
             containerElement.innerHTML = `<div class="message is-warning">
@@ -322,26 +328,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
           </div>
         </td>
         <td>
-          <button class="button is-success is-update-button" data-cy="save" type="button" aria-label="Update Response Type">
+          <button class="button is-success ${updateButtonClassName}" data-cy="save" type="button" aria-label="Update Response Type">
             <i class="fas fa-save" aria-hidden="true"></i>
           </button>
         </td>
         <td>
           <div class="field has-addons">
             <div class="control">
-              <button class="button is-up-button" data-direction="up" type="button" aria-label="Move Up">
+              <button class="button ${upButtonClassName}" data-direction="up" type="button" aria-label="Move Up">
                 <i class="fas fa-arrow-up" aria-hidden="true"></i>
               </button>
             </div>
             <div class="control">
-              <button class="button is-down-button" data-direction="down" type="button" aria-label="Move Down">
+              <button class="button ${downButtonClassName}" data-direction="down" type="button" aria-label="Move Down">
                 <i class="fas fa-arrow-down" aria-hidden="true"></i>
               </button>
             </div>
           </div>
         </td>
         <td>
-        <button class="button is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete Response Type">
+        <button class="button is-danger ${deleteButtonClassName}" data-cy="delete" type="button" aria-label="Delete Response Type">
           <i class="fas fa-trash" aria-hidden="true"></i>
         </button>
         </td>`;
@@ -353,12 +359,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
             if (!callOutResponseType.isSuccessful) {
                 rowElement.querySelector('select').value = '0';
             }
-            (_b = rowElement
-                .querySelector('.is-update-button')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', updateCallOutResponseType);
-            rowElement.querySelector('.is-up-button').addEventListener('click', moveCallOutResponseType);
-            rowElement.querySelector('.is-down-button').addEventListener('click', moveCallOutResponseType);
-            (_c = rowElement
-                .querySelector('.is-delete-button')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', deleteCallOutResponseType);
+            rowElement
+                .getElementsByClassName(updateButtonClassName)[0]
+                .addEventListener('click', updateCallOutResponseType);
+            rowElement.getElementsByClassName(upButtonClassName)[0].addEventListener('click', moveCallOutResponseType);
+            rowElement.getElementsByClassName(downButtonClassName)[0].addEventListener('click', moveCallOutResponseType);
+            rowElement
+                .getElementsByClassName(deleteButtonClassName)[0]
+                .addEventListener('click', deleteCallOutResponseType);
             tableBodyElement.append(rowElement);
         }
     }
@@ -482,7 +490,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
         });
     }
     function renderAfterHoursReasons() {
-        var _a, _b;
         const containerElement = document.querySelector('#container--afterHoursReasons');
         if (absenceTypes.length === 0) {
             containerElement.innerHTML = `<div class="message is-warning">
@@ -516,38 +523,40 @@ Object.defineProperty(exports, "__esModule", { value: true });
         <input class="input" name="afterHoursReason" maxlength="100" aria-label="After Hours Reason" required />
         </td>
         <td>
-          <button class="button is-success is-update-button" data-cy="save" type="button" aria-label="Update Reason">
+          <button class="button is-success ${updateButtonClassName}" data-cy="save" type="button" aria-label="Update Reason">
             <i class="fas fa-save" aria-hidden="true"></i>
           </button>
         </td>
         <td>
           <div class="field has-addons">
             <div class="control">
-              <button class="button is-up-button" data-direction="up" type="button" aria-label="Move Up">
+              <button class="button ${upButtonClassName}" data-direction="up" type="button" aria-label="Move Up">
                 <i class="fas fa-arrow-up" aria-hidden="true"></i>
               </button>
             </div>
             <div class="control">
-              <button class="button is-down-button" data-direction="down" type="button" aria-label="Move Down">
+              <button class="button ${downButtonClassName}" data-direction="down" type="button" aria-label="Move Down">
                 <i class="fas fa-arrow-down" aria-hidden="true"></i>
               </button>
             </div>
           </div>
         </td>
         <td>
-        <button class="button is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete Reason">
+        <button class="button is-danger ${deleteButtonClassName}" data-cy="delete" type="button" aria-label="Delete Reason">
           <i class="fas fa-trash" aria-hidden="true"></i>
         </button>
         </td>`;
             const inputElement = rowElement.querySelector('input');
             inputElement.value = afterHoursReason.afterHoursReason;
             inputElement.addEventListener('change', setRowBackgroundColor);
-            (_a = rowElement
-                .querySelector('.is-update-button')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', updateAfterHoursReason);
-            rowElement.querySelector('.is-up-button').addEventListener('click', moveAfterHoursReason);
-            rowElement.querySelector('.is-down-button').addEventListener('click', moveAfterHoursReason);
-            (_b = rowElement
-                .querySelector('.is-delete-button')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', deleteAfterHoursReason);
+            rowElement
+                .getElementsByClassName(updateButtonClassName)[0]
+                .addEventListener('click', updateAfterHoursReason);
+            rowElement.getElementsByClassName(upButtonClassName)[0].addEventListener('click', moveAfterHoursReason);
+            rowElement.getElementsByClassName(downButtonClassName)[0].addEventListener('click', moveAfterHoursReason);
+            rowElement
+                .getElementsByClassName(deleteButtonClassName)[0]
+                .addEventListener('click', deleteAfterHoursReason);
             tableBodyElement.append(rowElement);
         }
     }
