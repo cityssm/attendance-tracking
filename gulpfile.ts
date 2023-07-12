@@ -1,5 +1,3 @@
-/* eslint-disable node/no-unpublished-import */
-
 import gulp from 'gulp'
 import changed from 'gulp-changed'
 import minify from 'gulp-minify'

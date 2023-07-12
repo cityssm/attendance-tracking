@@ -1,5 +1,3 @@
-/* eslint-disable node/no-unpublished-import */
-
 import { config } from '../data/config.js'
 
 export const testAdmin = (config.tempUsers ?? []).find((possibleUser) => {

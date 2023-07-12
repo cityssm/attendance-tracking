@@ -1,4 +1,3 @@
-/* eslint-disable node/no-unpublished-import */
 /* eslint-disable promise/always-return */
 /* eslint-disable promise/catch-or-return */
 

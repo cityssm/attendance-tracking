@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/indent, node/no-unpublished-import */
+/* eslint-disable @typescript-eslint/indent */
 
 import './polyfills.js'
 

@@ -1,14 +1,12 @@
-/* eslint-disable node/no-unpublished-import */
-
 import 'cypress-axe'
 
-import type * as configTypes from '../../types/configTypes'
+import type { ConfigTemporaryUserCredentials } from '../../types/configTypes'
 
 export const logout = (): void => {
   cy.visit('/logout')
 }
 
-export const login = (user: configTypes.ConfigTemporaryUserCredentials): void => {
+export const login = (user: ConfigTemporaryUserCredentials): void => {
   cy.visit('/login')
 
   cy.get('[data-cy="allowTesting"]').should('exist')

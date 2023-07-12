@@ -1,6 +1,5 @@
 import * as assert from 'node:assert'
 
-// eslint-disable-next-line node/no-unpublished-import
 import { v4 } from 'uuid'
 
 import { getEmployees } from '../database/getEmployees.js'

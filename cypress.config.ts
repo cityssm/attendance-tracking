@@ -1,5 +1,4 @@
 /* eslint-disable unicorn/prefer-module */
-/* eslint-disable node/no-unpublished-import */
 
 import wp from '@cypress/webpack-batteries-included-preprocessor'
 import { defineConfig } from 'cypress'
