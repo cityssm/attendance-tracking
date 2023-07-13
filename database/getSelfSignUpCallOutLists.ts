@@ -4,7 +4,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes'
+import type { CallOutList } from '../types/recordTypes.js'
 
 interface GetSelfSignUpCallOutListsFilters {
   hasEmployeeNumber?: string
@@ -13,7 +13,7 @@ interface GetSelfSignUpCallOutListsFilters {
 
 export async function getSelfSignUpCallOutLists(
   filters: GetSelfSignUpCallOutListsFilters = {}
-): Promise<recordTypes.CallOutList[]> {
+): Promise<CallOutList[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
   let request = pool.request()
@@ -42,7 +42,7 @@ export async function getSelfSignUpCallOutLists(
 
   sql += ' order by l.listName'
 
-  const results: IResult<recordTypes.CallOutList> = await request.query(sql)
+  const results: IResult<CallOutList> = await request.query(sql)
 
   return results.recordset
 }

@@ -1,2 +1,2 @@
-import type * as recordTypes from '../types/recordTypes';
-export declare function createCallOutList(callOutList: recordTypes.CallOutList, sessionUser: recordTypes.User): Promise<number>;
+import type { CallOutList } from '../types/recordTypes.js';
+export declare function createCallOutList(callOutList: CallOutList, sessionUser: MonTYUser): Promise<number>;

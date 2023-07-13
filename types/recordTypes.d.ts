@@ -107,20 +107,19 @@ export interface AfterHoursRecord extends Partial<AfterHoursReason>, RecordUserN
     recordComment?: string;
     canUpdate?: boolean;
 }
-export interface User extends RecordUserNameDateTime {
-    userName: string;
-    canLogin: boolean;
-    isAdmin: boolean;
-    employeeNumber?: string;
-    employeeSurname?: string;
-    employeeGivenName?: string;
-    permissions?: Partial<Record<keyof typeof availablePermissionValues, string>>;
+declare global {
+    interface MonTYUser extends RecordUserNameDateTime {
+        userName: string;
+        canLogin: boolean;
+        isAdmin: boolean;
+        employeeNumber?: string;
+        employeeSurname?: string;
+        employeeGivenName?: string;
+        permissions?: Partial<Record<keyof typeof availablePermissionValues, string>>;
+    }
 }
 declare module 'express-session' {
     interface Session {
-        user?: User;
+        user?: MonTYUser;
     }
-}
-export interface PartialSession {
-    user?: User;
 }

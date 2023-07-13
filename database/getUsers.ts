@@ -2,12 +2,11 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type { User } from '../types/recordTypes'
 
-export async function getUsers(): Promise<User[]> {
+export async function getUsers(): Promise<MonTYUser[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
-  const userResult: IResult<User> = await pool.request().query(`select
+  const userResult: IResult<MonTYUser> = await pool.request().query(`select
     u.userName, u.canLogin, u.isAdmin,
     e.employeeNumber, e.employeeSurname, e.employeeGivenName
     from MonTY.Users u

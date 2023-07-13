@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/indent */
 /* eslint-disable unicorn/prefer-module */
 
-import type { BulmaJS } from '@cityssm/bulma-js/types'
-import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
+// eslint-disable-next-line n/no-missing-import
+import type { BulmaJS } from '@cityssm/bulma-js/types.js'
+import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type * as globalTypes from '../types/globalTypes'
-import type * as recordTypes from '../types/recordTypes'
+import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
 
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
-  const MonTY = exports.MonTY as globalTypes.MonTY
+  const MonTY = exports.MonTY as MonTYGlobal
 
-  let users = exports.users as recordTypes.User[]
+  let users = exports.users as MonTYUser[]
   delete exports.users
 
   const availablePermissionValues = exports.availablePermissionValues as Record<
@@ -44,7 +44,7 @@ declare const cityssm: cityssmGlobal
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
             success: boolean
-            users: recordTypes.User[]
+            users: MonTYUser[]
           }
 
           if (responseJSON.success) {
@@ -90,7 +90,7 @@ declare const cityssm: cityssmGlobal
       (rawResponseJSON) => {
         const responseJSON = rawResponseJSON as {
           success: boolean
-          users: recordTypes.User[]
+          users: MonTYUser[]
         }
 
         if (responseJSON.success) {
@@ -138,7 +138,7 @@ declare const cityssm: cityssmGlobal
       (rawResponseJSON) => {
         const responseJSON = rawResponseJSON as {
           success: boolean
-          users: recordTypes.User[]
+          users: MonTYUser[]
         }
 
         if (responseJSON.success) {
@@ -497,7 +497,7 @@ declare const cityssm: cityssmGlobal
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as {
               success: boolean
-              users: recordTypes.User[]
+              users: MonTYUser[]
             }
 
             if (responseJSON.success) {

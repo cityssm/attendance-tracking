@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/indent */
+/* eslint-disable import/namespace */
 
 import type { Request, Response } from 'express'
 
@@ -15,11 +16,9 @@ import {
 } from '../../helpers/functions.cache.js'
 import * as configFunctions from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
-import type * as recordTypes from '../../types/recordTypes'
+import type * as recordTypes from '../../types/recordTypes.js'
 
-async function populateAbsenceVariables(
-  sessionUser: recordTypes.User
-): Promise<{
+async function populateAbsenceVariables(sessionUser: MonTYUser): Promise<{
   absenceRecords: recordTypes.AbsenceRecord[]
   absenceTypes: recordTypes.AbsenceType[]
 }> {
@@ -56,9 +55,7 @@ async function populateAbsenceVariables(
   }
 }
 
-async function populateReturnToWorkVariables(
-  sessionUser: recordTypes.User
-): Promise<{
+async function populateReturnToWorkVariables(sessionUser: MonTYUser): Promise<{
   returnToWorkRecords: recordTypes.ReturnToWorkRecord[]
 }> {
   let returnToWorkRecords: recordTypes.ReturnToWorkRecord[] = []
@@ -83,9 +80,7 @@ async function populateReturnToWorkVariables(
   }
 }
 
-async function populateCallOutVariables(
-  sessionUser: recordTypes.User
-): Promise<{
+async function populateCallOutVariables(sessionUser: MonTYUser): Promise<{
   callOutLists: recordTypes.CallOutList[]
   callOutResponseTypes: recordTypes.CallOutResponseType[]
   employeeEligibilityFunctionNames: string[]
@@ -155,9 +150,7 @@ async function populateCallOutVariables(
   }
 }
 
-async function populateAfterHoursVariables(
-  sessionUser: recordTypes.User
-): Promise<{
+async function populateAfterHoursVariables(sessionUser: MonTYUser): Promise<{
   afterHoursRecords: recordTypes.AfterHoursRecord[]
   afterHoursReasons: recordTypes.AfterHoursReason[]
 }> {

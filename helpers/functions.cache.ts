@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/indent */
+/* eslint-disable import/namespace */
 
 import cluster from 'node:cluster'
 
@@ -12,7 +13,7 @@ import type {
   ClearCacheWorkerMessage,
   CacheTableName
 } from '../types/applicationTypes.js'
-import type * as recordTypes from '../types/recordTypes'
+import type * as recordTypes from '../types/recordTypes.js'
 
 const debug = Debug(`monty:functions.cache:${process.pid}`)
 

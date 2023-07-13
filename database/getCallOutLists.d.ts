@@ -1,7 +1,7 @@
-import type * as recordTypes from '../types/recordTypes';
+import type { CallOutList } from '../types/recordTypes.js';
 interface GetCallOutListsFilters {
     favouriteOnly: boolean;
     allowSelfSignUp?: boolean;
 }
-export declare function getCallOutLists(filters: GetCallOutListsFilters, sessionUser: recordTypes.User): Promise<recordTypes.CallOutList[]>;
+export declare function getCallOutLists(filters: GetCallOutListsFilters, sessionUser: MonTYUser): Promise<CallOutList[]>;
 export {};

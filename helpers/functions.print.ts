@@ -1,6 +1,5 @@
 import { getCallOutList } from '../database/getCallOutList.js'
 import { getCallOutListMembers } from '../database/getCallOutListMembers.js'
-import type * as recordTypes from '../types/recordTypes'
 
 import * as permissionFunctions from './functions.permissions.js'
 
@@ -25,7 +24,7 @@ export function getScreenPrintConfig(
 export async function getReportData(
   printConfig: PrintConfig,
   requestQuery: Record<string, unknown>,
-  requestSession: recordTypes.PartialSession
+  sessionUser: MonTYUser
 ): Promise<Record<string, unknown>> {
   const reportData: Record<string, unknown> = {
     headTitle: printConfig.title
@@ -35,7 +34,7 @@ export async function getReportData(
     printConfig.params.includes('listId') &&
     typeof requestQuery.listId === 'string' &&
     permissionFunctions.hasPermission(
-      requestSession.user!,
+      sessionUser,
       'attendance.callOuts.canView'
     )
   ) {

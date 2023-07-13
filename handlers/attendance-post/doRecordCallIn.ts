@@ -1,3 +1,5 @@
+/* eslint-disable import/namespace */
+
 import type { Request, Response } from 'express'
 
 import { addAbsenceRecord } from '../../database/addAbsenceRecord.js'
@@ -5,7 +7,7 @@ import { addReturnToWorkRecord } from '../../database/addReturnToWorkRecord.js'
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
-import type * as recordTypes from '../../types/recordTypes'
+import type * as recordTypes from '../../types/recordTypes.js'
 
 export async function handler(
   request: Request,
@@ -48,7 +50,10 @@ export async function handler(
           'attendance.returnsToWork.canUpdate'
         )
       ) {
-        recordId = await addReturnToWorkRecord(request.body, request.session.user!)
+        recordId = await addReturnToWorkRecord(
+          request.body,
+          request.session.user!
+        )
         success = true
         returnToWorkRecords = await getReturnToWorkRecords(
           {

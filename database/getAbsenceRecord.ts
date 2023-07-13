@@ -1,10 +1,10 @@
-import type { AbsenceRecord, User } from '../types/recordTypes'
+import type { AbsenceRecord } from '../types/recordTypes.js'
 
 import { getAbsenceRecords } from './getAbsenceRecords.js'
 
 export async function getAbsenceRecord(
   recordId: string,
-  sessionUser: User
+  sessionUser: MonTYUser
 ): Promise<AbsenceRecord | undefined> {
   const absenceRecords = await getAbsenceRecords(
     {

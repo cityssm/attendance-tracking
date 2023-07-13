@@ -1,5 +1,5 @@
 import '../helpers/polyfills.js';
-import type { Employee } from '../types/recordTypes';
+import type { Employee } from '../types/recordTypes.js';
 interface GetEmployeesFilters {
     eligibilityFunction?: {
         functionName: string;

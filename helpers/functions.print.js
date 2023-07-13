@@ -10,13 +10,13 @@ const screenPrintConfigs = {
 export function getScreenPrintConfig(printName) {
     return screenPrintConfigs[printName];
 }
-export async function getReportData(printConfig, requestQuery, requestSession) {
+export async function getReportData(printConfig, requestQuery, sessionUser) {
     const reportData = {
         headTitle: printConfig.title
     };
     if (printConfig.params.includes('listId') &&
         typeof requestQuery.listId === 'string' &&
-        permissionFunctions.hasPermission(requestSession.user, 'attendance.callOuts.canView')) {
+        permissionFunctions.hasPermission(sessionUser, 'attendance.callOuts.canView')) {
         const callOutList = await getCallOutList(requestQuery.listId);
         const callOutListMembers = await getCallOutListMembers({
             listId: requestQuery.listId

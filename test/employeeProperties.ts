@@ -20,7 +20,7 @@ describe('database/employeeProperties.js', () => {
   const propertyValue = 'test value'
   const updatedPropertyValue = 'updated value'
 
-  let user: recordTypes.User
+  let user: MonTYUser
 
   before(async () => {
     user = {

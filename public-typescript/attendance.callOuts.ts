@@ -1,17 +1,18 @@
 /* eslint-disable unicorn/prefer-string-replace-all */
 /* eslint-disable unicorn/prefer-module */
 
-import type { BulmaJS } from '@cityssm/bulma-js/types'
-import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
+// eslint-disable-next-line n/no-missing-import
+import type { BulmaJS } from '@cityssm/bulma-js/types.js'
+import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type * as globalTypes from '../types/globalTypes'
-import type * as recordTypes from '../types/recordTypes'
+import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type { CallOutList } from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
-  const MonTY = exports.MonTY as globalTypes.MonTY
+  const MonTY = exports.MonTY as MonTYGlobal
 
   const searchFilterElement = document.querySelector(
     '#callOuts--searchFilter'
@@ -41,7 +42,7 @@ declare const cityssm: cityssmGlobal
       (rawResponseJSON) => {
         const responseJSON = rawResponseJSON as {
           success: boolean
-          callOutLists: recordTypes.CallOutList[]
+          callOutLists: CallOutList[]
         }
 
         if (responseJSON.success) {
@@ -170,7 +171,7 @@ declare const cityssm: cityssmGlobal
           const responseJSON = rawResponseJSON as {
             success: boolean
             listId: string
-            callOutLists: recordTypes.CallOutList[]
+            callOutLists: CallOutList[]
           }
 
           MonTY.callOuts!.callOutLists = responseJSON.callOutLists

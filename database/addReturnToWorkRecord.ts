@@ -2,7 +2,6 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes'
 
 interface AddReturnToWorkRecordForm {
   employeeNumber: string
@@ -14,7 +13,7 @@ interface AddReturnToWorkRecordForm {
 
 export async function addReturnToWorkRecord(
   form: AddReturnToWorkRecordForm,
-  sessionUser: recordTypes.User
+  sessionUser: MonTYUser
 ): Promise<string> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 

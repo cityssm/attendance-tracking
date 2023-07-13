@@ -3,7 +3,6 @@ import type { IResult } from 'mssql'
 
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes'
 
 interface AddCallOutResponseTypeForm {
   responseType: string
@@ -12,7 +11,7 @@ interface AddCallOutResponseTypeForm {
 
 export async function addCallOutResponseType(
   form: AddCallOutResponseTypeForm,
-  sessionUser: recordTypes.User
+  sessionUser: MonTYUser
 ): Promise<string> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 

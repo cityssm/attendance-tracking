@@ -2,7 +2,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes'
+import type { CallOutList } from '../types/recordTypes.js'
 
 import { updateCallOutListMemberSortKeys } from './updateCallOutListMemberSortKeys.js'
 
@@ -13,8 +13,8 @@ interface UpdateCallOutListReturn {
 }
 
 export async function updateCallOutList(
-  callOutList: recordTypes.CallOutList,
-  sessionUser: recordTypes.User
+  callOutList: CallOutList,
+  sessionUser: MonTYUser
 ): Promise<UpdateCallOutListReturn> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 

@@ -1,16 +1,18 @@
 /* eslint-disable unicorn/prefer-module */
 
-import type { BulmaJS } from '@cityssm/bulma-js/types'
-import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
+// eslint-disable-next-line n/no-missing-import
+import type { BulmaJS } from '@cityssm/bulma-js/types.js'
+import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type * as globalTypes from '../types/globalTypes'
-import type * as recordTypes from '../types/recordTypes'
+import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+// eslint-disable-next-line import/namespace
+import type * as recordTypes from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
-  const MonTY = exports.MonTY as globalTypes.MonTY
+  const MonTY = exports.MonTY as MonTYGlobal
 
   const afterHoursReasons =
     exports.afterHoursReasons as recordTypes.AfterHoursReason[]

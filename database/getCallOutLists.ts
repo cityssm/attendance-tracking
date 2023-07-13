@@ -2,7 +2,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes'
+import type { CallOutList } from '../types/recordTypes.js'
 
 interface GetCallOutListsFilters {
   favouriteOnly: boolean
@@ -11,8 +11,8 @@ interface GetCallOutListsFilters {
 
 export async function getCallOutLists(
   filters: GetCallOutListsFilters,
-  sessionUser: recordTypes.User
-): Promise<recordTypes.CallOutList[]> {
+  sessionUser: MonTYUser
+): Promise<CallOutList[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
   const request = pool.request()
@@ -44,7 +44,7 @@ export async function getCallOutLists(
         l.sortKeyFunction, l.eligibilityFunction, l.employeePropertyName, f.userName
       order by isFavourite desc, listName`
 
-  const results: IResult<recordTypes.CallOutList> = await request
+  const results: IResult<CallOutList> = await request
     .input('userName', sessionUser.userName)
     .query(sql)
 

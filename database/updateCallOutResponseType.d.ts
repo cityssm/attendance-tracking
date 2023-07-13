@@ -1,2 +1,2 @@
-import type * as recordTypes from '../types/recordTypes';
-export declare function updateCallOutResponseType(callOutResponseType: recordTypes.CallOutResponseType, sessionUser: recordTypes.User): Promise<boolean>;
+import type { CallOutResponseType } from '../types/recordTypes.js';
+export declare function updateCallOutResponseType(callOutResponseType: CallOutResponseType, sessionUser: MonTYUser): Promise<boolean>;

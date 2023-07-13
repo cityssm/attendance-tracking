@@ -3,7 +3,6 @@ import type { IResult } from 'mssql'
 
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes'
 
 interface AddAfterHGoursReasonForm {
   afterHoursReason: string
@@ -11,7 +10,7 @@ interface AddAfterHGoursReasonForm {
 
 export async function addAfterHoursReason(
   form: AddAfterHGoursReasonForm,
-  sessionUser: recordTypes.User
+  sessionUser: User
 ): Promise<number> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 

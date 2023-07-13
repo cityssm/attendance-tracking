@@ -49,7 +49,6 @@
         }
       }
     ],
-    "n/no-missing-import": "off",
     "unicorn/consistent-function-scoping": "warn",
     "unicorn/empty-brace-spaces": "off",
     "unicorn/filename-case": [

@@ -1,8 +1,8 @@
-import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types';
+import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types.js';
 import type { Configuration as AvantiConfig } from '@cityssm/avanti-api';
 import type { config as MSSQLConfig } from 'mssql';
 import type { availablePermissionValues } from '../helpers/functions.permissions.js';
-import type { Employee, User } from './recordTypes.js';
+import type { Employee } from './recordTypes.js';
 export interface Config {
     application: {
         applicationName?: string;
@@ -78,7 +78,7 @@ export interface ConfigTemporaryUserCredentials {
     user: ConfigTemporaryUser;
     password: string;
 }
-export interface ConfigTemporaryUser extends User {
+export interface ConfigTemporaryUser extends MonTYUser {
     userName: `~~${string}`;
     permissions: Partial<Record<keyof typeof availablePermissionValues, string>>;
 }

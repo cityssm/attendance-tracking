@@ -1,4 +1,3 @@
-import type * as recordTypes from '../types/recordTypes';
 interface AddAfterHoursRecordForm {
     employeeNumber: string;
     employeeName: string;
@@ -7,5 +6,5 @@ interface AddAfterHoursRecordForm {
     afterHoursReasonId: string;
     recordComment: string;
 }
-export declare function addAfterHoursRecord(form: AddAfterHoursRecordForm, sessionUser: recordTypes.User): Promise<string>;
+export declare function addAfterHoursRecord(form: AddAfterHoursRecordForm, sessionUser: MonTYUser): Promise<string>;
 export {};

@@ -1,10 +1,4 @@
-import type { User } from '../types/recordTypes'
-
-export interface UserRequest {
-  session?: {
-    user?: User
-  }
-}
+import type { Request } from 'express'
 
 export interface APIRequest {
   params?: {
@@ -12,6 +6,6 @@ export interface APIRequest {
   }
 }
 
-export function userIsAdmin(request: UserRequest): boolean {
+export function userIsAdmin(request: Request): boolean {
   return request.session?.user?.isAdmin ?? false
 }

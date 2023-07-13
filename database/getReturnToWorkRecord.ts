@@ -1,10 +1,10 @@
-import type { ReturnToWorkRecord, User } from '../types/recordTypes'
+import type { ReturnToWorkRecord } from '../types/recordTypes.js'
 
 import { getReturnToWorkRecords } from './getReturnToWorkRecords.js'
 
 export async function getReturnToWorkRecord(
   recordId: string,
-  sessionUser: User
+  sessionUser: MonTYUser
 ): Promise<ReturnToWorkRecord | undefined> {
   const returnToWorkRecords = await getReturnToWorkRecords(
     {

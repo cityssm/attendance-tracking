@@ -4,7 +4,7 @@ import { getEmployee } from '../../database/getEmployee.js'
 import { getSelfSignUpCallOutLists } from '../../database/getSelfSignUpCallOutLists.js'
 import * as configFunctions from '../../helpers/functions.config.js'
 import { validateEmployeeFields } from '../../helpers/functions.selfService.js'
-import type * as recordTypes from '../../types/recordTypes'
+import type { CallOutList } from '../../types/recordTypes.js'
 
 export async function handler(
   request: Request,
@@ -25,9 +25,7 @@ export async function handler(
     return
   }
 
-  const employee = (await getEmployee(
-    validatedEmployee.employeeNumber
-  )) as recordTypes.Employee
+  const employee = (await getEmployee(validatedEmployee.employeeNumber))!
 
   /*
    * Get Call Out Lists
@@ -41,7 +39,7 @@ export async function handler(
     doesNotHaveEmployeeNumber: employee.employeeNumber
   })
 
-  const callOutLists: recordTypes.CallOutList[] = []
+  const callOutLists: CallOutList[] = []
 
   for (const callOutList of availableCallOutLists) {
     // No eligibility function, add to list

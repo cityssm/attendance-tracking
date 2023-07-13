@@ -1,14 +1,14 @@
 /* eslint-disable unicorn/prefer-module */
 
-import type * as globalTypes from '../types/globalTypes'
-import type * as recordTypes from '../types/recordTypes'
+import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type { CallOutList } from '../types/recordTypes.js'
 ;(() => {
-  const MonTY = exports.MonTY as globalTypes.MonTY
+  const MonTY = exports.MonTY as MonTYGlobal
 
   const callOutListContainerElement = document.querySelector(
     '#container--favouriteCallOutLists'
   )
-  const callOutLists = (exports.callOutLists ?? []) as recordTypes.CallOutList[]
+  const callOutLists = (exports.callOutLists ?? []) as CallOutList[]
 
   function openCallOutListByClick(clickEvent: MouseEvent): void {
     clickEvent.preventDefault()

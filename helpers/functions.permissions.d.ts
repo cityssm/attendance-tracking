@@ -1,4 +1,3 @@
-import type { User } from '../types/recordTypes';
 export declare const availablePermissionValues: {
     'attendance.absences.canView': string[];
     'attendance.absences.canUpdate': string[];
@@ -14,5 +13,5 @@ export declare const availablePermissionValues: {
     'attendance.returnsToWork.canManage': string[];
     'reports.hasRawExports': string[];
 };
-export declare function hasAttendance(user: User): boolean;
-export declare function hasPermission(user: User, permissionKey: keyof typeof availablePermissionValues): boolean;
+export declare function hasAttendance(user: MonTYUser): boolean;
+export declare function hasPermission(user: MonTYUser, permissionKey: keyof typeof availablePermissionValues): boolean;

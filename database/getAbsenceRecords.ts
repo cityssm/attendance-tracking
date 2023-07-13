@@ -3,7 +3,7 @@ import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
 import * as permissionFunctions from '../helpers/functions.permissions.js'
-import type { AbsenceRecord, User } from '../types/recordTypes'
+import type { AbsenceRecord } from '../types/recordTypes.js'
 
 interface GetAbsenceRecordsFilters {
   recordId?: string
@@ -14,7 +14,7 @@ interface GetAbsenceRecordsFilters {
 
 export async function getAbsenceRecords(
   filters: GetAbsenceRecordsFilters,
-  sessionUser: User
+  sessionUser: MonTYUser
 ): Promise<AbsenceRecord[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 

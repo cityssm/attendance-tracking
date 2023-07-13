@@ -1,8 +1,8 @@
-import type * as recordTypes from '../types/recordTypes';
+import type { CallOutList } from '../types/recordTypes.js';
 interface UpdateCallOutListReturn {
     success: boolean;
     sortKeyFunctionChanged: boolean;
     eligibilityFunctionChanged: boolean;
 }
-export declare function updateCallOutList(callOutList: recordTypes.CallOutList, sessionUser: recordTypes.User): Promise<UpdateCallOutListReturn>;
+export declare function updateCallOutList(callOutList: CallOutList, sessionUser: MonTYUser): Promise<UpdateCallOutListReturn>;
 export {};

@@ -1,3 +1,5 @@
+/* eslint-disable import/namespace */
+
 import type { Request, Response } from 'express'
 
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
@@ -7,9 +9,9 @@ import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js
 import { getCallOutResponseTypes } from '../../helpers/functions.cache.js'
 import * as configFunctions from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
-import type * as recordTypes from '../../types/recordTypes'
+import type * as recordTypes from '../../types/recordTypes.js'
 
-function isTemporaryAdmin(user: recordTypes.User): boolean {
+function isTemporaryAdmin(user: MonTYUser): boolean {
   return (
     configFunctions.getProperty('application.allowTesting') &&
     (user.userName.startsWith('~~') ?? false) &&
@@ -17,7 +19,7 @@ function isTemporaryAdmin(user: recordTypes.User): boolean {
   )
 }
 
-async function getAbsenceVariables(user: recordTypes.User): Promise<{
+async function getAbsenceVariables(user: MonTYUser): Promise<{
   absenceRecords: recordTypes.AbsenceRecord[]
 }> {
   let absenceRecords: recordTypes.AbsenceRecord[] = []
@@ -40,7 +42,7 @@ async function getAbsenceVariables(user: recordTypes.User): Promise<{
   }
 }
 
-async function getReturnToWorkVariables(user: recordTypes.User): Promise<{
+async function getReturnToWorkVariables(user: MonTYUser): Promise<{
   returnToWorkRecords: recordTypes.ReturnToWorkRecord[]
 }> {
   let returnToWorkRecords: recordTypes.ReturnToWorkRecord[] = []
@@ -63,7 +65,7 @@ async function getReturnToWorkVariables(user: recordTypes.User): Promise<{
   }
 }
 
-async function getCallOutVariables(user: recordTypes.User): Promise<{
+async function getCallOutVariables(user: MonTYUser): Promise<{
   callOutLists: recordTypes.CallOutList[]
   callOutResponseTypes: recordTypes.CallOutResponseType[]
 }> {
@@ -89,7 +91,7 @@ async function getCallOutVariables(user: recordTypes.User): Promise<{
   }
 }
 
-async function getTestingSelfServiceDetails(user: recordTypes.User): Promise<{
+async function getTestingSelfServiceDetails(user: MonTYUser): Promise<{
   employeeNumber: string
   lastFourDigits: string
   lastFourDigitsBad: string

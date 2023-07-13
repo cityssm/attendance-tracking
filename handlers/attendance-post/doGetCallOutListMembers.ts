@@ -4,7 +4,7 @@ import { getCallOutList } from '../../database/getCallOutList.js'
 import { getCallOutListMembers } from '../../database/getCallOutListMembers.js'
 import { getEmployees } from '../../database/getEmployees.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
-import type * as recordTypes from '../../types/recordTypes'
+import type { Employee } from '../../types/recordTypes.js'
 
 export async function handler(
   request: Request,
@@ -14,7 +14,7 @@ export async function handler(
 
   const callOutListMembers = await getCallOutListMembers({ listId }, {})
 
-  let availableEmployees: recordTypes.Employee[] = []
+  let availableEmployees: Employee[] = []
 
   if (
     permissionFunctions.hasPermission(

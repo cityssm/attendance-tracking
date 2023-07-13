@@ -1,2 +1,2 @@
-import type * as recordTypes from '../types/recordTypes';
-export declare function createEmployee(employee: recordTypes.Employee, sessionUser: recordTypes.User): Promise<boolean>;
+import type { Employee } from '../types/recordTypes.js';
+export declare function createEmployee(employee: Employee, sessionUser: MonTYUser): Promise<boolean>;

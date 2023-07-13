@@ -1,7 +1,7 @@
-import type * as recordTypes from '../types/recordTypes';
+import type { CallOutList } from '../types/recordTypes.js';
 interface GetSelfSignUpCallOutListsFilters {
     hasEmployeeNumber?: string;
     doesNotHaveEmployeeNumber?: string;
 }
-export declare function getSelfSignUpCallOutLists(filters?: GetSelfSignUpCallOutListsFilters): Promise<recordTypes.CallOutList[]>;
+export declare function getSelfSignUpCallOutLists(filters?: GetSelfSignUpCallOutListsFilters): Promise<CallOutList[]>;
 export {};

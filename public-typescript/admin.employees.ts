@@ -1,17 +1,18 @@
 /* eslint-disable unicorn/prefer-module */
 
-import type { BulmaJS } from '@cityssm/bulma-js/types'
-import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
+// eslint-disable-next-line n/no-missing-import
+import type { BulmaJS } from '@cityssm/bulma-js/types.js'
+import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type * as globalTypes from '../types/globalTypes'
-import type * as recordTypes from '../types/recordTypes'
+import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type { Employee, EmployeeProperty } from '../types/recordTypes.js'
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
-  const MonTY = exports.MonTY as globalTypes.MonTY
+  const MonTY = exports.MonTY as MonTYGlobal
 
-  let unfilteredEmployees = exports.employees as recordTypes.Employee[]
+  let unfilteredEmployees = exports.employees as Employee[]
   delete exports.employees
 
   let filteredEmployees = unfilteredEmployees
@@ -29,7 +30,7 @@ declare const cityssm: cityssmGlobal
       return possibleEmployee.employeeNumber === employeeNumber
     })!
 
-    let employeeProperties: recordTypes.EmployeeProperty[] = []
+    let employeeProperties: EmployeeProperty[] = []
 
     function updateEmployeeProperty(clickEvent: Event): void {
       const rowElement = (clickEvent.currentTarget as HTMLElement).closest('tr')
@@ -49,7 +50,7 @@ declare const cityssm: cityssmGlobal
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
             success: boolean
-            employeeProperties: recordTypes.EmployeeProperty[]
+            employeeProperties: EmployeeProperty[]
           }
 
           if (responseJSON.success) {
@@ -83,7 +84,7 @@ declare const cityssm: cityssmGlobal
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as {
               success: boolean
-              employeeProperties: recordTypes.EmployeeProperty[]
+              employeeProperties: EmployeeProperty[]
             }
 
             if (responseJSON.success) {
@@ -183,7 +184,7 @@ declare const cityssm: cityssmGlobal
           const responseJSON = rawResponseJSON as {
             success: boolean
             errorMessage?: string
-            employeeProperties?: recordTypes.EmployeeProperty[]
+            employeeProperties?: EmployeeProperty[]
           }
 
           if (responseJSON.success) {
@@ -226,7 +227,7 @@ declare const cityssm: cityssmGlobal
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
             success: boolean
-            employees: recordTypes.Employee[]
+            employees: Employee[]
           }
 
           if (responseJSON.success) {
@@ -254,7 +255,7 @@ declare const cityssm: cityssmGlobal
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as {
               success: boolean
-              employees?: recordTypes.Employee[]
+              employees?: Employee[]
             }
 
             if (responseJSON.success) {
@@ -390,7 +391,7 @@ declare const cityssm: cityssmGlobal
           (rawResponseJSON) => {
             employeeProperties = (
               rawResponseJSON as {
-                employeeProperties: recordTypes.EmployeeProperty[]
+                employeeProperties: EmployeeProperty[]
               }
             ).employeeProperties
 
@@ -452,7 +453,7 @@ declare const cityssm: cityssmGlobal
             const responseJSON = rawResponseJSON as {
               success: boolean
               employeeNumber?: string
-              employees?: recordTypes.Employee[]
+              employees?: Employee[]
             }
 
             if (responseJSON.success) {

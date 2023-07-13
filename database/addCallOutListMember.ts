@@ -2,14 +2,13 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes'
 
 import { getEmployee } from './getEmployee.js'
 
 export async function addCallOutListMember(
   listId: string,
   employeeNumber: string,
-  sessionUser: recordTypes.User
+  sessionUser: MonTYUser
 ): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 

@@ -3,7 +3,7 @@ import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
 import * as permissionFunctions from '../helpers/functions.permissions.js'
-import type { AfterHoursRecord, User } from '../types/recordTypes'
+import type { AfterHoursRecord } from '../types/recordTypes.js'
 
 interface GetAfterHoursRecordsFilters {
   recordId?: string
@@ -14,7 +14,7 @@ interface GetAfterHoursRecordsFilters {
 
 export async function getAfterHoursRecords(
   filters: GetAfterHoursRecordsFilters,
-  sessionUser: User
+  sessionUser: MonTYUser
 ): Promise<AfterHoursRecord[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 

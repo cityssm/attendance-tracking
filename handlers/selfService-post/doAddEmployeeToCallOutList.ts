@@ -5,7 +5,6 @@ import { getCallOutList } from '../../database/getCallOutList.js'
 import { getEmployee } from '../../database/getEmployee.js'
 import * as configFunctions from '../../helpers/functions.config.js'
 import { validateEmployeeFields } from '../../helpers/functions.selfService.js'
-import type * as recordTypes from '../../types/recordTypes'
 
 export async function handler(
   request: Request,
@@ -26,9 +25,7 @@ export async function handler(
     return
   }
 
-  const employee = (await getEmployee(
-    validatedEmployee.employeeNumber
-  )) as recordTypes.Employee
+  const employee = (await getEmployee(validatedEmployee.employeeNumber))!
 
   /*
    * Get Call Out List
@@ -91,7 +88,7 @@ export async function handler(
   let success = false
 
   if (isEligible) {
-    const sessionUser: recordTypes.User = {
+    const sessionUser: MonTYUser = {
       userName: employee.employeeNumber,
       canLogin: false,
       isAdmin: false

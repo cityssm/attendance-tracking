@@ -1,8 +1,7 @@
 import '../helpers/polyfills.js';
-import type * as recordTypes from '../types/recordTypes';
 interface CallOutListMemberFilters {
     listId?: string;
     employeeNumber?: string;
 }
-export declare function updateCallOutListMemberSortKeys(filters: CallOutListMemberFilters, sessionUser: recordTypes.User): Promise<number>;
+export declare function updateCallOutListMemberSortKeys(filters: CallOutListMemberFilters, sessionUser: MonTYUser): Promise<number>;
 export {};

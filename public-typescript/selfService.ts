@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/indent */
 /* eslint-disable unicorn/prefer-module */
 
-import type { BulmaJS } from '@cityssm/bulma-js/types'
-import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
+// eslint-disable-next-line n/no-missing-import
+import type { BulmaJS } from '@cityssm/bulma-js/types.js'
+import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type * as recordTypes from '../types/recordTypes'
+import type { CallOutList } from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 declare const cityssm: cityssmGlobal
+
+  // eslint-disable-next-line sonarjs/cognitive-complexity
 ;(() => {
   const urlPrefix = exports.urlPrefix as string
 
@@ -179,11 +183,9 @@ declare const cityssm: cityssmGlobal
       .querySelector('#employeeOptionsTab--menu')
       ?.classList.add('is-hidden')
 
-    switch (tabHash) {
-      case '#employeeOptionsTab--callOutListAdd': {
-        loadCallOutLists()
-        break
-      }
+    // Chage to switch if more options are added
+    if (tabHash === '#employeeOptionsTab--callOutListAdd') {
+      loadCallOutLists()
     }
 
     document.querySelector(tabHash)?.classList.remove('is-hidden')
@@ -311,7 +313,7 @@ declare const cityssm: cityssmGlobal
       },
       (rawResponseJSON) => {
         const responseJSON = rawResponseJSON as {
-          callOutLists: recordTypes.CallOutList[]
+          callOutLists: CallOutList[]
         }
 
         if (responseJSON.callOutLists.length === 0) {

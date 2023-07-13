@@ -2,8 +2,8 @@
 /* eslint-disable promise/catch-or-return */
 
 import { testAdmin } from '../../../test/_globals.js'
-import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes'
-import type * as recordTypes from '../../../types/recordTypes'
+import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes.js'
+import type { Employee } from '../../../types/recordTypes.js'
 import { logout, login } from '../../support/index.js'
 
 function addEmployee(): void {
@@ -24,7 +24,7 @@ function addEmployee(): void {
 
   cy.log('Populate employee form')
 
-  cy.fixture('employee.json').then((employee: recordTypes.Employee) => {
+  cy.fixture('employee.json').then((employee: Employee) => {
     cy.get('.modal form input[name="employeeNumber"]')
       .should('have.focus')
       .clear()
@@ -54,7 +54,7 @@ function addEmployee(): void {
   cy.injectAxe()
   cy.checkA11y()
 
-  cy.fixture('employee.json').then((employee: recordTypes.Employee) => {
+  cy.fixture('employee.json').then((employee: Employee) => {
     cy.get('.modal form input[name="employeeSurname"]').should(
       'have.value',
       employee.employeeSurname

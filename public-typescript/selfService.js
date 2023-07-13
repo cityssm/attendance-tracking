@@ -1,4 +1,5 @@
 "use strict";
+/* eslint-disable @typescript-eslint/indent */
 /* eslint-disable unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
@@ -114,11 +115,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const tabHash = clickEvent.currentTarget.hash;
         (_a = document
             .querySelector('#employeeOptionsTab--menu')) === null || _a === void 0 ? void 0 : _a.classList.add('is-hidden');
-        switch (tabHash) {
-            case '#employeeOptionsTab--callOutListAdd': {
-                loadCallOutLists();
-                break;
-            }
+        // Chage to switch if more options are added
+        if (tabHash === '#employeeOptionsTab--callOutListAdd') {
+            loadCallOutLists();
         }
         (_b = document.querySelector(tabHash)) === null || _b === void 0 ? void 0 : _b.classList.remove('is-hidden');
     }

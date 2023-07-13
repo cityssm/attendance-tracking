@@ -3,7 +3,6 @@ import '../helpers/polyfills.js'
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes'
 
 import { getCallOutListMembers } from './getCallOutListMembers.js'
 import { getEmployeeProperties } from './getEmployeeProperties.js'
@@ -15,7 +14,7 @@ interface CallOutListMemberFilters {
 
 export async function updateCallOutListMemberSortKeys(
   filters: CallOutListMemberFilters,
-  sessionUser: recordTypes.User
+  sessionUser: MonTYUser
 ): Promise<number> {
   const callOutListMembers = await getCallOutListMembers(filters, {
     includeSortKeyFunction: true

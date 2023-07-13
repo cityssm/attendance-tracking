@@ -1,2 +1,2 @@
-import type * as recordTypes from '../types/recordTypes';
-export declare function setEmployeeProperty(employeeProperty: recordTypes.EmployeeProperty, isSyncUpdate: boolean, sessionUser: recordTypes.User): Promise<boolean>;
+import type { EmployeeProperty } from '../types/recordTypes.js';
+export declare function setEmployeeProperty(employeeProperty: EmployeeProperty, isSyncUpdate: boolean, sessionUser: MonTYUser): Promise<boolean>;

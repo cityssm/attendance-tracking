@@ -1,10 +1,10 @@
-import type { AfterHoursRecord, User } from '../types/recordTypes'
+import type { AfterHoursRecord } from '../types/recordTypes.js'
 
 import { getAfterHoursRecords } from './getAfterHoursRecords.js'
 
 export async function getAfterHoursRecord(
   recordId: string,
-  sessionUser: User
+  sessionUser: MonTYUser
 ): Promise<AfterHoursRecord | undefined> {
   const afterHoursRecords = await getAfterHoursRecords(
     {

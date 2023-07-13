@@ -3,7 +3,7 @@ import type { IResult } from 'mssql'
 
 import * as configFunctions from '../helpers/functions.config.js'
 import * as permissionFunctions from '../helpers/functions.permissions.js'
-import type { ReturnToWorkRecord, User } from '../types/recordTypes'
+import type { ReturnToWorkRecord } from '../types/recordTypes.js'
 
 interface GetReturnToWorkRecordsFilters {
   recordId?: string
@@ -14,7 +14,7 @@ interface GetReturnToWorkRecordsFilters {
 
 export async function getReturnToWorkRecords(
   filters: GetReturnToWorkRecordsFilters,
-  sessionUser: User
+  sessionUser: MonTYUser
 ): Promise<ReturnToWorkRecord[]> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 

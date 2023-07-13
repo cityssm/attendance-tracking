@@ -1,2 +1,2 @@
-import type { ReturnToWorkRecord, User } from '../types/recordTypes';
-export declare function getReturnToWorkRecord(recordId: string, sessionUser: User): Promise<ReturnToWorkRecord | undefined>;
+import type { ReturnToWorkRecord } from '../types/recordTypes.js';
+export declare function getReturnToWorkRecord(recordId: string, sessionUser: MonTYUser): Promise<ReturnToWorkRecord | undefined>;

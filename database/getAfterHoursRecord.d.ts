@@ -1,2 +1,2 @@
-import type { AfterHoursRecord, User } from '../types/recordTypes';
-export declare function getAfterHoursRecord(recordId: string, sessionUser: User): Promise<AfterHoursRecord | undefined>;
+import type { AfterHoursRecord } from '../types/recordTypes.js';
+export declare function getAfterHoursRecord(recordId: string, sessionUser: MonTYUser): Promise<AfterHoursRecord | undefined>;

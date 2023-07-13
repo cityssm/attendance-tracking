@@ -2,11 +2,10 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes'
 
 export async function deleteEmployee(
   employeeNumber: string,
-  sessionUser: recordTypes.User
+  sessionUser: MonTYUser
 ): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 

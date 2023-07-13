@@ -1,2 +1,1 @@
-import type * as recordTypes from '../types/recordTypes';
-export declare function addUser(userName: string, sessionUser: recordTypes.User): Promise<boolean>;
+export declare function addUser(userName: string, sessionUser: MonTYUser): Promise<boolean>;

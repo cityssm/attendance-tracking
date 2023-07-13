@@ -1,5 +1,3 @@
-import type { User } from '../types/recordTypes'
-
 const trueFalseStrings = ['true', 'false']
 
 export const availablePermissionValues = {
@@ -22,7 +20,7 @@ export const availablePermissionValues = {
   'reports.hasRawExports': trueFalseStrings
 }
 
-export function hasAttendance(user: User): boolean {
+export function hasAttendance(user: MonTYUser): boolean {
   return (
     user.permissions?.['attendance.absences.canView'] === 'true' ||
     user.permissions?.['attendance.afterHours.canView'] === 'true' ||
@@ -32,7 +30,7 @@ export function hasAttendance(user: User): boolean {
 }
 
 export function hasPermission(
-  user: User,
+  user: MonTYUser,
   permissionKey: keyof typeof availablePermissionValues
 ): boolean {
   return (user.permissions?.[permissionKey] ?? 'false') === 'true'

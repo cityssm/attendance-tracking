@@ -1,2 +1,2 @@
-import type * as recordTypes from '../types/recordTypes';
-export declare function updateAbsenceType(absenceType: recordTypes.AbsenceType, sessionUser: recordTypes.User): Promise<boolean>;
+import type { AbsenceType } from '../types/recordTypes.js';
+export declare function updateAbsenceType(absenceType: AbsenceType, sessionUser: MonTYUser): Promise<boolean>;

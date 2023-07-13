@@ -9,7 +9,6 @@ import {
 import { getUser } from '../database/getUser.js'
 import * as authenticationFunctions from '../helpers/functions.authentication.js'
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes'
 
 export const router = Router()
 
@@ -55,7 +54,7 @@ async function postHandler(
 
   let isAuthenticated = false
   let isTemporaryUser = false
-  let userObject: recordTypes.User | undefined
+  let userObject: MonTYUser | undefined
 
   if (userName.startsWith('~~')) {
     isTemporaryUser = true

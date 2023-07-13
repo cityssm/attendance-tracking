@@ -1,12 +1,11 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes'
 
 export async function updateUserCanLogin(
   userName: string,
   canLogin: '0' | '1' | 0 | 1 | false | true,
-  sessionUser: recordTypes.User
+  sessionUser: MonTYUser
 ): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 

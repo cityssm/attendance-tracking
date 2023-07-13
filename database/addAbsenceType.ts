@@ -5,7 +5,6 @@ import camelCase from 'camelcase'
 
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import * as configFunctions from '../helpers/functions.config.js'
-import type * as recordTypes from '../types/recordTypes'
 
 interface AddAbsenceTypeForm {
   absenceType: string
@@ -13,7 +12,7 @@ interface AddAbsenceTypeForm {
 
 export async function addAbsenceType(
   form: AddAbsenceTypeForm,
-  sessionUser: recordTypes.User
+  sessionUser: MonTYUser
 ): Promise<string> {
   let absenceTypeKey = await getAvailableAbsenceTypeKey(form.absenceType)
 
