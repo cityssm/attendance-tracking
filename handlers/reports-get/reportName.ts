@@ -12,14 +12,7 @@ export async function handler(
 ): Promise<void> {
   const reportName: string = request.params.reportName
 
-  let rows: unknown[] | undefined
-
-  switch (reportName) {
-    default: {
-      rows = await getReportData(reportName, request.query as ReportParameters)
-      break
-    }
-  }
+  const rows = await getReportData(reportName, request.query as ReportParameters)
 
   if (rows === undefined) {
     response.status(404).json({
