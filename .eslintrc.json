@@ -49,6 +49,7 @@
         }
       }
     ],
+    "import/no-unresolved": "off", // false positives in Codacy, covered by n/no-missing-import
     "sonarjs/cognitive-complexity": "warn",
     "sonarjs/no-duplicate-string": "warn",
     "unicorn/consistent-function-scoping": "warn",
