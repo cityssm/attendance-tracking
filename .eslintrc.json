@@ -49,6 +49,8 @@
         }
       }
     ],
+    "sonarjs/cognitive-complexity": "warn",
+    "sonarjs/no-duplicate-string": "warn",
     "unicorn/consistent-function-scoping": "warn",
     "unicorn/empty-brace-spaces": "off",
     "unicorn/filename-case": [
