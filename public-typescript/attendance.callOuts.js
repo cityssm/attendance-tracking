@@ -37,19 +37,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
             .trim()
             .toLowerCase()
             .split(' ');
-        for (const callOutList of MonTY.callOuts.callOutLists) {
-            let showList = true;
+        // eslint-disable-next-line no-labels
+        callOutListLoop: for (const callOutList of MonTY.callOuts.callOutLists) {
             const listStringToSearch = (callOutList.listName +
                 ' ' +
                 ((_a = callOutList.listDescription) !== null && _a !== void 0 ? _a : '')).toLowerCase();
             for (const searchFilterPiece of searchFilterPieces) {
                 if (!listStringToSearch.includes(searchFilterPiece)) {
-                    showList = false;
-                    break;
+                    // eslint-disable-next-line no-labels
+                    continue callOutListLoop;
                 }
-            }
-            if (!showList) {
-                continue;
             }
             const panelBlockElement = document.createElement('div');
             panelBlockElement.className = 'panel-block is-block';

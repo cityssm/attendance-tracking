@@ -428,38 +428,39 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const availableEmployeesContainer = callOutListModalElement.querySelector('#container--callOutListAvailableEmployees');
             const panelElement = document.createElement('div');
             panelElement.className = 'panel';
-            for (const employee of availableEmployees) {
+            // eslint-disable-next-line no-labels
+            availableEmployeeLoop: for (const availableEmployee of availableEmployees) {
                 // employee already in the list
-                if (callOutListMemberEmployeeNumbers.includes(employee.employeeNumber)) {
+                if (callOutListMemberEmployeeNumbers.includes(availableEmployee.employeeNumber)) {
                     continue;
                 }
                 const searchStringPieces = callOutListModalElement.querySelector('#filter--callOutListAvailableEmployees').value
                     .trim()
                     .toLowerCase()
                     .split(' ');
-                const employeeString = (employee.employeeGivenName +
+                const employeeString = (availableEmployee.employeeGivenName +
                     ' ' +
-                    employee.employeeSurname).toLowerCase();
-                let showEmployee = true;
+                    availableEmployee.employeeSurname).toLowerCase();
                 for (const searchStringPiece of searchStringPieces) {
                     if (!employeeString.includes(searchStringPiece)) {
-                        showEmployee = false;
-                        break;
+                        // eslint-disable-next-line no-labels
+                        continue availableEmployeeLoop;
                     }
-                }
-                if (!showEmployee) {
-                    continue;
                 }
                 const panelBlockElement = document.createElement('a');
                 panelBlockElement.className = 'panel-block';
                 panelBlockElement.href = '#';
-                panelBlockElement.dataset.employeeNumber = employee.employeeNumber;
+                panelBlockElement.dataset.employeeNumber =
+                    availableEmployee.employeeNumber;
                 panelBlockElement.innerHTML = `<span class="panel-icon">
           <i class="fas fa-plus" aria-hidden="true"></i>
           </span>
           <div>
-            <strong>${employee.employeeSurname}, ${employee.employeeGivenName}</strong><br />
-            <span class="is-size-7">${(_a = employee.jobTitle) !== null && _a !== void 0 ? _a : ''}</span>
+            <strong>
+            ${availableEmployee.employeeSurname},
+            ${availableEmployee.employeeGivenName}
+            </strong><br />
+            <span class="is-size-7">${(_a = availableEmployee.jobTitle) !== null && _a !== void 0 ? _a : ''}</span>
           </div>`;
                 panelBlockElement.addEventListener('click', addCallOutListMember);
                 panelElement.append(panelBlockElement);

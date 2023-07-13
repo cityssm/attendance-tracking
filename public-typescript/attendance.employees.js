@@ -209,21 +209,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
             .split(' ');
         const panelElement = document.createElement('div');
         panelElement.className = 'panel';
-        for (const employee of employees) {
+        // eslint-disable-next-line no-labels
+        employeeLoop: for (const employee of employees) {
             const employeeSearchString = (employee.employeeNumber +
                 ' ' +
                 employee.employeeGivenName +
                 ' ' +
                 employee.employeeSurname).toLowerCase();
-            let recordFound = true;
             for (const searchStringPiece of searchStringPieces) {
                 if (!employeeSearchString.includes(searchStringPiece)) {
-                    recordFound = false;
-                    break;
+                    // eslint-disable-next-line no-labels
+                    continue employeeLoop;
                 }
-            }
-            if (!recordFound) {
-                continue;
             }
             const panelBlockElement = document.createElement('a');
             panelBlockElement.className = 'panel-block is-block';

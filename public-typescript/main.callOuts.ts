@@ -732,10 +732,13 @@ declare const cityssm: cityssmGlobal
       const panelElement = document.createElement('div')
       panelElement.className = 'panel'
 
-      for (const employee of availableEmployees) {
+      // eslint-disable-next-line no-labels
+      availableEmployeeLoop: for (const availableEmployee of availableEmployees) {
         // employee already in the list
         if (
-          callOutListMemberEmployeeNumbers.includes(employee.employeeNumber)
+          callOutListMemberEmployeeNumbers.includes(
+            availableEmployee.employeeNumber
+          )
         ) {
           continue
         }
@@ -750,36 +753,33 @@ declare const cityssm: cityssmGlobal
           .split(' ')
 
         const employeeString = (
-          employee.employeeGivenName +
+          availableEmployee.employeeGivenName +
           ' ' +
-          employee.employeeSurname
+          availableEmployee.employeeSurname
         ).toLowerCase()
-        let showEmployee = true
 
         for (const searchStringPiece of searchStringPieces) {
           if (!employeeString.includes(searchStringPiece)) {
-            showEmployee = false
-            break
+            // eslint-disable-next-line no-labels
+            continue availableEmployeeLoop
           }
-        }
-
-        if (!showEmployee) {
-          continue
         }
 
         const panelBlockElement = document.createElement('a')
         panelBlockElement.className = 'panel-block'
         panelBlockElement.href = '#'
-        panelBlockElement.dataset.employeeNumber = employee.employeeNumber
+        panelBlockElement.dataset.employeeNumber =
+          availableEmployee.employeeNumber
 
         panelBlockElement.innerHTML = `<span class="panel-icon">
           <i class="fas fa-plus" aria-hidden="true"></i>
           </span>
           <div>
-            <strong>${employee.employeeSurname}, ${
-          employee.employeeGivenName
-        }</strong><br />
-            <span class="is-size-7">${employee.jobTitle ?? ''}</span>
+            <strong>
+            ${availableEmployee.employeeSurname},
+            ${availableEmployee.employeeGivenName}
+            </strong><br />
+            <span class="is-size-7">${availableEmployee.jobTitle ?? ''}</span>
           </div>`
 
         panelBlockElement.addEventListener('click', addCallOutListMember)

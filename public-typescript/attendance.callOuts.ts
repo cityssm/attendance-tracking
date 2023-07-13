@@ -67,9 +67,8 @@ declare const cityssm: cityssmGlobal
       .toLowerCase()
       .split(' ')
 
-    for (const callOutList of MonTY.callOuts!.callOutLists) {
-      let showList = true
-
+    // eslint-disable-next-line no-labels
+    callOutListLoop: for (const callOutList of MonTY.callOuts!.callOutLists) {
       const listStringToSearch = (
         callOutList.listName +
         ' ' +
@@ -78,13 +77,9 @@ declare const cityssm: cityssmGlobal
 
       for (const searchFilterPiece of searchFilterPieces) {
         if (!listStringToSearch.includes(searchFilterPiece)) {
-          showList = false
-          break
+          // eslint-disable-next-line no-labels
+          continue callOutListLoop
         }
-      }
-
-      if (!showList) {
-        continue
       }
 
       const panelBlockElement = document.createElement('div')
