@@ -25,6 +25,7 @@ function onError(error: ServerError): void {
     // eslint-disable-next-line no-fallthrough
     case 'EACCES': {
       debug('Requires elevated privileges')
+      // eslint-disable-next-line n/no-process-exit
       process.exit(1)
       // break;
     }
@@ -32,6 +33,7 @@ function onError(error: ServerError): void {
     // eslint-disable-next-line no-fallthrough
     case 'EADDRINUSE': {
       debug('Port is already in use.')
+      // eslint-disable-next-line n/no-process-exit
       process.exit(1)
       // break;
     }
