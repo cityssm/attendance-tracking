@@ -8,7 +8,7 @@ export async function handler(request, response) {
             '/dashboard/?error=printNotFound');
         return;
     }
-    const reportData = await getReportData(printConfig, request.query, request.session);
+    const reportData = await getReportData(printConfig, request.query, request.session.user);
     response.render(`print/screen/${printName}`, reportData);
 }
 export default handler;
