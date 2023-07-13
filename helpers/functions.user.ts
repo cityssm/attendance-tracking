@@ -6,6 +6,6 @@ export interface APIRequest {
   }
 }
 
-export function userIsAdmin(request: Request): boolean {
+export function userIsAdmin(request: Partial<Request>): boolean {
   return request.session?.user?.isAdmin ?? false
 }

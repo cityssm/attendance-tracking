@@ -4,4 +4,4 @@ export interface APIRequest {
         apiKey?: string;
     };
 }
-export declare function userIsAdmin(request: Request): boolean;
+export declare function userIsAdmin(request: Partial<Request>): boolean;

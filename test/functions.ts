@@ -1,5 +1,6 @@
 import * as assert from 'node:assert'
 
+import type { Request } from 'express'
 import { v4 } from 'uuid'
 
 import { getEmployees } from '../database/getEmployees.js'
@@ -136,12 +137,12 @@ describe('helpers/functions.user.js', () => {
     }
 
     it('is not admin', () => {
-      assert.strictEqual(userFunctions.userIsAdmin(noUserRequest), false)
+      assert.strictEqual(userFunctions.userIsAdmin(noUserRequest as Request), false)
     })
   })
 
   describe('user, no admin', () => {
-    const readOnlyRequest: userFunctions.UserRequest = {
+    const readOnlyRequest = {
       session: {
         user: {
           userName: '*test',
@@ -152,12 +153,12 @@ describe('helpers/functions.user.js', () => {
     }
 
     it('is not admin', () => {
-      assert.strictEqual(userFunctions.userIsAdmin(readOnlyRequest), false)
+      assert.strictEqual(userFunctions.userIsAdmin(readOnlyRequest as Request), false)
     })
   })
 
   describe('admin user', () => {
-    const adminOnlyRequest: userFunctions.UserRequest = {
+    const adminOnlyRequest = {
       session: {
         user: {
           userName: '*test',
@@ -168,7 +169,7 @@ describe('helpers/functions.user.js', () => {
     }
 
     it('is admin', () => {
-      assert.strictEqual(userFunctions.userIsAdmin(adminOnlyRequest), true)
+      assert.strictEqual(userFunctions.userIsAdmin(adminOnlyRequest as Request), true)
     })
   })
 })

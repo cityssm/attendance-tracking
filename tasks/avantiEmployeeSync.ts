@@ -10,13 +10,13 @@ import { getEmployee } from '../database/getEmployee.js'
 import { setEmployeeProperty } from '../database/setEmployeeProperty.js'
 import { updateEmployee } from '../database/updateEmployee.js'
 import * as configFunctions from '../helpers/functions.config.js'
-import type { Employee, User } from '../types/recordTypes'
+import type { Employee } from '../types/recordTypes.js'
 
 const debug = Debug('monty:task:avantiEmployeeSync')
 
 let terminateTask = false
 
-const sessionUser: User = {
+const sessionUser: MonTYUser = {
   userName: 'sys.employeeSync',
   canLogin: true,
   isAdmin: false

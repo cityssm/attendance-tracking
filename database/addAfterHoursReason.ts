@@ -10,7 +10,7 @@ interface AddAfterHGoursReasonForm {
 
 export async function addAfterHoursReason(
   form: AddAfterHGoursReasonForm,
-  sessionUser: User
+  sessionUser: MonTYUser
 ): Promise<number> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 
