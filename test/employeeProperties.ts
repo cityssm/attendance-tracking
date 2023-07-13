@@ -8,12 +8,12 @@ import { getEmployeePropertyNames } from '../database/getEmployeePropertyNames.j
 import { getEmployeePropertyValue } from '../database/getEmployeePropertyValue.js'
 import { getEmployees } from '../database/getEmployees.js'
 import { setEmployeeProperty } from '../database/setEmployeeProperty.js'
-import type * as recordTypes from '../types/recordTypes'
+import type { Employee } from '../types/recordTypes.js'
 
 import { testAdmin } from './_globals.js'
 
 describe('database/employeeProperties.js', () => {
-  let employee: recordTypes.Employee
+  let employee: Employee
   let purgeEmployee = false
 
   const propertyName = 'testProperty.' + Date.now().toString()
@@ -50,7 +50,7 @@ describe('database/employeeProperties.js', () => {
       )
 
       if (success) {
-        employee = (await getEmployee(employeeNumber)) as recordTypes.Employee
+        employee = (await getEmployee(employeeNumber)) as Employee
       }
     } else {
       employee = employees[0]

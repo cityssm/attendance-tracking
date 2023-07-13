@@ -1,7 +1,6 @@
 import { type RequestHandler, Router } from 'express'
 
 import handler_screen from '../handlers/print-get/screen.js'
-// import handler_pdf from '../handlers/print-get/pdf.js'
 
 export const router = Router()
 

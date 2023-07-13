@@ -1,6 +1,6 @@
-import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types'
+import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type * as globalTypes from '../types/globalTypes'
+import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
 
 declare const cityssm: cityssmGlobal
 ;(() => {
@@ -74,7 +74,7 @@ declare const cityssm: cityssmGlobal
     }
   }
 
-  const MonTY: globalTypes.MonTY = {
+  const MonTY: MonTYGlobal = {
     urlPrefix,
     setUnsavedChanges,
     clearUnsavedChanges,

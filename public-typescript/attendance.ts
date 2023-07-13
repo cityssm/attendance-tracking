@@ -1,8 +1,8 @@
 /* eslint-disable unicorn/prefer-module */
 
-import type * as globalTypes from '../types/globalTypes'
+import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
 ;(() => {
-  const MonTY = exports.MonTY as globalTypes.MonTY
+  const MonTY = exports.MonTY as MonTYGlobal
 
   const menuTabElements: NodeListOf<HTMLAnchorElement> =
     document.querySelectorAll('#menu--attendance a')

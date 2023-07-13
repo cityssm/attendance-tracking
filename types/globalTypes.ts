@@ -1,4 +1,4 @@
-import type * as recordTypes from './recordTypes'
+import type { CallOutList } from './recordTypes.js'
 
 export interface MonTY {
   urlPrefix: string
@@ -15,7 +15,7 @@ export interface MonTY {
 }
 
 export interface MonTYCallOuts {
-  callOutLists: recordTypes.CallOutList[]
+  callOutLists: CallOutList[]
   openCallOutList: (
     listId: string,
     onUpdateCallbackFunction?: () => void

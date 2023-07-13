@@ -1,7 +1,7 @@
 import * as assert from 'node:assert'
 
 import * as dataFunctions from '../data/functions.js'
-import type { Employee } from '../types/recordTypes'
+import type { Employee } from '../types/recordTypes.js'
 
 const employeeWithProperties: Employee = {
   employeeNumber: '12345',

@@ -1,4 +1,4 @@
-import type * as recordTypes from './recordTypes';
+import type { CallOutList } from './recordTypes.js';
 export interface MonTY {
     urlPrefix: string;
     setUnsavedChanges: () => void;
@@ -8,6 +8,6 @@ export interface MonTY {
     callOuts?: MonTYCallOuts;
 }
 export interface MonTYCallOuts {
-    callOutLists: recordTypes.CallOutList[];
+    callOutLists: CallOutList[];
     openCallOutList: (listId: string, onUpdateCallbackFunction?: () => void) => void;
 }
