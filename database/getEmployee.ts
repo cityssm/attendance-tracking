@@ -34,4 +34,6 @@ export async function getEmployee(
 
     return employee
   }
+
+  return undefined
 }

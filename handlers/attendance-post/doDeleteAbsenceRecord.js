@@ -5,16 +5,18 @@ export async function handler(request, response) {
     const recordId = request.body.recordId;
     const absenceRecord = await getAbsenceRecord(recordId, request.session.user);
     if (absenceRecord === undefined) {
-        return response.json({
+        response.json({
             success: false,
             errorMessage: 'Absence record not found.'
         });
+        return;
     }
     if (!absenceRecord.canUpdate) {
-        return response.json({
+        response.json({
             success: false,
             errorMessage: 'Access denied.'
         });
+        return;
     }
     const success = await deleteAbsenceRecord(recordId, request.session.user);
     const absenceRecords = await getAbsenceRecords({

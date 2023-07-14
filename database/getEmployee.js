@@ -21,4 +21,5 @@ export async function getEmployee(employeeNumber) {
         employee.employeeProperties = await getEmployeeProperties(employee.employeeNumber);
         return employee;
     }
+    return undefined;
 }

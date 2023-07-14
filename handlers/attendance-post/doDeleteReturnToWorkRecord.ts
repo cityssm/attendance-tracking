@@ -16,20 +16,25 @@ export async function handler(
   )
 
   if (returnToWorkRecord === undefined) {
-    return response.json({
+    response.json({
       success: false,
       errorMessage: 'Return to work record not found.'
     })
+    return
   }
 
   if (!(returnToWorkRecord.canUpdate as boolean)) {
-    return response.json({
+    response.json({
       success: false,
       errorMessage: 'Access denied.'
     })
+    return
   }
 
-  const success = await deleteReturnToWorkRecord(recordId, request.session.user!)
+  const success = await deleteReturnToWorkRecord(
+    recordId,
+    request.session.user!
+  )
 
   const returnToWorkRecords = await getReturnToWorkRecords(
     {

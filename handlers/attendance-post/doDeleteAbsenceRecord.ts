@@ -13,17 +13,19 @@ export async function handler(
   const absenceRecord = await getAbsenceRecord(recordId, request.session.user!)
 
   if (absenceRecord === undefined) {
-    return response.json({
+    response.json({
       success: false,
       errorMessage: 'Absence record not found.'
     })
+    return
   }
 
   if (!(absenceRecord.canUpdate as boolean)) {
-    return response.json({
+    response.json({
       success: false,
       errorMessage: 'Access denied.'
     })
+    return
   }
 
   const success = await deleteAbsenceRecord(recordId, request.session.user!)

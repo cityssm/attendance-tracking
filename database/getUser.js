@@ -16,4 +16,5 @@ export async function getUser(userName) {
         user.permissions = await getUserPermissions(user.userName);
         return user;
     }
+    return undefined;
 }

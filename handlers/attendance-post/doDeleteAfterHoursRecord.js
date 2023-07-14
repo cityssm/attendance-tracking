@@ -5,16 +5,18 @@ export async function handler(request, response) {
     const recordId = request.body.recordId;
     const afterHoursRecord = await getAfterHoursRecord(recordId, request.session.user);
     if (afterHoursRecord === undefined) {
-        return response.json({
+        response.json({
             success: false,
             errorMessage: 'After hours record not found.'
         });
+        return;
     }
     if (!afterHoursRecord.canUpdate) {
-        return response.json({
+        response.json({
             success: false,
             errorMessage: 'Access denied.'
         });
+        return;
     }
     const success = await deleteAfterHoursRecord(recordId, request.session.user);
     const afterHoursRecords = await getAfterHoursRecords({
