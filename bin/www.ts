@@ -52,7 +52,7 @@ cluster.on('message', (worker, message: WorkerMessage) => {
   }
 })
 
-cluster.on('exit', (worker, code, signal) => {
+cluster.on('exit', (worker) => {
   debug(`Worker ${worker.process.pid!.toString()} has been killed`)
   activeWorkers.delete(worker.process.pid!)
 

@@ -1,6 +1,6 @@
 export const eligibility_unionized = {
     functionName: 'Unionized Employees',
-    eligibilityFunction(employee, employeePropertyName) {
+    eligibilityFunction(employee) {
         const payGroup = employee.employeeProperties?.find((possibleProperty) => {
             return possibleProperty.propertyName.toLowerCase() === 'paygroup';
         });
