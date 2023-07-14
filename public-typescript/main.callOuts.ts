@@ -8,10 +8,17 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-// eslint-disable-next-line import/namespace
-import type * as globalTypes from '../types/globalTypes.js'
-// eslint-disable-next-line import/namespace
-import type * as recordTypes from '../types/recordTypes.js'
+import type {
+  MonTYCallOuts,
+  MonTY as MonTYGlobal
+} from '../types/globalTypes.js'
+import type {
+  CallOutList,
+  CallOutListMember,
+  CallOutRecord,
+  CallOutResponseType,
+  Employee
+} from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 
@@ -19,25 +26,25 @@ declare const cityssm: cityssmGlobal
 
   // eslint-disable-next-line sonarjs/cognitive-complexity
 ;(() => {
-  const MonTY = exports.MonTY as globalTypes.MonTY
+  const MonTY = exports.MonTY as MonTYGlobal
 
   let currentListId = ''
-  let currentCallOutListMembers: recordTypes.CallOutListMember[] = []
+  let currentCallOutListMembers: CallOutListMember[] = []
 
   /*
    * Data
    */
 
-  let callOutLists = exports.callOutLists as recordTypes.CallOutList[]
+  let callOutLists = exports.callOutLists as CallOutList[]
 
-  function getCurrentCallOutList(): recordTypes.CallOutList {
+  function getCurrentCallOutList(): CallOutList {
     return MonTY.callOuts!.callOutLists.find((possibleCallOutList) => {
       return possibleCallOutList.listId === currentListId
     })!
   }
 
   const callOutResponseTypes = (exports.callOutResponseTypes ??
-    []) as recordTypes.CallOutResponseType[]
+    []) as CallOutResponseType[]
 
   const employeeEligibilityFunctions =
     (exports.employeeEligibilityFunctionNames ?? []) as string[]
@@ -82,7 +89,7 @@ declare const cityssm: cityssmGlobal
 
     let callOutMemberModalElement: HTMLElement
 
-    let callOutRecords: recordTypes.CallOutRecord[]
+    let callOutRecords: CallOutRecord[]
 
     function addCallOutRecord(formEvent: SubmitEvent): void {
       formEvent.preventDefault()
@@ -96,7 +103,7 @@ declare const cityssm: cityssmGlobal
           const responseJSON = rawResponseJSON as {
             success: boolean
             recordId: string
-            callOutRecords: recordTypes.CallOutRecord[]
+            callOutRecords: CallOutRecord[]
           }
 
           if (responseJSON.success) {
@@ -134,7 +141,7 @@ declare const cityssm: cityssmGlobal
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as {
               success: boolean
-              callOutRecords: recordTypes.CallOutRecord[]
+              callOutRecords: CallOutRecord[]
             }
 
             if (responseJSON.success) {
@@ -337,7 +344,7 @@ declare const cityssm: cityssmGlobal
           },
           (rawResponseJSON) => {
             callOutRecords = (
-              rawResponseJSON as { callOutRecords: recordTypes.CallOutRecord[] }
+              rawResponseJSON as { callOutRecords: CallOutRecord[] }
             ).callOutRecords
 
             renderCallOutRecords()
@@ -464,9 +471,9 @@ declare const cityssm: cityssmGlobal
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
             success: boolean
-            callOutLists?: recordTypes.CallOutList[]
-            callOutListMembers?: recordTypes.CallOutListMember[]
-            availableEmployees?: recordTypes.Employee[]
+            callOutLists?: CallOutList[]
+            callOutListMembers?: CallOutListMember[]
+            availableEmployees?: Employee[]
           }
 
           submitButtonElement.disabled = false
@@ -630,7 +637,7 @@ declare const cityssm: cityssmGlobal
     }
 
     let callOutListMemberEmployeeNumbers: string[] = []
-    let availableEmployees: recordTypes.Employee[] = []
+    let availableEmployees: Employee[] = []
 
     function addCallOutListMember(clickEvent: MouseEvent): void {
       clickEvent.preventDefault()
@@ -647,7 +654,7 @@ declare const cityssm: cityssmGlobal
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
             success: boolean
-            callOutListMembers?: recordTypes.CallOutListMember[]
+            callOutListMembers?: CallOutListMember[]
           }
 
           if (responseJSON.success) {
@@ -688,7 +695,7 @@ declare const cityssm: cityssmGlobal
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as {
               success: boolean
-              callOutListMembers?: recordTypes.CallOutListMember[]
+              callOutListMembers?: CallOutListMember[]
             }
 
             if (responseJSON.success) {
@@ -926,7 +933,7 @@ declare const cityssm: cityssmGlobal
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as {
               success: boolean
-              callOutLists: recordTypes.CallOutList[]
+              callOutLists: CallOutList[]
             }
 
             if (responseJSON.success) {
@@ -998,8 +1005,8 @@ declare const cityssm: cityssmGlobal
           },
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as {
-              callOutListMembers: recordTypes.CallOutListMember[]
-              availableEmployees: recordTypes.Employee[]
+              callOutListMembers: CallOutListMember[]
+              availableEmployees: Employee[]
             }
 
             currentCallOutListMembers = responseJSON.callOutListMembers
@@ -1060,7 +1067,7 @@ declare const cityssm: cityssmGlobal
     })
   }
 
-  const MonTYCallOuts: globalTypes.MonTYCallOuts = {
+  const MonTYCallOuts: MonTYCallOuts = {
     callOutLists,
     openCallOutList
   }

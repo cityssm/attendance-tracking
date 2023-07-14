@@ -10,7 +10,7 @@ export async function handler(
   const success = await updateUserCanLogin(
     request.body.userName,
     request.body.canLogin,
-    request.session.user!
+    request.session.user as MonTYUser
   )
 
   const users = await getUsers()

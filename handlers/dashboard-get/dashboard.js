@@ -89,10 +89,11 @@ async function getTestingSelfServiceDetails(user) {
     };
 }
 export async function handler(request, response) {
-    const { absenceRecords } = await getAbsenceVariables(request.session.user);
-    const { returnToWorkRecords } = await getReturnToWorkVariables(request.session.user);
-    const { callOutLists, callOutResponseTypes } = await getCallOutVariables(request.session.user);
-    const { employeeNumber, lastFourDigits, lastFourDigitsBad } = await getTestingSelfServiceDetails(request.session.user);
+    const authenticatedUser = request.session.user;
+    const { absenceRecords } = await getAbsenceVariables(authenticatedUser);
+    const { returnToWorkRecords } = await getReturnToWorkVariables(authenticatedUser);
+    const { callOutLists, callOutResponseTypes } = await getCallOutVariables(authenticatedUser);
+    const { employeeNumber, lastFourDigits, lastFourDigitsBad } = await getTestingSelfServiceDetails(authenticatedUser);
     response.render('dashboard', {
         headTitle: 'Dashboard',
         absenceRecords,

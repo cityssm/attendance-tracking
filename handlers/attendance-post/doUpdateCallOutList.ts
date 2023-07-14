@@ -9,11 +9,11 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const success = await updateCallOutList(request.body, request.session.user!)
+  const success = await updateCallOutList(request.body, request.session.user as MonTYUser)
 
   const callOutLists = await getCallOutLists(
     { favouriteOnly: false },
-    request.session.user!
+    request.session.user as MonTYUser
   )
 
   const callOutListMembers = await getCallOutListMembers(

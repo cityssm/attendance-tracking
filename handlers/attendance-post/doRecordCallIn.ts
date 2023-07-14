@@ -26,18 +26,18 @@ export async function handler(
     case 'absence': {
       if (
         permissionFunctions.hasPermission(
-          request.session.user!,
+          request.session.user as MonTYUser,
           'attendance.absences.canUpdate'
         )
       ) {
-        recordId = await addAbsenceRecord(request.body, request.session.user!)
+        recordId = await addAbsenceRecord(request.body, request.session.user as MonTYUser)
         success = true
         absenceRecords = await getAbsenceRecords(
           {
             recentOnly: true,
             todayOnly: false
           },
-          request.session.user!
+          request.session.user as MonTYUser
         )
       }
 
@@ -47,13 +47,13 @@ export async function handler(
     case 'returnToWork': {
       if (
         permissionFunctions.hasPermission(
-          request.session.user!,
+          request.session.user as MonTYUser,
           'attendance.returnsToWork.canUpdate'
         )
       ) {
         recordId = await addReturnToWorkRecord(
           request.body,
-          request.session.user!
+          request.session.user as MonTYUser
         )
         success = true
         returnToWorkRecords = await getReturnToWorkRecords(
@@ -61,7 +61,7 @@ export async function handler(
             recentOnly: true,
             todayOnly: false
           },
-          request.session.user!
+          request.session.user as MonTYUser
         )
       }
 

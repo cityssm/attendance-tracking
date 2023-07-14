@@ -1,4 +1,7 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable @typescript-eslint/indent */
+
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable unicorn/prefer-module */
 
 // eslint-disable-next-line eslint-comments/disable-enable-pair
@@ -36,11 +39,15 @@ declare const cityssm: cityssmGlobal
    * Absence Types
    */
 
-  interface AbsenceTypesResponseJSON {
-    success: boolean
-    errorMessage?: string
-    absenceTypes?: AbsenceType[]
-  }
+  type AbsenceTypesResponseJSON =
+    | {
+        success: true
+        absenceTypes: AbsenceType[]
+      }
+    | {
+        success: false
+        errorMessage: string
+      }
 
   let absenceTypes = exports.absenceTypes as AbsenceType[]
   delete exports.absenceTypes
@@ -94,7 +101,7 @@ declare const cityssm: cityssmGlobal
           rawResponseJSON as unknown as AbsenceTypesResponseJSON
 
         if (responseJSON.success) {
-          absenceTypes = responseJSON.absenceTypes!
+          absenceTypes = responseJSON.absenceTypes
           renderAbsenceTypes()
         } else {
           bulmaJS.alert({
@@ -123,7 +130,7 @@ declare const cityssm: cityssmGlobal
             rawResponseJSON as unknown as AbsenceTypesResponseJSON
 
           if (responseJSON.success) {
-            absenceTypes = responseJSON.absenceTypes!
+            absenceTypes = responseJSON.absenceTypes
             renderAbsenceTypes()
           } else {
             bulmaJS.alert({
@@ -263,7 +270,7 @@ declare const cityssm: cityssmGlobal
                 contextualColorName: 'success'
               })
 
-              absenceTypes = responseJSON.absenceTypes!
+              absenceTypes = responseJSON.absenceTypes
               renderAbsenceTypes()
             } else {
               bulmaJS.alert({
@@ -299,11 +306,15 @@ declare const cityssm: cityssmGlobal
    * Call Out Response Types
    */
 
-  interface CallOutResponseTypesResponseJSON {
-    success: boolean
-    errorMessage?: string
-    callOutResponseTypes?: CallOutResponseType[]
-  }
+  type CallOutResponseTypesResponseJSON =
+    | {
+        success: true
+        callOutResponseTypes: CallOutResponseType[]
+      }
+    | {
+        success: false
+        errorMessage: string
+      }
 
   let callOutResponseTypes =
     exports.callOutResponseTypes as CallOutResponseType[]
@@ -360,7 +371,7 @@ declare const cityssm: cityssmGlobal
           rawResponseJSON as unknown as CallOutResponseTypesResponseJSON
 
         if (responseJSON.success) {
-          callOutResponseTypes = responseJSON.callOutResponseTypes!
+          callOutResponseTypes = responseJSON.callOutResponseTypes
           renderCallOutResponseTypes()
         } else {
           bulmaJS.alert({
@@ -389,7 +400,7 @@ declare const cityssm: cityssmGlobal
             rawResponseJSON as unknown as CallOutResponseTypesResponseJSON
 
           if (responseJSON.success) {
-            callOutResponseTypes = responseJSON.callOutResponseTypes!
+            callOutResponseTypes = responseJSON.callOutResponseTypes
             renderCallOutResponseTypes()
           } else {
             bulmaJS.alert({
@@ -547,7 +558,7 @@ declare const cityssm: cityssmGlobal
                 contextualColorName: 'success'
               })
 
-              callOutResponseTypes = responseJSON.callOutResponseTypes!
+              callOutResponseTypes = responseJSON.callOutResponseTypes
               renderCallOutResponseTypes()
             } else {
               bulmaJS.alert({
@@ -583,11 +594,15 @@ declare const cityssm: cityssmGlobal
    * After Hours Reasons
    */
 
-  interface AfterHoursReasonsResponseJSON {
-    success: boolean
-    errorMessage?: string
-    afterHoursReasons?: AfterHoursReason[]
-  }
+  type AfterHoursReasonsResponseJSON =
+    | {
+        success: true
+        afterHoursReasons: AfterHoursReason[]
+      }
+    | {
+        success: false
+        errorMessage: string
+      }
 
   let afterHoursReasons = exports.afterHoursReasons as AfterHoursReason[]
   delete exports.afterHoursReasons
@@ -641,7 +656,7 @@ declare const cityssm: cityssmGlobal
           rawResponseJSON as unknown as AfterHoursReasonsResponseJSON
 
         if (responseJSON.success) {
-          afterHoursReasons = responseJSON.afterHoursReasons!
+          afterHoursReasons = responseJSON.afterHoursReasons
           renderAfterHoursReasons()
         } else {
           bulmaJS.alert({
@@ -670,7 +685,7 @@ declare const cityssm: cityssmGlobal
             rawResponseJSON as unknown as AfterHoursReasonsResponseJSON
 
           if (responseJSON.success) {
-            afterHoursReasons = responseJSON.afterHoursReasons!
+            afterHoursReasons = responseJSON.afterHoursReasons
             renderAfterHoursReasons()
           } else {
             bulmaJS.alert({
@@ -811,7 +826,7 @@ declare const cityssm: cityssmGlobal
                 contextualColorName: 'success'
               })
 
-              afterHoursReasons = responseJSON.afterHoursReasons!
+              afterHoursReasons = responseJSON.afterHoursReasons
               renderAfterHoursReasons()
             } else {
               bulmaJS.alert({

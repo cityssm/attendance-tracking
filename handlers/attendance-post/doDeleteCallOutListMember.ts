@@ -10,7 +10,7 @@ export async function handler(
   const success = await deleteCallOutListMember(
     request.body.listId,
     request.body.employeeNumber,
-    request.session.user!
+    request.session.user as MonTYUser
   )
 
   const callOutListMembers = await getCallOutListMembers(

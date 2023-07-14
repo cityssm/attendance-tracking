@@ -10,7 +10,7 @@ export async function handler(
   const success = await deleteEmployeeProperty(
     request.body.employeeNumber,
     request.body.propertyName,
-    request.session.user!
+    request.session.user as MonTYUser
   )
 
   const employeeProperties = await getEmployeeProperties(

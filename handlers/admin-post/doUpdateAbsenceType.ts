@@ -6,7 +6,7 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const success = await updateAbsenceType(request.body, request.session.user!)
+  const success = await updateAbsenceType(request.body, request.session.user as MonTYUser)
 
   response.json({
     success

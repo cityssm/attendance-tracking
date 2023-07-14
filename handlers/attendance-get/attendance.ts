@@ -208,7 +208,7 @@ export async function handler(
 
   if (configFunctions.getProperty('features.attendance.absences')) {
     const absenceVariables = await populateAbsenceVariables(
-      request.session.user!
+      request.session.user as MonTYUser
     )
     absenceRecords = absenceVariables.absenceRecords
     absenceTypes = absenceVariables.absenceTypes
@@ -222,7 +222,7 @@ export async function handler(
 
   if (configFunctions.getProperty('features.attendance.returnsToWork')) {
     const returnToWorkVariables = await populateReturnToWorkVariables(
-      request.session.user!
+      request.session.user as MonTYUser
     )
 
     returnToWorkRecords = returnToWorkVariables.returnToWorkRecords
@@ -240,7 +240,7 @@ export async function handler(
 
   if (configFunctions.getProperty('features.attendance.callOuts')) {
     const callOutVariables = await populateCallOutVariables(
-      request.session.user!
+      request.session.user as MonTYUser
     )
     callOutLists = callOutVariables.callOutLists
     callOutResponseTypes = callOutVariables.callOutResponseTypes
@@ -261,7 +261,7 @@ export async function handler(
 
   if (configFunctions.getProperty('features.attendance.afterHours')) {
     const afterHoursVariables = await populateAfterHoursVariables(
-      request.session.user!
+      request.session.user as MonTYUser
     )
     afterHoursRecords = afterHoursVariables.afterHoursRecords
     afterHoursReasons = afterHoursVariables.afterHoursReasons

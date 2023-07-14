@@ -156,18 +156,20 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const { absenceRecords } = await getAbsenceVariables(request.session.user!)
+  const authenticatedUser = request.session.user as MonTYUser
+
+  const { absenceRecords } = await getAbsenceVariables(authenticatedUser)
 
   const { returnToWorkRecords } = await getReturnToWorkVariables(
-    request.session.user!
+    authenticatedUser
   )
 
   const { callOutLists, callOutResponseTypes } = await getCallOutVariables(
-    request.session.user!
+    authenticatedUser
   )
 
   const { employeeNumber, lastFourDigits, lastFourDigitsBad } =
-    await getTestingSelfServiceDetails(request.session.user!)
+    await getTestingSelfServiceDetails(authenticatedUser)
 
   response.render('dashboard', {
     headTitle: 'Dashboard',

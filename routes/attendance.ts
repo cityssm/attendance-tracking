@@ -35,7 +35,7 @@ function callOutsViewPostHandler(
 ): void {
   if (
     permissionFunctions.hasPermission(
-      request.session.user!,
+      request.session.user as MonTYUser,
       'attendance.callOuts.canView'
     )
   ) {
@@ -53,7 +53,7 @@ function callOutsUpdatePostHandler(
 ): void {
   if (
     permissionFunctions.hasPermission(
-      request.session.user!,
+      request.session.user as MonTYUser,
       'attendance.callOuts.canUpdate'
     )
   ) {
@@ -71,7 +71,7 @@ function callOutsManagePostHandler(
 ): void {
   if (
     permissionFunctions.hasPermission(
-      request.session.user!,
+      request.session.user as MonTYUser,
       'attendance.callOuts.canManage'
     )
   ) {
@@ -89,7 +89,7 @@ function afterHoursUpdatePostHandler(
 ): void {
   if (
     permissionFunctions.hasPermission(
-      request.session.user!,
+      request.session.user as MonTYUser,
       'attendance.afterHours.canUpdate'
     )
   ) {

@@ -12,7 +12,7 @@ export async function handler(
 
   const returnToWorkRecord = await getReturnToWorkRecord(
     recordId,
-    request.session.user!
+    request.session.user as MonTYUser
   )
 
   if (returnToWorkRecord === undefined) {
@@ -33,7 +33,7 @@ export async function handler(
 
   const success = await deleteReturnToWorkRecord(
     recordId,
-    request.session.user!
+    request.session.user as MonTYUser
   )
 
   const returnToWorkRecords = await getReturnToWorkRecords(
@@ -41,7 +41,7 @@ export async function handler(
       recentOnly: true,
       todayOnly: false
     },
-    request.session.user!
+    request.session.user as MonTYUser
   )
 
   response.json({

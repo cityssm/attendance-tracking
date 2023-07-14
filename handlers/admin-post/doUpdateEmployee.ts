@@ -7,7 +7,7 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const success = await updateEmployee(request.body, false, request.session.user!)
+  const success = await updateEmployee(request.body, false, request.session.user as MonTYUser)
 
   const employees = await getEmployees(
     {

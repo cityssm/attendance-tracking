@@ -1,4 +1,3 @@
-
 import exitHook from 'exit-hook'
 import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async'
 

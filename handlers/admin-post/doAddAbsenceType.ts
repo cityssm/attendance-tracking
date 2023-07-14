@@ -7,7 +7,7 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const absenceTypeKey = await addAbsenceType(request.body, request.session.user!)
+  const absenceTypeKey = await addAbsenceType(request.body, request.session.user as MonTYUser)
 
   const absenceTypes = await getAbsenceTypes()
 

@@ -7,14 +7,14 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const recordId = await addAfterHoursRecord(request.body, request.session.user!)
+  const recordId = await addAfterHoursRecord(request.body, request.session.user as MonTYUser)
 
   const afterHoursRecords = await getAfterHoursRecords(
     {
       recentOnly: true,
       todayOnly: false
     },
-    request.session.user!
+    request.session.user as MonTYUser
   )
 
   response.json({

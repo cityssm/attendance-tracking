@@ -7,11 +7,11 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const success = await deleteCallOutList(request.body.listId, request.session.user!)
+  const success = await deleteCallOutList(request.body.listId, request.session.user as MonTYUser)
 
   const callOutLists = await getCallOutLists(
     { favouriteOnly: false },
-    request.session.user!
+    request.session.user as MonTYUser
   )
 
   response.json({

@@ -9,12 +9,12 @@ export async function handler(
 ): Promise<void> {
   const success = await addFavouriteCallOutList(
     request.body.listId,
-    request.session.user!
+    request.session.user as MonTYUser
   )
 
   const callOutLists = await getCallOutLists(
     { favouriteOnly: false },
-    request.session.user!
+    request.session.user as MonTYUser
   )
 
   response.json({

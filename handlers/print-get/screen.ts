@@ -22,7 +22,7 @@ export async function handler(
     return
   }
 
-  const reportData = await getReportData(printConfig, request.query, request.session.user!)
+  const reportData = await getReportData(printConfig, request.query, request.session.user as MonTYUser)
 
   response.render(`print/screen/${printName}`, reportData)
 }
