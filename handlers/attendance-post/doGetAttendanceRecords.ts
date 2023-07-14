@@ -5,13 +5,17 @@ import { getCallOutRecords } from '../../database/getCallOutRecords.js'
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 import * as configFunctions from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
-import type * as recordTypes from '../../types/recordTypes.js'
+import type {
+  AbsenceRecord,
+  CallOutRecord,
+  ReturnToWorkRecord
+} from '../../types/recordTypes.js'
 
 export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  let absenceRecords: recordTypes.AbsenceRecord[] = []
+  let absenceRecords: AbsenceRecord[] = []
 
   if (
     configFunctions.getProperty('features.attendance.absences') &&
@@ -30,7 +34,7 @@ export async function handler(
     )
   }
 
-  let returnToWorkRecords: recordTypes.ReturnToWorkRecord[] = []
+  let returnToWorkRecords: ReturnToWorkRecord[] = []
 
   if (
     configFunctions.getProperty('features.attendance.returnsToWork') &&
@@ -49,7 +53,7 @@ export async function handler(
     )
   }
 
-  let callOutRecords: recordTypes.CallOutRecord[] = []
+  let callOutRecords: CallOutRecord[] = []
 
   if (
     configFunctions.getProperty('features.attendance.callOuts') &&

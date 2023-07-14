@@ -1,5 +1,3 @@
-/* eslint-disable import/namespace */
-
 import type { Request, Response } from 'express'
 
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
@@ -9,7 +7,12 @@ import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js
 import { getCallOutResponseTypes } from '../../helpers/functions.cache.js'
 import * as configFunctions from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
-import type * as recordTypes from '../../types/recordTypes.js'
+import type {
+  AbsenceRecord,
+  CallOutList,
+  CallOutResponseType,
+  ReturnToWorkRecord
+} from '../../types/recordTypes.js'
 
 function isTemporaryAdmin(user: MonTYUser): boolean {
   return (
@@ -20,9 +23,9 @@ function isTemporaryAdmin(user: MonTYUser): boolean {
 }
 
 async function getAbsenceVariables(user: MonTYUser): Promise<{
-  absenceRecords: recordTypes.AbsenceRecord[]
+  absenceRecords: AbsenceRecord[]
 }> {
-  let absenceRecords: recordTypes.AbsenceRecord[] = []
+  let absenceRecords: AbsenceRecord[] = []
 
   if (
     configFunctions.getProperty('features.attendance.absences') &&
@@ -43,9 +46,9 @@ async function getAbsenceVariables(user: MonTYUser): Promise<{
 }
 
 async function getReturnToWorkVariables(user: MonTYUser): Promise<{
-  returnToWorkRecords: recordTypes.ReturnToWorkRecord[]
+  returnToWorkRecords: ReturnToWorkRecord[]
 }> {
-  let returnToWorkRecords: recordTypes.ReturnToWorkRecord[] = []
+  let returnToWorkRecords: ReturnToWorkRecord[] = []
 
   if (
     configFunctions.getProperty('features.attendance.returnsToWork') &&
@@ -66,11 +69,11 @@ async function getReturnToWorkVariables(user: MonTYUser): Promise<{
 }
 
 async function getCallOutVariables(user: MonTYUser): Promise<{
-  callOutLists: recordTypes.CallOutList[]
-  callOutResponseTypes: recordTypes.CallOutResponseType[]
+  callOutLists: CallOutList[]
+  callOutResponseTypes: CallOutResponseType[]
 }> {
-  let callOutLists: recordTypes.CallOutList[] = []
-  let callOutResponseTypes: recordTypes.CallOutResponseType[] = []
+  let callOutLists: CallOutList[] = []
+  let callOutResponseTypes: CallOutResponseType[] = []
 
   if (
     configFunctions.getProperty('features.attendance.callOuts') &&

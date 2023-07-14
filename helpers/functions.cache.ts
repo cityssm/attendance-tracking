@@ -13,7 +13,11 @@ import type {
   ClearCacheWorkerMessage,
   CacheTableName
 } from '../types/applicationTypes.js'
-import type * as recordTypes from '../types/recordTypes.js'
+import type {
+  AbsenceType,
+  AfterHoursReason,
+  CallOutResponseType
+} from '../types/recordTypes.js'
 
 const debug = Debug(`monty:functions.cache:${process.pid}`)
 
@@ -21,9 +25,9 @@ const debug = Debug(`monty:functions.cache:${process.pid}`)
  * Absence Types
  */
 
-let absenceTypes: recordTypes.AbsenceType[] = []
+let absenceTypes: AbsenceType[] = []
 
-export async function getAbsenceTypes(): Promise<recordTypes.AbsenceType[]> {
+export async function getAbsenceTypes(): Promise<AbsenceType[]> {
   if (absenceTypes.length === 0) {
     debug('Cache miss: AbsenceTypes')
     absenceTypes = await getAbsenceTypesFromDatabase()
@@ -36,11 +40,9 @@ export async function getAbsenceTypes(): Promise<recordTypes.AbsenceType[]> {
  * After Hours Reasons
  */
 
-let afterHoursReasons: recordTypes.AfterHoursReason[] = []
+let afterHoursReasons: AfterHoursReason[] = []
 
-export async function getAfterHoursReasons(): Promise<
-  recordTypes.AfterHoursReason[]
-> {
+export async function getAfterHoursReasons(): Promise<AfterHoursReason[]> {
   if (afterHoursReasons.length === 0) {
     debug('Cache miss: AfterHoursReasons')
     afterHoursReasons = await getAfterHoursReasonsFromDatabase()
@@ -53,10 +55,10 @@ export async function getAfterHoursReasons(): Promise<
  * Call Out Response Types
  */
 
-let callOutResponseTypes: recordTypes.CallOutResponseType[] = []
+let callOutResponseTypes: CallOutResponseType[] = []
 
 export async function getCallOutResponseTypes(): Promise<
-  recordTypes.CallOutResponseType[]
+  CallOutResponseType[]
 > {
   if (callOutResponseTypes.length === 0) {
     debug('Cache miss: CallOutResponseTypes')

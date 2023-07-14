@@ -1,3 +1,4 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/indent */
 
 import type { Request, Response } from 'express'
@@ -15,14 +16,22 @@ import {
 } from '../../helpers/functions.cache.js'
 import * as configFunctions from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
-import type * as recordTypes from '../../types/recordTypes.js'
+import type {
+  AbsenceRecord,
+  AbsenceType,
+  AfterHoursReason,
+  AfterHoursRecord,
+  CallOutList,
+  CallOutResponseType,
+  ReturnToWorkRecord
+} from '../../types/recordTypes.js'
 
 async function populateAbsenceVariables(sessionUser: MonTYUser): Promise<{
-  absenceRecords: recordTypes.AbsenceRecord[]
-  absenceTypes: recordTypes.AbsenceType[]
+  absenceRecords: AbsenceRecord[]
+  absenceTypes: AbsenceType[]
 }> {
-  let absenceRecords: recordTypes.AbsenceRecord[] = []
-  let absenceTypes: recordTypes.AbsenceType[] = []
+  let absenceRecords: AbsenceRecord[] = []
+  let absenceTypes: AbsenceType[] = []
 
   if (
     permissionFunctions.hasPermission(
@@ -55,9 +64,9 @@ async function populateAbsenceVariables(sessionUser: MonTYUser): Promise<{
 }
 
 async function populateReturnToWorkVariables(sessionUser: MonTYUser): Promise<{
-  returnToWorkRecords: recordTypes.ReturnToWorkRecord[]
+  returnToWorkRecords: ReturnToWorkRecord[]
 }> {
-  let returnToWorkRecords: recordTypes.ReturnToWorkRecord[] = []
+  let returnToWorkRecords: ReturnToWorkRecord[] = []
 
   if (
     permissionFunctions.hasPermission(
@@ -80,14 +89,14 @@ async function populateReturnToWorkVariables(sessionUser: MonTYUser): Promise<{
 }
 
 async function populateCallOutVariables(sessionUser: MonTYUser): Promise<{
-  callOutLists: recordTypes.CallOutList[]
-  callOutResponseTypes: recordTypes.CallOutResponseType[]
+  callOutLists: CallOutList[]
+  callOutResponseTypes: CallOutResponseType[]
   employeeEligibilityFunctionNames: string[]
   employeeSortKeyFunctionNames: string[]
   employeePropertyNames: string[]
 }> {
-  let callOutLists: recordTypes.CallOutList[] = []
-  let callOutResponseTypes: recordTypes.CallOutResponseType[] = []
+  let callOutLists: CallOutList[] = []
+  let callOutResponseTypes: CallOutResponseType[] = []
   const employeeEligibilityFunctionNames: string[] = []
   const employeeSortKeyFunctionNames: string[] = []
   let employeePropertyNames: string[] = []
@@ -150,11 +159,11 @@ async function populateCallOutVariables(sessionUser: MonTYUser): Promise<{
 }
 
 async function populateAfterHoursVariables(sessionUser: MonTYUser): Promise<{
-  afterHoursRecords: recordTypes.AfterHoursRecord[]
-  afterHoursReasons: recordTypes.AfterHoursReason[]
+  afterHoursRecords: AfterHoursRecord[]
+  afterHoursReasons: AfterHoursReason[]
 }> {
-  let afterHoursRecords: recordTypes.AfterHoursRecord[] = []
-  let afterHoursReasons: recordTypes.AfterHoursReason[] = []
+  let afterHoursRecords: AfterHoursRecord[] = []
+  let afterHoursReasons: AfterHoursReason[] = []
 
   if (
     permissionFunctions.hasPermission(
@@ -194,8 +203,8 @@ export async function handler(
    * Absence Records
    */
 
-  let absenceRecords: recordTypes.AbsenceRecord[] = []
-  let absenceTypes: recordTypes.AbsenceType[] = []
+  let absenceRecords: AbsenceRecord[] = []
+  let absenceTypes: AbsenceType[] = []
 
   if (configFunctions.getProperty('features.attendance.absences')) {
     const absenceVariables = await populateAbsenceVariables(
@@ -209,7 +218,7 @@ export async function handler(
    * Return to Work Records
    */
 
-  let returnToWorkRecords: recordTypes.ReturnToWorkRecord[] = []
+  let returnToWorkRecords: ReturnToWorkRecord[] = []
 
   if (configFunctions.getProperty('features.attendance.returnsToWork')) {
     const returnToWorkVariables = await populateReturnToWorkVariables(
@@ -223,8 +232,8 @@ export async function handler(
    * Call Out Records
    */
 
-  let callOutLists: recordTypes.CallOutList[] = []
-  let callOutResponseTypes: recordTypes.CallOutResponseType[] = []
+  let callOutLists: CallOutList[] = []
+  let callOutResponseTypes: CallOutResponseType[] = []
   let employeeEligibilityFunctionNames: string[] = []
   let employeeSortKeyFunctionNames: string[] = []
   let employeePropertyNames: string[] = []
@@ -247,8 +256,8 @@ export async function handler(
    * After Hours
    */
 
-  let afterHoursRecords: recordTypes.AfterHoursRecord[] = []
-  let afterHoursReasons: recordTypes.AfterHoursReason[] = []
+  let afterHoursRecords: AfterHoursRecord[] = []
+  let afterHoursReasons: AfterHoursReason[] = []
 
   if (configFunctions.getProperty('features.attendance.afterHours')) {
     const afterHoursVariables = await populateAfterHoursVariables(

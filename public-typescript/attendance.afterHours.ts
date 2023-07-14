@@ -6,7 +6,7 @@ import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
 import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
-import type * as recordTypes from '../types/recordTypes.js'
+import type { AfterHoursReason, AfterHoursRecord, Employee } from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 
@@ -15,11 +15,11 @@ declare const cityssm: cityssmGlobal
   const MonTY = exports.MonTY as MonTYGlobal
 
   const afterHoursReasons =
-    exports.afterHoursReasons as recordTypes.AfterHoursReason[]
-  const employees = exports.employees as recordTypes.Employee[]
+    exports.afterHoursReasons as AfterHoursReason[]
+  const employees = exports.employees as Employee[]
 
   let afterHoursRecords =
-    exports.afterHoursRecords as recordTypes.AfterHoursRecord[]
+    exports.afterHoursRecords as AfterHoursRecord[]
 
   const employeeNumberRegularExpression =
     exports.employeeNumberRegularExpression as RegExp | undefined
@@ -43,7 +43,7 @@ declare const cityssm: cityssmGlobal
           const responseJSON = rawResponseJSON as {
             success: boolean
             errorMessage?: string
-            afterHoursRecords?: recordTypes.AfterHoursRecord[]
+            afterHoursRecords?: AfterHoursRecord[]
           }
 
           if (responseJSON.success) {
@@ -219,7 +219,7 @@ declare const cityssm: cityssmGlobal
             const responseJSON = rawResponseJSON as {
               success: boolean
               recordId?: string
-              afterHoursRecords?: recordTypes.AfterHoursRecord[]
+              afterHoursRecords?: AfterHoursRecord[]
             }
 
             if (responseJSON.success) {

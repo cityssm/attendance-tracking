@@ -9,7 +9,11 @@ import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
 import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
-import type * as recordTypes from '../types/recordTypes.js'
+import type {
+  AbsenceType,
+  AfterHoursReason,
+  CallOutResponseType
+} from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 
@@ -35,10 +39,10 @@ declare const cityssm: cityssmGlobal
   interface AbsenceTypesResponseJSON {
     success: boolean
     errorMessage?: string
-    absenceTypes?: recordTypes.AbsenceType[]
+    absenceTypes?: AbsenceType[]
   }
 
-  let absenceTypes = exports.absenceTypes as recordTypes.AbsenceType[]
+  let absenceTypes = exports.absenceTypes as AbsenceType[]
   delete exports.absenceTypes
 
   function updateAbsenceType(clickEvent: Event): void {
@@ -298,11 +302,11 @@ declare const cityssm: cityssmGlobal
   interface CallOutResponseTypesResponseJSON {
     success: boolean
     errorMessage?: string
-    callOutResponseTypes?: recordTypes.CallOutResponseType[]
+    callOutResponseTypes?: CallOutResponseType[]
   }
 
   let callOutResponseTypes =
-    exports.callOutResponseTypes as recordTypes.CallOutResponseType[]
+    exports.callOutResponseTypes as CallOutResponseType[]
   delete exports.callOutResponseTypes
 
   function updateCallOutResponseType(clickEvent: Event): void {
@@ -582,11 +586,10 @@ declare const cityssm: cityssmGlobal
   interface AfterHoursReasonsResponseJSON {
     success: boolean
     errorMessage?: string
-    afterHoursReasons?: recordTypes.AfterHoursReason[]
+    afterHoursReasons?: AfterHoursReason[]
   }
 
-  let afterHoursReasons =
-    exports.afterHoursReasons as recordTypes.AfterHoursReason[]
+  let afterHoursReasons = exports.afterHoursReasons as AfterHoursReason[]
   delete exports.afterHoursReasons
 
   function updateAfterHoursReason(clickEvent: Event): void {

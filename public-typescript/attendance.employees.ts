@@ -6,8 +6,12 @@ import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
 import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
-// eslint-disable-next-line import/namespace
-import type * as recordTypes from '../types/recordTypes.js'
+import type {
+  AbsenceRecord,
+  CallOutRecord,
+  Employee,
+  ReturnToWorkRecord
+} from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 
@@ -15,7 +19,7 @@ declare const cityssm: cityssmGlobal
 ;(() => {
   const MonTY = exports.MonTY as MonTYGlobal
 
-  const employees = exports.employees as recordTypes.Employee[]
+  const employees = exports.employees as Employee[]
 
   const absencesCanView = Object.prototype.hasOwnProperty.call(
     exports,
@@ -75,9 +79,9 @@ declare const cityssm: cityssmGlobal
     })!
 
     function renderAttendanceRecords(records: {
-      absenceRecords: recordTypes.AbsenceRecord[]
-      returnToWorkRecords: recordTypes.ReturnToWorkRecord[]
-      callOutRecords: recordTypes.CallOutRecord[]
+      absenceRecords: AbsenceRecord[]
+      returnToWorkRecords: ReturnToWorkRecord[]
+      callOutRecords: CallOutRecord[]
     }): void {
       const panelElement = document.createElement('div')
       panelElement.className = 'panel'
@@ -216,9 +220,9 @@ declare const cityssm: cityssmGlobal
           (rawResponseJSON) => {
             renderAttendanceRecords(
               rawResponseJSON as {
-                absenceRecords: recordTypes.AbsenceRecord[]
-                returnToWorkRecords: recordTypes.ReturnToWorkRecord[]
-                callOutRecords: recordTypes.CallOutRecord[]
+                absenceRecords: AbsenceRecord[]
+                returnToWorkRecords: ReturnToWorkRecord[]
+                callOutRecords: CallOutRecord[]
               }
             )
           }

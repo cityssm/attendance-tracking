@@ -9,8 +9,7 @@ import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
 import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
-// eslint-disable-next-line import/namespace
-import type * as recordTypes from '../types/recordTypes.js'
+import type { AbsenceRecord, AbsenceType, Employee, ReturnToWorkRecord } from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 
@@ -20,8 +19,8 @@ declare const cityssm: cityssmGlobal
 ;(() => {
   const MonTY = exports.MonTY as MonTYGlobal
 
-  const absenceTypes = exports.absenceTypes as recordTypes.AbsenceType[]
-  const employees = exports.employees as recordTypes.Employee[]
+  const absenceTypes = exports.absenceTypes as AbsenceType[]
+  const employees = exports.employees as Employee[]
 
   const employeeNumberRegularExpression =
     exports.employeeNumberRegularExpression as RegExp | undefined
@@ -34,9 +33,9 @@ declare const cityssm: cityssmGlobal
   const canUpdateReturnsToWork = exports.returnsToWorkCanUpdate as boolean
   // const canManageReturnsToWork = exports.returnsToWorkCanManage as boolean
 
-  let absenceRecords = exports.absenceRecords as recordTypes.AbsenceRecord[]
+  let absenceRecords = exports.absenceRecords as AbsenceRecord[]
   let returnToWorkRecords =
-    exports.returnToWorkRecords as recordTypes.ReturnToWorkRecord[]
+    exports.returnToWorkRecords as ReturnToWorkRecord[]
 
   function deleteAbsenceRecord(clickEvent: Event): void {
     const recordId = (
@@ -55,7 +54,7 @@ declare const cityssm: cityssmGlobal
           const responseJSON = rawResponseJSON as {
             success: boolean
             errorMessage?: string
-            absenceRecords?: recordTypes.AbsenceRecord[]
+            absenceRecords?: AbsenceRecord[]
           }
 
           if (responseJSON.success) {
@@ -187,7 +186,7 @@ declare const cityssm: cityssmGlobal
           const responseJSON = rawResponseJSON as {
             success: boolean
             errorMessage?: string
-            returnToWorkRecords?: recordTypes.ReturnToWorkRecord[]
+            returnToWorkRecords?: ReturnToWorkRecord[]
           }
 
           if (responseJSON.success) {
@@ -393,8 +392,8 @@ declare const cityssm: cityssmGlobal
             success: boolean
             callInType: 'absence' | 'returnToWork'
             recordId: string
-            absenceRecords?: recordTypes.AbsenceRecord[]
-            returnToWorkRecords?: recordTypes.ReturnToWorkRecord[]
+            absenceRecords?: AbsenceRecord[]
+            returnToWorkRecords?: ReturnToWorkRecord[]
           }
 
           if (responseJSON.success) {
