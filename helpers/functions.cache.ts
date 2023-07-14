@@ -1,5 +1,5 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/indent */
-/* eslint-disable import/namespace */
 
 import cluster from 'node:cluster'
 

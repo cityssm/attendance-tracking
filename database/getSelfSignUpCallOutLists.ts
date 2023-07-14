@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/indent */
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 

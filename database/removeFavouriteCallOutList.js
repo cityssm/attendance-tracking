@@ -6,7 +6,7 @@ export async function removeFavouriteCallOutList(listId, sessionUser) {
         .request()
         .input('userName', sessionUser.userName)
         .input('listId', listId).query(`delete from MonTY.FavouriteCallOutLists
-        where userName = @userName
-        and listId = @listId`);
+      where userName = @userName
+      and listId = @listId`);
     return true;
 }

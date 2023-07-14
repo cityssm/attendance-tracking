@@ -3,27 +3,28 @@ import * as configFunctions from '../helpers/functions.config.js';
 import { getEmployee } from './getEmployee.js';
 export async function addCallOutListMember(listId, employeeNumber, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
-    let result = await pool.request().input('listId', listId)
+    const sortKeyResult = await pool.request().input('listId', listId)
         .query(`select sortKeyFunction, employeePropertyName
       from MonTY.CallOutLists
       where listId = @listId`);
-    if (result.recordset.length === 0) {
+    if (sortKeyResult.recordset.length === 0) {
         return false;
     }
     let sortKey = '';
-    if ((result.recordset[0].sortKeyFunction ?? '') !== '') {
+    if ((sortKeyResult.recordset[0].sortKeyFunction ?? '') !== '') {
         const employee = await getEmployee(employeeNumber);
         const sortKeyFunction = configFunctions
             .getProperty('settings.employeeSortKeyFunctions')
             .find((possibleFunction) => {
-            return (possibleFunction.functionName === result.recordset[0].sortKeyFunction);
+            return (possibleFunction.functionName ===
+                sortKeyResult.recordset[0].sortKeyFunction);
         });
         if (sortKeyFunction !== undefined) {
             sortKey =
-                sortKeyFunction.sortKeyFunction(employee, result.recordset[0].employeePropertyName) ?? '';
+                sortKeyFunction.sortKeyFunction(employee, sortKeyResult.recordset[0].employeePropertyName) ?? '';
         }
     }
-    result = await pool
+    let employeeResult = await pool
         .request()
         .input('sortKey', sortKey)
         .input('record_userName', sessionUser.userName)
@@ -38,8 +39,8 @@ export async function addCallOutListMember(listId, employeeNumber, sessionUser) 
       recordDelete_dateTime = null
       where listId = @listId
       and employeeNumber = @employeeNumber`);
-    if (result.rowsAffected[0] === 0) {
-        result = await pool
+    if (employeeResult.rowsAffected[0] === 0) {
+        employeeResult = await pool
             .request()
             .input('listId', listId)
             .input('employeeNumber', employeeNumber)
@@ -53,5 +54,5 @@ export async function addCallOutListMember(listId, employeeNumber, sessionUser) 
         values (@listId, @employeeNumber, @sortKey, @isNext,
           @record_userName, @record_dateTime, @record_userName, @record_dateTime)`);
     }
-    return result.rowsAffected[0] > 0;
+    return employeeResult.rowsAffected[0] > 0;
 }

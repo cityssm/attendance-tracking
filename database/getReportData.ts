@@ -1,5 +1,3 @@
-/* eslint-disable no-case-declarations */
-
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
 import * as configFunctions from '../helpers/functions.config.js'
