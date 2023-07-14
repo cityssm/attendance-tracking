@@ -4,11 +4,7 @@ export const eligibility_unionized = {
         const payGroup = employee.employeeProperties?.find((possibleProperty) => {
             return possibleProperty.propertyName.toLowerCase() === 'paygroup';
         });
-        if (payGroup !== undefined &&
-            ['310', '311'].includes(payGroup.propertyValue)) {
-            return true;
-        }
-        return false;
+        return (payGroup !== undefined && ['310', '311'].includes(payGroup.propertyValue));
     }
 };
 export const eligibility_operator = {

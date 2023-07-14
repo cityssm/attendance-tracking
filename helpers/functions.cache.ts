@@ -121,7 +121,9 @@ export function clearCacheByTableName(
 
       process.send!(workerMessage)
     }
-  } catch {}
+  } catch {
+    // ignore
+  }
 }
 
 /*

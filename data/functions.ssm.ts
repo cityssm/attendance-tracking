@@ -13,14 +13,9 @@ export const eligibility_unionized: ConfigEmployeeEligibilityFunction = {
       return possibleProperty.propertyName.toLowerCase() === 'paygroup'
     })
 
-    if (
-      payGroup !== undefined &&
-      ['310', '311'].includes(payGroup.propertyValue)
-    ) {
-      return true
-    }
-
-    return false
+    return (
+      payGroup !== undefined && ['310', '311'].includes(payGroup.propertyValue)
+    )
   }
 }
 
