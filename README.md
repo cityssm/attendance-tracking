@@ -2,7 +2,6 @@
 
 <img src="public/images/monty-big.svg" alt="Monty" align="right" style="height:250px" />
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/772303e121fb467d9c1fc0c7fb4c53d6)](https://app.codacy.com/gh/cityssm/MonTY/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e5f9a6caa7b2d3ebd16c/maintainability)](https://codeclimate.com/github/cityssm/MonTY/maintainability)
 [![Coverage Testing](https://github.com/cityssm/MonTY/actions/workflows/coverage.yml/badge.svg)](https://github.com/cityssm/MonTY/actions/workflows/coverage.yml)
 [![MonTY](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/szu5cb/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/szu5cb/runs)

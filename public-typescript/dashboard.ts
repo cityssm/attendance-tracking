@@ -1,3 +1,4 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable unicorn/prefer-module */
 
 import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'

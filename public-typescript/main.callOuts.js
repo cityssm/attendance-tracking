@@ -1,7 +1,6 @@
 "use strict";
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/indent */
-/* eslint-disable import/namespace */
-/* eslint-disable unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a, _b, _c, _d, _e, _f, _g;
@@ -642,6 +641,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
         callOutLists,
         openCallOutList
     };
-    // eslint-disable-next-line unicorn/prefer-module
     exports.MonTY.callOuts = MonTYCallOuts;
 })();

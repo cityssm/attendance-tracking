@@ -7,8 +7,7 @@ export async function setUserPermission(
     userName: string
     permissionKey: string
     permissionValue: string
-  },
-  sessionUser: MonTYUser
+  }
 ): Promise<boolean> {
   const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
 

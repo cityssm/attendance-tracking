@@ -6,7 +6,7 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const success = await setUserPermission(request.body, request.session.user!)
+  const success = await setUserPermission(request.body)
 
   response.json({
     success

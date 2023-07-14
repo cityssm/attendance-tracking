@@ -11,7 +11,7 @@ async function authenticateViaActiveDirectory(
   userName: string,
   password: string
 ): Promise<boolean> {
-  return await new Promise((resolve) => {
+  return await new Promise<boolean>((resolve) => {
     try {
       const ad = new ActiveDirectory(activeDirectoryConfig!)
 

@@ -1,9 +1,10 @@
 "use strict";
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/indent */
-/* eslint-disable unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a;
+    // eslint-disable-next-line unicorn/prefer-module
     const urlPrefix = exports.urlPrefix;
     /*
      * Employee Tab

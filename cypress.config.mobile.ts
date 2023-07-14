@@ -9,7 +9,7 @@ export default defineConfig({
     specPattern: 'cypress/e2e/**/*.cy.js',
     supportFile: false,
     projectId: 'szu5cb',
-    setupNodeEvents(on, config) {
+    setupNodeEvents(on) {
       on('file:preprocessor', wp())
     },
     env: {

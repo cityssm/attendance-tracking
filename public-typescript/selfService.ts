@@ -1,5 +1,5 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/indent */
-/* eslint-disable unicorn/prefer-module */
 
 // eslint-disable-next-line n/no-missing-import
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
@@ -12,6 +12,7 @@ declare const cityssm: cityssmGlobal
 
   // eslint-disable-next-line sonarjs/cognitive-complexity
 ;(() => {
+  // eslint-disable-next-line unicorn/prefer-module
   const urlPrefix = exports.urlPrefix as string
 
   /*

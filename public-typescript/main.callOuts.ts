@@ -1,5 +1,7 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/indent */
-/* eslint-disable import/namespace */
+
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable unicorn/prefer-module */
 
 // eslint-disable-next-line n/no-missing-import
@@ -1063,6 +1065,5 @@ declare const cityssm: cityssmGlobal
     openCallOutList
   }
 
-  // eslint-disable-next-line unicorn/prefer-module
   exports.MonTY.callOuts = MonTYCallOuts
 })()

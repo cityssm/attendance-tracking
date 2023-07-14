@@ -1,5 +1,5 @@
 "use strict";
-/* eslint-disable unicorn/prefer-string-replace-all */
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
@@ -51,6 +51,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const panelBlockElement = document.createElement('div');
             panelBlockElement.className = 'panel-block is-block';
             panelBlockElement.dataset.listId = callOutList.listId.toString();
+            // eslint-disable-next-line unicorn/prefer-string-replace-all
+            const listDescriptionHTML = ((_b = callOutList.listDescription) !== null && _b !== void 0 ? _b : '').replace(/\n/g, '<br />');
             panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
           <button class="button is-white" data-is-favourite="${callOutList.isFavourite ? '1' : '0'}" data-tooltip="Toggle Favourite" type="button" aria-label="Toggle Favourite">
@@ -62,7 +64,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         <div class="column">
           <a class="is-block" href="#">
           <strong>${callOutList.listName}</strong><br />
-            <span class="is-size-7">${((_b = callOutList.listDescription) !== null && _b !== void 0 ? _b : '').replace(/\n/g, '<br />')}</span>
+            <span class="is-size-7">${listDescriptionHTML}</span>
           </a>
         </div>
         <div class="column is-narrow">

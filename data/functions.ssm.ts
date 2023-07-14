@@ -8,19 +8,14 @@ import type { ConfigEmployeeEligibilityFunction } from '../types/configTypes.js'
 
 export const eligibility_unionized: ConfigEmployeeEligibilityFunction = {
   functionName: 'Unionized Employees',
-  eligibilityFunction(employee, employeePropertyName) {
+  eligibilityFunction(employee) {
     const payGroup = employee.employeeProperties?.find((possibleProperty) => {
       return possibleProperty.propertyName.toLowerCase() === 'paygroup'
     })
 
-    if (
-      payGroup !== undefined &&
-      ['310', '311'].includes(payGroup.propertyValue)
-    ) {
-      return true
-    }
-
-    return false
+    return (
+      payGroup !== undefined && ['310', '311'].includes(payGroup.propertyValue)
+    )
   }
 }
 
