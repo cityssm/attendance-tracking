@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
      * Data
      */
     let callOutLists = exports.callOutLists;
-    function getCallOutListById(listId) {
+    function getCurrentCallOutList() {
         return MonTY.callOuts.callOutLists.find((possibleCallOutList) => {
             return possibleCallOutList.listId === currentListId;
         });
@@ -31,7 +31,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         ? false
         : exports.userPermissions.callOutsCanManage;
     function openCallOutListMember(employeeNumber) {
-        const callOutList = getCallOutListById(currentListId);
+        const callOutList = getCurrentCallOutList();
         let callOutListMemberIndex = 0;
         const callOutListMember = currentCallOutListMembers.find((possibleMember, possibleIndex) => {
             if (possibleMember.employeeNumber === employeeNumber) {
@@ -241,7 +241,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         currentListId = listId;
         currentCallOutListMembers = [];
         let callOutListCloseModalFunction;
-        const callOutList = getCallOutListById(listId);
+        const callOutList = getCurrentCallOutList();
         let callOutListModalElement;
         function doUpdateCallOutList(formEvent) {
             formEvent.preventDefault();

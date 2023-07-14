@@ -8,7 +8,9 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
+// eslint-disable-next-line import/namespace
 import type * as globalTypes from '../types/globalTypes.js'
+// eslint-disable-next-line import/namespace
 import type * as recordTypes from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
@@ -28,12 +30,10 @@ declare const cityssm: cityssmGlobal
 
   let callOutLists = exports.callOutLists as recordTypes.CallOutList[]
 
-  function getCallOutListById(
-    listId: string
-  ): recordTypes.CallOutList | undefined {
+  function getCurrentCallOutList(): recordTypes.CallOutList {
     return MonTY.callOuts!.callOutLists.find((possibleCallOutList) => {
       return possibleCallOutList.listId === currentListId
-    })
+    })!
   }
 
   const callOutResponseTypes = (exports.callOutResponseTypes ??
@@ -65,7 +65,7 @@ declare const cityssm: cityssmGlobal
       : (exports.userPermissions.callOutsCanManage as boolean)
 
   function openCallOutListMember(employeeNumber: string): void {
-    const callOutList = getCallOutListById(currentListId)!
+    const callOutList = getCurrentCallOutList()
 
     let callOutListMemberIndex = 0
 
@@ -435,7 +435,7 @@ declare const cityssm: cityssmGlobal
 
     let callOutListCloseModalFunction: () => void
 
-    const callOutList = getCallOutListById(listId)!
+    const callOutList = getCurrentCallOutList()
 
     let callOutListModalElement: HTMLElement
 
