@@ -5,33 +5,33 @@ import { getAfterHoursReasons as getAfterHoursReasonsFromDatabase } from '../dat
 import { getCallOutResponseTypes as getCallOutResponseTypesFromDatabase } from '../database/getCallOutResponseTypes.js';
 import { getEmployeePropertyNames as getEmployeePropertyNamesFromDatabase } from '../database/getEmployeePropertyNames.js';
 const debug = Debug(`monty:functions.cache:${process.pid}`);
-let absenceTypes;
+let absenceTypes = [];
 export async function getAbsenceTypes() {
-    if (absenceTypes === undefined) {
+    if (absenceTypes.length === 0) {
         debug('Cache miss: AbsenceTypes');
         absenceTypes = await getAbsenceTypesFromDatabase();
     }
     return absenceTypes;
 }
-let afterHoursReasons;
+let afterHoursReasons = [];
 export async function getAfterHoursReasons() {
-    if (afterHoursReasons === undefined) {
+    if (afterHoursReasons.length === 0) {
         debug('Cache miss: AfterHoursReasons');
         afterHoursReasons = await getAfterHoursReasonsFromDatabase();
     }
     return afterHoursReasons;
 }
-let callOutResponseTypes;
+let callOutResponseTypes = [];
 export async function getCallOutResponseTypes() {
-    if (callOutResponseTypes === undefined) {
+    if (callOutResponseTypes.length === 0) {
         debug('Cache miss: CallOutResponseTypes');
         callOutResponseTypes = await getCallOutResponseTypesFromDatabase();
     }
     return callOutResponseTypes;
 }
-let employeeProperties;
+let employeeProperties = [];
 export async function getEmployeePropertyNames() {
-    if (employeeProperties === undefined) {
+    if (employeeProperties.length === 0) {
         debug('Cache miss: EmployeeProperties');
         employeeProperties = await getEmployeePropertyNamesFromDatabase();
     }
@@ -40,19 +40,19 @@ export async function getEmployeePropertyNames() {
 export function clearCacheByTableName(tableName, relayMessage = true) {
     switch (tableName) {
         case 'AbsenceTypes': {
-            absenceTypes = undefined;
+            absenceTypes = [];
             break;
         }
         case 'AfterHoursReasons': {
-            afterHoursReasons = undefined;
+            afterHoursReasons = [];
             break;
         }
         case 'CallOutResponseTypes': {
-            callOutResponseTypes = undefined;
+            callOutResponseTypes = [];
             break;
         }
         case 'EmployeeProperties': {
-            employeeProperties = undefined;
+            employeeProperties = [];
             break;
         }
     }

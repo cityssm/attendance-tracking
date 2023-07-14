@@ -15,6 +15,9 @@ export const availablePermissionValues = {
     'reports.hasRawExports': trueFalseStrings
 };
 export function hasAttendance(user) {
+    if (user === undefined) {
+        return false;
+    }
     return (user.permissions?.['attendance.absences.canView'] === 'true' ||
         user.permissions?.['attendance.afterHours.canView'] === 'true' ||
         user.permissions?.['attendance.callOuts.canView'] === 'true' ||

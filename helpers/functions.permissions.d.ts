@@ -13,5 +13,5 @@ export declare const availablePermissionValues: {
     'attendance.returnsToWork.canManage': string[];
     'reports.hasRawExports': string[];
 };
-export declare function hasAttendance(user: MonTYUser): boolean;
+export declare function hasAttendance(user: MonTYUser | undefined): boolean;
 export declare function hasPermission(user: MonTYUser, permissionKey: keyof typeof availablePermissionValues): boolean;

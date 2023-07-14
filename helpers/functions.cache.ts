@@ -21,10 +21,10 @@ const debug = Debug(`monty:functions.cache:${process.pid}`)
  * Absence Types
  */
 
-let absenceTypes: recordTypes.AbsenceType[] | undefined
+let absenceTypes: recordTypes.AbsenceType[] = []
 
 export async function getAbsenceTypes(): Promise<recordTypes.AbsenceType[]> {
-  if (absenceTypes === undefined) {
+  if (absenceTypes.length === 0) {
     debug('Cache miss: AbsenceTypes')
     absenceTypes = await getAbsenceTypesFromDatabase()
   }
@@ -36,12 +36,12 @@ export async function getAbsenceTypes(): Promise<recordTypes.AbsenceType[]> {
  * After Hours Reasons
  */
 
-let afterHoursReasons: recordTypes.AfterHoursReason[] | undefined
+let afterHoursReasons: recordTypes.AfterHoursReason[] = []
 
 export async function getAfterHoursReasons(): Promise<
   recordTypes.AfterHoursReason[]
 > {
-  if (afterHoursReasons === undefined) {
+  if (afterHoursReasons.length === 0) {
     debug('Cache miss: AfterHoursReasons')
     afterHoursReasons = await getAfterHoursReasonsFromDatabase()
   }
@@ -53,12 +53,12 @@ export async function getAfterHoursReasons(): Promise<
  * Call Out Response Types
  */
 
-let callOutResponseTypes: recordTypes.CallOutResponseType[] | undefined
+let callOutResponseTypes: recordTypes.CallOutResponseType[] = []
 
 export async function getCallOutResponseTypes(): Promise<
   recordTypes.CallOutResponseType[]
 > {
-  if (callOutResponseTypes === undefined) {
+  if (callOutResponseTypes.length === 0) {
     debug('Cache miss: CallOutResponseTypes')
     callOutResponseTypes = await getCallOutResponseTypesFromDatabase()
   }
@@ -70,10 +70,10 @@ export async function getCallOutResponseTypes(): Promise<
  * Employee Property Names
  */
 
-let employeeProperties: string[] | undefined
+let employeeProperties: string[] = []
 
 export async function getEmployeePropertyNames(): Promise<string[]> {
-  if (employeeProperties === undefined) {
+  if (employeeProperties.length === 0) {
     debug('Cache miss: EmployeeProperties')
     employeeProperties = await getEmployeePropertyNamesFromDatabase()
   }
@@ -91,19 +91,19 @@ export function clearCacheByTableName(
 ): void {
   switch (tableName) {
     case 'AbsenceTypes': {
-      absenceTypes = undefined
+      absenceTypes = []
       break
     }
     case 'AfterHoursReasons': {
-      afterHoursReasons = undefined
+      afterHoursReasons = []
       break
     }
     case 'CallOutResponseTypes': {
-      callOutResponseTypes = undefined
+      callOutResponseTypes = []
       break
     }
     case 'EmployeeProperties': {
-      employeeProperties = undefined
+      employeeProperties = []
       break
     }
   }

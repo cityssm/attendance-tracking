@@ -20,7 +20,11 @@ export const availablePermissionValues = {
   'reports.hasRawExports': trueFalseStrings
 }
 
-export function hasAttendance(user: MonTYUser): boolean {
+export function hasAttendance(user: MonTYUser | undefined): boolean {
+  if (user === undefined) {
+    return false
+  }
+
   return (
     user.permissions?.['attendance.absences.canView'] === 'true' ||
     user.permissions?.['attendance.afterHours.canView'] === 'true' ||

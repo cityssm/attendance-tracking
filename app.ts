@@ -234,7 +234,7 @@ if (configFunctions.includeAttendance()) {
     urlPrefix + '/attendance',
     sessionChecker,
     (request, response, next) => {
-      if (permissionFunctions.hasAttendance(request.session.user!)) {
+      if (permissionFunctions.hasAttendance(request.session.user)) {
         next()
         return
       }
