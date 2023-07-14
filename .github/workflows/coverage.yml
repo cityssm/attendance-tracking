@@ -82,4 +82,4 @@ jobs:
           curl https://deepsource.io/cli | sh
     
           # From the root directory, run the report coverage command
-          ./bin/deepsource report --analyzer test-coverage --key javascript --value-file ./coverage
+          ./bin/deepsource report --analyzer test-coverage --key javascript --value-file ./coverage/lcov.info
