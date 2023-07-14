@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/prefer-string-replace-all */
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable unicorn/prefer-module */
 
 // eslint-disable-next-line n/no-missing-import
@@ -88,6 +88,12 @@ declare const cityssm: cityssmGlobal
       panelBlockElement.className = 'panel-block is-block'
       panelBlockElement.dataset.listId = callOutList.listId.toString()
 
+      // eslint-disable-next-line unicorn/prefer-string-replace-all
+      const listDescriptionHTML = (callOutList.listDescription ?? '').replace(
+        /\n/g,
+        '<br />'
+      )
+
       panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
           <button class="button is-white" data-is-favourite="${
@@ -103,9 +109,7 @@ declare const cityssm: cityssmGlobal
         <div class="column">
           <a class="is-block" href="#">
           <strong>${callOutList.listName}</strong><br />
-            <span class="is-size-7">${(
-              callOutList.listDescription ?? ''
-            ).replace(/\n/g, '<br />')}</span>
+            <span class="is-size-7">${listDescriptionHTML}</span>
           </a>
         </div>
         <div class="column is-narrow">

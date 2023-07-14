@@ -1,13 +1,16 @@
-/* eslint-disable unicorn/prefer-query-selector */
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable unicorn/prefer-module */
+
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable unicorn/prefer-query-selector */
 
 // eslint-disable-next-line n/no-missing-import
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
 import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
-// eslint-disable-next-line import/namespace
 import type * as recordTypes from '../types/recordTypes.js'
+
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal

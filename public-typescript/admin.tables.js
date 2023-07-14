@@ -1,5 +1,5 @@
 "use strict";
-/* eslint-disable unicorn/prefer-query-selector */
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {

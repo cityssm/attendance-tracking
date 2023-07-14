@@ -1,5 +1,3 @@
-/* eslint-disable import/namespace */
-
 import type { Request, Response } from 'express'
 
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
