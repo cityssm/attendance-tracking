@@ -24,12 +24,12 @@ for (let index = 0; index < processCount; index += 1) {
     activeWorkers.set(worker.process.pid, worker);
 }
 cluster.on('message', (worker, message) => {
-    for (const [pid, worker] of activeWorkers.entries()) {
-        if (worker === undefined || pid === message.pid) {
+    for (const [pid, activeWorker] of activeWorkers.entries()) {
+        if (activeWorker === undefined || pid === message.pid) {
             continue;
         }
         debug(`Relaying message to worker: ${pid}`);
-        worker.send(message);
+        activeWorker.send(message);
     }
 });
 cluster.on('exit', (worker) => {
