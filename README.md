@@ -2,6 +2,7 @@
 
 <img src="public/images/monty-big.svg" alt="Monty" align="right" style="height:250px" />
 
+[![DeepSource](https://app.deepsource.com/gh/cityssm/MonTY.svg/?label=active+issues&show_trend=true&token=B8_UOorajlN2gsVC1faqAEAT)](https://app.deepsource.com/gh/cityssm/MonTY/?ref=repository-badge)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e5f9a6caa7b2d3ebd16c/maintainability)](https://codeclimate.com/github/cityssm/MonTY/maintainability)
 [![Coverage Testing](https://github.com/cityssm/MonTY/actions/workflows/coverage.yml/badge.svg)](https://github.com/cityssm/MonTY/actions/workflows/coverage.yml)
 [![MonTY](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/szu5cb/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/szu5cb/runs)
