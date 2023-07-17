@@ -109,26 +109,26 @@ app.use(
 )
 
 app.use(
-  urlPrefix + '/favicon.ico',
+  `${urlPrefix}/favicon.ico`,
   express.static(path.join('public', 'images', 'favicon', 'favicon.ico'))
 )
 
 app.use(
-  urlPrefix + '/lib/cityssm-bulma-js/bulma-js.js',
+  `${urlPrefix}/lib/cityssm-bulma-js/bulma-js.js`,
   express.static(
     path.join('node_modules', '@cityssm', 'bulma-js', 'dist', 'bulma-js.js')
   )
 )
 
 app.use(
-  urlPrefix + '/lib/cityssm-bulma-webapp-js',
+  `${urlPrefix}/lib/cityssm-bulma-webapp-js`,
   express.static(
     path.join('node_modules', '@cityssm', 'bulma-webapp-js', 'dist')
   )
 )
 
 app.use(
-  urlPrefix + '/lib/fa',
+  `${urlPrefix}/lib/fa`,
   express.static(path.join('node_modules', '@fortawesome', 'fontawesome-free'))
 )
 
@@ -220,18 +220,18 @@ app.use((request, response, next) => {
 })
 
 app.get(urlPrefix + '/', sessionChecker, (_request, response) => {
-  response.redirect(urlPrefix + '/dashboard')
+  response.redirect(`${urlPrefix}/dashboard`)
 })
 
-app.use(urlPrefix + '/dashboard', sessionChecker, routerDashboard)
+app.use(`${urlPrefix}/dashboard`, sessionChecker, routerDashboard)
 
-app.use(urlPrefix + '/reports', sessionChecker, routerReports)
+app.use(`${urlPrefix}/reports`, sessionChecker, routerReports)
 
-app.use(urlPrefix + '/print', sessionChecker, routerPrint)
+app.use(`${urlPrefix}/print`, sessionChecker, routerPrint)
 
 if (configFunctions.includeAttendance()) {
   app.use(
-    urlPrefix + '/attendance',
+    `${urlPrefix}/attendance`,
     sessionChecker,
     (request, response, next) => {
       if (permissionFunctions.hasAttendance(request.session.user)) {
@@ -246,7 +246,7 @@ if (configFunctions.includeAttendance()) {
 }
 
 app.use(
-  urlPrefix + '/admin',
+  `${urlPrefix}/admin`,
   sessionChecker,
   (request, response, next) => {
     if (request.session.user?.isAdmin ?? false) {
@@ -260,14 +260,14 @@ app.use(
 )
 
 if (configFunctions.getProperty('session.doKeepAlive')) {
-  app.all(urlPrefix + '/keepAlive', (_request, response) => {
+  app.all(`${urlPrefix}/keepAlive`, (_request, response) => {
     response.json(true)
   })
 }
 
-app.use(urlPrefix + '/login', abuseCheckHandler, routerLogin)
+app.use(`${urlPrefix}/login`, abuseCheckHandler, routerLogin)
 
-app.get(urlPrefix + '/logout', (request, response) => {
+app.get(`${urlPrefix}/logout`, (request, response) => {
   if (
     Object.hasOwn(request.session, 'user') &&
     Object.hasOwn(request.cookies, sessionCookieName)

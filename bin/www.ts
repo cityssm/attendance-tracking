@@ -21,15 +21,16 @@ const processCount = Math.min(
   os.cpus().length
 )
 
-process.title =
-  configFunctions.getProperty('application.applicationName') + ' (Primary)'
+process.title = `${configFunctions.getProperty(
+  'application.applicationName'
+)} (Primary)`
 
 debug(`Primary pid:   ${process.pid}`)
 debug(`Primary title: ${process.title}`)
 debug(`Launching ${processCount} processes`)
 
 const clusterSettings = {
-  exec: directoryName + '/wwwProcess.js'
+  exec: `${directoryName}/wwwProcess.js`
 }
 
 cluster.setupPrimary(clusterSettings)

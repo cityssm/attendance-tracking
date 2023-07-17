@@ -45,7 +45,7 @@ const afterHoursRecordsRecentSQL = `select r.recordId,
 export async function getReportData(reportName, reportParameters = {}) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let request = pool.request();
-    let sql;
+    let sql = '';
     switch (reportName) {
         case 'employees-all': {
             sql = 'select * from MonTY.Employees';

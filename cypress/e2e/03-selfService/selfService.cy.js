@@ -6,10 +6,10 @@ const selector_nextButton = '#employee--nextButton';
 const select_employeeTab = '#tab--employee';
 const select_employeeOptionsTab = '#tab--employeeOptions';
 describe('Self Service', () => {
-    let selfServiceURL;
-    let employeeNumber;
-    let lastFourDigits;
-    let lastFourDigitsBad;
+    let selfServiceURL = '';
+    let employeeNumber = '';
+    let lastFourDigits = '';
+    let lastFourDigitsBad = '';
     before(() => {
         logout();
         login(testAdmin);

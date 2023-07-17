@@ -1,9 +1,14 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/naming-convention */
+
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable promise/always-return */
+
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable promise/catch-or-return */
 
 import { testAdmin } from '../../../test/_globals.js'
-import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes'
+import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes.js'
 import { logout, login } from '../../support/index.js'
 
 /*
@@ -24,10 +29,10 @@ const select_employeeTab = '#tab--employee'
 const select_employeeOptionsTab = '#tab--employeeOptions'
 
 describe('Self Service', () => {
-  let selfServiceURL: string
-  let employeeNumber: string
-  let lastFourDigits: string
-  let lastFourDigitsBad: string
+  let selfServiceURL = ''
+  let employeeNumber = ''
+  let lastFourDigits = ''
+  let lastFourDigitsBad = ''
 
   before(() => {
     logout()

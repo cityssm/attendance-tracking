@@ -26,7 +26,7 @@ function onListening(server) {
     const addr = server.address();
     if (addr !== null) {
         const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port.toString();
-        debug('HTTP Listening on ' + bind);
+        debug(`HTTP Listening on ${bind}`);
     }
 }
 process.title =

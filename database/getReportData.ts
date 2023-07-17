@@ -59,7 +59,7 @@ export async function getReportData(
 
   let request = pool.request()
 
-  let sql: string
+  let sql = ''
 
   switch (reportName) {
     /*

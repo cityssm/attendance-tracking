@@ -9,13 +9,12 @@ import * as configFunctions from '../helpers/functions.config.js';
 const debug = Debug(`monty:www:${process.pid}`);
 const directoryName = dirname(fileURLToPath(import.meta.url));
 const processCount = Math.min(configFunctions.getProperty('application.maximumProcesses'), os.cpus().length);
-process.title =
-    configFunctions.getProperty('application.applicationName') + ' (Primary)';
+process.title = `${configFunctions.getProperty('application.applicationName')} (Primary)`;
 debug(`Primary pid:   ${process.pid}`);
 debug(`Primary title: ${process.title}`);
 debug(`Launching ${processCount} processes`);
 const clusterSettings = {
-    exec: directoryName + '/wwwProcess.js'
+    exec: `${directoryName}/wwwProcess.js`
 };
 cluster.setupPrimary(clusterSettings);
 const activeWorkers = new Map();
