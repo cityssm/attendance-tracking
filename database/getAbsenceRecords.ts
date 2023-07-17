@@ -22,7 +22,7 @@ export async function getAbsenceRecords(
     r.employeeNumber, r.employeeName,
     r.absenceDateTime, r.returnDateTime,
     r.absenceTypeKey, t.absenceType,
-    r.recordComment,
+    coalesce(r.recordComment, '') as recordComment,
     r.recordCreate_userName, r.recordCreate_dateTime,
     0 as canUpdate
     from MonTY.AbsenceRecords r

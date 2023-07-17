@@ -11,9 +11,13 @@ async function authenticateViaActiveDirectory(
   userName: string,
   password: string
 ): Promise<boolean> {
+  if (activeDirectoryConfig === undefined) {
+    return false
+  }
+
   return await new Promise<boolean>((resolve) => {
     try {
-      const ad = new ActiveDirectory(activeDirectoryConfig!)
+      const ad = new ActiveDirectory(activeDirectoryConfig)
 
       ad.authenticate(userDomain + '\\' + userName, password, (error, auth) => {
         let authenticated = false

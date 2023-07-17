@@ -4,6 +4,16 @@ const employeeWithProperties = {
     employeeNumber: '12345',
     employeeGivenName: 'Joe',
     employeeSurname: 'Tester',
+    userName: '',
+    workContact1: '',
+    workContact2: '',
+    homeContact1: '',
+    homeContact2: '',
+    syncContacts: false,
+    jobTitle: '',
+    department: '',
+    isSynced: false,
+    isActive: true,
     employeeProperties: [
         {
             propertyName: 'testProperty',
@@ -24,12 +34,32 @@ describe('data/functions.js', () => {
         const employeeA = {
             employeeNumber: '2',
             employeeGivenName: 'Amanda',
-            employeeSurname: 'Aikens'
+            employeeSurname: 'Aikens',
+            userName: '',
+            workContact1: '',
+            workContact2: '',
+            homeContact1: '',
+            homeContact2: '',
+            syncContacts: false,
+            jobTitle: '',
+            department: '',
+            isSynced: false,
+            isActive: true
         };
         const employeeB = {
             employeeNumber: '1',
             employeeGivenName: 'Bertrum',
-            employeeSurname: 'Bringleson'
+            employeeSurname: 'Bringleson',
+            userName: '',
+            workContact1: '',
+            workContact2: '',
+            homeContact1: '',
+            homeContact2: '',
+            syncContacts: false,
+            jobTitle: '',
+            department: '',
+            isSynced: false,
+            isActive: true
         };
         it('Sorts employees alphabetically', () => {
             const sortKeyA = dataFunctions.sortKey_alphabetical.sortKeyFunction(employeeA);

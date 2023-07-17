@@ -9,7 +9,12 @@ import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
 import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
-import type { AbsenceRecord, AbsenceType, Employee, ReturnToWorkRecord } from '../types/recordTypes.js'
+import type {
+  AbsenceRecord,
+  AbsenceType,
+  Employee,
+  ReturnToWorkRecord
+} from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 
@@ -34,8 +39,7 @@ declare const cityssm: cityssmGlobal
   // const canManageReturnsToWork = exports.returnsToWorkCanManage as boolean
 
   let absenceRecords = exports.absenceRecords as AbsenceRecord[]
-  let returnToWorkRecords =
-    exports.returnToWorkRecords as ReturnToWorkRecord[]
+  let returnToWorkRecords = exports.returnToWorkRecords as ReturnToWorkRecord[]
 
   function deleteAbsenceRecord(clickEvent: Event): void {
     const recordId = (
@@ -51,11 +55,15 @@ declare const cityssm: cityssmGlobal
           recordId
         },
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as {
-            success: boolean
-            errorMessage?: string
-            absenceRecords?: AbsenceRecord[]
-          }
+          const responseJSON = rawResponseJSON as
+            | {
+                success: true
+                absenceRecords: AbsenceRecord[]
+              }
+            | {
+                success: false
+                errorMessage: string
+              }
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -63,7 +71,7 @@ declare const cityssm: cityssmGlobal
               contextualColorName: 'success'
             })
 
-            absenceRecords = responseJSON.absenceRecords!
+            absenceRecords = responseJSON.absenceRecords
             renderAbsenceRecords()
           } else {
             bulmaJS.alert({
@@ -183,11 +191,15 @@ declare const cityssm: cityssmGlobal
           recordId
         },
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as {
-            success: boolean
-            errorMessage?: string
-            returnToWorkRecords?: ReturnToWorkRecord[]
-          }
+          const responseJSON = rawResponseJSON as
+            | {
+                success: true
+                returnToWorkRecords: ReturnToWorkRecord[]
+              }
+            | {
+                success: false
+                errorMessage: string
+              }
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -195,7 +207,7 @@ declare const cityssm: cityssmGlobal
               contextualColorName: 'success'
             })
 
-            returnToWorkRecords = responseJSON.returnToWorkRecords!
+            returnToWorkRecords = responseJSON.returnToWorkRecords
             renderReturnToWorkRecords()
           } else {
             bulmaJS.alert({

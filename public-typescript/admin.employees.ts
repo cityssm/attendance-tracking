@@ -1,4 +1,7 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable @typescript-eslint/indent */
+
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable unicorn/prefer-module */
 
 // eslint-disable-next-line n/no-missing-import
@@ -254,10 +257,14 @@ declare const cityssm: cityssmGlobal
             employeeNumber
           },
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as {
-              success: boolean
-              employees?: Employee[]
-            }
+            const responseJSON = rawResponseJSON as
+              | {
+                  success: true
+                  employees: Employee[]
+                }
+              | {
+                  success: false
+                }
 
             if (responseJSON.success) {
               closeEmployeeModalFunction()
@@ -267,7 +274,7 @@ declare const cityssm: cityssmGlobal
                 contextualColorName: 'info'
               })
 
-              unfilteredEmployees = responseJSON.employees!
+              unfilteredEmployees = responseJSON.employees
               refreshFilteredEmployees()
             }
           }
@@ -308,14 +315,14 @@ declare const cityssm: cityssmGlobal
           modalElement.querySelector(
             '#employeeEdit--isActive'
           ) as HTMLSelectElement
-        ).value = employee.isActive! ? '1' : '0'
+        ).value = employee.isActive ? '1' : '0'
 
         // Main Details
         ;(
           modalElement.querySelector(
             '#employeeEdit--isSynced'
           ) as HTMLSelectElement
-        ).value = employee.isSynced! ? '1' : '0'
+        ).value = employee.isSynced ? '1' : '0'
         ;(
           modalElement.querySelector(
             '#employeeEdit--employeeSurname'
@@ -355,7 +362,7 @@ declare const cityssm: cityssmGlobal
           modalElement.querySelector(
             '#employeeEdit--syncContacts'
           ) as HTMLSelectElement
-        ).value = employee.syncContacts! ? '1' : '0'
+        ).value = employee.syncContacts ? '1' : '0'
         ;(
           modalElement.querySelector(
             '#employeeEdit--workContact1'
@@ -451,11 +458,15 @@ declare const cityssm: cityssmGlobal
           MonTY.urlPrefix + '/admin/doAddEmployee',
           formEvent.currentTarget,
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as {
-              success: boolean
-              employeeNumber?: string
-              employees?: Employee[]
-            }
+            const responseJSON = rawResponseJSON as
+              | {
+                  success: true
+                  employeeNumber: string
+                  employees: Employee[]
+                }
+              | {
+                  success: false
+                }
 
             if (responseJSON.success) {
               addCloseModalFunction()
@@ -464,12 +475,12 @@ declare const cityssm: cityssmGlobal
                 message: 'Employee added successfully.',
                 okButton: {
                   callbackFunction() {
-                    openEmployeeModal(responseJSON.employeeNumber!)
+                    openEmployeeModal(responseJSON.employeeNumber)
                   }
                 }
               })
 
-              unfilteredEmployees = responseJSON.employees!
+              unfilteredEmployees = responseJSON.employees
               refreshFilteredEmployees()
             } else {
               bulmaJS.alert({
@@ -548,7 +559,7 @@ declare const cityssm: cityssmGlobal
       const panelBlockElement = document.createElement('a')
       panelBlockElement.className = 'panel-block is-block'
 
-      if (!employee.isActive!) {
+      if (!employee.isActive) {
         panelBlockElement.classList.add(
           'is-italic',
           'has-background-warning-light'
@@ -640,8 +651,8 @@ declare const cityssm: cityssmGlobal
   function refreshFilteredEmployees(): void {
     filteredEmployees = unfilteredEmployees.filter((possibleEmployee) => {
       if (
-        (isActiveSearchElement.value === '1' && !possibleEmployee.isActive!) ||
-        (isActiveSearchElement.value === '0' && possibleEmployee.isActive!)
+        (isActiveSearchElement.value === '1' && !possibleEmployee.isActive) ||
+        (isActiveSearchElement.value === '0' && possibleEmployee.isActive)
       ) {
         return false
       }

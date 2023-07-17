@@ -1,6 +1,6 @@
 "use strict";
 // eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable unicorn/prefer-module */
+/* eslint-disable @typescript-eslint/indent */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a;

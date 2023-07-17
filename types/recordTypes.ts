@@ -22,18 +22,18 @@ export interface Employee extends RecordUserNameDateTime {
   employeeNumber: string
   employeeSurname: string
   employeeGivenName: string
-  userName?: string
-  workContact1?: string
-  workContact2?: string
-  homeContact1?: string
-  homeContact2?: string
-  syncContacts?: boolean
-  jobTitle?: string
-  department?: string
+  userName: string
+  workContact1: string
+  workContact2: string
+  homeContact1: string
+  homeContact2: string
+  syncContacts: boolean
+  jobTitle: string
+  department: string
   seniorityDateTime?: string | Date
-  isSynced?: boolean
+  isSynced: boolean
   syncDateTime?: Date
-  isActive?: boolean
+  isActive: boolean
   employeeProperties?: EmployeeProperty[]
 }
 
@@ -62,7 +62,7 @@ export interface AbsenceRecord
   employeeName: string
   absenceDateTime: string | Date
   absenceTypeKey: string
-  recordComment?: string
+  recordComment: string
   returnDateTime?: string | Date
 
   canUpdate?: boolean
@@ -78,7 +78,7 @@ export interface ReturnToWorkRecord extends RecordUserNameDateTime {
   employeeName: string
   returnDateTime: string | Date
   returnShift?: string
-  recordComment?: string
+  recordComment: string
 
   canUpdate?: boolean
 }
@@ -132,7 +132,7 @@ export interface CallOutRecord
   callOutDateTime: string | Date
   callOutHours: number
   responseTypeId: number
-  recordComment?: string
+  recordComment: string
 }
 
 /*

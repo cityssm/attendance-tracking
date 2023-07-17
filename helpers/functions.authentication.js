@@ -4,6 +4,9 @@ import * as configFunctions from './functions.config.js';
 const userDomain = configFunctions.getProperty('application.userDomain');
 const activeDirectoryConfig = configFunctions.getProperty('activeDirectory');
 async function authenticateViaActiveDirectory(userName, password) {
+    if (activeDirectoryConfig === undefined) {
+        return false;
+    }
     return await new Promise((resolve) => {
         try {
             const ad = new ActiveDirectory(activeDirectoryConfig);

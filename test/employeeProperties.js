@@ -30,7 +30,17 @@ describe('database/employeeProperties.js', () => {
             const success = await createEmployee({
                 employeeNumber,
                 employeeGivenName: 'Susan',
-                employeeSurname: 'Tester'
+                employeeSurname: 'Tester',
+                userName: '',
+                workContact1: '',
+                workContact2: '',
+                homeContact1: '',
+                homeContact2: '',
+                syncContacts: false,
+                jobTitle: '',
+                department: '',
+                isSynced: false,
+                isActive: true
             }, user);
             if (success) {
                 employee = (await getEmployee(employeeNumber));

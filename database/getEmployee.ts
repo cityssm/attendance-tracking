@@ -14,10 +14,16 @@ export async function getEmployee(
   const employeeResult: IResult<Employee> = await pool
     .request()
     .input('employeeNumber', employeeNumber).query(`select
-      employeeNumber, employeeSurname, employeeGivenName,
-      userName,
-      workContact1, workContact2, homeContact1, homeContact2, syncContacts,
-      jobTitle, department,
+      employeeNumber,
+      employeeSurname, employeeGivenName,
+      coalesce(userName, '') as userName,
+      coalesce(workContact1, '') as workContact1,
+      coalesce(workContact2, '') as workContact2,
+      coalesce(homeContact1, '') as homeContact1,
+      coalesce(homeContact2, '') as homeContact2,
+      syncContacts,
+      coalesce(jobTitle, '') as jobTitle,
+      coalesce(department, '') as department,
       seniorityDateTime,
       isSynced, syncDateTime,
       isActive

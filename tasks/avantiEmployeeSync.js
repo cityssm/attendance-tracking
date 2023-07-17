@@ -53,7 +53,13 @@ async function doSync() {
                 employeeNumber: avantiEmployee.empNo,
                 employeeSurname: avantiEmployee.surname ?? '',
                 employeeGivenName: avantiEmployee.givenName ?? '',
+                userName: '',
+                workContact1: '',
+                workContact2: '',
+                homeContact1: '',
+                homeContact2: '',
                 jobTitle: avantiEmployee.positionName ?? '',
+                department: '',
                 isSynced: true,
                 syncContacts: true,
                 syncDateTime,
@@ -63,7 +69,7 @@ async function doSync() {
             if (avantiEmployeePersonalResponse.success) {
                 const avantiEmployeePersonal = avantiEmployeePersonalResponse.response;
                 newEmployee.seniorityDateTime = new Date(avantiEmployeePersonal.seniorityDate);
-                newEmployee.userName = avantiEmployeePersonal.userName?.toLowerCase();
+                newEmployee.userName = (avantiEmployeePersonal.userName ?? '').toLowerCase();
                 const workContacts = [];
                 const homeContacts = [];
                 for (const phoneTypeIndex of [1, 2, 3, 4]) {

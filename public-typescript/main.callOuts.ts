@@ -469,12 +469,16 @@ declare const cityssm: cityssmGlobal
         MonTY.urlPrefix + '/attendance/doUpdateCallOutList',
         formEvent.currentTarget,
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as {
-            success: boolean
-            callOutLists?: CallOutList[]
-            callOutListMembers?: CallOutListMember[]
-            availableEmployees?: Employee[]
-          }
+          const responseJSON = rawResponseJSON as
+            | {
+                success: true
+                callOutLists: CallOutList[]
+                callOutListMembers: CallOutListMember[]
+                availableEmployees: Employee[]
+              }
+            | {
+                success: false
+              }
 
           submitButtonElement.disabled = false
           submitButtonElement.classList.remove('is-loading')
@@ -494,13 +498,13 @@ declare const cityssm: cityssmGlobal
               ) as HTMLInputElement
             ).value
 
-            currentCallOutListMembers = responseJSON.callOutListMembers!
-            availableEmployees = responseJSON.availableEmployees!
+            currentCallOutListMembers = responseJSON.callOutListMembers
+            availableEmployees = responseJSON.availableEmployees
             renderCallOutListMembers()
             renderAvailableEmployees()
 
-            callOutLists = responseJSON.callOutLists!
-            MonTY.callOuts!.callOutLists = responseJSON.callOutLists!
+            callOutLists = responseJSON.callOutLists
+            MonTY.callOuts!.callOutLists = responseJSON.callOutLists
 
             if (onUpdateCallbackFunction !== undefined) {
               onUpdateCallbackFunction()
@@ -652,13 +656,17 @@ declare const cityssm: cityssmGlobal
           employeeNumber
         },
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as {
-            success: boolean
-            callOutListMembers?: CallOutListMember[]
-          }
+          const responseJSON = rawResponseJSON as
+            | {
+                success: true
+                callOutListMembers: CallOutListMember[]
+              }
+            | {
+                success: false
+              }
 
           if (responseJSON.success) {
-            currentCallOutListMembers = responseJSON.callOutListMembers!
+            currentCallOutListMembers = responseJSON.callOutListMembers
             renderCallOutListMembers()
             renderAvailableEmployees()
 
@@ -693,13 +701,17 @@ declare const cityssm: cityssmGlobal
             employeeNumber
           },
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as {
-              success: boolean
-              callOutListMembers?: CallOutListMember[]
-            }
+            const responseJSON = rawResponseJSON as
+              | {
+                  success: true
+                  callOutListMembers: CallOutListMember[]
+                }
+              | {
+                  success: false
+                }
 
             if (responseJSON.success) {
-              currentCallOutListMembers = responseJSON.callOutListMembers!
+              currentCallOutListMembers = responseJSON.callOutListMembers
               renderCallOutListMembers()
               renderAvailableEmployees()
 

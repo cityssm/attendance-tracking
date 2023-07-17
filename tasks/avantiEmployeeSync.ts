@@ -84,7 +84,13 @@ async function doSync(): Promise<void> {
         employeeNumber: avantiEmployee.empNo!,
         employeeSurname: avantiEmployee.surname ?? '',
         employeeGivenName: avantiEmployee.givenName ?? '',
+        userName: '',
+        workContact1: '',
+        workContact2: '',
+        homeContact1: '',
+        homeContact2: '',
         jobTitle: avantiEmployee.positionName ?? '',
+        department: '',
         isSynced: true,
         syncContacts: true,
         syncDateTime,
@@ -101,7 +107,7 @@ async function doSync(): Promise<void> {
           avantiEmployeePersonal.seniorityDate
         )
 
-        newEmployee.userName = avantiEmployeePersonal.userName?.toLowerCase()
+        newEmployee.userName = (avantiEmployeePersonal.userName ?? '').toLowerCase()
 
         const workContacts: string[] = []
         const homeContacts: string[] = []

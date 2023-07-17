@@ -44,7 +44,17 @@ describe('database/employeeProperties.js', () => {
         {
           employeeNumber,
           employeeGivenName: 'Susan',
-          employeeSurname: 'Tester'
+          employeeSurname: 'Tester',
+          userName: '',
+          workContact1: '',
+          workContact2: '',
+          homeContact1: '',
+          homeContact2: '',
+          syncContacts: false,
+          jobTitle: '',
+          department: '',
+          isSynced: false,
+          isActive: true
         },
         user
       )

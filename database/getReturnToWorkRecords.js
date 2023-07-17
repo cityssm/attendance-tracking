@@ -6,7 +6,7 @@ export async function getReturnToWorkRecords(filters, sessionUser) {
     let sql = `select r.recordId,
     r.employeeNumber, r.employeeName,
     r.returnDateTime, r.returnShift,
-    r.recordComment,
+    coalesce(r.recordComment, '') as recordComment,
     r.recordCreate_userName, r.recordCreate_dateTime
     from MonTY.ReturnToWorkRecords r
     where r.recordDelete_dateTime is null`;
