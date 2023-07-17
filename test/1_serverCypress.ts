@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/filename-case */
+/* eslint-disable eslint-comments/disable-enable-pair, unicorn/filename-case */
 
 import * as assert from 'node:assert'
 import { exec } from 'node:child_process'

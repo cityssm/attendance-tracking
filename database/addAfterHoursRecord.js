@@ -4,7 +4,7 @@ export async function addAfterHoursRecord(form, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let attendanceDateTimeString = '';
     if ((form.attendanceDateString ?? '') !== '') {
-        attendanceDateTimeString = (form.attendanceDateString +
+        attendanceDateTimeString = ((form.attendanceDateString ?? '') +
             ' ' +
             (form.attendanceTimeString ?? '')).trim();
     }

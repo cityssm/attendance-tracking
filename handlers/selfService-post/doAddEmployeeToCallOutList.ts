@@ -5,6 +5,7 @@ import { getCallOutList } from '../../database/getCallOutList.js'
 import { getEmployee } from '../../database/getEmployee.js'
 import * as configFunctions from '../../helpers/functions.config.js'
 import { validateEmployeeFields } from '../../helpers/functions.selfService.js'
+import type { Employee } from '../../types/recordTypes.js'
 
 export async function handler(
   request: Request,
@@ -25,7 +26,9 @@ export async function handler(
     return
   }
 
-  const employee = (await getEmployee(validatedEmployee.employeeNumber))!
+  const employee = (await getEmployee(
+    validatedEmployee.employeeNumber
+  )) as Employee
 
   /*
    * Get Call Out List

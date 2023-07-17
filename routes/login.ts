@@ -9,6 +9,7 @@ import {
 import { getUser } from '../database/getUser.js'
 import * as authenticationFunctions from '../helpers/functions.authentication.js'
 import * as configFunctions from '../helpers/functions.config.js'
+import type { ConfigTemporaryUserCredentials } from '../types/configTypes.js'
 
 export const router = Router()
 
@@ -68,10 +69,11 @@ async function postHandler(
     if (
       (potentialUser?.user.canLogin ?? false) &&
       passwordPlain !== '' &&
-      passwordPlain === potentialUser!.password
+      passwordPlain ===
+        (potentialUser as ConfigTemporaryUserCredentials).password
     ) {
       isAuthenticated = true
-      userObject = potentialUser!.user
+      userObject = (potentialUser as ConfigTemporaryUserCredentials).user
     }
   } else if (userName !== '' && passwordPlain !== '') {
     isAuthenticated = await authenticationFunctions.authenticate(

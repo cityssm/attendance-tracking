@@ -111,7 +111,7 @@ export function clearCacheByTableName(
   }
 
   try {
-    if (relayMessage && cluster.isWorker) {
+    if (relayMessage && cluster.isWorker && process.send !== undefined) {
       const workerMessage: ClearCacheWorkerMessage = {
         messageType: 'clearCache',
         tableName,
@@ -121,10 +121,10 @@ export function clearCacheByTableName(
 
       debug(`Sending clear cache from worker: ${tableName}`)
 
-      process.send!(workerMessage)
+      process.send(workerMessage)
     }
   } catch {
-    // ignore
+    debug('Error sending clear cache message.')
   }
 }
 

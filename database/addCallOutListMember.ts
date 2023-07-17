@@ -38,10 +38,10 @@ export async function addCallOutListMember(
         )
       })
 
-    if (sortKeyFunction !== undefined) {
+    if (sortKeyFunction !== undefined && employee !== undefined) {
       sortKey =
         sortKeyFunction.sortKeyFunction(
-          employee!,
+          employee,
           sortKeyResult.recordset[0].employeePropertyName
         ) ?? ''
     }

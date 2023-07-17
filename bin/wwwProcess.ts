@@ -1,3 +1,4 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable no-process-exit, unicorn/no-process-exit */
 
 import http from 'node:http'

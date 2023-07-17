@@ -19,7 +19,7 @@ export async function addCallOutListMember(listId, employeeNumber, sessionUser) 
             return (possibleFunction.functionName ===
                 sortKeyResult.recordset[0].sortKeyFunction);
         });
-        if (sortKeyFunction !== undefined) {
+        if (sortKeyFunction !== undefined && employee !== undefined) {
             sortKey =
                 sortKeyFunction.sortKeyFunction(employee, sortKeyResult.recordset[0].employeePropertyName) ?? '';
         }

@@ -22,9 +22,9 @@ import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
   function togglePanelBlocks(clickEvent: Event): void {
     clickEvent.preventDefault()
 
-    const panelBlockElements = (clickEvent.currentTarget as HTMLElement)
-      .closest('.panel')!
-      .querySelectorAll('.panel-block')!
+    const panelBlockElements = (
+      (clickEvent.currentTarget as HTMLElement).closest('.panel') as HTMLElement
+    ).querySelectorAll('.panel-block')
 
     for (const panelBlockElement of panelBlockElements) {
       panelBlockElement.classList.toggle('is-hidden')

@@ -57,7 +57,7 @@ export function clearCacheByTableName(tableName, relayMessage = true) {
         }
     }
     try {
-        if (relayMessage && cluster.isWorker) {
+        if (relayMessage && cluster.isWorker && process.send !== undefined) {
             const workerMessage = {
                 messageType: 'clearCache',
                 tableName,
@@ -69,6 +69,7 @@ export function clearCacheByTableName(tableName, relayMessage = true) {
         }
     }
     catch {
+        debug('Error sending clear cache message.');
     }
 }
 process.on('message', (message) => {

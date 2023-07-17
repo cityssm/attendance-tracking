@@ -175,6 +175,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             var _a;
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
+                ;
                 panelBlockElement.querySelector('.is-add-button-container').innerHTML =
                     '<i class="fas fa-check" aria-hidden="true"></i> Added to List';
             }
@@ -222,6 +223,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             </div>
             <div class="is-add-button-container"></div>`;
                 if ((_b = callOutList.hasSelfSignUpKey) !== null && _b !== void 0 ? _b : true) {
+                    ;
                     panelBlockElement.querySelector('.is-add-button-container').innerHTML = `<div class="field has-addons">
                 <div class="control has-icons-left">
                   <input class="input"
@@ -245,6 +247,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
               </div>`;
                 }
                 else {
+                    ;
                     panelBlockElement.querySelector('.is-add-button-container').innerHTML = `<button class="button is-success is-add-button" type="button">
                 <span class="icon"><i class="fas fa-plus" aria-hidden="true"></i></span>
                 <span>Add to List</span>

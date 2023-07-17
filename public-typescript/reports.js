@@ -14,9 +14,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
      */
     function togglePanelBlocks(clickEvent) {
         clickEvent.preventDefault();
-        const panelBlockElements = clickEvent.currentTarget
-            .closest('.panel')
-            .querySelectorAll('.panel-block');
+        const panelBlockElements = clickEvent.currentTarget.closest('.panel').querySelectorAll('.panel-block');
         for (const panelBlockElement of panelBlockElements) {
             panelBlockElement.classList.toggle('is-hidden');
         }

@@ -94,10 +94,11 @@ declare const cityssm: cityssmGlobal
         if (responseJSON.success) {
           employeeMessageContainerElement.innerHTML = ''
           document.querySelector('#tab--employee')?.classList.add('is-hidden')
-
-          document.querySelector(
-            '#employeeOptions--employeeName'
-          )!.textContent = responseJSON.employeeName ?? ''
+          ;(
+            document.querySelector(
+              '#employeeOptions--employeeName'
+            ) as HTMLElement
+          ).textContent = responseJSON.employeeName ?? ''
 
           document
             .querySelector('#tab--employeeOptions')
@@ -276,9 +277,11 @@ declare const cityssm: cityssmGlobal
         }
 
         if (responseJSON.success) {
-          panelBlockElement.querySelector(
-            '.is-add-button-container'
-          )!.innerHTML =
+          ;(
+            panelBlockElement.querySelector(
+              '.is-add-button-container'
+            ) as HTMLElement
+          ).innerHTML =
             '<i class="fas fa-check" aria-hidden="true"></i> Added to List'
         } else {
           bulmaJS.alert({
@@ -343,9 +346,11 @@ declare const cityssm: cityssmGlobal
             <div class="is-add-button-container"></div>`
 
           if (callOutList.hasSelfSignUpKey ?? true) {
-            panelBlockElement.querySelector(
-              '.is-add-button-container'
-            )!.innerHTML = `<div class="field has-addons">
+            ;(
+              panelBlockElement.querySelector(
+                '.is-add-button-container'
+              ) as HTMLElement
+            ).innerHTML = `<div class="field has-addons">
                 <div class="control has-icons-left">
                   <input class="input"
                     id="callOutListAdd--selfSignUpKey_${callOutList.listId}"
@@ -367,9 +372,11 @@ declare const cityssm: cityssmGlobal
                 </div>
               </div>`
           } else {
-            panelBlockElement.querySelector(
-              '.is-add-button-container'
-            )!.innerHTML = `<button class="button is-success is-add-button" type="button">
+            ;(
+              panelBlockElement.querySelector(
+                '.is-add-button-container'
+              ) as HTMLElement
+            ).innerHTML = `<button class="button is-success is-add-button" type="button">
                 <span class="icon"><i class="fas fa-plus" aria-hidden="true"></i></span>
                 <span>Add to List</span>
               </button>`

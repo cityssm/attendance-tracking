@@ -25,7 +25,7 @@ async function getCurrentOrderNumber(
     .query(
       `select orderNumber
         from MonTY.${recordTable}
-        where ${recordIdColumns.get(recordTable)!} = @recordId`
+        where ${recordIdColumns.get(recordTable) ?? ''} = @recordId`
     )
 
   return result.recordset[0].orderNumber

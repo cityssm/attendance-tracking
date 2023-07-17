@@ -37,7 +37,8 @@ async function postHandler(request, response) {
         });
         if ((potentialUser?.user.canLogin ?? false) &&
             passwordPlain !== '' &&
-            passwordPlain === potentialUser.password) {
+            passwordPlain ===
+                potentialUser.password) {
             isAuthenticated = true;
             userObject = potentialUser.user;
         }

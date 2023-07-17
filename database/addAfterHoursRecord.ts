@@ -22,7 +22,7 @@ export async function addAfterHoursRecord(
 
   if ((form.attendanceDateString ?? '') !== '') {
     attendanceDateTimeString = (
-      form.attendanceDateString! +
+      (form.attendanceDateString ?? '') +
       ' ' +
       (form.attendanceTimeString ?? '')
     ).trim()

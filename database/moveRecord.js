@@ -13,7 +13,7 @@ async function getCurrentOrderNumber(recordTable, recordId) {
         .input('recordId', recordId)
         .query(`select orderNumber
         from MonTY.${recordTable}
-        where ${recordIdColumns.get(recordTable)} = @recordId`);
+        where ${recordIdColumns.get(recordTable) ?? ''} = @recordId`);
     return result.recordset[0].orderNumber;
 }
 export async function moveRecordDown(recordTable, recordId) {

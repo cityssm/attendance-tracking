@@ -38,7 +38,9 @@ const activeWorkers = new Map<number, Worker>()
 
 for (let index = 0; index < processCount; index += 1) {
   const worker = cluster.fork()
-  activeWorkers.set(worker.process.pid!, worker)
+  if (worker.process.pid !== undefined) {
+    activeWorkers.set(worker.process.pid, worker)
+  }
 }
 
 cluster.on('message', (worker, message: WorkerMessage) => {
@@ -53,13 +55,16 @@ cluster.on('message', (worker, message: WorkerMessage) => {
 })
 
 cluster.on('exit', (worker) => {
-  debug(`Worker ${worker.process.pid!.toString()} has been killed`)
-  activeWorkers.delete(worker.process.pid!)
+  debug(`Worker ${(worker.process.pid ?? 0).toString()} has been killed`)
+  activeWorkers.delete(worker.process.pid ?? 0)
 
   debug('Starting another worker')
 
   const newWorker = cluster.fork()
-  activeWorkers.set(newWorker.process.pid!, newWorker)
+
+  if (newWorker.process.pid !== undefined) {
+    activeWorkers.set(newWorker.process.pid, newWorker)
+  }
 })
 
 if (process.env.STARTUP_TEST === 'true') {
