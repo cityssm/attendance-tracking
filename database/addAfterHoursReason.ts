@@ -2,7 +2,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 
 interface AddAfterHGoursReasonForm {
   afterHoursReason: string
@@ -12,7 +12,7 @@ export async function addAfterHoursReason(
   form: AddAfterHGoursReasonForm,
   sessionUser: MonTYUser
 ): Promise<number> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   const result: IResult<{ afterHoursReasonId: number }> = await pool
     .request()

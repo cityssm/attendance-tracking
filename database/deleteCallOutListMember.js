@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 export async function deleteCallOutListMember(listId, employeeNumber, sessionUser) {
-    const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
+    const pool = await sqlPool.connect(getConfigProperty('mssql'));
     const result = await pool
         .request()
         .input('listId', listId)
@@ -9,9 +9,9 @@ export async function deleteCallOutListMember(listId, employeeNumber, sessionUse
         .input('record_userName', sessionUser.userName)
         .input('record_dateTime', new Date()).query(`update MonTY.CallOutListMembers
       set recordDelete_userName = @record_userName,
-      recordDelete_dateTime = @record_dateTime
+        recordDelete_dateTime = @record_dateTime
       where listId = @listId
-      and employeeNumber = @employeeNumber
-      and recordDelete_dateTime is null`);
+        and employeeNumber = @employeeNumber
+        and recordDelete_dateTime is null`);
     return result.rowsAffected[0] > 0;
 }

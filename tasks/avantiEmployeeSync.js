@@ -8,7 +8,7 @@ import { deleteMissingSyncedEmployees } from '../database/deleteMissingSyncedEmp
 import { getEmployee } from '../database/getEmployee.js';
 import { setEmployeeProperty } from '../database/setEmployeeProperty.js';
 import { updateEmployee } from '../database/updateEmployee.js';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 const debug = Debug('monty:tasks:avantiEmployeeSync');
 let terminateTask = false;
 const sessionUser = {
@@ -16,14 +16,14 @@ const sessionUser = {
     canLogin: true,
     isAdmin: false
 };
-const avantiConfig = configFunctions.getProperty('settings.avantiSync.config');
+const avantiConfig = getConfigProperty('settings.avantiSync.config');
 avanti.setConfiguration(avantiConfig);
 const getEmployeeOptions = {
     skip: 0,
     take: 10000
 };
-if (configFunctions.getProperty('settings.avantiSync.locationCodes').length > 0) {
-    getEmployeeOptions.locations = configFunctions.getProperty('settings.avantiSync.locationCodes');
+if (getConfigProperty('settings.avantiSync.locationCodes').length > 0) {
+    getEmployeeOptions.locations = getConfigProperty('settings.avantiSync.locationCodes');
 }
 async function doSync() {
     debug('Requesting employees from API...');

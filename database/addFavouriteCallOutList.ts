@@ -1,12 +1,12 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 
 export async function addFavouriteCallOutList(
   listId: string,
   sessionUser: MonTYUser
 ): Promise<boolean> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   try {
     await pool

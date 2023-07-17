@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import type { CallOutRecord } from '../types/recordTypes.js'
 
 interface GetCallOutRecordsFilters {
@@ -13,7 +13,7 @@ interface GetCallOutRecordsFilters {
 export async function getCallOutRecords(
   filters: GetCallOutRecordsFilters
 ): Promise<CallOutRecord[]> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   let sql = `select r.recordId, r.listId, r.employeeNumber,
     r.callOutDateTime, r.callOutHours,
@@ -40,7 +40,7 @@ export async function getCallOutRecords(
     sql += ' and datediff(day, r.callOutDateTime, getdate()) <= @recentDays'
     request = request.input(
       'recentDays',
-      configFunctions.getProperty('settings.recentDays')
+      getConfigProperty('settings.recentDays')
     )
   }
 

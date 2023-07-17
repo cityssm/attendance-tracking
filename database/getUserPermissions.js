@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 export async function getUserPermissions(userName) {
-    const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
+    const pool = await sqlPool.connect(getConfigProperty('mssql'));
     const permissionsResult = await pool.request().input('userName', userName).query(`select
       permissionKey, permissionValue
       from MonTY.UserPermissions

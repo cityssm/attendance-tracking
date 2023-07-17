@@ -1,6 +1,6 @@
 import { getEmployee } from '../../database/getEmployee.js';
 import { getSelfSignUpCallOutLists } from '../../database/getSelfSignUpCallOutLists.js';
-import * as configFunctions from '../../helpers/functions.config.js';
+import { getConfigProperty } from '../../helpers/functions.config.js';
 import { validateEmployeeFields } from '../../helpers/functions.selfService.js';
 export async function handler(request, response) {
     const validatedEmployee = await validateEmployeeFields(request);
@@ -12,7 +12,7 @@ export async function handler(request, response) {
         return;
     }
     const employee = (await getEmployee(validatedEmployee.employeeNumber));
-    const eligibilityFunctions = configFunctions.getProperty('settings.employeeEligibilityFunctions');
+    const eligibilityFunctions = getConfigProperty('settings.employeeEligibilityFunctions');
     const availableCallOutLists = await getSelfSignUpCallOutLists({
         doesNotHaveEmployeeNumber: employee.employeeNumber
     });

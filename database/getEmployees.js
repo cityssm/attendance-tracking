@@ -1,9 +1,9 @@
 import '../helpers/polyfills.js';
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 import { getEmployeeProperties } from './getEmployeeProperties.js';
 export async function getEmployees(filters, options) {
-    const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
+    const pool = await sqlPool.connect(getConfigProperty('mssql'));
     let request = pool.request();
     let sql = `select
     employeeNumber, employeeSurname, employeeGivenName,
@@ -37,9 +37,7 @@ export async function getEmployees(filters, options) {
             employee.employeeProperties = await getEmployeeProperties(employee.employeeNumber);
         }
         if ((filters.eligibilityFunction?.functionName ?? '') !== '') {
-            const eligibilityFunction = configFunctions
-                .getProperty('settings.employeeEligibilityFunctions')
-                .find((possibleFunction) => {
+            const eligibilityFunction = getConfigProperty('settings.employeeEligibilityFunctions').find((possibleFunction) => {
                 return (possibleFunction.functionName ===
                     filters.eligibilityFunction?.functionName);
             });

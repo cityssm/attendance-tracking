@@ -78,8 +78,8 @@
 <script>
   exports.employees = <%- JSON.stringify(employees) %>;
 
-  <% if (configFunctions.getProperty('settings.employeeNumberRegularExpression')) { %>
-    exports.employeeNumberRegularExpression = <%- configFunctions.getProperty('settings.employeeNumberRegularExpression').toString() %>;
+  <% if (configFunctions.getConfigProperty('settings.employeeNumberRegularExpression')) { %>
+    exports.employeeNumberRegularExpression = <%- configFunctions.getConfigProperty('settings.employeeNumberRegularExpression').toString() %>;
   <% } %>
 </script>
 

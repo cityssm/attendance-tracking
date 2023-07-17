@@ -1,11 +1,11 @@
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js';
 import { getCallOutRecords } from '../../database/getCallOutRecords.js';
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js';
-import * as configFunctions from '../../helpers/functions.config.js';
+import { getConfigProperty } from '../../helpers/functions.config.js';
 import * as permissionFunctions from '../../helpers/functions.permissions.js';
 export async function handler(request, response) {
     let absenceRecords = [];
-    if (configFunctions.getProperty('features.attendance.absences') &&
+    if (getConfigProperty('features.attendance.absences') &&
         permissionFunctions.hasPermission(request.session.user, 'attendance.absences.canView')) {
         absenceRecords = await getAbsenceRecords({
             employeeNumber: request.body.employeeNumber,
@@ -14,7 +14,7 @@ export async function handler(request, response) {
         }, request.session.user);
     }
     let returnToWorkRecords = [];
-    if (configFunctions.getProperty('features.attendance.returnsToWork') &&
+    if (getConfigProperty('features.attendance.returnsToWork') &&
         permissionFunctions.hasPermission(request.session.user, 'attendance.returnsToWork.canView')) {
         returnToWorkRecords = await getReturnToWorkRecords({
             employeeNumber: request.body.employeeNumber,
@@ -23,7 +23,7 @@ export async function handler(request, response) {
         }, request.session.user);
     }
     let callOutRecords = [];
-    if (configFunctions.getProperty('features.attendance.callOuts') &&
+    if (getConfigProperty('features.attendance.callOuts') &&
         permissionFunctions.hasPermission(request.session.user, 'attendance.callOuts.canView')) {
         callOutRecords = await getCallOutRecords({
             employeeNumber: request.body.employeeNumber,

@@ -7,7 +7,7 @@ import Debug from 'debug'
 import exitHook from 'exit-hook'
 
 import { app } from '../app.js'
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 
 const debug = Debug(`monty:wwwProcess:${process.pid}`)
 
@@ -51,7 +51,7 @@ function onListening(server: http.Server): void {
 
   if (addr !== null) {
     const bind =
-      typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port.toString()
+      typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port.toString()}`
     debug(`HTTP Listening on ${bind}`)
   }
 }
@@ -60,10 +60,9 @@ function onListening(server: http.Server): void {
  * Initialize HTTP
  */
 
-process.title =
-  configFunctions.getProperty('application.applicationName') + ' (Worker)'
+process.title = `${getConfigProperty('application.applicationName')} (Worker)`
 
-const httpPort = configFunctions.getProperty('application.httpPort')
+const httpPort = getConfigProperty('application.httpPort')
 
 const httpServer = http.createServer(app)
 

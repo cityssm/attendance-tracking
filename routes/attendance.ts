@@ -25,7 +25,7 @@ import handler_doRecordCallIn from '../handlers/attendance-post/doRecordCallIn.j
 import handler_doRemoveFavouriteCallOutList from '../handlers/attendance-post/doRemoveFavouriteCallOutList.js'
 import handler_doUpdateCallOutList from '../handlers/attendance-post/doUpdateCallOutList.js'
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js'
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import * as permissionFunctions from '../helpers/functions.permissions.js'
 
 function callOutsViewPostHandler(
@@ -109,8 +109,8 @@ router.get('/', handler_attendance as RequestHandler)
  */
 
 if (
-  configFunctions.getProperty('features.attendance.absences') ||
-  configFunctions.getProperty('features.attendance.returnsToWork')
+  getConfigProperty('features.attendance.absences') ||
+  getConfigProperty('features.attendance.returnsToWork')
 ) {
   router.post('/doRecordCallIn', handler_doRecordCallIn as RequestHandler)
 
@@ -129,7 +129,7 @@ if (
  * Call Outs
  */
 
-if (configFunctions.getProperty('features.attendance.callOuts')) {
+if (getConfigProperty('features.attendance.callOuts')) {
   router.post(
     '/doAddFavouriteCallOutList',
     handler_doAddFavouriteCallOutList as RequestHandler
@@ -199,7 +199,7 @@ if (configFunctions.getProperty('features.attendance.callOuts')) {
  * After Hours
  */
 
-if (configFunctions.getProperty('features.attendance.afterHours')) {
+if (getConfigProperty('features.attendance.afterHours')) {
   router.post(
     '/doAddAfterHoursRecord',
     afterHoursUpdatePostHandler,

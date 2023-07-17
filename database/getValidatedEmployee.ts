@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import type { Employee } from '../types/recordTypes.js'
 
 interface ValidatedEmployee {
@@ -14,7 +14,7 @@ export async function getValidatedEmployee(
   employeeNumberEnd: string,
   homeContactEnd: string
 ): Promise<ValidatedEmployee | undefined> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   const employeeResult: IResult<Employee> = await pool
     .request()

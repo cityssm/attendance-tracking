@@ -1,8 +1,8 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 import * as permissionFunctions from '../helpers/functions.permissions.js';
 export async function getAbsenceRecords(filters, sessionUser) {
-    const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
+    const pool = await sqlPool.connect(getConfigProperty('mssql'));
     let sql = `select r.recordId,
     r.employeeNumber, r.employeeName,
     r.absenceDateTime, r.returnDateTime,
@@ -27,7 +27,7 @@ export async function getAbsenceRecords(filters, sessionUser) {
     }
     else if (filters.recentOnly) {
         sql += ' and datediff(day, r.absenceDateTime, getdate()) <= @recentDays';
-        request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
+        request = request.input('recentDays', getConfigProperty('settings.recentDays'));
     }
     sql += ' order by r.absenceDateTime desc, r.recordId desc';
     const recordsResult = await request.query(sql);
@@ -39,7 +39,7 @@ export async function getAbsenceRecords(filters, sessionUser) {
                     (absenceRecord.recordCreate_userName === sessionUser.userName &&
                         Date.now() -
                             absenceRecord.recordCreate_dateTime.getTime() <=
-                            configFunctions.getProperty('settings.updateDays') * 86400 * 1000);
+                            getConfigProperty('settings.updateDays') * 86400 * 1000);
         }
     }
     return absenceRecords;

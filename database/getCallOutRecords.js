@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 export async function getCallOutRecords(filters) {
-    const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
+    const pool = await sqlPool.connect(getConfigProperty('mssql'));
     let sql = `select r.recordId, r.listId, r.employeeNumber,
     r.callOutDateTime, r.callOutHours,
     r.responseTypeId, t.responseType, t.isSuccessful,
@@ -21,7 +21,7 @@ export async function getCallOutRecords(filters) {
     }
     if (filters.recentOnly) {
         sql += ' and datediff(day, r.callOutDateTime, getdate()) <= @recentDays';
-        request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
+        request = request.input('recentDays', getConfigProperty('settings.recentDays'));
     }
     sql += ' order by r.callOutDateTime desc, r.recordId desc';
     const recordsResult = await request.query(sql);

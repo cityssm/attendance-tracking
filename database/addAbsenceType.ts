@@ -4,7 +4,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import camelCase from 'camelcase'
 
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 
 interface AddAbsenceTypeForm {
   absenceType: string
@@ -20,7 +20,7 @@ export async function addAbsenceType(
     absenceTypeKey = await getAvailableAbsenceTypeKey(crypto.randomUUID())
   }
 
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   await pool
     .request()
@@ -44,7 +44,7 @@ async function getAvailableAbsenceTypeKey(
 ): Promise<string> {
   const absenceTypeKeyRoot = camelCase(absenceType).slice(0, 10)
 
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   for (let index = 0; index <= 9_999_999_999; index += 1) {
     const indexString = index.toString()

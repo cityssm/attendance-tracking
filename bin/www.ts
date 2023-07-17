@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url'
 
 import Debug from 'debug'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import type { WorkerMessage } from '../types/applicationTypes.js'
 
 const debug = Debug(`monty:www:${process.pid}`)
@@ -17,13 +17,11 @@ const debug = Debug(`monty:www:${process.pid}`)
 const directoryName = dirname(fileURLToPath(import.meta.url))
 
 const processCount = Math.min(
-  configFunctions.getProperty('application.maximumProcesses'),
+  getConfigProperty('application.maximumProcesses'),
   os.cpus().length
 )
 
-process.title = `${configFunctions.getProperty(
-  'application.applicationName'
-)} (Primary)`
+process.title = `${getConfigProperty('application.applicationName')} (Primary)`
 
 debug(`Primary pid:   ${process.pid}`)
 debug(`Primary title: ${process.title}`)
@@ -82,7 +80,7 @@ if (process.env.STARTUP_TEST === 'true') {
 } else {
   fork('./tasks/databaseCleanup.js')
 
-  if (configFunctions.getProperty('features.employees.avantiSync')) {
+  if (getConfigProperty('features.employees.avantiSync')) {
     fork('./tasks/avantiEmployeeSync.js')
   }
 }

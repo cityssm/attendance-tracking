@@ -1,13 +1,13 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 
 export async function updateUserIsAdmin(
   userName: string,
   isAdmin: '0' | '1' | 0 | 1 | false | true,
   sessionUser: MonTYUser
 ): Promise<boolean> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   const result = await pool
     .request()

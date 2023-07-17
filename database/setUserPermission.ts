@@ -1,15 +1,13 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 
-export async function setUserPermission(
-  userPermission: {
-    userName: string
-    permissionKey: string
-    permissionValue: string
-  }
-): Promise<boolean> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+export async function setUserPermission(userPermission: {
+  userName: string
+  permissionKey: string
+  permissionValue: string
+}): Promise<boolean> {
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   let result = await pool
     .request()

@@ -1,14 +1,14 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 
 import { getUserPermissions } from './getUserPermissions.js'
 
 export async function getUser(
   userName: string
 ): Promise<MonTYUser | undefined> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   const userResult: IResult<MonTYUser> = await pool
     .request()

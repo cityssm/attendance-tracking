@@ -2,7 +2,7 @@ import http from 'node:http';
 import Debug from 'debug';
 import exitHook from 'exit-hook';
 import { app } from '../app.js';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 const debug = Debug(`monty:wwwProcess:${process.pid}`);
 function onError(error) {
     if (error.syscall !== 'listen') {
@@ -25,13 +25,12 @@ function onError(error) {
 function onListening(server) {
     const addr = server.address();
     if (addr !== null) {
-        const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port.toString();
+        const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port.toString()}`;
         debug(`HTTP Listening on ${bind}`);
     }
 }
-process.title =
-    configFunctions.getProperty('application.applicationName') + ' (Worker)';
-const httpPort = configFunctions.getProperty('application.httpPort');
+process.title = `${getConfigProperty('application.applicationName')} (Worker)`;
+const httpPort = getConfigProperty('application.httpPort');
 const httpServer = http.createServer(app);
 httpServer.listen(httpPort);
 httpServer.on('error', onError);

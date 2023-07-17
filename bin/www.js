@@ -5,11 +5,11 @@ import os from 'node:os';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import Debug from 'debug';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 const debug = Debug(`monty:www:${process.pid}`);
 const directoryName = dirname(fileURLToPath(import.meta.url));
-const processCount = Math.min(configFunctions.getProperty('application.maximumProcesses'), os.cpus().length);
-process.title = `${configFunctions.getProperty('application.applicationName')} (Primary)`;
+const processCount = Math.min(getConfigProperty('application.maximumProcesses'), os.cpus().length);
+process.title = `${getConfigProperty('application.applicationName')} (Primary)`;
 debug(`Primary pid:   ${process.pid}`);
 debug(`Primary title: ${process.title}`);
 debug(`Launching ${processCount} processes`);
@@ -52,7 +52,7 @@ if (process.env.STARTUP_TEST === 'true') {
 }
 else {
     fork('./tasks/databaseCleanup.js');
-    if (configFunctions.getProperty('features.employees.avantiSync')) {
+    if (getConfigProperty('features.employees.avantiSync')) {
         fork('./tasks/avantiEmployeeSync.js');
     }
 }

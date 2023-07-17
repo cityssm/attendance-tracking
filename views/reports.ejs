@@ -50,7 +50,7 @@
         
         <div class="columns">
           <div class="column">
-            <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
+            <% if (configFunctions.getConfigProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
               <div class="panel">
                 <h2 class="panel-heading">Absence Reports</h2>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/absenceRecords-recent" download>
@@ -60,14 +60,14 @@
                     </div>
                     <div class="column">
                       <strong>Recent Absence Records</strong><br />
-                      All absence records recorded in the past <%= configFunctions.getProperty('settings.recentDays') %> days.
+                      All absence records recorded in the past <%= configFunctions.getConfigProperty('settings.recentDays') %> days.
                     </div>
                   </div>
                 </a>
               </div>
             <% } %>
     
-            <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
+            <% if (configFunctions.getConfigProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
               <div class="panel">
                 <h2 class="panel-heading">Return to Work Reports</h2>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/returnToWorkRecords-recent" download>
@@ -77,14 +77,14 @@
                     </div>
                     <div class="column">
                       <strong>Recent Return to Work Records</strong><br />
-                      All return to work records recorded in the past <%= configFunctions.getProperty('settings.recentDays') %> days.
+                      All return to work records recorded in the past <%= configFunctions.getConfigProperty('settings.recentDays') %> days.
                     </div>
                   </div>
                 </a>
               </div>
             <% } %>
     
-            <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
+            <% if (configFunctions.getConfigProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
               <div class="panel">
                 <h2 class="panel-heading">Call Out Reports</h2>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/callOutListMembers-formatted" download>
@@ -105,14 +105,14 @@
                     </div>
                     <div class="column">
                       <strong>Recent Call Out Records</strong><br />
-                      All call out records recorded in the past <%= configFunctions.getProperty('settings.recentDays') %> days.
+                      All call out records recorded in the past <%= configFunctions.getConfigProperty('settings.recentDays') %> days.
                     </div>
                   </div>
                 </a>
               </div>
             <% } %>
 
-            <% if (configFunctions.getProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
+            <% if (configFunctions.getConfigProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
               <div class="panel">
                 <h2 class="panel-heading">After Hours Reports</h2>
                 <a class="panel-block is-block" href="<%= urlPrefix %>/reports/afterHoursRecords-recent" download>
@@ -122,7 +122,7 @@
                     </div>
                     <div class="column">
                       <strong>Recent After Hours Records</strong><br />
-                      All after hours records recorded in the past <%= configFunctions.getProperty('settings.recentDays') %> days.
+                      All after hours records recorded in the past <%= configFunctions.getConfigProperty('settings.recentDays') %> days.
                     </div>
                   </div>
                 </a>

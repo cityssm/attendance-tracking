@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 
 type RecordTable = 'AbsenceTypes' | 'AfterHoursReasons' | 'CallOutResponseTypes'
 
@@ -15,7 +15,7 @@ export async function updateRecordOrderNumber(
   recordId: number | string,
   orderNumber: number | string
 ): Promise<boolean> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   const result = await pool
     .request()

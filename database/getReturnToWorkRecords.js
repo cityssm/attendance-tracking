@@ -1,8 +1,8 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 import * as permissionFunctions from '../helpers/functions.permissions.js';
 export async function getReturnToWorkRecords(filters, sessionUser) {
-    const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
+    const pool = await sqlPool.connect(getConfigProperty('mssql'));
     let sql = `select r.recordId,
     r.employeeNumber, r.employeeName,
     r.returnDateTime, r.returnShift,
@@ -24,7 +24,7 @@ export async function getReturnToWorkRecords(filters, sessionUser) {
     }
     else if (filters.recentOnly) {
         sql += ' and datediff(day, r.returnDateTime, getdate()) <= @recentDays';
-        request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
+        request = request.input('recentDays', getConfigProperty('settings.recentDays'));
     }
     sql += ' order by r.returnDateTime desc, r.recordId desc';
     const recordsResult = await request.query(sql);
@@ -33,10 +33,10 @@ export async function getReturnToWorkRecords(filters, sessionUser) {
         for (const returnToWorkRecord of returnToWorkRecords) {
             returnToWorkRecord.canUpdate =
                 permissionFunctions.hasPermission(sessionUser, 'attendance.returnsToWork.canManage') ||
-                    (returnToWorkRecord.recordCreate_userName ===
-                        sessionUser.userName &&
-                        Date.now() - returnToWorkRecord.recordCreate_dateTime.getTime() <=
-                            configFunctions.getProperty('settings.updateDays') * 86400 * 1000);
+                    (returnToWorkRecord.recordCreate_userName === sessionUser.userName &&
+                        Date.now() -
+                            returnToWorkRecord.recordCreate_dateTime.getTime() <=
+                            getConfigProperty('settings.updateDays') * 86400 * 1000);
         }
     }
     return returnToWorkRecords;

@@ -1,17 +1,18 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import {
+  getConfigProperty,
+  historicalDays
+} from '../helpers/functions.config.js'
 
 export async function moveRecordsToHistorical(): Promise<number> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   let rowsAffected = 0
 
   // Absence Records
 
-  let result = await pool
-    .request()
-    .input('historicalDays', configFunctions.historicalDays)
+  let result = await pool.request().input('historicalDays', historicalDays)
     .query(`insert into MonTY.HistoricalAbsenceRecords
       (recordId, employeeNumber, employeeName, absenceDateTime, absenceTypeKey, returnDateTime, recordComment,
         recordCreate_userName, recordCreate_dateTime,
@@ -37,9 +38,7 @@ export async function moveRecordsToHistorical(): Promise<number> {
 
   // Return to Work Records
 
-  result = await pool
-    .request()
-    .input('historicalDays', configFunctions.historicalDays)
+  result = await pool.request().input('historicalDays', historicalDays)
     .query(`insert into MonTY.HistoricalReturnToWorkRecords
       (recordId, employeeNumber, employeeName, returnDateTime, returnShift, recordComment,
         recordCreate_userName, recordCreate_dateTime,
@@ -64,9 +63,7 @@ export async function moveRecordsToHistorical(): Promise<number> {
 
   // Call Out Records
 
-  result = await pool
-    .request()
-    .input('historicalDays', configFunctions.historicalDays)
+  result = await pool.request().input('historicalDays', historicalDays)
     .query(`insert into MonTY.HistoricalCallOutRecords
       (recordId, listId, employeeNumber, callOutDateTime, callOutHours, responseTypeId, recordComment,
         recordCreate_userName, recordCreate_dateTime,
@@ -91,9 +88,7 @@ export async function moveRecordsToHistorical(): Promise<number> {
 
   // After Hours Records
 
-  result = await pool
-    .request()
-    .input('historicalDays', configFunctions.historicalDays)
+  result = await pool.request().input('historicalDays', historicalDays)
     .query(`insert into MonTY.HistoricalAfterHoursRecords
       (recordId, employeeNumber, employeeName, attendanceDateTime, afterHoursReasonId, recordComment,
         recordCreate_userName, recordCreate_dateTime,

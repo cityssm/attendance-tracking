@@ -1,8 +1,8 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import { clearCacheByTableName } from '../helpers/functions.cache.js';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 export async function setEmployeeProperty(employeeProperty, isSyncUpdate, sessionUser) {
-    const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
+    const pool = await sqlPool.connect(getConfigProperty('mssql'));
     let result = await pool
         .request()
         .input('propertyValue', employeeProperty.propertyValue)

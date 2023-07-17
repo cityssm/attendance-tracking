@@ -2,10 +2,10 @@ import { isAbuser, recordAbuse } from '@cityssm/express-abuse-points';
 import { Router } from 'express';
 import { getUser } from '../database/getUser.js';
 import * as authenticationFunctions from '../helpers/functions.authentication.js';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 export const router = Router();
 function getHandler(request, response) {
-    const sessionCookieName = configFunctions.getProperty('session.cookieName');
+    const sessionCookieName = getConfigProperty('session.cookieName');
     if (request.session.user !== undefined &&
         request.cookies[sessionCookieName] !== undefined) {
         const redirectURL = authenticationFunctions.getSafeRedirectURL((request.query.redirect ?? ''));
@@ -30,9 +30,7 @@ async function postHandler(request, response) {
     let userObject;
     if (userName.startsWith('~~')) {
         isTemporaryUser = true;
-        const potentialUser = configFunctions
-            .getProperty('tempUsers')
-            .find((possibleUser) => {
+        const potentialUser = getConfigProperty('tempUsers').find((possibleUser) => {
             return possibleUser.user.userName === userName;
         });
         if ((potentialUser?.user.canLogin ?? false) &&

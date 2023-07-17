@@ -3,7 +3,7 @@ import type { Request, Response } from 'express'
 import { addCallOutListMember } from '../../database/addCallOutListMember.js'
 import { getCallOutList } from '../../database/getCallOutList.js'
 import { getEmployee } from '../../database/getEmployee.js'
-import * as configFunctions from '../../helpers/functions.config.js'
+import { getConfigProperty } from '../../helpers/functions.config.js'
 import { validateEmployeeFields } from '../../helpers/functions.selfService.js'
 import type { Employee } from '../../types/recordTypes.js'
 
@@ -73,11 +73,11 @@ export async function handler(
   if ((callOutList.eligibilityFunction ?? '') === '') {
     isEligible = true
   } else {
-    const eligibilityFunction = configFunctions
-      .getProperty('settings.employeeEligibilityFunctions')
-      .find((possibleFunction) => {
-        return callOutList.eligibilityFunction === possibleFunction.functionName
-      })
+    const eligibilityFunction = getConfigProperty(
+      'settings.employeeEligibilityFunctions'
+    ).find((possibleFunction) => {
+      return callOutList.eligibilityFunction === possibleFunction.functionName
+    })
 
     // Can't find the eligibility function, skip the list
     if (eligibilityFunction !== undefined) {

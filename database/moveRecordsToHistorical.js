@@ -1,11 +1,9 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty, historicalDays } from '../helpers/functions.config.js';
 export async function moveRecordsToHistorical() {
-    const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
+    const pool = await sqlPool.connect(getConfigProperty('mssql'));
     let rowsAffected = 0;
-    let result = await pool
-        .request()
-        .input('historicalDays', configFunctions.historicalDays)
+    let result = await pool.request().input('historicalDays', historicalDays)
         .query(`insert into MonTY.HistoricalAbsenceRecords
       (recordId, employeeNumber, employeeName, absenceDateTime, absenceTypeKey, returnDateTime, recordComment,
         recordCreate_userName, recordCreate_dateTime,
@@ -24,9 +22,7 @@ export async function moveRecordsToHistorical() {
         await pool.request().query(`delete from MonTY.AbsenceRecords
         where recordId in (select recordId from MonTY.HistoricalAbsenceRecords)`);
     }
-    result = await pool
-        .request()
-        .input('historicalDays', configFunctions.historicalDays)
+    result = await pool.request().input('historicalDays', historicalDays)
         .query(`insert into MonTY.HistoricalReturnToWorkRecords
       (recordId, employeeNumber, employeeName, returnDateTime, returnShift, recordComment,
         recordCreate_userName, recordCreate_dateTime,
@@ -44,9 +40,7 @@ export async function moveRecordsToHistorical() {
         await pool.request().query(`delete from MonTY.ReturnToWorkRecords
         where recordId in (select recordId from MonTY.HistoricalReturnToWorkRecords)`);
     }
-    result = await pool
-        .request()
-        .input('historicalDays', configFunctions.historicalDays)
+    result = await pool.request().input('historicalDays', historicalDays)
         .query(`insert into MonTY.HistoricalCallOutRecords
       (recordId, listId, employeeNumber, callOutDateTime, callOutHours, responseTypeId, recordComment,
         recordCreate_userName, recordCreate_dateTime,
@@ -64,9 +58,7 @@ export async function moveRecordsToHistorical() {
         await pool.request().query(`delete from MonTY.CallOutRecords
         where recordId in (select recordId from MonTY.HistoricalCallOutRecords)`);
     }
-    result = await pool
-        .request()
-        .input('historicalDays', configFunctions.historicalDays)
+    result = await pool.request().input('historicalDays', historicalDays)
         .query(`insert into MonTY.HistoricalAfterHoursRecords
       (recordId, employeeNumber, employeeName, attendanceDateTime, afterHoursReasonId, recordComment,
         recordCreate_userName, recordCreate_dateTime,

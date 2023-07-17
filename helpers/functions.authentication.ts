@@ -1,11 +1,11 @@
 import * as adWebAuth from '@cityssm/ad-web-auth-connector'
 import ActiveDirectory from 'activedirectory2'
 
-import * as configFunctions from './functions.config.js'
+import { getConfigProperty } from './functions.config.js'
 
-const userDomain = configFunctions.getProperty('application.userDomain')
+const userDomain = getConfigProperty('application.userDomain')
 
-const activeDirectoryConfig = configFunctions.getProperty('activeDirectory')
+const activeDirectoryConfig = getConfigProperty('activeDirectory')
 
 async function authenticateViaActiveDirectory(
   userName: string,
@@ -34,7 +34,7 @@ async function authenticateViaActiveDirectory(
   })
 }
 
-const adWebAuthConfig = configFunctions.getProperty('adWebAuthConfig')
+const adWebAuthConfig = getConfigProperty('adWebAuthConfig')
 
 async function authenticateViaADWebAuth(
   userName: string,
@@ -72,7 +72,7 @@ const safeRedirects = new Set([
 ])
 
 export function getSafeRedirectURL(possibleRedirectURL = ''): string {
-  const urlPrefix = configFunctions.getProperty('reverseProxy.urlPrefix')
+  const urlPrefix = getConfigProperty('reverseProxy.urlPrefix')
 
   if (typeof possibleRedirectURL === 'string') {
     const urlToCheck = possibleRedirectURL.startsWith(urlPrefix)

@@ -1,8 +1,8 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 import * as permissionFunctions from '../helpers/functions.permissions.js';
 export async function getAfterHoursRecords(filters, sessionUser) {
-    const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
+    const pool = await sqlPool.connect(getConfigProperty('mssql'));
     let sql = `select r.recordId,
     r.employeeNumber, r.employeeName,
     r.attendanceDateTime,
@@ -27,7 +27,7 @@ export async function getAfterHoursRecords(filters, sessionUser) {
     }
     else if (filters.recentOnly) {
         sql += ' and datediff(day, r.attendanceDateTime, getdate()) <= @recentDays';
-        request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
+        request = request.input('recentDays', getConfigProperty('settings.recentDays'));
     }
     sql += ' order by r.attendanceDateTime desc, r.recordId desc';
     const recordsResult = await request.query(sql);
@@ -39,7 +39,7 @@ export async function getAfterHoursRecords(filters, sessionUser) {
                     (afterHoursRecord.recordCreate_userName === sessionUser.userName &&
                         Date.now() -
                             afterHoursRecord.recordCreate_dateTime.getTime() <=
-                            configFunctions.getProperty('settings.updateDays') * 86400 * 1000);
+                            getConfigProperty('settings.updateDays') * 86400 * 1000);
         }
     }
     return afterHoursRecords;

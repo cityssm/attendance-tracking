@@ -1,14 +1,14 @@
 <%- include('_header'); -%>
 
 <h1 class="title is-1">
-  <%= configFunctions.getProperty("application.applicationName") %>
+  <%= configFunctions.getConfigProperty("application.applicationName") %>
 </h1>
 
 <%
-  const includeAbsences = configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')
-  const includeReturnsToWork = configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')
-  const includeCallOuts = configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')
-  const includeAfterHours = configFunctions.getProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')
+  const includeAbsences = configFunctions.getConfigProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')
+  const includeReturnsToWork = configFunctions.getConfigProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')
+  const includeCallOuts = configFunctions.getConfigProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')
+  const includeAfterHours = configFunctions.getConfigProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')
 %>
 <% if (configFunctions.includeAttendance() && permissionFunctions.hasAttendance(user)) { %>
   <div class="card mb-4">
@@ -169,7 +169,7 @@
           </p>
         </a>
       </div>
-      <% if (configFunctions.getProperty('features.selfService')) { %>
+      <% if (configFunctions.getConfigProperty('features.selfService')) { %>
         <div class="media mt-4">
           <div class="media-left">
             <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
@@ -183,7 +183,7 @@
             data-last-four-digits="<%= lastFourDigits %>"
             data-last-four-digits-bad="<%= lastFourDigitsBad %>"
             <% } %>
-            href="<%= urlPrefix + configFunctions.getProperty('settings.selfService.path') %>"
+            href="<%= urlPrefix + configFunctions.getConfigProperty('settings.selfService.path') %>"
             target="_blank"
             rel="noopener noreferrer">
             <h2 class="title is-4 is-marginless has-text-link">

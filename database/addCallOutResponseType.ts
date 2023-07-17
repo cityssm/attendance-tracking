@@ -2,7 +2,7 @@ import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 
 interface AddCallOutResponseTypeForm {
   responseType: string
@@ -13,7 +13,7 @@ export async function addCallOutResponseType(
   form: AddCallOutResponseTypeForm,
   sessionUser: MonTYUser
 ): Promise<string> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   const result: IResult<{ responseTypeId: string }> = await pool
     .request()

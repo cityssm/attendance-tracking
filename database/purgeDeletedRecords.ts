@@ -1,6 +1,6 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty, deleteDays } from '../helpers/functions.config.js'
 
 const historicalRecordTables = [
   'HistoricalAbsenceRecords',
@@ -77,14 +77,12 @@ const foreignKeySQLStatements = [
 ]
 
 export async function purgeDeletedRecords(): Promise<number> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   let rowsAffected = 0
 
   for (const historicalRecordTable of historicalRecordTables) {
-    const result = await pool
-      .request()
-      .input('deleteDays', configFunctions.deleteDays)
+    const result = await pool.request().input('deleteDays', deleteDays)
       .query(`delete from MonTY.${historicalRecordTable}
         where ${deletedWhereClause}`)
 
@@ -94,7 +92,7 @@ export async function purgeDeletedRecords(): Promise<number> {
   for (const sql of foreignKeySQLStatements) {
     const result = await pool
       .request()
-      .input('deleteDays', configFunctions.deleteDays)
+      .input('deleteDays', deleteDays)
       .query(sql)
 
     rowsAffected += result.rowsAffected[0]

@@ -1,7 +1,7 @@
 import { addCallOutListMember } from '../../database/addCallOutListMember.js';
 import { getCallOutList } from '../../database/getCallOutList.js';
 import { getEmployee } from '../../database/getEmployee.js';
-import * as configFunctions from '../../helpers/functions.config.js';
+import { getConfigProperty } from '../../helpers/functions.config.js';
 import { validateEmployeeFields } from '../../helpers/functions.selfService.js';
 export async function handler(request, response) {
     const validatedEmployee = await validateEmployeeFields(request);
@@ -40,9 +40,7 @@ export async function handler(request, response) {
         isEligible = true;
     }
     else {
-        const eligibilityFunction = configFunctions
-            .getProperty('settings.employeeEligibilityFunctions')
-            .find((possibleFunction) => {
+        const eligibilityFunction = getConfigProperty('settings.employeeEligibilityFunctions').find((possibleFunction) => {
             return callOutList.eligibilityFunction === possibleFunction.functionName;
         });
         if (eligibilityFunction !== undefined) {

@@ -1,5 +1,5 @@
 import { getValidatedEmployee } from '../database/getValidatedEmployee.js';
-import * as configFunctions from './functions.config.js';
+import { getConfigProperty } from './functions.config.js';
 export async function validateEmployeeFields(request) {
     const employeeNumber = request.body.employeeNumber;
     const employeeHomeContactLastFourDigits = request.body.employeeHomeContactLastFourDigits;
@@ -15,7 +15,7 @@ export async function validateEmployeeFields(request) {
             errorMessage: 'Invalid home contact number.'
         };
     }
-    const employeeNumberRegularExpression = configFunctions.getProperty('settings.employeeNumberRegularExpression');
+    const employeeNumberRegularExpression = getConfigProperty('settings.employeeNumberRegularExpression');
     if (employeeNumberRegularExpression !== undefined &&
         !employeeNumberRegularExpression.test(employeeNumber)) {
         return {

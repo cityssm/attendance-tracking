@@ -4,7 +4,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import type { CallOutResponseType } from '../types/recordTypes.js'
 
 import { updateRecordOrderNumber } from './updateRecordOrderNumber.js'
@@ -12,7 +12,7 @@ import { updateRecordOrderNumber } from './updateRecordOrderNumber.js'
 export async function getCallOutResponseTypes(): Promise<
   CallOutResponseType[]
 > {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   const responseTypeResult: IResult<CallOutResponseType> = await pool.request()
     .query(`select

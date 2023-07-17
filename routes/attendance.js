@@ -18,7 +18,7 @@ import handler_doRecordCallIn from '../handlers/attendance-post/doRecordCallIn.j
 import handler_doRemoveFavouriteCallOutList from '../handlers/attendance-post/doRemoveFavouriteCallOutList.js';
 import handler_doUpdateCallOutList from '../handlers/attendance-post/doUpdateCallOutList.js';
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 import * as permissionFunctions from '../helpers/functions.permissions.js';
 function callOutsViewPostHandler(request, response, next) {
     if (permissionFunctions.hasPermission(request.session.user, 'attendance.callOuts.canView')) {
@@ -50,13 +50,13 @@ function afterHoursUpdatePostHandler(request, response, next) {
 }
 export const router = Router();
 router.get('/', handler_attendance);
-if (configFunctions.getProperty('features.attendance.absences') ||
-    configFunctions.getProperty('features.attendance.returnsToWork')) {
+if (getConfigProperty('features.attendance.absences') ||
+    getConfigProperty('features.attendance.returnsToWork')) {
     router.post('/doRecordCallIn', handler_doRecordCallIn);
     router.post('/doDeleteAbsenceRecord', handler_doDeleteAbsenceRecord);
     router.post('/doDeleteReturnToWorkRecord', handler_doDeleteReturnToWorkRecord);
 }
-if (configFunctions.getProperty('features.attendance.callOuts')) {
+if (getConfigProperty('features.attendance.callOuts')) {
     router.post('/doAddFavouriteCallOutList', handler_doAddFavouriteCallOutList);
     router.post('/doRemoveFavouriteCallOutList', handler_doRemoveFavouriteCallOutList);
     router.post('/doCreateCallOutList', callOutsManagePostHandler, handler_doCreateCallOutList);
@@ -69,7 +69,7 @@ if (configFunctions.getProperty('features.attendance.callOuts')) {
     router.post('/doAddCallOutRecord', callOutsUpdatePostHandler, handler_doAddCallOutRecord);
     router.post('/doDeleteCallOutRecord', callOutsUpdatePostHandler, handler_doDeleteCallOutRecord);
 }
-if (configFunctions.getProperty('features.attendance.afterHours')) {
+if (getConfigProperty('features.attendance.afterHours')) {
     router.post('/doAddAfterHoursRecord', afterHoursUpdatePostHandler, handler_doAddAfterHoursRecord);
     router.post('/doDeleteAfterHoursRecord', afterHoursUpdatePostHandler, handler_doDeleteAfterHoursRecord);
 }

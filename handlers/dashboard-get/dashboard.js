@@ -3,16 +3,16 @@ import { getCallOutLists } from '../../database/getCallOutLists.js';
 import { getEmployees } from '../../database/getEmployees.js';
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js';
 import { getCallOutResponseTypes } from '../../helpers/functions.cache.js';
-import * as configFunctions from '../../helpers/functions.config.js';
+import { getConfigProperty } from '../../helpers/functions.config.js';
 import * as permissionFunctions from '../../helpers/functions.permissions.js';
 function isTemporaryAdmin(user) {
-    return (configFunctions.getProperty('application.allowTesting') &&
+    return (getConfigProperty('application.allowTesting') &&
         (user.userName.startsWith('~~') ?? false) &&
         (user.isAdmin ?? false));
 }
 async function getAbsenceVariables(user) {
     let absenceRecords = [];
-    if (configFunctions.getProperty('features.attendance.absences') &&
+    if (getConfigProperty('features.attendance.absences') &&
         permissionFunctions.hasPermission(user, 'attendance.absences.canView')) {
         absenceRecords = await getAbsenceRecords({
             recentOnly: true,
@@ -25,7 +25,7 @@ async function getAbsenceVariables(user) {
 }
 async function getReturnToWorkVariables(user) {
     let returnToWorkRecords = [];
-    if (configFunctions.getProperty('features.attendance.returnsToWork') &&
+    if (getConfigProperty('features.attendance.returnsToWork') &&
         permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) {
         returnToWorkRecords = await getReturnToWorkRecords({
             recentOnly: true,
@@ -39,7 +39,7 @@ async function getReturnToWorkVariables(user) {
 async function getCallOutVariables(user) {
     let callOutLists = [];
     let callOutResponseTypes = [];
-    if (configFunctions.getProperty('features.attendance.callOuts') &&
+    if (getConfigProperty('features.attendance.callOuts') &&
         permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) {
         callOutLists = await getCallOutLists({ favouriteOnly: true }, user);
         if (permissionFunctions.hasPermission(user, 'attendance.callOuts.canUpdate')) {
@@ -59,7 +59,7 @@ async function getTestingSelfServiceDetails(user) {
         const employees = await getEmployees({
             isActive: true
         }, { includeProperties: false });
-        const employeeNumberRegex = configFunctions.getProperty('settings.employeeNumberRegularExpression');
+        const employeeNumberRegex = getConfigProperty('settings.employeeNumberRegularExpression');
         for (const employee of employees) {
             employeeNumber = employee.employeeNumber;
             if (employeeNumberRegex !== undefined &&

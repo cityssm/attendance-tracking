@@ -1,14 +1,14 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import type { AbsenceType } from '../types/recordTypes.js'
 
 export async function updateAbsenceType(
   absenceType: AbsenceType,
   sessionUser: MonTYUser
 ): Promise<boolean> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   const result = await pool
     .request()

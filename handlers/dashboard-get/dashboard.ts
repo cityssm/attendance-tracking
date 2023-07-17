@@ -5,7 +5,7 @@ import { getCallOutLists } from '../../database/getCallOutLists.js'
 import { getEmployees } from '../../database/getEmployees.js'
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 import { getCallOutResponseTypes } from '../../helpers/functions.cache.js'
-import * as configFunctions from '../../helpers/functions.config.js'
+import { getConfigProperty } from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
 import type {
   AbsenceRecord,
@@ -16,7 +16,7 @@ import type {
 
 function isTemporaryAdmin(user: MonTYUser): boolean {
   return (
-    configFunctions.getProperty('application.allowTesting') &&
+    getConfigProperty('application.allowTesting') &&
     (user.userName.startsWith('~~') ?? false) &&
     (user.isAdmin ?? false)
   )
@@ -28,7 +28,7 @@ async function getAbsenceVariables(user: MonTYUser): Promise<{
   let absenceRecords: AbsenceRecord[] = []
 
   if (
-    configFunctions.getProperty('features.attendance.absences') &&
+    getConfigProperty('features.attendance.absences') &&
     permissionFunctions.hasPermission(user, 'attendance.absences.canView')
   ) {
     absenceRecords = await getAbsenceRecords(
@@ -51,7 +51,7 @@ async function getReturnToWorkVariables(user: MonTYUser): Promise<{
   let returnToWorkRecords: ReturnToWorkRecord[] = []
 
   if (
-    configFunctions.getProperty('features.attendance.returnsToWork') &&
+    getConfigProperty('features.attendance.returnsToWork') &&
     permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')
   ) {
     returnToWorkRecords = await getReturnToWorkRecords(
@@ -76,7 +76,7 @@ async function getCallOutVariables(user: MonTYUser): Promise<{
   let callOutResponseTypes: CallOutResponseType[] = []
 
   if (
-    configFunctions.getProperty('features.attendance.callOuts') &&
+    getConfigProperty('features.attendance.callOuts') &&
     permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')
   ) {
     callOutLists = await getCallOutLists({ favouriteOnly: true }, user)
@@ -111,7 +111,7 @@ async function getTestingSelfServiceDetails(user: MonTYUser): Promise<{
       { includeProperties: false }
     )
 
-    const employeeNumberRegex = configFunctions.getProperty(
+    const employeeNumberRegex = getConfigProperty(
       'settings.employeeNumberRegularExpression'
     )
 

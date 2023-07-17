@@ -1,10 +1,11 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/indent */
 
 import type { Request } from 'express'
 
 import { getValidatedEmployee } from '../database/getValidatedEmployee.js'
 
-import * as configFunctions from './functions.config.js'
+import { getConfigProperty } from './functions.config.js'
 
 type EmployeeValidation =
   | {
@@ -58,7 +59,7 @@ export async function validateEmployeeFields(
    * Ensure the employee number matches the regular expression (if available).
    */
 
-  const employeeNumberRegularExpression = configFunctions.getProperty(
+  const employeeNumberRegularExpression = getConfigProperty(
     'settings.employeeNumberRegularExpression'
   )
 

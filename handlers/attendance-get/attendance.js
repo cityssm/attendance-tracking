@@ -4,7 +4,7 @@ import { getCallOutLists } from '../../database/getCallOutLists.js';
 import { getEmployees } from '../../database/getEmployees.js';
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js';
 import { getAbsenceTypes, getAfterHoursReasons, getCallOutResponseTypes, getEmployeePropertyNames } from '../../helpers/functions.cache.js';
-import * as configFunctions from '../../helpers/functions.config.js';
+import { getConfigProperty } from '../../helpers/functions.config.js';
 import * as permissionFunctions from '../../helpers/functions.permissions.js';
 async function populateAbsenceVariables(sessionUser) {
     let absenceRecords = [];
@@ -50,11 +50,11 @@ async function populateCallOutVariables(sessionUser) {
         callOutResponseTypes = await getCallOutResponseTypes();
     }
     if (permissionFunctions.hasPermission(sessionUser, 'attendance.callOuts.canManage')) {
-        const employeeEligibilityFunctions = configFunctions.getProperty('settings.employeeEligibilityFunctions');
+        const employeeEligibilityFunctions = getConfigProperty('settings.employeeEligibilityFunctions');
         for (const eligibilityFunction of employeeEligibilityFunctions) {
             employeeEligibilityFunctionNames.push(eligibilityFunction.functionName);
         }
-        const employeeSortKeyFunctions = configFunctions.getProperty('settings.employeeSortKeyFunctions');
+        const employeeSortKeyFunctions = getConfigProperty('settings.employeeSortKeyFunctions');
         for (const sortKeyFunction of employeeSortKeyFunctions) {
             employeeSortKeyFunctionNames.push(sortKeyFunction.functionName);
         }
@@ -88,13 +88,13 @@ async function populateAfterHoursVariables(sessionUser) {
 export async function handler(request, response) {
     let absenceRecords = [];
     let absenceTypes = [];
-    if (configFunctions.getProperty('features.attendance.absences')) {
+    if (getConfigProperty('features.attendance.absences')) {
         const absenceVariables = await populateAbsenceVariables(request.session.user);
         absenceRecords = absenceVariables.absenceRecords;
         absenceTypes = absenceVariables.absenceTypes;
     }
     let returnToWorkRecords = [];
-    if (configFunctions.getProperty('features.attendance.returnsToWork')) {
+    if (getConfigProperty('features.attendance.returnsToWork')) {
         const returnToWorkVariables = await populateReturnToWorkVariables(request.session.user);
         returnToWorkRecords = returnToWorkVariables.returnToWorkRecords;
     }
@@ -103,7 +103,7 @@ export async function handler(request, response) {
     let employeeEligibilityFunctionNames = [];
     let employeeSortKeyFunctionNames = [];
     let employeePropertyNames = [];
-    if (configFunctions.getProperty('features.attendance.callOuts')) {
+    if (getConfigProperty('features.attendance.callOuts')) {
         const callOutVariables = await populateCallOutVariables(request.session.user);
         callOutLists = callOutVariables.callOutLists;
         callOutResponseTypes = callOutVariables.callOutResponseTypes;
@@ -114,7 +114,7 @@ export async function handler(request, response) {
     }
     let afterHoursRecords = [];
     let afterHoursReasons = [];
-    if (configFunctions.getProperty('features.attendance.afterHours')) {
+    if (getConfigProperty('features.attendance.afterHours')) {
         const afterHoursVariables = await populateAfterHoursVariables(request.session.user);
         afterHoursRecords = afterHoursVariables.afterHoursRecords;
         afterHoursReasons = afterHoursVariables.afterHoursReasons;

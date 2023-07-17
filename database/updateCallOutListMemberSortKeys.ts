@@ -2,7 +2,7 @@ import '../helpers/polyfills.js'
 
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 
 import { getCallOutListMembers } from './getCallOutListMembers.js'
 import { getEmployeeProperties } from './getEmployeeProperties.js'
@@ -20,20 +20,18 @@ export async function updateCallOutListMemberSortKeys(
     includeSortKeyFunction: true
   })
 
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   let updateCount = 0
 
   for (const member of callOutListMembers) {
     const sortKeyFunctionName = (member.sortKeyFunction ?? '').toLowerCase()
 
-    const sortKeyFunction = configFunctions
-      .getProperty('settings.employeeSortKeyFunctions')
-      .find((possibleFunction) => {
-        return (
-          possibleFunction.functionName.toLowerCase() === sortKeyFunctionName
-        )
-      })
+    const sortKeyFunction = getConfigProperty(
+      'settings.employeeSortKeyFunctions'
+    ).find((possibleFunction) => {
+      return possibleFunction.functionName.toLowerCase() === sortKeyFunctionName
+    })
 
     let sortKey = ''
 

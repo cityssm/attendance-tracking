@@ -4,13 +4,13 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import type { availablePermissionValues } from '../helpers/functions.permissions.js'
 
 export async function getUserPermissions(
   userName: string
 ): Promise<Partial<Record<keyof typeof availablePermissionValues, string>>> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   const permissionsResult: IResult<{
     permissionKey: string

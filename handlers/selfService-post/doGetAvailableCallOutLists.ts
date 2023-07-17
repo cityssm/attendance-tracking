@@ -2,9 +2,9 @@ import type { Request, Response } from 'express'
 
 import { getEmployee } from '../../database/getEmployee.js'
 import { getSelfSignUpCallOutLists } from '../../database/getSelfSignUpCallOutLists.js'
-import * as configFunctions from '../../helpers/functions.config.js'
+import { getConfigProperty } from '../../helpers/functions.config.js'
 import { validateEmployeeFields } from '../../helpers/functions.selfService.js'
-import type { CallOutList } from '../../types/recordTypes.js'
+import type { CallOutList, Employee } from '../../types/recordTypes.js'
 
 export async function handler(
   request: Request,
@@ -25,13 +25,15 @@ export async function handler(
     return
   }
 
-  const employee = (await getEmployee(validatedEmployee.employeeNumber))!
+  const employee = (await getEmployee(
+    validatedEmployee.employeeNumber
+  )) as Employee
 
   /*
    * Get Call Out Lists
    */
 
-  const eligibilityFunctions = configFunctions.getProperty(
+  const eligibilityFunctions = getConfigProperty(
     'settings.employeeEligibilityFunctions'
   )
 

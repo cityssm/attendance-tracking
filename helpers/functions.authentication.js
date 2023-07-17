@@ -1,8 +1,8 @@
 import * as adWebAuth from '@cityssm/ad-web-auth-connector';
 import ActiveDirectory from 'activedirectory2';
-import * as configFunctions from './functions.config.js';
-const userDomain = configFunctions.getProperty('application.userDomain');
-const activeDirectoryConfig = configFunctions.getProperty('activeDirectory');
+import { getConfigProperty } from './functions.config.js';
+const userDomain = getConfigProperty('application.userDomain');
+const activeDirectoryConfig = getConfigProperty('activeDirectory');
 async function authenticateViaActiveDirectory(userName, password) {
     if (activeDirectoryConfig === undefined) {
         return false;
@@ -23,7 +23,7 @@ async function authenticateViaActiveDirectory(userName, password) {
         }
     });
 }
-const adWebAuthConfig = configFunctions.getProperty('adWebAuthConfig');
+const adWebAuthConfig = getConfigProperty('adWebAuthConfig');
 async function authenticateViaADWebAuth(userName, password) {
     return await adWebAuth.authenticate(userDomain + '\\' + userName, password, adWebAuthConfig);
 }
@@ -44,7 +44,7 @@ const safeRedirects = new Set([
     '/reports'
 ]);
 export function getSafeRedirectURL(possibleRedirectURL = '') {
-    const urlPrefix = configFunctions.getProperty('reverseProxy.urlPrefix');
+    const urlPrefix = getConfigProperty('reverseProxy.urlPrefix');
     if (typeof possibleRedirectURL === 'string') {
         const urlToCheck = possibleRedirectURL.startsWith(urlPrefix)
             ? possibleRedirectURL.slice(urlPrefix.length)

@@ -30,7 +30,7 @@ configFallbackValues.set('settings.printPdf.contentDisposition', 'attachment');
 configFallbackValues.set('settings.recentDays', 10);
 configFallbackValues.set('settings.updateDays', 5);
 configFallbackValues.set('settings.selfService.path', '/selfService');
-export function getProperty(propertyName) {
+export function getConfigProperty(propertyName) {
     const propertyNameSplit = propertyName.split('.');
     let currentObject = config;
     for (const propertyNamePiece of propertyNameSplit) {
@@ -43,12 +43,19 @@ export function getProperty(propertyName) {
     return currentObject;
 }
 export function includeAttendance() {
-    return (getProperty('features.attendance.absences') ||
-        getProperty('features.attendance.callOuts') ||
-        getProperty('features.attendance.returnsToWork'));
+    return (getConfigProperty('features.attendance.absences') ||
+        getConfigProperty('features.attendance.callOuts') ||
+        getConfigProperty('features.attendance.returnsToWork'));
 }
-export const historicalDays = getProperty('settings.recentDays') * 3;
+export const historicalDays = getConfigProperty('settings.recentDays') * 3;
 export const deleteDays = historicalDays * 3;
-export const keepAliveMillis = getProperty('session.doKeepAlive')
-    ? Math.max(getProperty(property_session_maxAgeMillis) / 2, getProperty(property_session_maxAgeMillis) - 10 * 60 * 1000)
+export const keepAliveMillis = getConfigProperty('session.doKeepAlive')
+    ? Math.max(getConfigProperty(property_session_maxAgeMillis) / 2, getConfigProperty(property_session_maxAgeMillis) - 10 * 60 * 1000)
     : 0;
+export default {
+    getConfigProperty,
+    includeAttendance,
+    historicalDays,
+    deleteDays,
+    keepAliveMillis
+};

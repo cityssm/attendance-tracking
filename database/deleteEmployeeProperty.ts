@@ -1,14 +1,14 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 
 export async function deleteEmployeeProperty(
   employeeNumber: string,
   propertyName: string,
   sessionUser: MonTYUser
 ): Promise<boolean> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   const result = await pool
     .request()
@@ -17,10 +17,10 @@ export async function deleteEmployeeProperty(
     .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date()).query(`update MonTY.EmployeeProperties
       set recordDelete_userName = @record_userName,
-      recordDelete_dateTime = @record_dateTime
+        recordDelete_dateTime = @record_dateTime
       where employeeNumber = @employeeNumber
-      and propertyName = @propertyName
-      and recordDelete_dateTime is null`)
+        and propertyName = @propertyName
+        and recordDelete_dateTime is null`)
 
   clearCacheByTableName('EmployeeProperties')
 

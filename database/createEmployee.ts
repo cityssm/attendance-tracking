@@ -1,14 +1,14 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import type { Employee } from '../types/recordTypes.js'
 
 export async function createEmployee(
   employee: Employee,
   sessionUser: MonTYUser
 ): Promise<boolean> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   const employeeResult: IResult<{ recordDelete_dateTime: Date }> = await pool
     .request()

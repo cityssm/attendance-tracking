@@ -3,12 +3,12 @@
 <div class="columns">
   <div class="column is-3">
     <aside class="menu" id="menu--attendance" style="position:sticky;top:60px">
-      <% if ((configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) || (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView'))) { %>
+      <% if ((configFunctions.getConfigProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) || (configFunctions.getConfigProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView'))) { %>
         <h2 class="menu-label">
           Incoming Calls
         </h2>
         <ul class="menu-list">
-          <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
+          <% if (configFunctions.getConfigProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
             <li>
               <a class="is-active is-block" href="#tab--absences">
                 <div class="columns is-gapless is-mobile">
@@ -27,7 +27,7 @@
               </a>
             </li>
           <% } %>
-          <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
+          <% if (configFunctions.getConfigProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
             <li>
               <a class="is-block" href="#tab--returnsToWork">
                 <div class="columns is-gapless is-mobile">
@@ -48,7 +48,7 @@
           <% } %>
         </ul>
       <% } %>
-      <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
+      <% if (configFunctions.getConfigProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
         <h2 class="menu-label">
           Outgoing Calls
         </h2>
@@ -63,7 +63,7 @@
           </li>
         </ul>
       <% } %>
-      <% if (configFunctions.getProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
+      <% if (configFunctions.getConfigProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
         <h2 class="menu-label">
           After Hours
         </h2>
@@ -112,22 +112,22 @@
   </div>
   <div class="column">
     <div class="tabs-container" id="tabs-container--attendance">
-      <% if (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
+      <% if (configFunctions.getConfigProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
         <article id="tab--absences">
           <%- include('_attendance.absences.ejs'); -%>
         </article>
       <% } %>
-      <% if (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
+      <% if (configFunctions.getConfigProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
         <article class="is-hidden" id="tab--returnsToWork">
           <%- include('_attendance.returnsToWork.ejs'); -%>
         </article>
       <% } %>
-      <% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
+      <% if (configFunctions.getConfigProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
         <article class="is-hidden" id="tab--callOuts">
           <%- include('_attendance.callOuts.ejs'); -%>
         </article>
       <% } %>
-      <% if (configFunctions.getProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
+      <% if (configFunctions.getConfigProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
         <article class="is-hidden" id="tab--afterHours">
           <%- include('_attendance.afterHours.ejs'); -%>
         </article>
@@ -152,18 +152,18 @@
 <script>
   exports.employees = <%- JSON.stringify(employees) %>;
   
-  <% if (configFunctions.getProperty('settings.employeeNumberRegularExpression')) { %>
-    exports.employeeNumberRegularExpression = <%- configFunctions.getProperty('settings.employeeNumberRegularExpression').toString() %>;
+  <% if (configFunctions.getConfigProperty('settings.employeeNumberRegularExpression')) { %>
+    exports.employeeNumberRegularExpression = <%- configFunctions.getConfigProperty('settings.employeeNumberRegularExpression').toString() %>;
   <% } %>
 
-  exports.recentDays = <%- configFunctions.getProperty('settings.recentDays') %>;
-  exports.updateDays = <%- configFunctions.getProperty('settings.updateDays') %>;
+  exports.recentDays = <%- configFunctions.getConfigProperty('settings.recentDays') %>;
+  exports.updateDays = <%- configFunctions.getConfigProperty('settings.updateDays') %>;
 </script>
 
 <% 
   if (
-    (configFunctions.getProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView'))
-    || (configFunctions.getProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView'))) { %>
+    (configFunctions.getConfigProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView'))
+    || (configFunctions.getConfigProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView'))) { %>
   <script>
     exports.absenceRecords = <%- JSON.stringify(absenceRecords) %>;
     exports.absenceTypes = <%- JSON.stringify(absenceTypes) %>;
@@ -178,7 +178,7 @@
   <script src="<%= urlPrefix %>/javascripts/attendance.callIns.min.js"></script>
 <% } %>
 
-<% if (configFunctions.getProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
+<% if (configFunctions.getConfigProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
   <script>
     exports.callOutLists = <%- JSON.stringify(callOutLists) %>;
     exports.callOutResponseTypes = <%- JSON.stringify(callOutResponseTypes) %>;
@@ -189,7 +189,7 @@
   <script src="<%= urlPrefix %>/javascripts/attendance.callOuts.min.js"></script>
 <% } %>
 
-<% if (configFunctions.getProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
+<% if (configFunctions.getConfigProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
   <script>
     exports.afterHoursRecords = <%- JSON.stringify(afterHoursRecords) %>;
     exports.afterHoursReasons = <%- JSON.stringify(afterHoursReasons) %>;

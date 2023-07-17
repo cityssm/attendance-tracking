@@ -1,8 +1,8 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 import { getEmployee } from './getEmployee.js';
 export async function addCallOutListMember(listId, employeeNumber, sessionUser) {
-    const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
+    const pool = await sqlPool.connect(getConfigProperty('mssql'));
     const sortKeyResult = await pool.request().input('listId', listId)
         .query(`select sortKeyFunction, employeePropertyName
       from MonTY.CallOutLists
@@ -13,9 +13,7 @@ export async function addCallOutListMember(listId, employeeNumber, sessionUser) 
     let sortKey = '';
     if ((sortKeyResult.recordset[0].sortKeyFunction ?? '') !== '') {
         const employee = await getEmployee(employeeNumber);
-        const sortKeyFunction = configFunctions
-            .getProperty('settings.employeeSortKeyFunctions')
-            .find((possibleFunction) => {
+        const sortKeyFunction = getConfigProperty('settings.employeeSortKeyFunctions').find((possibleFunction) => {
             return (possibleFunction.functionName ===
                 sortKeyResult.recordset[0].sortKeyFunction);
         });

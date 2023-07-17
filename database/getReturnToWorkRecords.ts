@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import * as permissionFunctions from '../helpers/functions.permissions.js'
 import type { ReturnToWorkRecord } from '../types/recordTypes.js'
 
@@ -16,7 +16,7 @@ export async function getReturnToWorkRecords(
   filters: GetReturnToWorkRecordsFilters,
   sessionUser: MonTYUser
 ): Promise<ReturnToWorkRecord[]> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   let sql = `select r.recordId,
     r.employeeNumber, r.employeeName,
@@ -44,7 +44,7 @@ export async function getReturnToWorkRecords(
     sql += ' and datediff(day, r.returnDateTime, getdate()) <= @recentDays'
     request = request.input(
       'recentDays',
-      configFunctions.getProperty('settings.recentDays')
+      getConfigProperty('settings.recentDays')
     )
   }
 
@@ -66,10 +66,10 @@ export async function getReturnToWorkRecords(
           sessionUser,
           'attendance.returnsToWork.canManage'
         ) ||
-        (returnToWorkRecord.recordCreate_userName ===
-          sessionUser.userName &&
-          Date.now() - (returnToWorkRecord.recordCreate_dateTime as Date).getTime() <=
-            configFunctions.getProperty('settings.updateDays') * 86_400 * 1000)
+        (returnToWorkRecord.recordCreate_userName === sessionUser.userName &&
+          Date.now() -
+            (returnToWorkRecord.recordCreate_dateTime as Date).getTime() <=
+            getConfigProperty('settings.updateDays') * 86_400 * 1000)
     }
   }
 

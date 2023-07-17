@@ -1,13 +1,13 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import type { CallOutList } from '../types/recordTypes.js'
 
 export async function getCallOutList(
   listId: string
 ): Promise<CallOutList | undefined> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   const listResult: IResult<CallOutList> = await pool
     .request()

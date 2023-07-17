@@ -3,7 +3,7 @@ import type { Request, Response } from 'express'
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
 import { getCallOutRecords } from '../../database/getCallOutRecords.js'
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
-import * as configFunctions from '../../helpers/functions.config.js'
+import { getConfigProperty } from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
 import type {
   AbsenceRecord,
@@ -18,7 +18,7 @@ export async function handler(
   let absenceRecords: AbsenceRecord[] = []
 
   if (
-    configFunctions.getProperty('features.attendance.absences') &&
+    getConfigProperty('features.attendance.absences') &&
     permissionFunctions.hasPermission(
       request.session.user as MonTYUser,
       'attendance.absences.canView'
@@ -37,7 +37,7 @@ export async function handler(
   let returnToWorkRecords: ReturnToWorkRecord[] = []
 
   if (
-    configFunctions.getProperty('features.attendance.returnsToWork') &&
+    getConfigProperty('features.attendance.returnsToWork') &&
     permissionFunctions.hasPermission(
       request.session.user as MonTYUser,
       'attendance.returnsToWork.canView'
@@ -56,7 +56,7 @@ export async function handler(
   let callOutRecords: CallOutRecord[] = []
 
   if (
-    configFunctions.getProperty('features.attendance.callOuts') &&
+    getConfigProperty('features.attendance.callOuts') &&
     permissionFunctions.hasPermission(
       request.session.user as MonTYUser,
       'attendance.callOuts.canView'

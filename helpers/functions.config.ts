@@ -1,13 +1,20 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/indent */
 
 import './polyfills.js'
 
-import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types'
+// eslint-disable-next-line n/no-missing-import
+import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types.js'
 import type { Configuration as AvantiConfig } from '@cityssm/avanti-api'
 import type { config as MSSQLConfig } from 'mssql'
 
 import { config } from '../data/config.js'
-import type * as configTypes from '../types/configTypes'
+import type {
+  ConfigActiveDirectory,
+  ConfigEmployeeEligibilityFunction,
+  ConfigEmployeeSortKeyFunction,
+  ConfigTemporaryUserCredentials
+} from '../types/configTypes.js'
 
 /*
  * SET UP FALLBACK VALUES
@@ -64,97 +71,113 @@ configFallbackValues.set('settings.selfService.path', '/selfService')
  * Set up function overloads
  */
 
-export function getProperty(propertyName: 'application.applicationName'): string
+export function getConfigProperty(
+  propertyName: 'application.applicationName'
+): string
 
-export function getProperty(propertyName: 'application.backgroundURL'): string
-export function getProperty(propertyName: 'application.bigLogoURL'): string
-export function getProperty(propertyName: 'application.smallLogoURL'): string
+export function getConfigProperty(
+  propertyName: 'application.backgroundURL'
+): string
+export function getConfigProperty(
+  propertyName: 'application.bigLogoURL'
+): string
+export function getConfigProperty(
+  propertyName: 'application.smallLogoURL'
+): string
 
-export function getProperty(propertyName: 'application.httpPort'): number
-export function getProperty(propertyName: 'application.userDomain'): string
+export function getConfigProperty(propertyName: 'application.httpPort'): number
+export function getConfigProperty(
+  propertyName: 'application.userDomain'
+): string
 
-export function getProperty(propertyName: 'application.allowTesting'): boolean
+export function getConfigProperty(
+  propertyName: 'application.allowTesting'
+): boolean
 
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'tempUsers'
-): configTypes.ConfigTemporaryUserCredentials[]
+): ConfigTemporaryUserCredentials[]
 
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'activeDirectory'
-): configTypes.ConfigActiveDirectory | undefined
+): ConfigActiveDirectory | undefined
 
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'adWebAuthConfig'
 ): ADWebAuthConfig | undefined
 
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'application.maximumProcesses'
 ): number
 
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'reverseProxy.disableCompression'
 ): boolean
 
-export function getProperty(propertyName: 'reverseProxy.disableEtag'): boolean
-export function getProperty(propertyName: 'reverseProxy.urlPrefix'): string
+export function getConfigProperty(
+  propertyName: 'reverseProxy.disableEtag'
+): boolean
+export function getConfigProperty(
+  propertyName: 'reverseProxy.urlPrefix'
+): string
 
-export function getProperty(propertyName: 'session.cookieName'): string
-export function getProperty(propertyName: 'session.doKeepAlive'): boolean
-export function getProperty(propertyName: 'session.maxAgeMillis'): number
-export function getProperty(propertyName: 'session.secret'): string
+export function getConfigProperty(propertyName: 'session.cookieName'): string
+export function getConfigProperty(propertyName: 'session.doKeepAlive'): boolean
+export function getConfigProperty(propertyName: 'session.maxAgeMillis'): number
+export function getConfigProperty(propertyName: 'session.secret'): string
 
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'features.attendance.absences'
 ): boolean
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'features.attendance.callOuts'
 ): boolean
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'features.attendance.returnsToWork'
 ): boolean
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'features.attendance.afterHours'
 ): boolean
 
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'features.employees.avantiSync'
 ): boolean
 
-export function getProperty(propertyName: 'features.selfService'): boolean
+export function getConfigProperty(propertyName: 'features.selfService'): boolean
 
-export function getProperty(propertyName: 'mssql'): MSSQLConfig
+export function getConfigProperty(propertyName: 'mssql'): MSSQLConfig
 
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'settings.avantiSync.config'
 ): AvantiConfig
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'settings.avantiSync.locationCodes'
 ): string[]
 
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'settings.printPdf.contentDisposition'
 ): 'attachment' | 'inline'
 
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'settings.employeeEligibilityFunctions'
-): configTypes.ConfigEmployeeEligibilityFunction[]
+): ConfigEmployeeEligibilityFunction[]
 
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'settings.employeeSortKeyFunctions'
-): configTypes.ConfigEmployeeSortKeyFunction[]
+): ConfigEmployeeSortKeyFunction[]
 
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'settings.employeeNumberRegularExpression'
 ): RegExp | undefined
 
-export function getProperty(propertyName: 'settings.recentDays'): number
-export function getProperty(propertyName: 'settings.updateDays'): number
+export function getConfigProperty(propertyName: 'settings.recentDays'): number
+export function getConfigProperty(propertyName: 'settings.updateDays'): number
 
-export function getProperty(
+export function getConfigProperty(
   propertyName: 'settings.selfService.path'
 ): `/${string}`
 
-export function getProperty(propertyName: string): unknown {
+export function getConfigProperty(propertyName: string): unknown {
   const propertyNameSplit = propertyName.split('.')
 
   let currentObject = config
@@ -173,18 +196,26 @@ export function getProperty(propertyName: string): unknown {
 
 export function includeAttendance(): boolean {
   return (
-    getProperty('features.attendance.absences') ||
-    getProperty('features.attendance.callOuts') ||
-    getProperty('features.attendance.returnsToWork')
+    getConfigProperty('features.attendance.absences') ||
+    getConfigProperty('features.attendance.callOuts') ||
+    getConfigProperty('features.attendance.returnsToWork')
   )
 }
 
-export const historicalDays = getProperty('settings.recentDays') * 3
+export const historicalDays = getConfigProperty('settings.recentDays') * 3
 export const deleteDays = historicalDays * 3
 
-export const keepAliveMillis = getProperty('session.doKeepAlive')
+export const keepAliveMillis = getConfigProperty('session.doKeepAlive')
   ? Math.max(
-      getProperty(property_session_maxAgeMillis) / 2,
-      getProperty(property_session_maxAgeMillis) - 10 * 60 * 1000
+      getConfigProperty(property_session_maxAgeMillis) / 2,
+      getConfigProperty(property_session_maxAgeMillis) - 10 * 60 * 1000
     )
   : 0
+
+export default {
+  getConfigProperty,
+  includeAttendance,
+  historicalDays,
+  deleteDays,
+  keepAliveMillis
+}

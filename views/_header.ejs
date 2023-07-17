@@ -8,7 +8,7 @@
 
   <title>
     <%= headTitle %>:
-    <%= configFunctions.getProperty("application.applicationName") %>
+    <%= configFunctions.getConfigProperty("application.applicationName") %>
   </title>
 
   <link rel="apple-touch-icon" sizes="180x180" href="<%= urlPrefix %>/images/favicon/apple-touch-icon.png" />
@@ -28,10 +28,10 @@
       <div class="navbar-brand">
         <a class="navbar-item" href="<%= urlPrefix %>/dashboard">
           <img class="mr-3"
-            src="<%= urlPrefix + configFunctions.getProperty("application.smallLogoURL") %>"
+            src="<%= urlPrefix + configFunctions.getConfigProperty("application.smallLogoURL") %>"
             alt=""
             height="28" />
-          <strong><%= configFunctions.getProperty("application.applicationName") %></strong>
+          <strong><%= configFunctions.getConfigProperty("application.applicationName") %></strong>
         </a>
         <a class="navbar-burger burger is-hidden-print" role="button" aria-label="menu" aria-expanded="false">
           <span aria-hidden="true"></span>

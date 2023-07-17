@@ -8,13 +8,13 @@ import {
 
 import { getUser } from '../database/getUser.js'
 import * as authenticationFunctions from '../helpers/functions.authentication.js'
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import type { ConfigTemporaryUserCredentials } from '../types/configTypes.js'
 
 export const router = Router()
 
 function getHandler(request: Request, response: Response): void {
-  const sessionCookieName = configFunctions.getProperty('session.cookieName')
+  const sessionCookieName = getConfigProperty('session.cookieName')
 
   if (
     request.session.user !== undefined &&
@@ -60,11 +60,11 @@ async function postHandler(
   if (userName.startsWith('~~')) {
     isTemporaryUser = true
 
-    const potentialUser = configFunctions
-      .getProperty('tempUsers')
-      .find((possibleUser) => {
+    const potentialUser = getConfigProperty('tempUsers').find(
+      (possibleUser) => {
         return possibleUser.user.userName === userName
-      })
+      }
+    )
 
     if (
       (potentialUser?.user.canLogin ?? false) &&

@@ -9,7 +9,7 @@ import { deleteMissingSyncedEmployees } from '../database/deleteMissingSyncedEmp
 import { getEmployee } from '../database/getEmployee.js'
 import { setEmployeeProperty } from '../database/setEmployeeProperty.js'
 import { updateEmployee } from '../database/updateEmployee.js'
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import type { Employee } from '../types/recordTypes.js'
 
 const debug = Debug('monty:tasks:avantiEmployeeSync')
@@ -22,7 +22,7 @@ const sessionUser: MonTYUser = {
   isAdmin: false
 }
 
-const avantiConfig = configFunctions.getProperty('settings.avantiSync.config')
+const avantiConfig = getConfigProperty('settings.avantiSync.config')
 avanti.setConfiguration(avantiConfig)
 
 const getEmployeeOptions: avanti.GetEmployees_Request = {
@@ -30,10 +30,8 @@ const getEmployeeOptions: avanti.GetEmployees_Request = {
   take: 10_000
 }
 
-if (
-  configFunctions.getProperty('settings.avantiSync.locationCodes').length > 0
-) {
-  getEmployeeOptions.locations = configFunctions.getProperty(
+if (getConfigProperty('settings.avantiSync.locationCodes').length > 0) {
+  getEmployeeOptions.locations = getConfigProperty(
     'settings.avantiSync.locationCodes'
   )
 }

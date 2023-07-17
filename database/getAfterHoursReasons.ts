@@ -1,13 +1,13 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import type { AfterHoursReason } from '../types/recordTypes.js'
 
 import { updateRecordOrderNumber } from './updateRecordOrderNumber.js'
 
 export async function getAfterHoursReasons(): Promise<AfterHoursReason[]> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   const reasonsResult: IResult<AfterHoursReason> = await pool.request()
     .query(`select

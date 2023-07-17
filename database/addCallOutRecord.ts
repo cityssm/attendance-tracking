@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 
 interface AddCallOutRecordForm {
   listId: string
@@ -17,7 +17,7 @@ export async function addCallOutRecord(
   form: AddCallOutRecordForm,
   sessionUser: MonTYUser
 ): Promise<string> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   let callOutDateTimeString = ''
 

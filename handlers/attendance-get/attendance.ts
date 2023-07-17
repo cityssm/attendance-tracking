@@ -14,7 +14,7 @@ import {
   getCallOutResponseTypes,
   getEmployeePropertyNames
 } from '../../helpers/functions.cache.js'
-import * as configFunctions from '../../helpers/functions.config.js'
+import { getConfigProperty } from '../../helpers/functions.config.js'
 import * as permissionFunctions from '../../helpers/functions.permissions.js'
 import type {
   AbsenceRecord,
@@ -130,7 +130,7 @@ async function populateCallOutVariables(sessionUser: MonTYUser): Promise<{
       'attendance.callOuts.canManage'
     )
   ) {
-    const employeeEligibilityFunctions = configFunctions.getProperty(
+    const employeeEligibilityFunctions = getConfigProperty(
       'settings.employeeEligibilityFunctions'
     )
 
@@ -138,7 +138,7 @@ async function populateCallOutVariables(sessionUser: MonTYUser): Promise<{
       employeeEligibilityFunctionNames.push(eligibilityFunction.functionName)
     }
 
-    const employeeSortKeyFunctions = configFunctions.getProperty(
+    const employeeSortKeyFunctions = getConfigProperty(
       'settings.employeeSortKeyFunctions'
     )
 
@@ -206,7 +206,7 @@ export async function handler(
   let absenceRecords: AbsenceRecord[] = []
   let absenceTypes: AbsenceType[] = []
 
-  if (configFunctions.getProperty('features.attendance.absences')) {
+  if (getConfigProperty('features.attendance.absences')) {
     const absenceVariables = await populateAbsenceVariables(
       request.session.user as MonTYUser
     )
@@ -220,7 +220,7 @@ export async function handler(
 
   let returnToWorkRecords: ReturnToWorkRecord[] = []
 
-  if (configFunctions.getProperty('features.attendance.returnsToWork')) {
+  if (getConfigProperty('features.attendance.returnsToWork')) {
     const returnToWorkVariables = await populateReturnToWorkVariables(
       request.session.user as MonTYUser
     )
@@ -238,7 +238,7 @@ export async function handler(
   let employeeSortKeyFunctionNames: string[] = []
   let employeePropertyNames: string[] = []
 
-  if (configFunctions.getProperty('features.attendance.callOuts')) {
+  if (getConfigProperty('features.attendance.callOuts')) {
     const callOutVariables = await populateCallOutVariables(
       request.session.user as MonTYUser
     )
@@ -259,7 +259,7 @@ export async function handler(
   let afterHoursRecords: AfterHoursRecord[] = []
   let afterHoursReasons: AfterHoursReason[] = []
 
-  if (configFunctions.getProperty('features.attendance.afterHours')) {
+  if (getConfigProperty('features.attendance.afterHours')) {
     const afterHoursVariables = await populateAfterHoursVariables(
       request.session.user as MonTYUser
     )

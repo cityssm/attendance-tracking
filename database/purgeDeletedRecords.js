@@ -1,5 +1,5 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty, deleteDays } from '../helpers/functions.config.js';
 const historicalRecordTables = [
     'HistoricalAbsenceRecords',
     'HistoricalAfterHoursRecords',
@@ -56,12 +56,10 @@ const foreignKeySQLStatements = [
     and userName not in (select userName from MonTY.Employees)`
 ];
 export async function purgeDeletedRecords() {
-    const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
+    const pool = await sqlPool.connect(getConfigProperty('mssql'));
     let rowsAffected = 0;
     for (const historicalRecordTable of historicalRecordTables) {
-        const result = await pool
-            .request()
-            .input('deleteDays', configFunctions.deleteDays)
+        const result = await pool.request().input('deleteDays', deleteDays)
             .query(`delete from MonTY.${historicalRecordTable}
         where ${deletedWhereClause}`);
         rowsAffected += result.rowsAffected[0];
@@ -69,7 +67,7 @@ export async function purgeDeletedRecords() {
     for (const sql of foreignKeySQLStatements) {
         const result = await pool
             .request()
-            .input('deleteDays', configFunctions.deleteDays)
+            .input('deleteDays', deleteDays)
             .query(sql);
         rowsAffected += result.rowsAffected[0];
     }

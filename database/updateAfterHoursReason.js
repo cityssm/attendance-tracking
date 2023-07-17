@@ -1,8 +1,8 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import { clearCacheByTableName } from '../helpers/functions.cache.js';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 export async function updateAfterHoursReason(afterHoursReason, sessionUser) {
-    const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
+    const pool = await sqlPool.connect(getConfigProperty('mssql'));
     const result = await pool
         .request()
         .input('afterHoursReason', afterHoursReason.afterHoursReason)

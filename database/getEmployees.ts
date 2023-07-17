@@ -3,7 +3,7 @@ import '../helpers/polyfills.js'
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 import type { Employee } from '../types/recordTypes.js'
 
 import { getEmployeeProperties } from './getEmployeeProperties.js'
@@ -25,7 +25,7 @@ export async function getEmployees(
   filters: GetEmployeesFilters,
   options: GetEmployeesOptions
 ): Promise<Employee[]> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   let request = pool.request()
 
@@ -73,14 +73,14 @@ export async function getEmployees(
     }
 
     if ((filters.eligibilityFunction?.functionName ?? '') !== '') {
-      const eligibilityFunction = configFunctions
-        .getProperty('settings.employeeEligibilityFunctions')
-        .find((possibleFunction) => {
-          return (
-            possibleFunction.functionName ===
-            filters.eligibilityFunction?.functionName
-          )
-        })
+      const eligibilityFunction = getConfigProperty(
+        'settings.employeeEligibilityFunctions'
+      ).find((possibleFunction) => {
+        return (
+          possibleFunction.functionName ===
+          filters.eligibilityFunction?.functionName
+        )
+      })
 
       if (eligibilityFunction !== undefined) {
         employees = employees.filter((possibleEmployee) =>

@@ -1,10 +1,10 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool'
 
-import * as configFunctions from '../helpers/functions.config.js'
+import { getConfigProperty } from '../helpers/functions.config.js'
 
 export type ReportParameters = Record<string, string | number>
 
-const recentDays = configFunctions.getProperty('settings.recentDays')
+const recentDays = getConfigProperty('settings.recentDays')
 
 const absenceRecordsRecentSQL = `select r.recordId,
   r.employeeNumber, r.employeeName,
@@ -55,7 +55,7 @@ export async function getReportData(
   reportName: string,
   reportParameters: ReportParameters = {}
 ): Promise<unknown[] | undefined> {
-  const pool = await sqlPool.connect(configFunctions.getProperty('mssql'))
+  const pool = await sqlPool.connect(getConfigProperty('mssql'))
 
   let request = pool.request()
 

@@ -1,7 +1,7 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
-import * as configFunctions from '../helpers/functions.config.js';
+import { getConfigProperty } from '../helpers/functions.config.js';
 export async function getUsers() {
-    const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
+    const pool = await sqlPool.connect(getConfigProperty('mssql'));
     const userResult = await pool.request().query(`select
     u.userName, u.canLogin, u.isAdmin,
     e.employeeNumber, e.employeeSurname, e.employeeGivenName
