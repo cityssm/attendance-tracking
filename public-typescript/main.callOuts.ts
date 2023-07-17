@@ -40,7 +40,7 @@ declare const cityssm: cityssmGlobal
   function getCurrentCallOutList(): CallOutList {
     return MonTY.callOuts!.callOutLists.find((possibleCallOutList) => {
       return possibleCallOutList.listId === currentListId
-    })!
+    }) as CallOutList
   }
 
   const callOutResponseTypes = (exports.callOutResponseTypes ??
@@ -85,7 +85,7 @@ declare const cityssm: cityssmGlobal
 
         return false
       }
-    )!
+    ) as CallOutListMember
 
     let callOutMemberModalElement: HTMLElement
 
@@ -428,7 +428,7 @@ declare const cityssm: cityssmGlobal
 
     const anchorElement = clickEvent.currentTarget as HTMLAnchorElement
 
-    const employeeNumber = anchorElement.dataset.employeeNumber!
+    const employeeNumber = anchorElement.dataset.employeeNumber as string
 
     openCallOutListMember(employeeNumber)
   }
@@ -600,8 +600,8 @@ declare const cityssm: cityssmGlobal
 
       if (!sortKeyFunctionFound && (callOutList.sortKeyFunction ?? '') !== '') {
         const optionElement = document.createElement('option')
-        optionElement.value = callOutList.sortKeyFunction!
-        optionElement.textContent = callOutList.sortKeyFunction!
+        optionElement.value = callOutList.sortKeyFunction ?? ''
+        optionElement.textContent = callOutList.sortKeyFunction ?? ''
         optionElement.selected = true
         sortKeyFunctionElement.append(optionElement)
       }
@@ -867,9 +867,10 @@ declare const cityssm: cityssmGlobal
             <i class="fas fa-hard-hat" aria-hidden="true"></i>
           </div>
           <div class="column">
-            <strong>${member.employeeSurname}, ${
-          member.employeeGivenName
-        }</strong><br />
+            <strong>
+              ${member.employeeSurname},
+              ${member.employeeGivenName}
+            </strong><br />
             <span class="is-size-7">${member.employeeNumber}</span>
           </div>
           <div class="column">

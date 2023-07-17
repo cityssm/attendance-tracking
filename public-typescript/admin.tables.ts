@@ -82,7 +82,7 @@ declare const cityssm: cityssmGlobal
   function moveAbsenceType(clickEvent: MouseEvent): void {
     const buttonElement = clickEvent.currentTarget as HTMLButtonElement
 
-    const tableRowElement = buttonElement.closest('tr')!
+    const tableRowElement = buttonElement.closest('tr') as HTMLTableRowElement
 
     const absenceTypeKey = tableRowElement.dataset.absenceTypeKey
 
@@ -115,7 +115,9 @@ declare const cityssm: cityssmGlobal
   }
 
   function deleteAbsenceType(clickEvent: Event): void {
-    const rowElement = (clickEvent.currentTarget as HTMLElement).closest('tr')!
+    const rowElement = (clickEvent.currentTarget as HTMLElement).closest(
+      'tr'
+    ) as HTMLTableRowElement
 
     const absenceTypeKey = rowElement.dataset.absenceTypeKey
 
@@ -185,7 +187,9 @@ declare const cityssm: cityssmGlobal
       <tbody></tbody>
       </table>`
 
-    const tableBodyElement = containerElement.querySelector('tbody')!
+    const tableBodyElement = containerElement.querySelector(
+      'tbody'
+    ) as HTMLTableSectionElement
 
     for (const absenceType of absenceTypes) {
       const rowElement = document.createElement('tr')
@@ -219,7 +223,7 @@ declare const cityssm: cityssmGlobal
         </button>
         </td>`
 
-      const inputElement = rowElement.querySelector('input')!
+      const inputElement = rowElement.querySelector('input') as HTMLInputElement
 
       inputElement.value = absenceType.absenceType
 
@@ -321,7 +325,9 @@ declare const cityssm: cityssmGlobal
   delete exports.callOutResponseTypes
 
   function updateCallOutResponseType(clickEvent: Event): void {
-    const rowElement = (clickEvent.currentTarget as HTMLElement).closest('tr')!
+    const rowElement = (clickEvent.currentTarget as HTMLElement).closest(
+      'tr'
+    ) as HTMLTableRowElement
 
     const responseTypeId = rowElement.dataset.responseTypeId
     const responseType = rowElement.querySelector('input')!.value
@@ -352,7 +358,7 @@ declare const cityssm: cityssmGlobal
   function moveCallOutResponseType(clickEvent: MouseEvent): void {
     const buttonElement = clickEvent.currentTarget as HTMLButtonElement
 
-    const tableRowElement = buttonElement.closest('tr')!
+    const tableRowElement = buttonElement.closest('tr') as HTMLTableRowElement
 
     const responseTypeId = tableRowElement.dataset.responseTypeId
 
@@ -385,7 +391,9 @@ declare const cityssm: cityssmGlobal
   }
 
   function deleteCallOutResponseType(clickEvent: Event): void {
-    const rowElement = (clickEvent.currentTarget as HTMLElement).closest('tr')!
+    const rowElement = (clickEvent.currentTarget as HTMLElement).closest(
+      'tr'
+    ) as HTMLTableRowElement
 
     const responseTypeId = rowElement.dataset.responseTypeId
 
@@ -456,7 +464,9 @@ declare const cityssm: cityssmGlobal
       <tbody></tbody>
       </table>`
 
-    const tableBodyElement = containerElement.querySelector('tbody')!
+    const tableBodyElement = containerElement.querySelector(
+      'tbody'
+    ) as HTMLTableSectionElement
 
     for (const callOutResponseType of callOutResponseTypes) {
       const rowElement = document.createElement('tr')
@@ -499,7 +509,7 @@ declare const cityssm: cityssmGlobal
         </button>
         </td>`
 
-      const inputElement = rowElement.querySelector('input')!
+      const inputElement = rowElement.querySelector('input') as HTMLInputElement
 
       inputElement.value = callOutResponseType.responseType
 
@@ -608,7 +618,9 @@ declare const cityssm: cityssmGlobal
   delete exports.afterHoursReasons
 
   function updateAfterHoursReason(clickEvent: Event): void {
-    const rowElement = (clickEvent.currentTarget as HTMLElement).closest('tr')!
+    const rowElement = (clickEvent.currentTarget as HTMLElement).closest(
+      'tr'
+    ) as HTMLTableRowElement
 
     const afterHoursReasonId = rowElement.dataset.afterHoursReasonId
     const afterHoursReason = rowElement.querySelector('input')!.value
@@ -637,7 +649,7 @@ declare const cityssm: cityssmGlobal
   function moveAfterHoursReason(clickEvent: MouseEvent): void {
     const buttonElement = clickEvent.currentTarget as HTMLButtonElement
 
-    const tableRowElement = buttonElement.closest('tr')!
+    const tableRowElement = buttonElement.closest('tr') as HTMLTableRowElement
 
     const afterHoursReasonId = tableRowElement.dataset.afterHoursReasonId
 
@@ -670,7 +682,9 @@ declare const cityssm: cityssmGlobal
   }
 
   function deleteAfterHoursReason(clickEvent: Event): void {
-    const rowElement = (clickEvent.currentTarget as HTMLElement).closest('tr')!
+    const rowElement = (clickEvent.currentTarget as HTMLElement).closest(
+      'tr'
+    ) as HTMLTableRowElement
 
     const afterHoursReasonId = rowElement.dataset.afterHoursReasonId
 
@@ -740,7 +754,9 @@ declare const cityssm: cityssmGlobal
       <tbody></tbody>
       </table>`
 
-    const tableBodyElement = containerElement.querySelector('tbody')!
+    const tableBodyElement = containerElement.querySelector(
+      'tbody'
+    ) as HTMLTableSectionElement
 
     for (const afterHoursReason of afterHoursReasons) {
       const rowElement = document.createElement('tr')
@@ -775,7 +791,7 @@ declare const cityssm: cityssmGlobal
         </button>
         </td>`
 
-      const inputElement = rowElement.querySelector('input')!
+      const inputElement = rowElement.querySelector('input') as HTMLInputElement
 
       inputElement.value = afterHoursReason.afterHoursReason
 

@@ -498,10 +498,14 @@ declare const cityssm: cityssmGlobal
           MonTY.urlPrefix + '/admin/doAddUser',
           formEvent.currentTarget,
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as {
-              success: boolean
-              users: MonTYUser[]
-            }
+            const responseJSON = rawResponseJSON as
+              | {
+                  success: true
+                  users: MonTYUser[]
+                }
+              | {
+                  success: false
+                }
 
             if (responseJSON.success) {
               addCloseModalFunction()

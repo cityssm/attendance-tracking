@@ -191,9 +191,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
         });
     }
     function openEmployeeModalByClick(clickEvent) {
+        var _a;
         clickEvent.preventDefault();
-        const employeeNumber = clickEvent.currentTarget
-            .dataset.employeeNumber;
+        const employeeNumber = (_a = clickEvent.currentTarget.dataset.employeeNumber) !== null && _a !== void 0 ? _a : '';
         openEmployeeModal(employeeNumber);
     }
     function renderEmployees() {

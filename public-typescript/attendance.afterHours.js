@@ -1,6 +1,6 @@
 "use strict";
 // eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable unicorn/prefer-module */
+/* eslint-disable @typescript-eslint/indent */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a;
@@ -46,7 +46,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         });
     }
     function renderAfterHoursRecords() {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         const containerElement = document.querySelector('#container--afterHours');
         if (containerElement === null) {
             return;
@@ -85,18 +85,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
           <span class="is-size-7">${(_a = afterHoursRecord.employeeNumber) !== null && _a !== void 0 ? _a : ''}</span>
         </div>
         <div class="column">
-          <strong data-tooltip="Absence Type">${afterHoursRecord.afterHoursReason}</strong><br />
-          <span class="is-size-7">${(_b = afterHoursRecord.recordComment) !== null && _b !== void 0 ? _b : ''}</span>
+          <strong data-tooltip="Absence Type">${(_b = afterHoursRecord.afterHoursReason) !== null && _b !== void 0 ? _b : ''}</strong><br />
+          <span class="is-size-7">${(_c = afterHoursRecord.recordComment) !== null && _c !== void 0 ? _c : ''}</span>
         </div>
         </div>`;
             if (afterHoursRecord.canUpdate) {
-                (_c = panelBlockElement.querySelector('.columns')) === null || _c === void 0 ? void 0 : _c.insertAdjacentHTML('beforeend', `<div class="column is-narrow">
+                (_d = panelBlockElement.querySelector('.columns')) === null || _d === void 0 ? void 0 : _d.insertAdjacentHTML('beforeend', `<div class="column is-narrow">
               <button class="button is-small is-inverted is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete Record">
                 <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
             </div>`);
-                (_d = panelBlockElement
-                    .querySelector('.is-delete-button')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', deleteAfterHoursRecord);
+                (_e = panelBlockElement
+                    .querySelector('.is-delete-button')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', deleteAfterHoursRecord);
             }
             panelElement.append(panelBlockElement);
         }

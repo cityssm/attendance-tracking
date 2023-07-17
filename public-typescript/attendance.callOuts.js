@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a;
     const MonTY = exports.MonTY;
+    const MonTYCallOuts = MonTY.callOuts;
     const searchFilterElement = document.querySelector('#callOuts--searchFilter');
     const searchResultsElement = document.querySelector('#callOuts--searchResults');
     function toggleCallOutListFavourite(clickEvent) {
@@ -18,7 +19,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 : '/attendance/doAddFavouriteCallOutList'), { listId }, (rawResponseJSON) => {
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
-                MonTY.callOuts.callOutLists = responseJSON.callOutLists;
+                MonTYCallOuts.callOutLists = responseJSON.callOutLists;
                 renderCallOutLists();
             }
             else {
@@ -38,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             .toLowerCase()
             .split(' ');
         // eslint-disable-next-line no-labels
-        callOutListLoop: for (const callOutList of MonTY.callOuts.callOutLists) {
+        callOutListLoop: for (const callOutList of MonTYCallOuts.callOutLists) {
             const listStringToSearch = (callOutList.listName +
                 ' ' +
                 ((_a = callOutList.listDescription) !== null && _a !== void 0 ? _a : '')).toLowerCase();
@@ -110,7 +111,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             cityssm.postJSON(MonTY.urlPrefix + '/attendance/doCreateCallOutList', formEvent.currentTarget, (rawResponseJSON) => {
                 var _a;
                 const responseJSON = rawResponseJSON;
-                MonTY.callOuts.callOutLists = responseJSON.callOutLists;
+                MonTYCallOuts.callOutLists = responseJSON.callOutLists;
                 renderCallOutLists();
                 (_a = MonTY.callOuts) === null || _a === void 0 ? void 0 : _a.openCallOutList(responseJSON.listId);
                 createCloseModalFunction();

@@ -94,7 +94,7 @@ declare const cityssm: cityssmGlobal
         const panelBlockElement = document.createElement('div')
         panelBlockElement.className = 'panel-block is-block'
         panelBlockElement.dataset.recordCreate_timeMillis = new Date(
-          absenceRecord.recordCreate_dateTime!
+          absenceRecord.recordCreate_dateTime
         )
           .getTime()
           .toString()
@@ -121,7 +121,7 @@ declare const cityssm: cityssmGlobal
         const panelBlockElement = document.createElement('div')
         panelBlockElement.className = 'panel-block is-block'
         panelBlockElement.dataset.recordCreate_timeMillis = new Date(
-          returnToWorkRecord.recordCreate_dateTime!
+          returnToWorkRecord.recordCreate_dateTime
         )
           .getTime()
           .toString()
@@ -313,8 +313,9 @@ declare const cityssm: cityssmGlobal
   function openEmployeeModalByClick(clickEvent: Event): void {
     clickEvent.preventDefault()
 
-    const employeeNumber = (clickEvent.currentTarget as HTMLAnchorElement)
-      .dataset.employeeNumber!
+    const employeeNumber =
+      (clickEvent.currentTarget as HTMLAnchorElement).dataset.employeeNumber ??
+      ''
 
     openEmployeeModal(employeeNumber)
   }

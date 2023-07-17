@@ -5,14 +5,17 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type { MonTYCallOuts as MonTYCallOutsGlobal, MonTY as MonTYGlobal } from '../types/globalTypes.js'
 import type { CallOutList } from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
+
+// eslint-disable-next-line sonarjs/cognitive-complexity
 ;(() => {
   const MonTY = exports.MonTY as MonTYGlobal
+  const MonTYCallOuts = MonTY.callOuts as MonTYCallOutsGlobal
 
   const searchFilterElement = document.querySelector(
     '#callOuts--searchFilter'
@@ -46,7 +49,7 @@ declare const cityssm: cityssmGlobal
         }
 
         if (responseJSON.success) {
-          MonTY.callOuts!.callOutLists = responseJSON.callOutLists
+          MonTYCallOuts.callOutLists = responseJSON.callOutLists
 
           renderCallOutLists()
         } else {
@@ -69,7 +72,7 @@ declare const cityssm: cityssmGlobal
       .split(' ')
 
     // eslint-disable-next-line no-labels
-    callOutListLoop: for (const callOutList of MonTY.callOuts!.callOutLists) {
+    callOutListLoop: for (const callOutList of MonTYCallOuts.callOutLists) {
       const listStringToSearch = (
         callOutList.listName +
         ' ' +
@@ -132,7 +135,9 @@ declare const cityssm: cityssmGlobal
         .querySelector('button')
         ?.addEventListener('click', toggleCallOutListFavourite)
 
-      const listAnchorElement = panelBlockElement.querySelector('a')!
+      const listAnchorElement = panelBlockElement.querySelector(
+        'a'
+      ) as HTMLAnchorElement
 
       listAnchorElement.dataset.cy = callOutList.listName
       listAnchorElement.addEventListener('click', openCallOutListByClick)
@@ -157,7 +162,7 @@ declare const cityssm: cityssmGlobal
       (clickEvent.currentTarget as HTMLAnchorElement).closest(
         '.panel-block'
       ) as HTMLElement
-    ).dataset.listId!
+    ).dataset.listId as string
 
     MonTY.callOuts?.openCallOutList(listId, renderCallOutLists)
   }
@@ -178,7 +183,7 @@ declare const cityssm: cityssmGlobal
             callOutLists: CallOutList[]
           }
 
-          MonTY.callOuts!.callOutLists = responseJSON.callOutLists
+          MonTYCallOuts.callOutLists = responseJSON.callOutLists
           renderCallOutLists()
 
           MonTY.callOuts?.openCallOutList(responseJSON.listId)

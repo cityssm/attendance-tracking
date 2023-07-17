@@ -15,7 +15,7 @@ import type { CallOutList } from '../types/recordTypes.js'
     clickEvent.preventDefault()
 
     const listId = (clickEvent.currentTarget as HTMLAnchorElement).dataset
-      .listId!
+      .listId as string
 
     MonTY.callOuts?.openCallOutList(listId)
   }

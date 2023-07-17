@@ -1,4 +1,7 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable @typescript-eslint/indent */
+
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable unicorn/prefer-module */
 
 // eslint-disable-next-line n/no-missing-import
@@ -6,7 +9,11 @@ import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
 import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
-import type { AfterHoursReason, AfterHoursRecord, Employee } from '../types/recordTypes.js'
+import type {
+  AfterHoursReason,
+  AfterHoursRecord,
+  Employee
+} from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 
@@ -14,12 +21,10 @@ declare const cityssm: cityssmGlobal
 ;(() => {
   const MonTY = exports.MonTY as MonTYGlobal
 
-  const afterHoursReasons =
-    exports.afterHoursReasons as AfterHoursReason[]
+  const afterHoursReasons = exports.afterHoursReasons as AfterHoursReason[]
   const employees = exports.employees as Employee[]
 
-  let afterHoursRecords =
-    exports.afterHoursRecords as AfterHoursRecord[]
+  let afterHoursRecords = exports.afterHoursRecords as AfterHoursRecord[]
 
   const employeeNumberRegularExpression =
     exports.employeeNumberRegularExpression as RegExp | undefined
@@ -40,11 +45,15 @@ declare const cityssm: cityssmGlobal
           recordId
         },
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as {
-            success: boolean
-            errorMessage?: string
-            afterHoursRecords?: AfterHoursRecord[]
-          }
+          const responseJSON = rawResponseJSON as
+            | {
+                success: true
+                afterHoursRecords: AfterHoursRecord[]
+              }
+            | {
+                success: false
+                errorMessage: string
+              }
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -52,7 +61,7 @@ declare const cityssm: cityssmGlobal
               contextualColorName: 'success'
             })
 
-            afterHoursRecords = responseJSON.afterHoursRecords!
+            afterHoursRecords = responseJSON.afterHoursRecords
             renderAfterHoursRecords()
           } else {
             bulmaJS.alert({
@@ -129,7 +138,9 @@ declare const cityssm: cityssmGlobal
           }</span>
         </div>
         <div class="column">
-          <strong data-tooltip="Absence Type">${afterHoursRecord.afterHoursReason!}</strong><br />
+          <strong data-tooltip="Absence Type">${
+            afterHoursRecord.afterHoursReason ?? ''
+          }</strong><br />
           <span class="is-size-7">${afterHoursRecord.recordComment ?? ''}</span>
         </div>
         </div>`
@@ -216,11 +227,15 @@ declare const cityssm: cityssmGlobal
           MonTY.urlPrefix + '/attendance/doAddAfterHoursRecord',
           formEvent.currentTarget,
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as {
-              success: boolean
-              recordId?: string
-              afterHoursRecords?: AfterHoursRecord[]
-            }
+            const responseJSON = rawResponseJSON as
+              | {
+                  success: true
+                  recordId: string
+                  afterHoursRecords: AfterHoursRecord[]
+                }
+              | {
+                  success: false
+                }
 
             if (responseJSON.success) {
               afterHoursCloseModalFunction()
@@ -229,7 +244,7 @@ declare const cityssm: cityssmGlobal
                 message: 'After hours attendance recorded successfully.'
               })
 
-              afterHoursRecords = responseJSON.afterHoursRecords!
+              afterHoursRecords = responseJSON.afterHoursRecords
               renderAfterHoursRecords()
             }
           }

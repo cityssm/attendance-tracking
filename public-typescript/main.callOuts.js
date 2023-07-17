@@ -286,7 +286,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             });
         }
         function initializeListDetailsTab() {
-            var _a, _b, _c, _d, _e, _f, _g;
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j;
             ;
             callOutListModalElement.querySelector('#callOutListEdit--listId').value = callOutList.listId;
             callOutListModalElement.querySelector('#callOutListEdit--listName').value = callOutList.listName;
@@ -329,18 +329,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
             }
             if (!sortKeyFunctionFound && ((_e = callOutList.sortKeyFunction) !== null && _e !== void 0 ? _e : '') !== '') {
                 const optionElement = document.createElement('option');
-                optionElement.value = callOutList.sortKeyFunction;
-                optionElement.textContent = callOutList.sortKeyFunction;
+                optionElement.value = (_f = callOutList.sortKeyFunction) !== null && _f !== void 0 ? _f : '';
+                optionElement.textContent = (_g = callOutList.sortKeyFunction) !== null && _g !== void 0 ? _g : '';
                 optionElement.selected = true;
                 sortKeyFunctionElement.append(optionElement);
             }
             ;
-            callOutListModalElement.querySelector('#callOutListEdit--employeePropertyName').value = (_f = callOutList.employeePropertyName) !== null && _f !== void 0 ? _f : '';
+            callOutListModalElement.querySelector('#callOutListEdit--employeePropertyName').value = (_h = callOutList.employeePropertyName) !== null && _h !== void 0 ? _h : '';
             if (canManage) {
                 const unlockButtonsContainerElement = callOutListModalElement.querySelector('#callOutListEdit--unlockButtons');
                 unlockButtonsContainerElement.classList.remove('is-hidden');
-                (_g = unlockButtonsContainerElement
-                    .querySelector('button')) === null || _g === void 0 ? void 0 : _g.addEventListener('click', () => {
+                (_j = unlockButtonsContainerElement
+                    .querySelector('button')) === null || _j === void 0 ? void 0 : _j.addEventListener('click', () => {
                     var _a;
                     unlockButtonsContainerElement.remove();
                     (_a = callOutListModalElement
@@ -507,7 +507,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
             <i class="fas fa-hard-hat" aria-hidden="true"></i>
           </div>
           <div class="column">
-            <strong>${member.employeeSurname}, ${member.employeeGivenName}</strong><br />
+            <strong>
+              ${member.employeeSurname},
+              ${member.employeeGivenName}
+            </strong><br />
             <span class="is-size-7">${member.employeeNumber}</span>
           </div>
           <div class="column">
