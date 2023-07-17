@@ -68,7 +68,7 @@ export async function getReturnToWorkRecords(
         ) ||
         (returnToWorkRecord.recordCreate_userName ===
           sessionUser.userName &&
-          Date.now() - returnToWorkRecord.recordCreate_dateTime!.getTime() <=
+          Date.now() - (returnToWorkRecord.recordCreate_dateTime as Date).getTime() <=
             configFunctions.getProperty('settings.updateDays') * 86_400 * 1000)
     }
   }

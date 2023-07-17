@@ -17,8 +17,8 @@ export async function moveRecordsToHistorical() {
         recordDelete_userName, recordDelete_dateTime
       from MonTY.AbsenceRecords
       where datediff(day, recordUpdate_dateTime, getdate()) > @historicalDays
-      and datediff(day, absenceDateTime, getdate()) > @historicalDays
-      and (returnDateTime is null or datediff(day, returnDateTime, getdate()) > @historicalDays)`);
+        and datediff(day, absenceDateTime, getdate()) > @historicalDays
+        and (returnDateTime is null or datediff(day, returnDateTime, getdate()) > @historicalDays)`);
     if (result.rowsAffected[0] > 0) {
         rowsAffected += result.rowsAffected[0];
         await pool.request().query(`delete from MonTY.AbsenceRecords

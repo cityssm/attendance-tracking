@@ -22,13 +22,13 @@ export async function setEmployeeProperty(
     .input('propertyName', employeeProperty.propertyName)
     .query(`update MonTY.EmployeeProperties
       set propertyValue = case when (@isSyncUpdate = 1 and isSynced = 0 and recordDelete_dateTime is null) then propertyValue else @propertyValue end,
-      isSynced = case when (@isSyncUpdate = 1 and isSynced = 0 and recordDelete_dateTime is null) then isSynced else @isSynced end,
-      recordUpdate_userName = @record_userName,
-      recordUpdate_dateTime = @record_dateTime,
-      recordDelete_userName = null,
-      recordDelete_dateTime = null
+        isSynced = case when (@isSyncUpdate = 1 and isSynced = 0 and recordDelete_dateTime is null) then isSynced else @isSynced end,
+        recordUpdate_userName = @record_userName,
+        recordUpdate_dateTime = @record_dateTime,
+        recordDelete_userName = null,
+        recordDelete_dateTime = null
       where employeeNumber = @employeeNumber
-      and propertyName = @propertyName`)
+        and propertyName = @propertyName`)
 
   if (result.rowsAffected[0] === 0) {
     result = await pool

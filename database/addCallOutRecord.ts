@@ -21,9 +21,12 @@ export async function addCallOutRecord(
 
   let callOutDateTimeString = ''
 
-  if ((form.callOutDateString ?? '') !== '') {
+  if (
+    form.callOutDateString !== undefined &&
+    (form.callOutDateString ?? '') !== ''
+  ) {
     callOutDateTimeString = (
-      form.callOutDateString! +
+      form.callOutDateString +
       ' ' +
       (form.callOutTimeString ?? '')
     ).trim()

@@ -11,10 +11,10 @@ export async function updateAfterHoursReason(afterHoursReason, sessionUser) {
         .input('afterHoursReasonId', afterHoursReason.afterHoursReasonId)
         .query(`update MonTY.AfterHoursReasons
       set afterHoursReason = @afterHoursReason,
-      recordUpdate_userName = @record_userName,
-      recordUpdate_dateTime = @record_dateTime
+        recordUpdate_userName = @record_userName,
+        recordUpdate_dateTime = @record_dateTime
       where afterHoursReasonId = @afterHoursReasonId
-      and recordDelete_dateTime is null`);
+        and recordDelete_dateTime is null`);
     clearCacheByTableName('AfterHoursReasons');
     return result.rowsAffected[0] > 0;
 }

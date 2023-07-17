@@ -70,7 +70,8 @@ export async function getAfterHoursRecords(
           'attendance.afterHours.canManage'
         ) ||
         (afterHoursRecord.recordCreate_userName === sessionUser.userName &&
-          Date.now() - afterHoursRecord.recordCreate_dateTime!.getTime() <=
+          Date.now() -
+            (afterHoursRecord.recordCreate_dateTime as Date).getTime() <=
             configFunctions.getProperty('settings.updateDays') * 86_400 * 1000)
     }
   }

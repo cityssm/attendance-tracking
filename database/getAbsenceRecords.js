@@ -37,7 +37,8 @@ export async function getAbsenceRecords(filters, sessionUser) {
             absenceRecord.canUpdate =
                 permissionFunctions.hasPermission(sessionUser, 'attendance.absences.canManage') ||
                     (absenceRecord.recordCreate_userName === sessionUser.userName &&
-                        Date.now() - absenceRecord.recordCreate_dateTime.getTime() <=
+                        Date.now() -
+                            absenceRecord.recordCreate_dateTime.getTime() <=
                             configFunctions.getProperty('settings.updateDays') * 86400 * 1000);
         }
     }

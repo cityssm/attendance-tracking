@@ -11,10 +11,10 @@ export async function updateAbsenceType(absenceType, sessionUser) {
         .input('absenceTypeKey', absenceType.absenceTypeKey)
         .query(`update MonTY.AbsenceTypes
       set absenceType = @absenceType,
-      recordUpdate_userName = @record_userName,
-      recordUpdate_dateTime = @record_dateTime
+        recordUpdate_userName = @record_userName,
+        recordUpdate_dateTime = @record_dateTime
       where absenceTypeKey = @absenceTypeKey
-      and recordDelete_dateTime is null`);
+        and recordDelete_dateTime is null`);
     clearCacheByTableName('AbsenceTypes');
     return result.rowsAffected[0] > 0;
 }

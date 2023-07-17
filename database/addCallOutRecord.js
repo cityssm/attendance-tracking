@@ -3,7 +3,8 @@ import * as configFunctions from '../helpers/functions.config.js';
 export async function addCallOutRecord(form, sessionUser) {
     const pool = await sqlPool.connect(configFunctions.getProperty('mssql'));
     let callOutDateTimeString = '';
-    if ((form.callOutDateString ?? '') !== '') {
+    if (form.callOutDateString !== undefined &&
+        (form.callOutDateString ?? '') !== '') {
         callOutDateTimeString = (form.callOutDateString +
             ' ' +
             (form.callOutTimeString ?? '')).trim();

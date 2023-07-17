@@ -6,12 +6,12 @@ export async function getValidatedEmployee(employeeNumberEnd, homeContactEnd) {
         .request()
         .input('employeeNumberEnd', employeeNumberEnd)
         .input('homeContactEnd', homeContactEnd).query(`select
-      employeeNumber, employeeSurname, employeeGivenName
+        employeeNumber, employeeSurname, employeeGivenName
       from MonTY.Employees
       where employeeNumber like '%' + @employeeNumberEnd
-      and (homeContact1 like '%' + @homeContactEnd or homeContact2 like '%' + @homeContactEnd)
-      and isActive = 1
-      and recordDelete_dateTime is null`);
+        and (homeContact1 like '%' + @homeContactEnd or homeContact2 like '%' + @homeContactEnd)
+        and isActive = 1
+        and recordDelete_dateTime is null`);
     if (employeeResult.recordset.length === 1) {
         return {
             employeeNumber: employeeResult.recordset[0].employeeNumber,

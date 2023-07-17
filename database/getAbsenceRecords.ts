@@ -70,7 +70,8 @@ export async function getAbsenceRecords(
           'attendance.absences.canManage'
         ) ||
         (absenceRecord.recordCreate_userName === sessionUser.userName &&
-          Date.now() - absenceRecord.recordCreate_dateTime!.getTime() <=
+          Date.now() -
+            (absenceRecord.recordCreate_dateTime as Date).getTime() <=
             configFunctions.getProperty('settings.updateDays') * 86_400 * 1000)
     }
   }

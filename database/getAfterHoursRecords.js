@@ -37,7 +37,8 @@ export async function getAfterHoursRecords(filters, sessionUser) {
             afterHoursRecord.canUpdate =
                 permissionFunctions.hasPermission(sessionUser, 'attendance.afterHours.canManage') ||
                     (afterHoursRecord.recordCreate_userName === sessionUser.userName &&
-                        Date.now() - afterHoursRecord.recordCreate_dateTime.getTime() <=
+                        Date.now() -
+                            afterHoursRecord.recordCreate_dateTime.getTime() <=
                             configFunctions.getProperty('settings.updateDays') * 86400 * 1000);
         }
     }
