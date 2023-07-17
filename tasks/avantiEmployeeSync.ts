@@ -12,7 +12,7 @@ import { updateEmployee } from '../database/updateEmployee.js'
 import * as configFunctions from '../helpers/functions.config.js'
 import type { Employee } from '../types/recordTypes.js'
 
-const debug = Debug('monty:task:avantiEmployeeSync')
+const debug = Debug('monty:tasks:avantiEmployeeSync')
 
 let terminateTask = false
 
@@ -51,7 +51,9 @@ async function doSync(): Promise<void> {
   const syncDateTime = new Date()
 
   debug(
-    `Processing ${(employees.response.employees?.length ?? 0).toString()} employee(s)...`
+    `Processing ${(
+      employees.response.employees?.length ?? 0
+    ).toString()} employee(s)...`
   )
 
   for (const avantiEmployee of employees.response.employees ?? []) {
@@ -69,7 +71,7 @@ async function doSync(): Promise<void> {
     }
 
     try {
-      const currentEmployee = await getEmployee(avantiEmployee.empNo!)
+      const currentEmployee = await getEmployee(avantiEmployee.empNo ?? '')
 
       if (
         currentEmployee !== undefined &&
@@ -81,7 +83,7 @@ async function doSync(): Promise<void> {
       debug(`Processing ${avantiEmployee.empNo ?? ''}...`)
 
       const newEmployee: Employee = {
-        employeeNumber: avantiEmployee.empNo!,
+        employeeNumber: avantiEmployee.empNo ?? '',
         employeeSurname: avantiEmployee.surname ?? '',
         employeeGivenName: avantiEmployee.givenName ?? '',
         userName: '',
@@ -98,7 +100,7 @@ async function doSync(): Promise<void> {
       }
 
       const avantiEmployeePersonalResponse =
-        await avanti.getEmployeePersonalInfo(avantiEmployee.empNo!)
+        await avanti.getEmployeePersonalInfo(avantiEmployee.empNo ?? '')
 
       if (avantiEmployeePersonalResponse.success) {
         const avantiEmployeePersonal = avantiEmployeePersonalResponse.response
@@ -107,7 +109,9 @@ async function doSync(): Promise<void> {
           avantiEmployeePersonal.seniorityDate
         )
 
-        newEmployee.userName = (avantiEmployeePersonal.userName ?? '').toLowerCase()
+        newEmployee.userName = (
+          avantiEmployeePersonal.userName ?? ''
+        ).toLowerCase()
 
         const workContacts: string[] = []
         const homeContacts: string[] = []
@@ -245,7 +249,7 @@ async function doSync(): Promise<void> {
 }
 
 await doSync().catch(() => {
-  // ignore
+  debug('Error running task.')
 })
 
 const intervalID = setIntervalAsync(doSync, 6 * 3600 * 1000)
@@ -255,6 +259,6 @@ exitHook(() => {
   try {
     void clearIntervalAsync(intervalID)
   } catch {
-    // ignore
+    debug('Error exiting task.')
   }
 })

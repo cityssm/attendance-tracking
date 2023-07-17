@@ -112,9 +112,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
           </td>`;
                 rowElement.querySelector('input').value =
                     employeeProperty.propertyValue;
-                rowElement.querySelector('select').value = employeeProperty.isSynced
-                    ? '1'
-                    : '0';
+                rowElement.querySelector('select').value =
+                    employeeProperty.isSynced ? '1' : '0';
                 (_a = rowElement
                     .querySelector('.is-update-button')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', updateEmployeeProperty);
                 (_b = rowElement
@@ -126,6 +125,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             formEvent.preventDefault();
             const addPropertyFormElement = formEvent.currentTarget;
             cityssm.postJSON(MonTY.urlPrefix + '/admin/doAddEmployeeProperty', addPropertyFormElement, (rawResponseJSON) => {
+                var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     bulmaJS.alert({
@@ -139,7 +139,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                         }
                     });
                     addPropertyFormElement.reset();
-                    employeeProperties = responseJSON.employeeProperties;
+                    employeeProperties = (_a = responseJSON.employeeProperties) !== null && _a !== void 0 ? _a : [];
                     renderEmployeeProperties();
                 }
                 else {

@@ -32,7 +32,7 @@ declare const cityssm: cityssmGlobal
 
     const employee = unfilteredEmployees.find((possibleEmployee) => {
       return possibleEmployee.employeeNumber === employeeNumber
-    })!
+    }) as Employee
 
     let employeeProperties: EmployeeProperty[] = []
 
@@ -156,13 +156,10 @@ declare const cityssm: cityssmGlobal
             </div>
           </div>
           </td>`
-
-        rowElement.querySelector('input')!.value =
+        ;(rowElement.querySelector('input') as HTMLInputElement).value =
           employeeProperty.propertyValue
-
-        rowElement.querySelector('select')!.value = employeeProperty.isSynced!
-          ? '1'
-          : '0'
+        ;(rowElement.querySelector('select') as HTMLSelectElement).value =
+          employeeProperty.isSynced! ? '1' : '0'
 
         rowElement
           .querySelector('.is-update-button')
@@ -208,7 +205,7 @@ declare const cityssm: cityssmGlobal
 
             addPropertyFormElement.reset()
 
-            employeeProperties = responseJSON.employeeProperties!
+            employeeProperties = responseJSON.employeeProperties ?? []
             renderEmployeeProperties()
           } else {
             bulmaJS.alert({
@@ -354,7 +351,7 @@ declare const cityssm: cityssmGlobal
             modalElement.querySelector(
               '#employeeEdit--seniorityDateTime'
             ) as HTMLInputElement
-          ).valueAsDate = new Date(employee.seniorityDateTime!)
+          ).valueAsDate = new Date(employee.seniorityDateTime as string)
         }
 
         // Contact Information
@@ -440,7 +437,7 @@ declare const cityssm: cityssmGlobal
   function openEmployeeModalByClick(clickEvent: MouseEvent): void {
     clickEvent.preventDefault()
     const employeeNumber = (clickEvent.currentTarget as HTMLElement).dataset
-      .employeeNumber!
+      .employeeNumber as string
     openEmployeeModal(employeeNumber)
   }
 

@@ -1,5 +1,6 @@
 import * as sqlPool from '@cityssm/mssql-multi-pool';
 import * as configFunctions from '../helpers/functions.config.js';
+const recentDays = configFunctions.getProperty('settings.recentDays');
 const absenceRecordsRecentSQL = `select r.recordId,
   r.employeeNumber, r.employeeName,
   r.absenceDateTime, r.returnDateTime,
@@ -77,7 +78,7 @@ export async function getReportData(reportName, reportParameters = {}) {
         }
         case 'absenceRecords-recent': {
             sql = absenceRecordsRecentSQL + ' order by r.absenceDateTime, r.recordId';
-            request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
+            request = request.input('recentDays', recentDays);
             break;
         }
         case 'absenceRecords-recent-byEmployeeNumber': {
@@ -86,7 +87,7 @@ export async function getReportData(reportName, reportParameters = {}) {
                     ` and r.employeeNumber = @employeeNumber
           order by r.absenceDateTime, r.recordId`;
             request = request
-                .input('recentDays', configFunctions.getProperty('settings.recentDays'))
+                .input('recentDays', recentDays)
                 .input('employeeNumber', reportParameters.employeeNumber);
             break;
         }
@@ -113,7 +114,7 @@ export async function getReportData(reportName, reportParameters = {}) {
         case 'returnToWorkRecords-recent': {
             sql =
                 returnToWorkRecordsRecentSQL + ' order by r.returnDateTime, r.recordId';
-            request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
+            request = request.input('recentDays', recentDays);
             break;
         }
         case 'returnToWorkRecords-recent-byEmployeeNumber': {
@@ -122,7 +123,7 @@ export async function getReportData(reportName, reportParameters = {}) {
                     ` and r.employeeNumber = @employeeNumber
           order by r.returnDateTime, r.recordId`;
             request = request
-                .input('recentDays', configFunctions.getProperty('settings.recentDays'))
+                .input('recentDays', recentDays)
                 .input('employeeNumber', reportParameters.employeeNumber);
             break;
         }
@@ -162,7 +163,7 @@ export async function getReportData(reportName, reportParameters = {}) {
         }
         case 'callOutRecords-recent': {
             sql = callOutRecordsRecentSQL + ' order by r.callOutDateTime, r.recordId';
-            request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
+            request = request.input('recentDays', recentDays);
             break;
         }
         case 'callOutRecords-recent-byListId': {
@@ -171,7 +172,7 @@ export async function getReportData(reportName, reportParameters = {}) {
                     ` and r.listId = @listId
           order by r.callOutDateTime, r.recordId`;
             request = request
-                .input('recentDays', configFunctions.getProperty('settings.recentDays'))
+                .input('recentDays', recentDays)
                 .input('listId', reportParameters.listId);
             break;
         }
@@ -181,7 +182,7 @@ export async function getReportData(reportName, reportParameters = {}) {
                     ` and r.employeeNumber = @employeeNumber
           order by r.callOutDateTime, r.recordId`;
             request = request
-                .input('recentDays', configFunctions.getProperty('settings.recentDays'))
+                .input('recentDays', recentDays)
                 .input('employeeNumber', reportParameters.employeeNumber);
             break;
         }
@@ -209,7 +210,7 @@ export async function getReportData(reportName, reportParameters = {}) {
             sql =
                 afterHoursRecordsRecentSQL +
                     ' order by r.attendanceDateTime, r.recordId';
-            request = request.input('recentDays', configFunctions.getProperty('settings.recentDays'));
+            request = request.input('recentDays', recentDays);
             break;
         }
         case 'afterHoursRecords-recent-byEmployeeNumber': {
@@ -218,7 +219,7 @@ export async function getReportData(reportName, reportParameters = {}) {
                     ` and r.employeeNumber = @employeeNumber
           order by r.attendanceDateTime, r.recordId`;
             request = request
-                .input('recentDays', configFunctions.getProperty('settings.recentDays'))
+                .input('recentDays', recentDays)
                 .input('employeeNumber', reportParameters.employeeNumber);
             break;
         }

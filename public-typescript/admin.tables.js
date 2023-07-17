@@ -11,9 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     const deleteButtonClassName = 'is-delete-button';
     function setRowBackgroundColor(changeEvent) {
         ;
-        changeEvent.currentTarget
-            .closest('tr')
-            .classList.add('has-background-warning-light');
+        changeEvent.currentTarget.closest('tr').classList.add('has-background-warning-light');
     }
     let absenceTypes = exports.absenceTypes;
     delete exports.absenceTypes;
@@ -209,7 +207,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
     function updateCallOutResponseType(clickEvent) {
         const rowElement = clickEvent.currentTarget.closest('tr');
         const responseTypeId = rowElement.dataset.responseTypeId;
-        const responseType = rowElement.querySelector('input').value;
+        const responseType = rowElement.querySelector('input')
+            .value;
         const isSuccessful = rowElement.querySelector('select').value;
         cityssm.postJSON(MonTY.urlPrefix + '/admin/doUpdateCallOutResponseType', {
             responseTypeId,

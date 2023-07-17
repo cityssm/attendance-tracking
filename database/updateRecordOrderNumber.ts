@@ -25,7 +25,7 @@ export async function updateRecordOrderNumber(
       `update MonTY.${recordTable}
         set orderNumber = @orderNumber
         where recordDelete_dateTime is null
-        and ${recordIdColumns.get(recordTable)!} = @recordId`
+        and ${recordIdColumns.get(recordTable) as string} = @recordId`
     )
 
   clearCacheByTableName(recordTable)

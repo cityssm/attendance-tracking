@@ -19,11 +19,11 @@ export async function updateCallOutResponseType(
     .input('responseTypeId', callOutResponseType.responseTypeId)
     .query(`update MonTY.CallOutResponseTypes
       set responseType = @responseType,
-      isSuccessful = @isSuccessful,
-      recordUpdate_userName = @record_userName,
-      recordUpdate_dateTime = @record_dateTime
+        isSuccessful = @isSuccessful,
+        recordUpdate_userName = @record_userName,
+        recordUpdate_dateTime = @record_dateTime
       where responseTypeId = @responseTypeId
-      and recordDelete_dateTime is null`)
+        and recordDelete_dateTime is null`)
 
   clearCacheByTableName('CallOutResponseTypes')
 

@@ -30,9 +30,11 @@ declare const cityssm: cityssmGlobal
   const deleteButtonClassName = 'is-delete-button'
 
   function setRowBackgroundColor(changeEvent: Event): void {
-    ;(changeEvent.currentTarget as HTMLElement)
-      .closest('tr')!
-      .classList.add('has-background-warning-light')
+    ;(
+      (changeEvent.currentTarget as HTMLElement).closest(
+        'tr'
+      ) as HTMLTableRowElement
+    ).classList.add('has-background-warning-light')
   }
 
   /*
@@ -53,7 +55,9 @@ declare const cityssm: cityssmGlobal
   delete exports.absenceTypes
 
   function updateAbsenceType(clickEvent: Event): void {
-    const rowElement = (clickEvent.currentTarget as HTMLElement).closest('tr')!
+    const rowElement = (clickEvent.currentTarget as HTMLElement).closest(
+      'tr'
+    ) as HTMLTableRowElement
 
     const absenceTypeKey = rowElement.dataset.absenceTypeKey
     const absenceType = rowElement.querySelector('input')!.value
@@ -330,8 +334,13 @@ declare const cityssm: cityssmGlobal
     ) as HTMLTableRowElement
 
     const responseTypeId = rowElement.dataset.responseTypeId
-    const responseType = rowElement.querySelector('input')!.value
-    const isSuccessful = rowElement.querySelector('select')!.value
+
+    const responseType = (rowElement.querySelector('input') as HTMLInputElement)
+      .value
+
+    const isSuccessful = (
+      rowElement.querySelector('select') as HTMLSelectElement
+    ).value
 
     cityssm.postJSON(
       MonTY.urlPrefix + '/admin/doUpdateCallOutResponseType',

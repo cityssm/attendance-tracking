@@ -166,9 +166,11 @@ declare const cityssm: cityssmGlobal
     containerElement.innerHTML = ''
     containerElement.append(panelElement)
 
-    document.querySelector(
-      '#menu--attendance a[href="#tab--afterHours"] .tag'
-    )!.textContent = todayCount.toString()
+    ;(
+      document.querySelector(
+        '#menu--attendance a[href="#tab--afterHours"] .tag'
+      ) as HTMLElement
+    ).textContent = todayCount.toString()
   }
 
   document

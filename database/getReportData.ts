@@ -4,6 +4,8 @@ import * as configFunctions from '../helpers/functions.config.js'
 
 export type ReportParameters = Record<string, string | number>
 
+const recentDays = configFunctions.getProperty('settings.recentDays')
+
 const absenceRecordsRecentSQL = `select r.recordId,
   r.employeeNumber, r.employeeName,
   r.absenceDateTime, r.returnDateTime,
@@ -104,10 +106,7 @@ export async function getReportData(
     case 'absenceRecords-recent': {
       sql = absenceRecordsRecentSQL + ' order by r.absenceDateTime, r.recordId'
 
-      request = request.input(
-        'recentDays',
-        configFunctions.getProperty('settings.recentDays')
-      )
+      request = request.input('recentDays', recentDays)
 
       break
     }
@@ -119,7 +118,7 @@ export async function getReportData(
           order by r.absenceDateTime, r.recordId`
 
       request = request
-        .input('recentDays', configFunctions.getProperty('settings.recentDays'))
+        .input('recentDays', recentDays)
         .input('employeeNumber', reportParameters.employeeNumber)
 
       break
@@ -157,10 +156,7 @@ export async function getReportData(
       sql =
         returnToWorkRecordsRecentSQL + ' order by r.returnDateTime, r.recordId'
 
-      request = request.input(
-        'recentDays',
-        configFunctions.getProperty('settings.recentDays')
-      )
+      request = request.input('recentDays', recentDays)
 
       break
     }
@@ -172,7 +168,7 @@ export async function getReportData(
           order by r.returnDateTime, r.recordId`
 
       request = request
-        .input('recentDays', configFunctions.getProperty('settings.recentDays'))
+        .input('recentDays', recentDays)
         .input('employeeNumber', reportParameters.employeeNumber)
 
       break
@@ -230,10 +226,7 @@ export async function getReportData(
     case 'callOutRecords-recent': {
       sql = callOutRecordsRecentSQL + ' order by r.callOutDateTime, r.recordId'
 
-      request = request.input(
-        'recentDays',
-        configFunctions.getProperty('settings.recentDays')
-      )
+      request = request.input('recentDays', recentDays)
 
       break
     }
@@ -245,7 +238,7 @@ export async function getReportData(
           order by r.callOutDateTime, r.recordId`
 
       request = request
-        .input('recentDays', configFunctions.getProperty('settings.recentDays'))
+        .input('recentDays', recentDays)
         .input('listId', reportParameters.listId)
 
       break
@@ -258,7 +251,7 @@ export async function getReportData(
           order by r.callOutDateTime, r.recordId`
 
       request = request
-        .input('recentDays', configFunctions.getProperty('settings.recentDays'))
+        .input('recentDays', recentDays)
         .input('employeeNumber', reportParameters.employeeNumber)
 
       break
@@ -297,10 +290,7 @@ export async function getReportData(
         afterHoursRecordsRecentSQL +
         ' order by r.attendanceDateTime, r.recordId'
 
-      request = request.input(
-        'recentDays',
-        configFunctions.getProperty('settings.recentDays')
-      )
+      request = request.input('recentDays', recentDays)
 
       break
     }
@@ -312,7 +302,7 @@ export async function getReportData(
           order by r.attendanceDateTime, r.recordId`
 
       request = request
-        .input('recentDays', configFunctions.getProperty('settings.recentDays'))
+        .input('recentDays', recentDays)
         .input('employeeNumber', reportParameters.employeeNumber)
 
       break

@@ -370,7 +370,9 @@ declare const cityssm: cityssmGlobal
         callInModalElement.querySelectorAll('input[name="callInType"]')
 
       for (const radioElement of callInTypeRadioElements) {
-        const labelButtonElement = radioElement.closest('label')!
+        const labelButtonElement = radioElement.closest(
+          'label'
+        ) as HTMLLabelElement
         const fieldsetElement = callInModalElement.querySelector(
           `fieldset[data-call-in-type="${radioElement.value}"]`
         ) as HTMLFieldSetElement
@@ -433,9 +435,11 @@ declare const cityssm: cityssmGlobal
         callInModalElement = modalElement
 
         if (canUpdateAbsences) {
-          ;(modalElement.querySelector(
-            '#callInAdd--absenceDateString-absence'
-          ) as HTMLInputElement)!.valueAsDate = new Date()
+          ;(
+            modalElement.querySelector(
+              '#callInAdd--absenceDateString-absence'
+            ) as HTMLInputElement
+          ).valueAsDate = new Date()
 
           const absenceTypeElement = modalElement.querySelector(
             '#callInAdd--absenceTypeKey-absence'
@@ -452,9 +456,11 @@ declare const cityssm: cityssmGlobal
         }
 
         if (canUpdateReturnsToWork) {
-          ;(modalElement.querySelector(
-            '#callInAdd--returnDateString-returnToWork'
-          ) as HTMLInputElement)!.valueAsDate = new Date()
+          ;(
+            modalElement.querySelector(
+              '#callInAdd--returnDateString-returnToWork'
+            ) as HTMLInputElement
+          ).valueAsDate = new Date()
         } else {
           modalElement
             .querySelector('#callInAdd--callInType_returnToWork')

@@ -31,23 +31,23 @@ export async function updateEmployee(
     .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date()).query(`update MonTY.Employees
       set employeeSurname = @employeeSurname,
-      employeeGivenName = @employeeGivenName,
-      userName = @userName,
-      workContact1 = case when @isSyncUpdate = 1 and syncContacts = 0 then workContact1 else @workContact1 end,
-      workContact2 = case when @isSyncUpdate = 1 and syncContacts = 0 then workContact2 else @workContact2 end,
-      homeContact1 = case when @isSyncUpdate = 1 and syncContacts = 0 then homeContact1 else @homeContact1 end,
-      homeContact2 = case when @isSyncUpdate = 1 and syncContacts = 0 then homeContact2 else @homeContact2 end,
-      syncContacts = case when @isSyncUpdate = 1 then syncContacts else @syncContacts end,
-      jobTitle = @jobTitle,
-      department = @department,
-      seniorityDateTime = @seniorityDateTime,
-      isSynced = @isSynced,
-      syncDateTime = case when @isSyncUpdate = 0 then syncDateTime else @syncDateTime end,
-      isActive = case when @isSyncUpdate = 1 then isActive else @isActive end,
-      recordUpdate_userName = @record_userName,
-      recordUpdate_dateTime = @record_dateTime
+        employeeGivenName = @employeeGivenName,
+        userName = @userName,
+        workContact1 = case when @isSyncUpdate = 1 and syncContacts = 0 then workContact1 else @workContact1 end,
+        workContact2 = case when @isSyncUpdate = 1 and syncContacts = 0 then workContact2 else @workContact2 end,
+        homeContact1 = case when @isSyncUpdate = 1 and syncContacts = 0 then homeContact1 else @homeContact1 end,
+        homeContact2 = case when @isSyncUpdate = 1 and syncContacts = 0 then homeContact2 else @homeContact2 end,
+        syncContacts = case when @isSyncUpdate = 1 then syncContacts else @syncContacts end,
+        jobTitle = @jobTitle,
+        department = @department,
+        seniorityDateTime = @seniorityDateTime,
+        isSynced = @isSynced,
+        syncDateTime = case when @isSyncUpdate = 0 then syncDateTime else @syncDateTime end,
+        isActive = case when @isSyncUpdate = 1 then isActive else @isActive end,
+        recordUpdate_userName = @record_userName,
+        recordUpdate_dateTime = @record_dateTime
       where employeeNumber = @employeeNumber
-      and recordDelete_dateTime is null`)
+        and recordDelete_dateTime is null`)
 
   return result.rowsAffected[0] > 0
 }

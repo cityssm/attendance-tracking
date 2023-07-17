@@ -9,7 +9,7 @@ import { getEmployee } from '../database/getEmployee.js';
 import { setEmployeeProperty } from '../database/setEmployeeProperty.js';
 import { updateEmployee } from '../database/updateEmployee.js';
 import * as configFunctions from '../helpers/functions.config.js';
-const debug = Debug('monty:task:avantiEmployeeSync');
+const debug = Debug('monty:tasks:avantiEmployeeSync');
 let terminateTask = false;
 const sessionUser = {
     userName: 'sys.employeeSync',
@@ -43,14 +43,14 @@ async function doSync() {
             continue;
         }
         try {
-            const currentEmployee = await getEmployee(avantiEmployee.empNo);
+            const currentEmployee = await getEmployee(avantiEmployee.empNo ?? '');
             if (currentEmployee !== undefined &&
                 !(currentEmployee.isSynced ?? false)) {
                 continue;
             }
             debug(`Processing ${avantiEmployee.empNo ?? ''}...`);
             const newEmployee = {
-                employeeNumber: avantiEmployee.empNo,
+                employeeNumber: avantiEmployee.empNo ?? '',
                 employeeSurname: avantiEmployee.surname ?? '',
                 employeeGivenName: avantiEmployee.givenName ?? '',
                 userName: '',
@@ -65,7 +65,7 @@ async function doSync() {
                 syncDateTime,
                 isActive: true
             };
-            const avantiEmployeePersonalResponse = await avanti.getEmployeePersonalInfo(avantiEmployee.empNo);
+            const avantiEmployeePersonalResponse = await avanti.getEmployeePersonalInfo(avantiEmployee.empNo ?? '');
             if (avantiEmployeePersonalResponse.success) {
                 const avantiEmployeePersonal = avantiEmployeePersonalResponse.response;
                 newEmployee.seniorityDateTime = new Date(avantiEmployeePersonal.seniorityDate);
@@ -147,6 +147,7 @@ async function doSync() {
     debug(`${employeesDeleted} employee(s) deleted`);
 }
 await doSync().catch(() => {
+    debug('Error running task.');
 });
 const intervalID = setIntervalAsync(doSync, 6 * 3600 * 1000);
 exitHook(() => {
@@ -155,5 +156,6 @@ exitHook(() => {
         void clearIntervalAsync(intervalID);
     }
     catch {
+        debug('Error exiting task.');
     }
 });

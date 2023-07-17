@@ -34,7 +34,7 @@ declare const cityssm: cityssmGlobal
 
     const tableRowElement = (clickEvent.currentTarget as HTMLElement).closest(
       'tr'
-    )!
+    ) as HTMLTableRowElement
 
     const userName = tableRowElement.dataset.userName ?? ''
 
@@ -176,7 +176,9 @@ declare const cityssm: cityssmGlobal
   function setUserPermission(formEvent: Event): void {
     formEvent.preventDefault()
 
-    const rowElement = (formEvent.currentTarget as HTMLElement).closest('tr')!
+    const rowElement = (formEvent.currentTarget as HTMLElement).closest(
+      'tr'
+    ) as HTMLTableRowElement
 
     cityssm.postJSON(
       MonTY.urlPrefix + '/admin/doSetUserPermission',
@@ -219,7 +221,9 @@ declare const cityssm: cityssmGlobal
     const userName = buttonElement.closest('tr')!.dataset.userName ?? ''
 
     function populatePermissionsTable(): void {
-      const tableBodyElement = permissionsModalElement.querySelector('tbody')!
+      const tableBodyElement = permissionsModalElement.querySelector(
+        'tbody'
+      ) as HTMLTableSectionElement
 
       let uidCounter = 0
 
@@ -353,7 +357,9 @@ declare const cityssm: cityssmGlobal
                 .querySelector(`#${formId}`)
                 ?.addEventListener('submit', setUserPermission)
             } else {
-              const selectElement = tableRowElement.querySelector('select')!
+              const selectElement = tableRowElement.querySelector(
+                'select'
+              ) as HTMLSelectElement
 
               if (
                 selectElement.querySelector(
