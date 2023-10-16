@@ -61,7 +61,7 @@ describe('MonTY', () => {
     }
   })
 
-  it('Ensure server starts on port ' + portNumber.toString(), () => {
+  it(`Ensure server starts on port ${portNumber.toString()}`, () => {
     assert.ok(serverStarted)
   })
 

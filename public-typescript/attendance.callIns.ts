@@ -50,7 +50,7 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        MonTY.urlPrefix + '/attendance/doDeleteAbsenceRecord',
+        `${MonTY.urlPrefix}/attendance/doDeleteAbsenceRecord`,
         {
           recordId
         },
@@ -187,7 +187,7 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        MonTY.urlPrefix + '/attendance/doDeleteReturnToWorkRecord',
+        `${MonTY.urlPrefix}/attendance/doDeleteReturnToWorkRecord`,
         {
           recordId
         },
@@ -358,11 +358,8 @@ declare const cityssm: cityssmGlobal
         previousEmployeeNumberPiece =
           matchingEmployees[0].employeeNumber.toLowerCase()
 
-        employeeNameElement.value = (
-          matchingEmployees[0].employeeGivenName +
-          ' ' +
-          matchingEmployees[0].employeeSurname
-        ).trim()
+        employeeNameElement.value =
+          `${matchingEmployees[0].employeeGivenName} ${matchingEmployees[0].employeeSurname}`.trim()
       }
     }
 
@@ -400,7 +397,7 @@ declare const cityssm: cityssmGlobal
       formEvent.preventDefault()
 
       cityssm.postJSON(
-        MonTY.urlPrefix + '/attendance/doRecordCallIn',
+        `${MonTY.urlPrefix}/attendance/doRecordCallIn`,
         formEvent.currentTarget,
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
@@ -436,6 +433,7 @@ declare const cityssm: cityssmGlobal
         callInModalElement = modalElement
 
         if (canUpdateAbsences) {
+          // eslint-disable-next-line no-extra-semi
           ;(
             modalElement.querySelector(
               '#callInAdd--absenceDateString-absence'
@@ -457,6 +455,7 @@ declare const cityssm: cityssmGlobal
         }
 
         if (canUpdateReturnsToWork) {
+          // eslint-disable-next-line no-extra-semi
           ;(
             modalElement.querySelector(
               '#callInAdd--returnDateString-returnToWork'
@@ -469,6 +468,7 @@ declare const cityssm: cityssmGlobal
         }
 
         if (callInType !== '') {
+          // eslint-disable-next-line no-extra-semi
           ;(
             modalElement.querySelector(
               `#callInAdd--callInType_${callInType}`

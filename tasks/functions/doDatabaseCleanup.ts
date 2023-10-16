@@ -7,8 +7,8 @@ const debug = Debug('monty:task:databaseCleanup')
 
 export async function doDatabaseCleanup(): Promise<void> {
   const archivedRecordsCount = await moveRecordsToHistorical()
-  debug(archivedRecordsCount.toString() + ' records archived.')
+  debug(`${archivedRecordsCount.toString()} records archived.`)
 
   const deletedRecordsCount = await purgeDeletedRecords()
-  debug(deletedRecordsCount.toString() + ' records permanently deleted.')
+  debug(`${deletedRecordsCount.toString()} records permanently deleted.`)
 }

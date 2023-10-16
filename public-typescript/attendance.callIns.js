@@ -17,7 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     function deleteAbsenceRecord(clickEvent) {
         const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
         function doDelete() {
-            cityssm.postJSON(MonTY.urlPrefix + '/attendance/doDeleteAbsenceRecord', {
+            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doDeleteAbsenceRecord`, {
                 recordId
             }, (rawResponseJSON) => {
                 var _a;
@@ -110,7 +110,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     function deleteReturnToWorkRecord(clickEvent) {
         const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
         function doDelete() {
-            cityssm.postJSON(MonTY.urlPrefix + '/attendance/doDeleteReturnToWorkRecord', {
+            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doDeleteReturnToWorkRecord`, {
                 recordId
             }, (rawResponseJSON) => {
                 var _a;
@@ -224,9 +224,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 employeeNumberElement.value = matchingEmployees[0].employeeNumber;
                 previousEmployeeNumberPiece =
                     matchingEmployees[0].employeeNumber.toLowerCase();
-                employeeNameElement.value = (matchingEmployees[0].employeeGivenName +
-                    ' ' +
-                    matchingEmployees[0].employeeSurname).trim();
+                employeeNameElement.value =
+                    `${matchingEmployees[0].employeeGivenName} ${matchingEmployees[0].employeeSurname}`.trim();
             }
         }
         function toggleCallInType() {
@@ -252,7 +251,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         function recordCallIn(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(MonTY.urlPrefix + '/attendance/doRecordCallIn', formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doRecordCallIn`, formEvent.currentTarget, (rawResponseJSON) => {
                 var _a, _b;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
@@ -277,6 +276,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 var _a, _b;
                 callInModalElement = modalElement;
                 if (canUpdateAbsences) {
+                    // eslint-disable-next-line no-extra-semi
                     ;
                     modalElement.querySelector('#callInAdd--absenceDateString-absence').valueAsDate = new Date();
                     const absenceTypeElement = modalElement.querySelector('#callInAdd--absenceTypeKey-absence');
@@ -291,6 +291,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     (_a = modalElement.querySelector('#callInAdd--callInType_absence')) === null || _a === void 0 ? void 0 : _a.remove();
                 }
                 if (canUpdateReturnsToWork) {
+                    // eslint-disable-next-line no-extra-semi
                     ;
                     modalElement.querySelector('#callInAdd--returnDateString-returnToWork').valueAsDate = new Date();
                 }
@@ -299,6 +300,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                         .querySelector('#callInAdd--callInType_returnToWork')) === null || _b === void 0 ? void 0 : _b.remove();
                 }
                 if (callInType !== '') {
+                    // eslint-disable-next-line no-extra-semi
                     ;
                     modalElement.querySelector(`#callInAdd--callInType_${callInType}`).checked = true;
                     toggleCallInType();
