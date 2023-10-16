@@ -54,7 +54,7 @@
     "@cityssm/express-abuse-points": "^1.1.0",
     "@cityssm/expressjs-server-js": "^2.3.3",
     "@cityssm/mssql-multi-pool": "^2.2.4",
-    "@cityssm/utils-datetime": "^0.1.1",
+    "@cityssm/utils-datetime": "^0.2.0",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "activedirectory2": "^2.2.0",
     "camelcase": "^7.0.1",
