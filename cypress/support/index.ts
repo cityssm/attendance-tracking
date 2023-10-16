@@ -1,6 +1,6 @@
 import 'cypress-axe'
 
-import type { ConfigTemporaryUserCredentials } from '../../types/configTypes'
+import type { ConfigTemporaryUserCredentials } from '../../types/configTypes.js'
 
 export const logout = (): void => {
   cy.visit('/logout')

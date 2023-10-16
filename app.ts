@@ -21,9 +21,10 @@ import FileStore from 'session-file-store'
 
 import { getSafeRedirectURL } from './helpers/functions.authentication.js'
 import configFunctions, {
-  getConfigProperty
+  getConfigProperty,
+  includeAttendance
 } from './helpers/functions.config.js'
-import permissionFunctions from './helpers/functions.permissions.js'
+import permissionFunctions, { hasAttendance } from './helpers/functions.permissions.js'
 import routerAdmin from './routes/admin.js'
 import routerAttendance from './routes/attendance.js'
 import routerDashboard from './routes/dashboard.js'
@@ -231,12 +232,12 @@ app.use(`${urlPrefix}/reports`, sessionChecker, routerReports)
 
 app.use(`${urlPrefix}/print`, sessionChecker, routerPrint)
 
-if (configFunctions.includeAttendance()) {
+if (includeAttendance()) {
   app.use(
     `${urlPrefix}/attendance`,
     sessionChecker,
     (request, response, next) => {
-      if (permissionFunctions.hasAttendance(request.session.user)) {
+      if (hasAttendance(request.session.user)) {
         next()
         return
       }
