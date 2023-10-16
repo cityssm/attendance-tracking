@@ -72,26 +72,38 @@ configFallbackValues.set('settings.selfService.path', '/selfService')
  */
 
 export function getConfigProperty(
-  propertyName: 'application.applicationName'
+  propertyName:
+    | 'application.applicationName'
+    | 'application.backgroundURL'
+    | 'application.bigLogoURL'
+    | 'application.smallLogoURL'
+    | 'application.userDomain'
+    | 'reverseProxy.urlPrefix'
+    | 'session.cookieName'
+    | 'session.secret'
 ): string
 
 export function getConfigProperty(
-  propertyName: 'application.backgroundURL'
-): string
-export function getConfigProperty(
-  propertyName: 'application.bigLogoURL'
-): string
-export function getConfigProperty(
-  propertyName: 'application.smallLogoURL'
-): string
-
-export function getConfigProperty(propertyName: 'application.httpPort'): number
-export function getConfigProperty(
-  propertyName: 'application.userDomain'
-): string
+  propertyName:
+    | 'application.httpPort'
+    | 'application.maximumProcesses'
+    | 'session.maxAgeMillis'
+    | 'settings.recentDays'
+    | 'settings.updateDays'
+): number
 
 export function getConfigProperty(
-  propertyName: 'application.allowTesting'
+  propertyName:
+    | 'application.allowTesting'
+    | 'reverseProxy.disableCompression'
+    | 'reverseProxy.disableEtag'
+    | 'session.doKeepAlive'
+    | 'features.attendance.absences'
+    | 'features.attendance.callOuts'
+    | 'features.attendance.returnsToWork'
+    | 'features.attendance.afterHours'
+    | 'features.employees.avantiSync'
+    | 'features.selfService'
 ): boolean
 
 export function getConfigProperty(
@@ -105,45 +117,6 @@ export function getConfigProperty(
 export function getConfigProperty(
   propertyName: 'adWebAuthConfig'
 ): ADWebAuthConfig | undefined
-
-export function getConfigProperty(
-  propertyName: 'application.maximumProcesses'
-): number
-
-export function getConfigProperty(
-  propertyName: 'reverseProxy.disableCompression'
-): boolean
-
-export function getConfigProperty(
-  propertyName: 'reverseProxy.disableEtag'
-): boolean
-export function getConfigProperty(
-  propertyName: 'reverseProxy.urlPrefix'
-): string
-
-export function getConfigProperty(propertyName: 'session.cookieName'): string
-export function getConfigProperty(propertyName: 'session.doKeepAlive'): boolean
-export function getConfigProperty(propertyName: 'session.maxAgeMillis'): number
-export function getConfigProperty(propertyName: 'session.secret'): string
-
-export function getConfigProperty(
-  propertyName: 'features.attendance.absences'
-): boolean
-export function getConfigProperty(
-  propertyName: 'features.attendance.callOuts'
-): boolean
-export function getConfigProperty(
-  propertyName: 'features.attendance.returnsToWork'
-): boolean
-export function getConfigProperty(
-  propertyName: 'features.attendance.afterHours'
-): boolean
-
-export function getConfigProperty(
-  propertyName: 'features.employees.avantiSync'
-): boolean
-
-export function getConfigProperty(propertyName: 'features.selfService'): boolean
 
 export function getConfigProperty(propertyName: 'mssql'): MSSQLConfig
 
@@ -169,9 +142,6 @@ export function getConfigProperty(
 export function getConfigProperty(
   propertyName: 'settings.employeeNumberRegularExpression'
 ): RegExp | undefined
-
-export function getConfigProperty(propertyName: 'settings.recentDays'): number
-export function getConfigProperty(propertyName: 'settings.updateDays'): number
 
 export function getConfigProperty(
   propertyName: 'settings.selfService.path'
