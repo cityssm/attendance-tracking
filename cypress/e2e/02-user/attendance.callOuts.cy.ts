@@ -1,8 +1,8 @@
-/* eslint-disable promise/always-return */
-/* eslint-disable promise/catch-or-return */
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable promise/always-return, promise/catch-or-return */
 
 import { testUser } from '../../../test/_globals.js'
-import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes'
+import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes.js'
 import { logout, login } from '../../support/index.js'
 
 const newCallOutListName = 'Test Call Out List - ' + Date.now().toString()
@@ -68,29 +68,29 @@ describe('Attendance - Call Out Lists', () => {
 
     const formSelector = '.modal #form--callOutListEdit'
 
-    cy.get(formSelector + ' fieldset').should('have.attr', 'disabled')
+    cy.get(`${formSelector} fieldset`).should('have.attr', 'disabled')
 
-    cy.get(formSelector + ' button[data-cy="unlock"]').click()
+    cy.get(`${formSelector} button[data-cy="unlock"]`).click()
 
-    cy.get(formSelector + ' fieldset').should('not.have.attr', 'disabled')
+    cy.get(`${formSelector} fieldset`).should('not.have.attr', 'disabled')
 
     cy.injectAxe()
     cy.checkA11y()
 
     cy.log('Make changes')
 
-    cy.get(formSelector + ' input[name="listName"]').should(
+    cy.get(`${formSelector} input[name="listName"]`).should(
       'have.value',
       newCallOutListName
     )
 
-    cy.get(formSelector + ' select[name="allowSelfSignUp"]').select('1')
+    cy.get(`${formSelector} select[name="allowSelfSignUp"]`).select('1')
 
     cy.get(formSelector + ' input[name="selfSignUpKey"]')
       .clear()
       .type('abcd')
 
-    cy.get(formSelector + ' select[name="sortKeyFunction"]').select(1)
+    cy.get(`${formSelector} select[name="sortKeyFunction"]`).select(1)
 
     cy.log('Update list')
 
@@ -200,13 +200,11 @@ describe('Attendance - Call Out Lists', () => {
 
     const formSelector = '#form--callOutRecordAdd'
 
-    cy.get(formSelector + ' input[name="callOutHours"]')
-      .clear()
-      .type('8')
+    cy.get(`${formSelector} input[name="callOutHours"]`).clear().type('8')
 
-    cy.get(formSelector + ' select[name="responseTypeId"]').select(1)
+    cy.get(`${formSelector} select[name="responseTypeId"]`).select(1)
 
-    cy.get(formSelector + ' textarea[name="recordComment"]')
+    cy.get(`${formSelector} textarea[name="recordComment"]`)
       .clear()
       .type('Test comment')
 

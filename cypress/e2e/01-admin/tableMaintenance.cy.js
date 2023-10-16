@@ -15,15 +15,15 @@ describe('Admin - Table Maintenance', () => {
     });
     describe('Absence Types', () => {
         const tabSelector = '#tab--absenceTypes';
-        const newAbsenceType = 'Absence Type - ' + Date.now().toString();
-        const updateAbsenceType = newAbsenceType + ' - updated';
+        const newAbsenceType = `Absence Type - ${Date.now().toString()}`;
+        const updateAbsenceType = `${newAbsenceType} - updated`;
         beforeEach(() => {
             cy.get(`.tabs a[href="${tabSelector}"]`).click();
         });
         it('Adds a new absence type', () => {
             cy.injectAxe();
             cy.checkA11y();
-            cy.get(tabSelector + ' button[data-cy="add"]').click();
+            cy.get(`${tabSelector} button[data-cy="add"]`).click();
             cy.get('.modal').should('exist');
             cy.get('html').should('have.class', 'is-clipped');
             cy.injectAxe();
@@ -95,7 +95,7 @@ describe('Admin - Table Maintenance', () => {
                 .should('have.value', updateAbsenceType);
         });
         it('Exports absence types', () => {
-            cy.get(tabSelector + ' a[download][href*="/reports/"]').click();
+            cy.get(`${tabSelector} a[download][href*="/reports/"]`).click();
             cy.wait(1000);
         });
         it('Deletes an absence type', () => {
@@ -116,15 +116,15 @@ describe('Admin - Table Maintenance', () => {
     });
     describe('Call Out Response Types', () => {
         const tabSelector = '#tab--callOutResponseTypes';
-        const newResponseType = 'Response Type - ' + Date.now().toString();
-        const updateResponseType = newResponseType + ' - updated';
+        const newResponseType = `Response Type - ${Date.now().toString()}`;
+        const updateResponseType = `${newResponseType} - updated`;
         beforeEach(() => {
             cy.get(`.tabs a[href="${tabSelector}"]`).click();
         });
         it('Adds a new response type', () => {
             cy.injectAxe();
             cy.checkA11y();
-            cy.get(tabSelector + ' button[data-cy="add"]').click();
+            cy.get(`${tabSelector} button[data-cy="add"]`).click();
             cy.get('.modal').should('exist');
             cy.get('html').should('have.class', 'is-clipped');
             cy.injectAxe();
@@ -217,15 +217,15 @@ describe('Admin - Table Maintenance', () => {
     });
     describe('After Hours Reasons', () => {
         const tabSelector = '#tab--afterHoursReasons';
-        const newReason = 'Reason - ' + Date.now().toString();
-        const updateReason = newReason + ' - updated';
+        const newReason = `Reason - ${Date.now().toString()}`;
+        const updateReason = `${newReason} - updated`;
         beforeEach(() => {
             cy.get(`.tabs a[href="${tabSelector}"]`).click();
         });
         it('Adds a new reason', () => {
             cy.injectAxe();
             cy.checkA11y();
-            cy.get(tabSelector + ' button[data-cy="add"]').click();
+            cy.get(`${tabSelector} button[data-cy="add"]`).click();
             cy.get('.modal').should('exist');
             cy.get('html').should('have.class', 'is-clipped');
             cy.injectAxe();

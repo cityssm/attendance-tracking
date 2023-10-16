@@ -1,5 +1,5 @@
-/* eslint-disable promise/always-return */
-/* eslint-disable promise/catch-or-return */
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable promise/always-return, promise/catch-or-return */
 
 import { testAdmin } from '../../../test/_globals.js'
 import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes.js'
@@ -83,19 +83,19 @@ function addEmployee(): void {
 
     cy.get('.modal form input[name="workContact1"]')
       .clear()
-      .type((employee.workContact1 as string) ?? '')
+      .type(employee.workContact1 ?? '')
 
     cy.get('.modal form input[name="workContact2"]')
       .clear()
-      .type((employee.workContact2 as string) ?? '')
+      .type(employee.workContact2 ?? '')
 
     cy.get('.modal form input[name="homeContact1"]')
       .clear()
-      .type((employee.homeContact1 as string) ?? '')
+      .type(employee.homeContact1 ?? '')
 
     cy.get('.modal form input[name="homeContact2"]')
       .clear()
-      .type((employee.homeContact2 as string) ?? '')
+      .type(employee.homeContact2 ?? '')
 
     cy.get('.modal #tab--employeeDetails form').submit()
 
