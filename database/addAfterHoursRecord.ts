@@ -21,11 +21,9 @@ export async function addAfterHoursRecord(
   let attendanceDateTimeString = ''
 
   if ((form.attendanceDateString ?? '') !== '') {
-    attendanceDateTimeString = (
-      (form.attendanceDateString ?? '') +
-      ' ' +
-      (form.attendanceTimeString ?? '')
-    ).trim()
+    attendanceDateTimeString = `${form.attendanceDateString ?? ''} ${
+      form.attendanceTimeString ?? ''
+    }`.trim()
   }
 
   const result: IResult<{ recordId: string }> = await pool

@@ -245,7 +245,7 @@ declare const cityssm: cityssmGlobal
     let selfSignUpKey = ''
 
     const selfSignUpKeyElement = panelBlockElement.querySelector(
-      '#callOutListAdd--selfSignUpKey_' + listId
+      `#callOutListAdd--selfSignUpKey_${listId}`
     )
 
     if (selfSignUpKeyElement !== null) {
@@ -309,7 +309,7 @@ declare const cityssm: cityssmGlobal
       </p>`
 
     cityssm.postJSON(
-      urlPrefix + '/doGetAvailableCallOutLists',
+      `${urlPrefix}/doGetAvailableCallOutLists`,
       {
         employeeNumber: employeeNumberElement.value,
         employeeHomeContactLastFourDigits:

@@ -155,7 +155,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const panelBlockElement = buttonElement.closest('.panel-block');
         const listId = (_a = panelBlockElement.dataset.listId) !== null && _a !== void 0 ? _a : '';
         let selfSignUpKey = '';
-        const selfSignUpKeyElement = panelBlockElement.querySelector('#callOutListAdd--selfSignUpKey_' + listId);
+        const selfSignUpKeyElement = panelBlockElement.querySelector(`#callOutListAdd--selfSignUpKey_${listId}`);
         if (selfSignUpKeyElement !== null) {
             selfSignUpKey = selfSignUpKeyElement.value;
             if (selfSignUpKey === '') {
@@ -198,7 +198,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
       <i class="fas fa-4x fa-cog fa-spin" aria-hidden="true"></i><br />
       <em>Loading call out lists...</em>
       </p>`;
-        cityssm.postJSON(urlPrefix + '/doGetAvailableCallOutLists', {
+        cityssm.postJSON(`${urlPrefix}/doGetAvailableCallOutLists`, {
             employeeNumber: employeeNumberElement.value,
             employeeHomeContactLastFourDigits: employeeHomeContactLastFourDigitsElement.value
         }, (rawResponseJSON) => {

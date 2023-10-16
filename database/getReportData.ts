@@ -104,7 +104,7 @@ export async function getReportData(
     }
 
     case 'absenceRecords-recent': {
-      sql = absenceRecordsRecentSQL + ' order by r.absenceDateTime, r.recordId'
+      sql = `${absenceRecordsRecentSQL} order by r.absenceDateTime, r.recordId`
 
       request = request.input('recentDays', recentDays)
 
@@ -153,8 +153,7 @@ export async function getReportData(
     }
 
     case 'returnToWorkRecords-recent': {
-      sql =
-        returnToWorkRecordsRecentSQL + ' order by r.returnDateTime, r.recordId'
+      sql = `${returnToWorkRecordsRecentSQL} order by r.returnDateTime, r.recordId`
 
       request = request.input('recentDays', recentDays)
 
@@ -224,7 +223,7 @@ export async function getReportData(
     }
 
     case 'callOutRecords-recent': {
-      sql = callOutRecordsRecentSQL + ' order by r.callOutDateTime, r.recordId'
+      sql = `${callOutRecordsRecentSQL} order by r.callOutDateTime, r.recordId`
 
       request = request.input('recentDays', recentDays)
 
@@ -286,9 +285,7 @@ export async function getReportData(
     }
 
     case 'afterHoursRecords-recent': {
-      sql =
-        afterHoursRecordsRecentSQL +
-        ' order by r.attendanceDateTime, r.recordId'
+      sql = `${afterHoursRecordsRecentSQL} order by r.attendanceDateTime, r.recordId`
 
       request = request.input('recentDays', recentDays)
 
@@ -296,9 +293,8 @@ export async function getReportData(
     }
 
     case 'afterHoursRecords-recent-byEmployeeNumber': {
-      sql =
-        afterHoursRecordsRecentSQL +
-        ` and r.employeeNumber = @employeeNumber
+      sql = `${afterHoursRecordsRecentSQL}
+          and r.employeeNumber = @employeeNumber
           order by r.attendanceDateTime, r.recordId`
 
       request = request

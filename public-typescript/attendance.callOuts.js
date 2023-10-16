@@ -39,9 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             .split(' ');
         // eslint-disable-next-line no-labels
         callOutListLoop: for (const callOutList of MonTYCallOuts.callOutLists) {
-            const listStringToSearch = (callOutList.listName +
-                ' ' +
-                ((_a = callOutList.listDescription) !== null && _a !== void 0 ? _a : '')).toLowerCase();
+            const listStringToSearch = `${callOutList.listName} ${(_a = callOutList.listDescription) !== null && _a !== void 0 ? _a : ''}`.toLowerCase();
             for (const searchFilterPiece of searchFilterPieces) {
                 if (!listStringToSearch.includes(searchFilterPiece)) {
                     // eslint-disable-next-line no-labels

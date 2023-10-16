@@ -144,11 +144,11 @@ app.get(`${urlPrefix}/logout`, (request, response) => {
         Object.hasOwn(request.cookies, sessionCookieName)) {
         request.session.destroy(() => {
             response.clearCookie(sessionCookieName);
-            response.redirect(urlPrefix + '/');
+            response.redirect(`${urlPrefix}/`);
         });
     }
     else {
-        response.redirect(urlPrefix + '/login');
+        response.redirect(`${urlPrefix}/login`);
     }
 });
 if (getConfigProperty('features.selfService')) {
@@ -156,6 +156,6 @@ if (getConfigProperty('features.selfService')) {
 }
 app.use((request, _response, next) => {
     debug(request.url);
-    next(createError(404, 'File not found: ' + request.url));
+    next(createError(404, `File not found: ${request.url}`));
 });
 export default app;

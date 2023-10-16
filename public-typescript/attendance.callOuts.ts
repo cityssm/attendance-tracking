@@ -75,11 +75,9 @@ declare const cityssm: cityssmGlobal
 
     // eslint-disable-next-line no-labels
     callOutListLoop: for (const callOutList of MonTYCallOuts.callOutLists) {
-      const listStringToSearch = (
-        callOutList.listName +
-        ' ' +
-        (callOutList.listDescription ?? '')
-      ).toLowerCase()
+      const listStringToSearch = `${callOutList.listName} ${
+        callOutList.listDescription ?? ''
+      }`.toLowerCase()
 
       for (const searchFilterPiece of searchFilterPieces) {
         if (!listStringToSearch.includes(searchFilterPiece)) {

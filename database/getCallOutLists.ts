@@ -34,12 +34,10 @@ export async function getCallOutLists(
     where l.recordDelete_dateTime is null`
 
   if (Object.hasOwn(filters, 'allowSelfSignUp')) {
-    sql += ' and allowSelfSignUp = ' + (filters.allowSelfSignUp! ? '1' : '0')
+    sql += ` and allowSelfSignUp = ${filters.allowSelfSignUp! ? '1' : '0'}`
   }
 
-  sql =
-    sql +
-    ` group by l.listId, l.listName, l.listDescription,
+  sql += ` group by l.listId, l.listName, l.listDescription,
         l.allowSelfSignUp, l.selfSignUpKey,
         l.sortKeyFunction, l.eligibilityFunction, l.employeePropertyName, f.userName
       order by isFavourite desc, listName`

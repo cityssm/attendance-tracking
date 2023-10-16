@@ -77,7 +77,7 @@ export async function getReportData(reportName, reportParameters = {}) {
             break;
         }
         case 'absenceRecords-recent': {
-            sql = absenceRecordsRecentSQL + ' order by r.absenceDateTime, r.recordId';
+            sql = `${absenceRecordsRecentSQL} order by r.absenceDateTime, r.recordId`;
             request = request.input('recentDays', recentDays);
             break;
         }
@@ -112,8 +112,7 @@ export async function getReportData(reportName, reportParameters = {}) {
             break;
         }
         case 'returnToWorkRecords-recent': {
-            sql =
-                returnToWorkRecordsRecentSQL + ' order by r.returnDateTime, r.recordId';
+            sql = `${returnToWorkRecordsRecentSQL} order by r.returnDateTime, r.recordId`;
             request = request.input('recentDays', recentDays);
             break;
         }
@@ -162,7 +161,7 @@ export async function getReportData(reportName, reportParameters = {}) {
             break;
         }
         case 'callOutRecords-recent': {
-            sql = callOutRecordsRecentSQL + ' order by r.callOutDateTime, r.recordId';
+            sql = `${callOutRecordsRecentSQL} order by r.callOutDateTime, r.recordId`;
             request = request.input('recentDays', recentDays);
             break;
         }
@@ -207,16 +206,13 @@ export async function getReportData(reportName, reportParameters = {}) {
             break;
         }
         case 'afterHoursRecords-recent': {
-            sql =
-                afterHoursRecordsRecentSQL +
-                    ' order by r.attendanceDateTime, r.recordId';
+            sql = `${afterHoursRecordsRecentSQL} order by r.attendanceDateTime, r.recordId`;
             request = request.input('recentDays', recentDays);
             break;
         }
         case 'afterHoursRecords-recent-byEmployeeNumber': {
-            sql =
-                afterHoursRecordsRecentSQL +
-                    ` and r.employeeNumber = @employeeNumber
+            sql = `${afterHoursRecordsRecentSQL}
+          and r.employeeNumber = @employeeNumber
           order by r.attendanceDateTime, r.recordId`;
             request = request
                 .input('recentDays', recentDays)

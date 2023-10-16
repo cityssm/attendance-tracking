@@ -25,11 +25,9 @@ export async function addCallOutRecord(
     form.callOutDateString !== undefined &&
     (form.callOutDateString ?? '') !== ''
   ) {
-    callOutDateTimeString = (
-      form.callOutDateString +
-      ' ' +
-      (form.callOutTimeString ?? '')
-    ).trim()
+    callOutDateTimeString = `${form.callOutDateString} ${
+      form.callOutTimeString ?? ''
+    }`.trim()
   }
 
   const result: IResult<{ recordId: string }> = await pool
