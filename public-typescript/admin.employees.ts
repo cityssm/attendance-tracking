@@ -159,7 +159,7 @@ declare const cityssm: cityssmGlobal
         ;(rowElement.querySelector('input') as HTMLInputElement).value =
           employeeProperty.propertyValue
         ;(rowElement.querySelector('select') as HTMLSelectElement).value =
-          employeeProperty.isSynced! ? '1' : '0'
+          (employeeProperty.isSynced as boolean) ? '1' : '0'
 
         rowElement
           .querySelector('.is-update-button')
@@ -297,8 +297,7 @@ declare const cityssm: cityssmGlobal
         employeeModalElement = modalElement
         ;(
           modalElement.querySelector('.modal-card-title') as HTMLElement
-        ).textContent =
-          employee.employeeSurname + ', ' + employee.employeeGivenName
+        ).textContent = `${employee.employeeSurname}, ${employee.employeeGivenName}`
         ;(
           modalElement.querySelector(
             '#employeeEdit--employeeNumber'

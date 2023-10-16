@@ -102,10 +102,10 @@ declare const cityssm: cityssmGlobal
       panelBlockElement.innerHTML = `<div class="columns is-mobile">
         <div class="column is-narrow">
           <button class="button is-white" data-is-favourite="${
-            callOutList.isFavourite! ? '1' : '0'
+            (callOutList.isFavourite as boolean) ? '1' : '0'
           }" data-tooltip="Toggle Favourite" type="button" aria-label="Toggle Favourite">
             ${
-              callOutList.isFavourite!
+              (callOutList.isFavourite as boolean)
                 ? '<i class="fas fa-star" aria-hidden="true"></i><span class="is-sr-only">Favourite</span>'
                 : '<i class="far fa-star" aria-hidden="true"></i><span class="is-sr-only">Not Favourite</span>'
             }

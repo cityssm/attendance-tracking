@@ -12,11 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
     const filterElement = document.querySelector('#employees--searchFilter');
     const employeesContainerElement = document.querySelector('#container--employees');
     function insertRecord(panelElement, panelBlockElementToInsert) {
+        var _a, _b;
         let inserted = false;
         const panelBlockElements = panelElement.querySelectorAll('.panel-block');
         for (const panelBlockElement of panelBlockElements) {
-            if (panelBlockElement.dataset.recordCreate_timeMillis <
-                panelBlockElementToInsert.dataset.recordCreate_timeMillis) {
+            if (Number.parseInt((_a = panelBlockElement.dataset.recordCreate_timeMillis) !== null && _a !== void 0 ? _a : '0', 10) <
+                Number.parseInt((_b = panelBlockElementToInsert.dataset.recordCreate_timeMillis) !== null && _b !== void 0 ? _b : '0', 10)) {
                 panelBlockElement.before(panelBlockElementToInsert);
                 inserted = true;
                 break;
@@ -32,7 +33,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             return possibleEmployee.employeeNumber === employeeNumber;
         });
         function renderAttendanceRecords(records) {
-            var _a, _b, _c, _d, _e, _f;
+            var _a, _b, _c, _d, _e, _f, _g;
             const panelElement = document.createElement('div');
             panelElement.className = 'panel';
             const containerElement = employeeModalElement.querySelector('#container--attendanceLog');
@@ -50,8 +51,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
             <strong>${new Date(absenceRecord.absenceDateTime).toLocaleDateString()}</strong>
           </div>
           <div class="column">
-            <strong>${absenceRecord.absenceType}</strong><br />
-            <span class="is-size-7">${(_a = absenceRecord.recordComment) !== null && _a !== void 0 ? _a : ''}</span>
+            <strong>${(_a = absenceRecord.absenceType) !== null && _a !== void 0 ? _a : ''}</strong><br />
+            <span class="is-size-7">${(_b = absenceRecord.recordComment) !== null && _b !== void 0 ? _b : ''}</span>
           </div>
           </div>`;
                 panelElement.append(panelBlockElement);
@@ -68,11 +69,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
           </div>
           <div class="column">
             <strong>${new Date(returnToWorkRecord.returnDateTime).toLocaleDateString()}</strong><br />
-            ${(_b = returnToWorkRecord.returnShift) !== null && _b !== void 0 ? _b : ''}
+            ${(_c = returnToWorkRecord.returnShift) !== null && _c !== void 0 ? _c : ''}
           </div>
           <div class="column">
             <strong>Return to Work</strong><br />
-            <span class="is-size-7">${(_c = returnToWorkRecord.recordComment) !== null && _c !== void 0 ? _c : ''}</span>
+            <span class="is-size-7">${(_d = returnToWorkRecord.recordComment) !== null && _d !== void 0 ? _d : ''}</span>
           </div>
           </div>`;
                 insertRecord(panelElement, panelBlockElement);
@@ -90,15 +91,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
           <div class="column">
             <strong>${new Date(callOutRecord.callOutDateTime).toLocaleDateString()}</strong><br />
             <span class="is-size-7">
-              <i class="fas fa-fw ${((_d = callOutRecord.isSuccessful) !== null && _d !== void 0 ? _d : false)
+              <i class="fas fa-fw ${((_e = callOutRecord.isSuccessful) !== null && _e !== void 0 ? _e : false)
                     ? ' fa-check has-text-success'
                     : ' fa-times has-text-danger'}" aria-hidden="true"></i>
-              ${(_e = callOutRecord.responseType) !== null && _e !== void 0 ? _e : ''}
+              ${(_f = callOutRecord.responseType) !== null && _f !== void 0 ? _f : ''}
             </span>
           </div>
           <div class="column">
             <strong>Call Out</strong><br />
-            <span class="is-size-7">${(_f = callOutRecord.recordComment) !== null && _f !== void 0 ? _f : ''}</span>
+            <span class="is-size-7">${(_g = callOutRecord.recordComment) !== null && _g !== void 0 ? _g : ''}</span>
           </div>
           </div>`;
                 insertRecord(panelElement, panelBlockElement);

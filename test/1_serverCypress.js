@@ -37,6 +37,7 @@ describe('MonTY', () => {
             httpServer.close();
         }
         catch {
+            console.warn('Error closing HTTP server.');
         }
     });
     it(`Ensure server starts on port ${portNumber.toString()}`, () => {

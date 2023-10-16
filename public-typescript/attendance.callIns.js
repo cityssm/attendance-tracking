@@ -235,15 +235,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 const fieldsetElement = callInModalElement.querySelector(`fieldset[data-call-in-type="${radioElement.value}"]`);
                 if (radioElement.checked) {
                     labelButtonElement.classList.add('is-link');
-                    labelButtonElement.querySelector('.icon').innerHTML =
-                        '<i class="fas fa-check" aria-hidden="true"></i>';
+                    labelButtonElement.querySelector('.icon').innerHTML = '<i class="fas fa-check" aria-hidden="true"></i>';
                     fieldsetElement.disabled = false;
                     fieldsetElement.classList.remove('is-hidden');
                 }
                 else {
                     labelButtonElement.classList.remove('is-link');
-                    labelButtonElement.querySelector('.icon').innerHTML =
-                        '<i class="fas fa-minus" aria-hidden="true"></i>';
+                    labelButtonElement.querySelector('.icon').innerHTML = '<i class="fas fa-minus" aria-hidden="true"></i>';
                     fieldsetElement.classList.add('is-hidden');
                     fieldsetElement.disabled = true;
                 }

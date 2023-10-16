@@ -52,16 +52,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
             userName,
             canLogin: canLoginSelectElement.value
         }, (rawResponseJSON) => {
-            var _a, _b;
+            var _a, _b, _c;
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
-                canLoginSelectElement
-                    .closest('.control')
-                    .querySelector('.icon').innerHTML = `<i class="fas ${canLoginSelectElement.value === '1' ? 'fa-check' : 'fa-times'}" aria-hidden="true"></i>`;
-                (_a = canLoginSelectElement
-                    .closest('.select')) === null || _a === void 0 ? void 0 : _a.classList.remove('is-danger', 'is-success');
+                // eslint-disable-next-line no-extra-semi
+                ;
+                ((_a = canLoginSelectElement
+                    .closest('.control')) === null || _a === void 0 ? void 0 : _a.querySelector('.icon')).innerHTML = `<i class="fas ${canLoginSelectElement.value === '1' ? 'fa-check' : 'fa-times'}" aria-hidden="true"></i>`;
                 (_b = canLoginSelectElement
-                    .closest('.select')) === null || _b === void 0 ? void 0 : _b.classList.add(canLoginSelectElement.value === '1' ? 'is-success' : 'is-danger');
+                    .closest('.select')) === null || _b === void 0 ? void 0 : _b.classList.remove('is-danger', 'is-success');
+                (_c = canLoginSelectElement
+                    .closest('.select')) === null || _c === void 0 ? void 0 : _c.classList.add(canLoginSelectElement.value === '1' ? 'is-success' : 'is-danger');
             }
             else {
                 bulmaJS.alert({
@@ -83,16 +84,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
             userName,
             isAdmin: isAdminSelectElement.value
         }, (rawResponseJSON) => {
-            var _a, _b;
+            var _a, _b, _c;
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
-                isAdminSelectElement
-                    .closest('.control')
-                    .querySelector('.icon').innerHTML = `<i class="fas ${isAdminSelectElement.value === '1' ? 'fa-check' : 'fa-times'}" aria-hidden="true"></i>`;
-                (_a = isAdminSelectElement
-                    .closest('.select')) === null || _a === void 0 ? void 0 : _a.classList.remove('is-danger', 'is-success');
+                // eslint-disable-next-line no-extra-semi
+                ;
+                ((_a = isAdminSelectElement
+                    .closest('.control')) === null || _a === void 0 ? void 0 : _a.querySelector('.icon')).innerHTML = `<i class="fas ${isAdminSelectElement.value === '1' ? 'fa-check' : 'fa-times'}" aria-hidden="true"></i>`;
                 (_b = isAdminSelectElement
-                    .closest('.select')) === null || _b === void 0 ? void 0 : _b.classList.add(isAdminSelectElement.value === '1' ? 'is-success' : 'is-danger');
+                    .closest('.select')) === null || _b === void 0 ? void 0 : _b.classList.remove('is-danger', 'is-success');
+                (_c = isAdminSelectElement
+                    .closest('.select')) === null || _c === void 0 ? void 0 : _c.classList.add(isAdminSelectElement.value === '1' ? 'is-success' : 'is-danger');
             }
             else {
                 bulmaJS.alert({

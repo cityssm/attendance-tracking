@@ -19,7 +19,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
     function updateAbsenceType(clickEvent) {
         const rowElement = clickEvent.currentTarget.closest('tr');
         const absenceTypeKey = rowElement.dataset.absenceTypeKey;
-        const absenceType = rowElement.querySelector('input').value;
+        const absenceType = rowElement.querySelector('input')
+            .value;
         cityssm.postJSON(`${MonTY.urlPrefix}/admin/doUpdateAbsenceType`, {
             absenceTypeKey,
             absenceType
@@ -353,6 +354,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
             (_a = rowElement
                 .querySelector('select')) === null || _a === void 0 ? void 0 : _a.addEventListener('change', setRowBackgroundColor);
             if (!callOutResponseType.isSuccessful) {
+                // eslint-disable-next-line no-extra-semi
+                ;
                 rowElement.querySelector('select').value = '0';
             }
             rowElement

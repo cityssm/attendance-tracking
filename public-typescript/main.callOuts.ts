@@ -38,7 +38,7 @@ declare const cityssm: cityssmGlobal
   let callOutLists = exports.callOutLists as CallOutList[]
 
   function getCurrentCallOutList(): CallOutList {
-    return MonTY.callOuts!.callOutLists.find((possibleCallOutList) => {
+    return MonTY.callOuts?.callOutLists.find((possibleCallOutList) => {
       return possibleCallOutList.listId === currentListId
     }) as CallOutList
   }
@@ -171,9 +171,12 @@ declare const cityssm: cityssmGlobal
     function renderCallOutRecords(): void {
       // Tag Count
 
-      callOutMemberModalElement.querySelector(
-        '#tag--recentCalls'
-      )!.textContent = callOutRecords.length.toString()
+      // eslint-disable-next-line no-extra-semi
+      ;(
+        callOutMemberModalElement.querySelector(
+          '#tag--recentCalls'
+        ) as HTMLElement
+      ).textContent = callOutRecords.length.toString()
 
       // Data
 
@@ -507,7 +510,8 @@ declare const cityssm: cityssmGlobal
             renderAvailableEmployees()
 
             callOutLists = responseJSON.callOutLists
-            MonTY.callOuts!.callOutLists = responseJSON.callOutLists
+            ;(MonTY.callOuts as MonTYCallOuts).callOutLists =
+              responseJSON.callOutLists
 
             if (onUpdateCallbackFunction !== undefined) {
               onUpdateCallbackFunction()
@@ -576,8 +580,8 @@ declare const cityssm: cityssmGlobal
         (callOutList.eligibilityFunction ?? '') !== ''
       ) {
         const optionElement = document.createElement('option')
-        optionElement.value = callOutList.eligibilityFunction!
-        optionElement.textContent = callOutList.eligibilityFunction!
+        optionElement.value = callOutList.eligibilityFunction ?? ''
+        optionElement.textContent = callOutList.eligibilityFunction ?? ''
         optionElement.selected = true
         eligibilityFunctionElement.append(optionElement)
       }
@@ -639,8 +643,9 @@ declare const cityssm: cityssmGlobal
             ) as HTMLFormElement
 
             formElement.addEventListener('submit', doUpdateCallOutList)
-
-            formElement.querySelector('fieldset')!.disabled = false
+            ;(
+              formElement.querySelector('fieldset') as HTMLFieldSetElement
+            ).disabled = false
           })
       }
     }
@@ -695,8 +700,9 @@ declare const cityssm: cityssmGlobal
     function deleteCallOutListMember(clickEvent: MouseEvent): void {
       clickEvent.preventDefault()
 
-      const employeeNumber = (clickEvent.currentTarget as HTMLAnchorElement)
-        .dataset.employeeNumber!
+      const employeeNumber =
+        (clickEvent.currentTarget as HTMLAnchorElement).dataset
+          .employeeNumber ?? ''
 
       function doDelete(): void {
         cityssm.postJSON(
@@ -963,7 +969,8 @@ declare const cityssm: cityssmGlobal
               })
 
               callOutLists = responseJSON.callOutLists
-              MonTY.callOuts!.callOutLists = responseJSON.callOutLists
+              ;(MonTY.callOuts as MonTYCallOuts).callOutLists =
+                responseJSON.callOutLists
 
               if (onUpdateCallbackFunction !== undefined) {
                 onUpdateCallbackFunction()

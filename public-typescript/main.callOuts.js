@@ -12,7 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
      */
     let callOutLists = exports.callOutLists;
     function getCurrentCallOutList() {
-        return MonTY.callOuts.callOutLists.find((possibleCallOutList) => {
+        var _a;
+        return (_a = MonTY.callOuts) === null || _a === void 0 ? void 0 : _a.callOutLists.find((possibleCallOutList) => {
             return possibleCallOutList.listId === currentListId;
         });
     }
@@ -91,6 +92,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
         function renderCallOutRecords() {
             // Tag Count
             var _a, _b, _c;
+            // eslint-disable-next-line no-extra-semi
+            ;
             callOutMemberModalElement.querySelector('#tag--recentCalls').textContent = callOutRecords.length.toString();
             // Data
             const callOutRecordsContainerElement = callOutMemberModalElement.querySelector('#container--callOutRecords');
@@ -274,7 +277,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     renderCallOutListMembers();
                     renderAvailableEmployees();
                     callOutLists = responseJSON.callOutLists;
-                    MonTY.callOuts.callOutLists = responseJSON.callOutLists;
+                    MonTY.callOuts.callOutLists =
+                        responseJSON.callOutLists;
                     if (onUpdateCallbackFunction !== undefined) {
                         onUpdateCallbackFunction();
                     }
@@ -289,7 +293,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             });
         }
         function initializeListDetailsTab() {
-            var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
             // eslint-disable-next-line no-extra-semi
             ;
             callOutListModalElement.querySelector('#callOutListEdit--listId').value = callOutList.listId;
@@ -313,8 +317,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
             if (!eligibilityFunctionFound &&
                 ((_d = callOutList.eligibilityFunction) !== null && _d !== void 0 ? _d : '') !== '') {
                 const optionElement = document.createElement('option');
-                optionElement.value = callOutList.eligibilityFunction;
-                optionElement.textContent = callOutList.eligibilityFunction;
+                optionElement.value = (_e = callOutList.eligibilityFunction) !== null && _e !== void 0 ? _e : '';
+                optionElement.textContent = (_f = callOutList.eligibilityFunction) !== null && _f !== void 0 ? _f : '';
                 optionElement.selected = true;
                 eligibilityFunctionElement.append(optionElement);
             }
@@ -331,21 +335,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
                 sortKeyFunctionElement.append(optionElement);
             }
-            if (!sortKeyFunctionFound && ((_e = callOutList.sortKeyFunction) !== null && _e !== void 0 ? _e : '') !== '') {
+            if (!sortKeyFunctionFound && ((_g = callOutList.sortKeyFunction) !== null && _g !== void 0 ? _g : '') !== '') {
                 const optionElement = document.createElement('option');
-                optionElement.value = (_f = callOutList.sortKeyFunction) !== null && _f !== void 0 ? _f : '';
-                optionElement.textContent = (_g = callOutList.sortKeyFunction) !== null && _g !== void 0 ? _g : '';
+                optionElement.value = (_h = callOutList.sortKeyFunction) !== null && _h !== void 0 ? _h : '';
+                optionElement.textContent = (_j = callOutList.sortKeyFunction) !== null && _j !== void 0 ? _j : '';
                 optionElement.selected = true;
                 sortKeyFunctionElement.append(optionElement);
             }
             // eslint-disable-next-line no-extra-semi
             ;
-            callOutListModalElement.querySelector('#callOutListEdit--employeePropertyName').value = (_h = callOutList.employeePropertyName) !== null && _h !== void 0 ? _h : '';
+            callOutListModalElement.querySelector('#callOutListEdit--employeePropertyName').value = (_k = callOutList.employeePropertyName) !== null && _k !== void 0 ? _k : '';
             if (canManage) {
                 const unlockButtonsContainerElement = callOutListModalElement.querySelector('#callOutListEdit--unlockButtons');
                 unlockButtonsContainerElement.classList.remove('is-hidden');
-                (_j = unlockButtonsContainerElement
-                    .querySelector('button')) === null || _j === void 0 ? void 0 : _j.addEventListener('click', () => {
+                (_l = unlockButtonsContainerElement
+                    .querySelector('button')) === null || _l === void 0 ? void 0 : _l.addEventListener('click', () => {
                     var _a;
                     unlockButtonsContainerElement.remove();
                     (_a = callOutListModalElement
@@ -387,9 +391,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
             });
         }
         function deleteCallOutListMember(clickEvent) {
+            var _a;
             clickEvent.preventDefault();
-            const employeeNumber = clickEvent.currentTarget
-                .dataset.employeeNumber;
+            const employeeNumber = (_a = clickEvent.currentTarget.dataset
+                .employeeNumber) !== null && _a !== void 0 ? _a : '';
             function doDelete() {
                 cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doDeleteCallOutListMember`, {
                     listId: callOutList.listId,
@@ -571,7 +576,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
                             message: 'Call Out List deleted successfully.'
                         });
                         callOutLists = responseJSON.callOutLists;
-                        MonTY.callOuts.callOutLists = responseJSON.callOutLists;
+                        MonTY.callOuts.callOutLists =
+                            responseJSON.callOutLists;
                         if (onUpdateCallbackFunction !== undefined) {
                             onUpdateCallbackFunction();
                         }

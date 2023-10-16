@@ -59,7 +59,7 @@ describe('MonTY', () => {
     try {
       httpServer.close()
     } catch {
-      // ignore
+      console.warn('Error closing HTTP server.')
     }
   })
 

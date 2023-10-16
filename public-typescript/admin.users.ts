@@ -99,9 +99,12 @@ declare const cityssm: cityssmGlobal
         }
 
         if (responseJSON.success) {
-          canLoginSelectElement
-            .closest('.control')!
-            .querySelector('.icon')!.innerHTML = `<i class="fas ${
+          // eslint-disable-next-line no-extra-semi
+          ;(
+            canLoginSelectElement
+              .closest('.control')
+              ?.querySelector('.icon') as HTMLElement
+          ).innerHTML = `<i class="fas ${
             canLoginSelectElement.value === '1' ? 'fa-check' : 'fa-times'
           }" aria-hidden="true"></i>`
 
@@ -149,9 +152,12 @@ declare const cityssm: cityssmGlobal
         }
 
         if (responseJSON.success) {
-          isAdminSelectElement
-            .closest('.control')!
-            .querySelector('.icon')!.innerHTML = `<i class="fas ${
+          // eslint-disable-next-line no-extra-semi
+          ;(
+            isAdminSelectElement
+              .closest('.control')
+              ?.querySelector('.icon') as HTMLElement
+          ).innerHTML = `<i class="fas ${
             isAdminSelectElement.value === '1' ? 'fa-check' : 'fa-times'
           }" aria-hidden="true"></i>`
 

@@ -310,10 +310,11 @@ declare const cityssm: cityssmGlobal
 
     containerElement.innerHTML = ''
     containerElement.append(panelElement)
-
-    document.querySelector(
-      '#menu--attendance a[href="#tab--returnsToWork"] .tag'
-    )!.textContent = todayCount.toString()
+    ;(
+      document.querySelector(
+        '#menu--attendance a[href="#tab--returnsToWork"] .tag'
+      ) as HTMLElement
+    ).textContent = todayCount.toString()
   }
 
   function openCallInModal(clickEvent: Event): void {
@@ -377,15 +378,17 @@ declare const cityssm: cityssmGlobal
 
         if (radioElement.checked) {
           labelButtonElement.classList.add('is-link')
-          labelButtonElement.querySelector('.icon')!.innerHTML =
-            '<i class="fas fa-check" aria-hidden="true"></i>'
+          ;(
+            labelButtonElement.querySelector('.icon') as HTMLElement
+          ).innerHTML = '<i class="fas fa-check" aria-hidden="true"></i>'
 
           fieldsetElement.disabled = false
           fieldsetElement.classList.remove('is-hidden')
         } else {
           labelButtonElement.classList.remove('is-link')
-          labelButtonElement.querySelector('.icon')!.innerHTML =
-            '<i class="fas fa-minus" aria-hidden="true"></i>'
+          ;(
+            labelButtonElement.querySelector('.icon') as HTMLElement
+          ).innerHTML = '<i class="fas fa-minus" aria-hidden="true"></i>'
 
           fieldsetElement.classList.add('is-hidden')
           fieldsetElement.disabled = true

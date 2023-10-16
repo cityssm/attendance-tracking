@@ -57,8 +57,14 @@ declare const cityssm: cityssmGlobal
 
     for (const panelBlockElement of panelBlockElements) {
       if (
-        panelBlockElement.dataset.recordCreate_timeMillis! <
-        panelBlockElementToInsert.dataset.recordCreate_timeMillis!
+        Number.parseInt(
+          panelBlockElement.dataset.recordCreate_timeMillis ?? '0',
+          10
+        ) <
+        Number.parseInt(
+          panelBlockElementToInsert.dataset.recordCreate_timeMillis ?? '0',
+          10
+        )
       ) {
         panelBlockElement.before(panelBlockElementToInsert)
         inserted = true
@@ -76,7 +82,7 @@ declare const cityssm: cityssmGlobal
 
     const employee = employees.find((possibleEmployee) => {
       return possibleEmployee.employeeNumber === employeeNumber
-    })!
+    }) as Employee
 
     function renderAttendanceRecords(records: {
       absenceRecords: AbsenceRecord[]
@@ -109,7 +115,7 @@ declare const cityssm: cityssmGlobal
             ).toLocaleDateString()}</strong>
           </div>
           <div class="column">
-            <strong>${absenceRecord.absenceType!}</strong><br />
+            <strong>${absenceRecord.absenceType ?? ''}</strong><br />
             <span class="is-size-7">${absenceRecord.recordComment ?? ''}</span>
           </div>
           </div>`

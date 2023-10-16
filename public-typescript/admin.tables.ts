@@ -61,7 +61,8 @@ declare const cityssm: cityssmGlobal
     ) as HTMLTableRowElement
 
     const absenceTypeKey = rowElement.dataset.absenceTypeKey
-    const absenceType = rowElement.querySelector('input')!.value
+    const absenceType = (rowElement.querySelector('input') as HTMLInputElement)
+      .value
 
     cityssm.postJSON(
       `${MonTY.urlPrefix}/admin/doUpdateAbsenceType`,
@@ -530,7 +531,8 @@ declare const cityssm: cityssmGlobal
         ?.addEventListener('change', setRowBackgroundColor)
 
       if (!(callOutResponseType.isSuccessful as boolean)) {
-        rowElement.querySelector('select')!.value = '0'
+        // eslint-disable-next-line no-extra-semi
+        ;(rowElement.querySelector('select') as HTMLSelectElement).value = '0'
       }
 
       rowElement

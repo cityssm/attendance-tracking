@@ -200,8 +200,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             onshow(modalElement) {
                 var _a, _b, _c, _d, _e, _f, _g, _h;
                 employeeModalElement = modalElement;
-                modalElement.querySelector('.modal-card-title').textContent =
-                    employee.employeeSurname + ', ' + employee.employeeGivenName;
+                modalElement.querySelector('.modal-card-title').textContent = `${employee.employeeSurname}, ${employee.employeeGivenName}`;
                 modalElement.querySelector('#employeeEdit--employeeNumber').value = employee.employeeNumber;
                 modalElement.querySelector('#employeeEdit--employeeNumberSpan').textContent = employee.employeeNumber;
                 modalElement.querySelector('#employeeEdit--isActive').value = employee.isActive ? '1' : '0';
