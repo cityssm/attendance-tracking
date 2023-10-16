@@ -14,7 +14,7 @@ import session from 'express-session';
 import createError from 'http-errors';
 import FileStore from 'session-file-store';
 import { getSafeRedirectURL } from './helpers/functions.authentication.js';
-import configFunctions from './helpers/functions.config.js';
+import configFunctions, { getConfigProperty } from './helpers/functions.config.js';
 import * as permissionFunctions from './helpers/functions.permissions.js';
 import routerAdmin from './routes/admin.js';
 import routerAttendance from './routes/attendance.js';
@@ -25,17 +25,17 @@ import routerReports from './routes/reports.js';
 import routerSelfService from './routes/selfService.js';
 import { version } from './version.js';
 const debug = Debug(`monty:app:${process.pid}`);
-if (configFunctions.getConfigProperty('tempUsers').length > 0) {
+if (getConfigProperty('tempUsers').length > 0) {
     debug('Temporary user accounts currently active!');
 }
 export const app = express();
 app.disable('X-Powered-By');
-if (!configFunctions.getConfigProperty('reverseProxy.disableEtag')) {
+if (!getConfigProperty('reverseProxy.disableEtag')) {
     app.set('etag', false);
 }
 app.set('views', path.join('views'));
 app.set('view engine', 'ejs');
-if (!configFunctions.getConfigProperty('reverseProxy.disableCompression')) {
+if (!getConfigProperty('reverseProxy.disableCompression')) {
     app.use(compression());
 }
 app.use((request, _response, next) => {
@@ -55,7 +55,7 @@ app.use(rateLimit({
     max: 200
 }));
 const abuseCheckHandler = abuseCheck();
-const urlPrefix = configFunctions.getConfigProperty('reverseProxy.urlPrefix');
+const urlPrefix = getConfigProperty('reverseProxy.urlPrefix');
 if (urlPrefix !== '') {
     debug(`urlPrefix = ${urlPrefix}`);
 }
@@ -65,7 +65,7 @@ app.use(`${urlPrefix}/favicon.ico`, express.static(path.join('public', 'images',
 app.use(`${urlPrefix}/lib/cityssm-bulma-js/bulma-js.js`, express.static(path.join('node_modules', '@cityssm', 'bulma-js', 'dist', 'bulma-js.js')));
 app.use(`${urlPrefix}/lib/cityssm-bulma-webapp-js`, express.static(path.join('node_modules', '@cityssm', 'bulma-webapp-js', 'dist')));
 app.use(`${urlPrefix}/lib/fa`, express.static(path.join('node_modules', '@fortawesome', 'fontawesome-free')));
-const sessionCookieName = configFunctions.getConfigProperty('session.cookieName');
+const sessionCookieName = getConfigProperty('session.cookieName');
 const FileStoreSession = FileStore(session);
 app.use(session({
     store: new FileStoreSession({
@@ -74,12 +74,12 @@ app.use(session({
         retries: 20
     }),
     name: sessionCookieName,
-    secret: configFunctions.getConfigProperty('session.secret'),
+    secret: getConfigProperty('session.secret'),
     resave: true,
     saveUninitialized: false,
     rolling: true,
     cookie: {
-        maxAge: configFunctions.getConfigProperty('session.maxAgeMillis'),
+        maxAge: getConfigProperty('session.maxAgeMillis'),
         sameSite: 'strict'
     }
 }));
@@ -108,7 +108,7 @@ app.use((request, response, next) => {
     response.locals.dateTimeFunctions = dateTimeFns;
     response.locals.stringFunctions = stringFns;
     response.locals.htmlFunctions = htmlFns;
-    response.locals.urlPrefix = configFunctions.getConfigProperty('reverseProxy.urlPrefix');
+    response.locals.urlPrefix = getConfigProperty('reverseProxy.urlPrefix');
     next();
 });
 app.get(urlPrefix + '/', sessionChecker, (_request, response) => {
@@ -133,7 +133,7 @@ app.use(`${urlPrefix}/admin`, sessionChecker, (request, response, next) => {
     }
     response.redirect(`${urlPrefix}/dashboard?error=accessDenied`);
 }, routerAdmin);
-if (configFunctions.getConfigProperty('session.doKeepAlive')) {
+if (getConfigProperty('session.doKeepAlive')) {
     app.all(`${urlPrefix}/keepAlive`, (_request, response) => {
         response.json(true);
     });
@@ -151,8 +151,8 @@ app.get(`${urlPrefix}/logout`, (request, response) => {
         response.redirect(urlPrefix + '/login');
     }
 });
-if (configFunctions.getConfigProperty('features.selfService')) {
-    app.use(urlPrefix + configFunctions.getConfigProperty('settings.selfService.path'), abuseCheckHandler, routerSelfService);
+if (getConfigProperty('features.selfService')) {
+    app.use(urlPrefix + getConfigProperty('settings.selfService.path'), abuseCheckHandler, routerSelfService);
 }
 app.use((request, _response, next) => {
     debug(request.url);

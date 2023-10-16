@@ -46,7 +46,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
         var _a;
         clickEvent.preventDefault();
         const canLoginSelectElement = clickEvent.currentTarget;
-        const userName = (_a = canLoginSelectElement.closest('tr').dataset.userName) !== null && _a !== void 0 ? _a : '';
+        const userName = (_a = canLoginSelectElement.closest('tr').dataset
+            .userName) !== null && _a !== void 0 ? _a : '';
         cityssm.postJSON(MonTY.urlPrefix + '/admin/doUpdateUserCanLogin', {
             userName,
             canLogin: canLoginSelectElement.value
@@ -76,7 +77,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
         var _a;
         clickEvent.preventDefault();
         const isAdminSelectElement = clickEvent.currentTarget;
-        const userName = (_a = isAdminSelectElement.closest('tr').dataset.userName) !== null && _a !== void 0 ? _a : '';
+        const userName = (_a = isAdminSelectElement.closest('tr').dataset
+            .userName) !== null && _a !== void 0 ? _a : '';
         cityssm.postJSON(MonTY.urlPrefix + '/admin/doUpdateUserIsAdmin', {
             userName,
             isAdmin: isAdminSelectElement.value

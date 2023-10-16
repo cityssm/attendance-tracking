@@ -171,10 +171,11 @@ declare const cityssm: cityssmGlobal
 
     containerElement.innerHTML = ''
     containerElement.append(panelElement)
-
-    document.querySelector(
-      '#menu--attendance a[href="#tab--absences"] .tag'
-    )!.textContent = todayCount.toString()
+    ;(
+      document.querySelector(
+        '#menu--attendance a[href="#tab--absences"] .tag'
+      ) as HTMLElement
+    ).textContent = todayCount.toString()
   }
 
   function deleteReturnToWorkRecord(clickEvent: Event): void {

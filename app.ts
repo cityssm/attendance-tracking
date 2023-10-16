@@ -20,7 +20,9 @@ import createError from 'http-errors'
 import FileStore from 'session-file-store'
 
 import { getSafeRedirectURL } from './helpers/functions.authentication.js'
-import configFunctions from './helpers/functions.config.js'
+import configFunctions, {
+  getConfigProperty
+} from './helpers/functions.config.js'
 import * as permissionFunctions from './helpers/functions.permissions.js'
 import routerAdmin from './routes/admin.js'
 import routerAttendance from './routes/attendance.js'
@@ -37,7 +39,7 @@ const debug = Debug(`monty:app:${process.pid}`)
  * INITIALIZE APP
  */
 
-if (configFunctions.getConfigProperty('tempUsers').length > 0) {
+if (getConfigProperty('tempUsers').length > 0) {
   debug('Temporary user accounts currently active!')
 }
 
@@ -45,7 +47,7 @@ export const app = express()
 
 app.disable('X-Powered-By')
 
-if (!configFunctions.getConfigProperty('reverseProxy.disableEtag')) {
+if (!getConfigProperty('reverseProxy.disableEtag')) {
   app.set('etag', false)
 }
 
@@ -53,7 +55,7 @@ if (!configFunctions.getConfigProperty('reverseProxy.disableEtag')) {
 app.set('views', path.join('views'))
 app.set('view engine', 'ejs')
 
-if (!configFunctions.getConfigProperty('reverseProxy.disableCompression')) {
+if (!getConfigProperty('reverseProxy.disableCompression')) {
   app.use(compression())
 }
 
@@ -98,7 +100,7 @@ const abuseCheckHandler = abuseCheck()
  * STATIC ROUTES
  */
 
-const urlPrefix = configFunctions.getConfigProperty('reverseProxy.urlPrefix')
+const urlPrefix = getConfigProperty('reverseProxy.urlPrefix')
 
 if (urlPrefix !== '') {
   debug(`urlPrefix = ${urlPrefix}`)
@@ -139,8 +141,7 @@ app.use(
  * SESSION MANAGEMENT
  */
 
-const sessionCookieName: string =
-  configFunctions.getConfigProperty('session.cookieName')
+const sessionCookieName: string = getConfigProperty('session.cookieName')
 
 const FileStoreSession = FileStore(session)
 
@@ -153,12 +154,12 @@ app.use(
       retries: 20
     }),
     name: sessionCookieName,
-    secret: configFunctions.getConfigProperty('session.secret'),
+    secret: getConfigProperty('session.secret'),
     resave: true,
     saveUninitialized: false,
     rolling: true,
     cookie: {
-      maxAge: configFunctions.getConfigProperty('session.maxAgeMillis'),
+      maxAge: getConfigProperty('session.maxAgeMillis'),
       sameSite: 'strict'
     }
   })
@@ -215,9 +216,7 @@ app.use((request, response, next) => {
   response.locals.stringFunctions = stringFns
   response.locals.htmlFunctions = htmlFns
 
-  response.locals.urlPrefix = configFunctions.getConfigProperty(
-    'reverseProxy.urlPrefix'
-  )
+  response.locals.urlPrefix = getConfigProperty('reverseProxy.urlPrefix')
 
   next()
 })
@@ -262,7 +261,7 @@ app.use(
   routerAdmin
 )
 
-if (configFunctions.getConfigProperty('session.doKeepAlive')) {
+if (getConfigProperty('session.doKeepAlive')) {
   app.all(`${urlPrefix}/keepAlive`, (_request, response) => {
     response.json(true)
   })
@@ -284,9 +283,9 @@ app.get(`${urlPrefix}/logout`, (request, response) => {
   }
 })
 
-if (configFunctions.getConfigProperty('features.selfService')) {
+if (getConfigProperty('features.selfService')) {
   app.use(
-    urlPrefix + configFunctions.getConfigProperty('settings.selfService.path'),
+    urlPrefix + getConfigProperty('settings.selfService.path'),
     abuseCheckHandler,
     routerSelfService
   )

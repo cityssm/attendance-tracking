@@ -82,7 +82,9 @@ declare const cityssm: cityssmGlobal
 
     const canLoginSelectElement = clickEvent.currentTarget as HTMLSelectElement
 
-    const userName = canLoginSelectElement.closest('tr')!.dataset.userName ?? ''
+    const userName =
+      (canLoginSelectElement.closest('tr') as HTMLTableRowElement).dataset
+        .userName ?? ''
 
     cityssm.postJSON(
       MonTY.urlPrefix + '/admin/doUpdateUserCanLogin',
@@ -130,7 +132,9 @@ declare const cityssm: cityssmGlobal
 
     const isAdminSelectElement = clickEvent.currentTarget as HTMLSelectElement
 
-    const userName = isAdminSelectElement.closest('tr')!.dataset.userName ?? ''
+    const userName =
+      (isAdminSelectElement.closest('tr') as HTMLTableRowElement).dataset
+        .userName ?? ''
 
     cityssm.postJSON(
       MonTY.urlPrefix + '/admin/doUpdateUserIsAdmin',
@@ -218,7 +222,9 @@ declare const cityssm: cityssmGlobal
 
     const buttonElement = clickEvent.currentTarget as HTMLButtonElement
 
-    const userName = buttonElement.closest('tr')!.dataset.userName ?? ''
+    const userName =
+      (buttonElement.closest('tr') as HTMLTableRowElement).dataset.userName ??
+      ''
 
     function populatePermissionsTable(): void {
       const tableBodyElement = permissionsModalElement.querySelector(
@@ -385,8 +391,9 @@ declare const cityssm: cityssmGlobal
         cityssm.enableNavBlocker()
 
         permissionsModalElement = modalElement
-
-        modalElement.querySelector('.modal-card-title')!.textContent = userName
+        ;(
+          modalElement.querySelector('.modal-card-title') as HTMLElement
+        ).textContent = userName
 
         populatePermissionsTable()
       },
