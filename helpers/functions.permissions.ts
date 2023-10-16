@@ -39,3 +39,8 @@ export function hasPermission(
 ): boolean {
   return (user.permissions?.[permissionKey] ?? 'false') === 'true'
 }
+
+export default {
+  hasAttendance,
+  hasPermission
+}

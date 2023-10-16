@@ -19,30 +19,30 @@ import handler_doRemoveFavouriteCallOutList from '../handlers/attendance-post/do
 import handler_doUpdateCallOutList from '../handlers/attendance-post/doUpdateCallOutList.js';
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js';
 import { getConfigProperty } from '../helpers/functions.config.js';
-import * as permissionFunctions from '../helpers/functions.permissions.js';
+import { hasPermission } from '../helpers/functions.permissions.js';
 function callOutsViewPostHandler(request, response, next) {
-    if (permissionFunctions.hasPermission(request.session.user, 'attendance.callOuts.canView')) {
+    if (hasPermission(request.session.user, 'attendance.callOuts.canView')) {
         next();
         return;
     }
     response.status(forbiddenStatus).json(forbiddenJSON);
 }
 function callOutsUpdatePostHandler(request, response, next) {
-    if (permissionFunctions.hasPermission(request.session.user, 'attendance.callOuts.canUpdate')) {
+    if (hasPermission(request.session.user, 'attendance.callOuts.canUpdate')) {
         next();
         return;
     }
     response.status(forbiddenStatus).json(forbiddenJSON);
 }
 function callOutsManagePostHandler(request, response, next) {
-    if (permissionFunctions.hasPermission(request.session.user, 'attendance.callOuts.canManage')) {
+    if (hasPermission(request.session.user, 'attendance.callOuts.canManage')) {
         next();
         return;
     }
     response.status(forbiddenStatus).json(forbiddenJSON);
 }
 function afterHoursUpdatePostHandler(request, response, next) {
-    if (permissionFunctions.hasPermission(request.session.user, 'attendance.afterHours.canUpdate')) {
+    if (hasPermission(request.session.user, 'attendance.afterHours.canUpdate')) {
         next();
         return;
     }

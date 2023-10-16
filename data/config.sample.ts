@@ -1,6 +1,11 @@
 import type { Config } from '../types/configTypes.js'
 
-import * as configFunctions from './functions.js'
+import {
+  eligibility_hasProperty,
+  sortKey_alphabetical,
+  sortKey_propertyValue,
+  sortKey_seniorityDate
+} from './functions.js'
 
 export const config: Config = {
   activeDirectory: {
@@ -22,11 +27,11 @@ export const config: Config = {
   aliases: {},
   features: {},
   settings: {
-    employeeEligibilityFunctions: [configFunctions.eligibility_hasProperty],
+    employeeEligibilityFunctions: [eligibility_hasProperty],
     employeeSortKeyFunctions: [
-      configFunctions.sortKey_seniorityDate,
-      configFunctions.sortKey_propertyValue,
-      configFunctions.sortKey_alphabetical
+      sortKey_seniorityDate,
+      sortKey_propertyValue,
+      sortKey_alphabetical
     ]
   }
 }

@@ -5,17 +5,17 @@ import { getEmployees } from '../../database/getEmployees.js';
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js';
 import { getAbsenceTypes, getAfterHoursReasons, getCallOutResponseTypes, getEmployeePropertyNames } from '../../helpers/functions.cache.js';
 import { getConfigProperty } from '../../helpers/functions.config.js';
-import * as permissionFunctions from '../../helpers/functions.permissions.js';
+import { hasPermission } from '../../helpers/functions.permissions.js';
 async function populateAbsenceVariables(sessionUser) {
     let absenceRecords = [];
     let absenceTypes = [];
-    if (permissionFunctions.hasPermission(sessionUser, 'attendance.absences.canView')) {
+    if (hasPermission(sessionUser, 'attendance.absences.canView')) {
         absenceRecords = await getAbsenceRecords({
             recentOnly: true,
             todayOnly: false
         }, sessionUser);
     }
-    if (permissionFunctions.hasPermission(sessionUser, 'attendance.absences.canUpdate')) {
+    if (hasPermission(sessionUser, 'attendance.absences.canUpdate')) {
         absenceTypes = await getAbsenceTypes();
     }
     return {
@@ -25,7 +25,7 @@ async function populateAbsenceVariables(sessionUser) {
 }
 async function populateReturnToWorkVariables(sessionUser) {
     let returnToWorkRecords = [];
-    if (permissionFunctions.hasPermission(sessionUser, 'attendance.returnsToWork.canView')) {
+    if (hasPermission(sessionUser, 'attendance.returnsToWork.canView')) {
         returnToWorkRecords = await getReturnToWorkRecords({
             recentOnly: true,
             todayOnly: false
@@ -41,15 +41,15 @@ async function populateCallOutVariables(sessionUser) {
     const employeeEligibilityFunctionNames = [];
     const employeeSortKeyFunctionNames = [];
     let employeePropertyNames = [];
-    if (permissionFunctions.hasPermission(sessionUser, 'attendance.callOuts.canView')) {
+    if (hasPermission(sessionUser, 'attendance.callOuts.canView')) {
         callOutLists = await getCallOutLists({
             favouriteOnly: false
         }, sessionUser);
     }
-    if (permissionFunctions.hasPermission(sessionUser, 'attendance.callOuts.canUpdate')) {
+    if (hasPermission(sessionUser, 'attendance.callOuts.canUpdate')) {
         callOutResponseTypes = await getCallOutResponseTypes();
     }
-    if (permissionFunctions.hasPermission(sessionUser, 'attendance.callOuts.canManage')) {
+    if (hasPermission(sessionUser, 'attendance.callOuts.canManage')) {
         const employeeEligibilityFunctions = getConfigProperty('settings.employeeEligibilityFunctions');
         for (const eligibilityFunction of employeeEligibilityFunctions) {
             employeeEligibilityFunctionNames.push(eligibilityFunction.functionName);
@@ -71,13 +71,13 @@ async function populateCallOutVariables(sessionUser) {
 async function populateAfterHoursVariables(sessionUser) {
     let afterHoursRecords = [];
     let afterHoursReasons = [];
-    if (permissionFunctions.hasPermission(sessionUser, 'attendance.afterHours.canView')) {
+    if (hasPermission(sessionUser, 'attendance.afterHours.canView')) {
         afterHoursRecords = await getAfterHoursRecords({
             recentOnly: true,
             todayOnly: false
         }, sessionUser);
     }
-    if (permissionFunctions.hasPermission(sessionUser, 'attendance.afterHours.canUpdate')) {
+    if (hasPermission(sessionUser, 'attendance.afterHours.canUpdate')) {
         afterHoursReasons = await getAfterHoursReasons();
     }
     return {

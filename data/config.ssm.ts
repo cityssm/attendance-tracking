@@ -1,7 +1,18 @@
 import type { Config } from '../types/configTypes.js'
 
-import * as configFunctions from './functions.js'
-import * as configFunctionsSSM from './functions.ssm.js'
+import {
+  eligibility_hasProperty,
+  sortKey_alphabetical,
+  sortKey_propertyValue,
+  sortKey_seniorityDate
+} from './functions.js'
+import {
+  eligibility_operator,
+  eligibility_operatorJC6,
+  eligibility_operatorJC7,
+  eligibility_operatorJC8,
+  eligibility_unionized
+} from './functions.ssm.js'
 
 export const config: Config = {
   application: {
@@ -29,17 +40,17 @@ export const config: Config = {
       contentDisposition: 'attachment'
     },
     employeeEligibilityFunctions: [
-      configFunctions.eligibility_hasProperty,
-      configFunctionsSSM.eligibility_unionized,
-      configFunctionsSSM.eligibility_operator,
-      configFunctionsSSM.eligibility_operatorJC6,
-      configFunctionsSSM.eligibility_operatorJC7,
-      configFunctionsSSM.eligibility_operatorJC8
+      eligibility_hasProperty,
+      eligibility_unionized,
+      eligibility_operator,
+      eligibility_operatorJC6,
+      eligibility_operatorJC7,
+      eligibility_operatorJC8
     ],
     employeeSortKeyFunctions: [
-      configFunctions.sortKey_seniorityDate,
-      configFunctions.sortKey_propertyValue,
-      configFunctions.sortKey_alphabetical
+      sortKey_seniorityDate,
+      sortKey_propertyValue,
+      sortKey_alphabetical
     ],
     employeeNumberRegularExpression: /^\d{5,9}$/,
     recentDays: 14,

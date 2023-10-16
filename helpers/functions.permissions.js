@@ -26,3 +26,7 @@ export function hasAttendance(user) {
 export function hasPermission(user, permissionKey) {
     return (user.permissions?.[permissionKey] ?? 'false') === 'true';
 }
+export default {
+    hasAttendance,
+    hasPermission
+};

@@ -1,3 +1,4 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import type { ConfigEmployeeEligibilityFunction } from '../types/configTypes.js'

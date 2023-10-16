@@ -23,7 +23,7 @@ import { getSafeRedirectURL } from './helpers/functions.authentication.js'
 import configFunctions, {
   getConfigProperty
 } from './helpers/functions.config.js'
-import * as permissionFunctions from './helpers/functions.permissions.js'
+import permissionFunctions from './helpers/functions.permissions.js'
 import routerAdmin from './routes/admin.js'
 import routerAttendance from './routes/attendance.js'
 import routerDashboard from './routes/dashboard.js'

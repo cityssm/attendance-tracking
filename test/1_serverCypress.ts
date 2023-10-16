@@ -2,7 +2,7 @@
 
 import assert from 'node:assert'
 import { exec } from 'node:child_process'
-import * as http from 'node:http'
+import http from 'node:http'
 
 import { app } from '../app.js'
 
@@ -18,7 +18,9 @@ function runCypress(
       : 'cypress.config.js'
   }`
 
-  cypressCommand += ` --browser ${browser === 'chrome-mobile' ? 'chrome' : browser}`
+  cypressCommand += ` --browser ${
+    browser === 'chrome-mobile' ? 'chrome' : browser
+  }`
 
   if ((process.env.CYPRESS_RECORD_KEY ?? '') !== '') {
     cypressCommand += ` --tag "${browser},${process.version}" --record`

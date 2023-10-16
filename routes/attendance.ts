@@ -26,7 +26,7 @@ import handler_doRemoveFavouriteCallOutList from '../handlers/attendance-post/do
 import handler_doUpdateCallOutList from '../handlers/attendance-post/doUpdateCallOutList.js'
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js'
 import { getConfigProperty } from '../helpers/functions.config.js'
-import * as permissionFunctions from '../helpers/functions.permissions.js'
+import { hasPermission } from '../helpers/functions.permissions.js'
 
 function callOutsViewPostHandler(
   request: Request,
@@ -34,7 +34,7 @@ function callOutsViewPostHandler(
   next: NextFunction
 ): void {
   if (
-    permissionFunctions.hasPermission(
+    hasPermission(
       request.session.user as MonTYUser,
       'attendance.callOuts.canView'
     )
@@ -52,7 +52,7 @@ function callOutsUpdatePostHandler(
   next: NextFunction
 ): void {
   if (
-    permissionFunctions.hasPermission(
+    hasPermission(
       request.session.user as MonTYUser,
       'attendance.callOuts.canUpdate'
     )
@@ -70,7 +70,7 @@ function callOutsManagePostHandler(
   next: NextFunction
 ): void {
   if (
-    permissionFunctions.hasPermission(
+    hasPermission(
       request.session.user as MonTYUser,
       'attendance.callOuts.canManage'
     )
@@ -88,7 +88,7 @@ function afterHoursUpdatePostHandler(
   next: NextFunction
 ): void {
   if (
-    permissionFunctions.hasPermission(
+    hasPermission(
       request.session.user as MonTYUser,
       'attendance.afterHours.canUpdate'
     )

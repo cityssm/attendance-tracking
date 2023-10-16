@@ -1,6 +1,10 @@
 import assert from 'node:assert'
 
-import * as dataFunctions from '../data/functions.js'
+import {
+  eligibility_hasProperty,
+  sortKey_alphabetical,
+  sortKey_propertyValue
+} from '../data/functions.js'
 import type { Employee } from '../types/recordTypes.js'
 
 const employeeWithProperties: Employee = {
@@ -29,7 +33,7 @@ describe('data/functions.js', () => {
   describe('eligibility_hasProperty()', () => {
     it('Returns true when property is found', () => {
       assert.ok(
-        dataFunctions.eligibility_hasProperty.eligibilityFunction(
+        eligibility_hasProperty.eligibilityFunction(
           employeeWithProperties,
           'testProperty'
         )
@@ -38,7 +42,7 @@ describe('data/functions.js', () => {
 
     it('Returns false when property is not found', () => {
       assert.ok(
-        !dataFunctions.eligibility_hasProperty.eligibilityFunction(
+        !eligibility_hasProperty.eligibilityFunction(
           employeeWithProperties,
           'missingProperty'
         )
@@ -80,10 +84,8 @@ describe('data/functions.js', () => {
     }
 
     it('Sorts employees alphabetically', () => {
-      const sortKeyA =
-        dataFunctions.sortKey_alphabetical.sortKeyFunction(employeeA)
-      const sortKeyB =
-        dataFunctions.sortKey_alphabetical.sortKeyFunction(employeeB)
+      const sortKeyA = sortKey_alphabetical.sortKeyFunction(employeeA)
+      const sortKeyB = sortKey_alphabetical.sortKeyFunction(employeeB)
 
       assert.ok(sortKeyA < sortKeyB)
     })
@@ -92,7 +94,7 @@ describe('data/functions.js', () => {
   describe('sortKey_propertyValue()', () => {
     it('Returns value when property is found', () => {
       assert.strictEqual(
-        dataFunctions.sortKey_propertyValue.sortKeyFunction(
+        sortKey_propertyValue.sortKeyFunction(
           employeeWithProperties,
           'testProperty'
         ),
@@ -102,7 +104,7 @@ describe('data/functions.js', () => {
 
     it('Returns "" when property is not found', () => {
       assert.strictEqual(
-        dataFunctions.sortKey_propertyValue.sortKeyFunction(
+        sortKey_propertyValue.sortKeyFunction(
           employeeWithProperties,
           'missingProperty'
         ),

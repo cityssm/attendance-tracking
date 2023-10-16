@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import * as dataFunctions from '../data/functions.js';
+import { eligibility_hasProperty, sortKey_alphabetical, sortKey_propertyValue } from '../data/functions.js';
 const employeeWithProperties = {
     employeeNumber: '12345',
     employeeGivenName: 'Joe',
@@ -24,10 +24,10 @@ const employeeWithProperties = {
 describe('data/functions.js', () => {
     describe('eligibility_hasProperty()', () => {
         it('Returns true when property is found', () => {
-            assert.ok(dataFunctions.eligibility_hasProperty.eligibilityFunction(employeeWithProperties, 'testProperty'));
+            assert.ok(eligibility_hasProperty.eligibilityFunction(employeeWithProperties, 'testProperty'));
         });
         it('Returns false when property is not found', () => {
-            assert.ok(!dataFunctions.eligibility_hasProperty.eligibilityFunction(employeeWithProperties, 'missingProperty'));
+            assert.ok(!eligibility_hasProperty.eligibilityFunction(employeeWithProperties, 'missingProperty'));
         });
     });
     describe('sortKey_alphabetical()', () => {
@@ -62,17 +62,17 @@ describe('data/functions.js', () => {
             isActive: true
         };
         it('Sorts employees alphabetically', () => {
-            const sortKeyA = dataFunctions.sortKey_alphabetical.sortKeyFunction(employeeA);
-            const sortKeyB = dataFunctions.sortKey_alphabetical.sortKeyFunction(employeeB);
+            const sortKeyA = sortKey_alphabetical.sortKeyFunction(employeeA);
+            const sortKeyB = sortKey_alphabetical.sortKeyFunction(employeeB);
             assert.ok(sortKeyA < sortKeyB);
         });
     });
     describe('sortKey_propertyValue()', () => {
         it('Returns value when property is found', () => {
-            assert.strictEqual(dataFunctions.sortKey_propertyValue.sortKeyFunction(employeeWithProperties, 'testProperty'), 'testValue');
+            assert.strictEqual(sortKey_propertyValue.sortKeyFunction(employeeWithProperties, 'testProperty'), 'testValue');
         });
         it('Returns "" when property is not found', () => {
-            assert.strictEqual(dataFunctions.sortKey_propertyValue.sortKeyFunction(employeeWithProperties, 'missingProperty'), '');
+            assert.strictEqual(sortKey_propertyValue.sortKeyFunction(employeeWithProperties, 'missingProperty'), '');
         });
     });
 });

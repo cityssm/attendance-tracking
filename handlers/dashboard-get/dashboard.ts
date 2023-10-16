@@ -6,7 +6,7 @@ import { getEmployees } from '../../database/getEmployees.js'
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 import { getCallOutResponseTypes } from '../../helpers/functions.cache.js'
 import { getConfigProperty } from '../../helpers/functions.config.js'
-import * as permissionFunctions from '../../helpers/functions.permissions.js'
+import { hasPermission } from '../../helpers/functions.permissions.js'
 import type {
   AbsenceRecord,
   CallOutList,
@@ -29,7 +29,7 @@ async function getAbsenceVariables(user: MonTYUser): Promise<{
 
   if (
     getConfigProperty('features.attendance.absences') &&
-    permissionFunctions.hasPermission(user, 'attendance.absences.canView')
+    hasPermission(user, 'attendance.absences.canView')
   ) {
     absenceRecords = await getAbsenceRecords(
       {
@@ -52,7 +52,7 @@ async function getReturnToWorkVariables(user: MonTYUser): Promise<{
 
   if (
     getConfigProperty('features.attendance.returnsToWork') &&
-    permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')
+    hasPermission(user, 'attendance.returnsToWork.canView')
   ) {
     returnToWorkRecords = await getReturnToWorkRecords(
       {
@@ -77,13 +77,11 @@ async function getCallOutVariables(user: MonTYUser): Promise<{
 
   if (
     getConfigProperty('features.attendance.callOuts') &&
-    permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')
+    hasPermission(user, 'attendance.callOuts.canView')
   ) {
     callOutLists = await getCallOutLists({ favouriteOnly: true }, user)
 
-    if (
-      permissionFunctions.hasPermission(user, 'attendance.callOuts.canUpdate')
-    ) {
+    if (hasPermission(user, 'attendance.callOuts.canUpdate')) {
       callOutResponseTypes = await getCallOutResponseTypes()
     }
   }

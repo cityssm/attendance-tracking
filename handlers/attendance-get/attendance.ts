@@ -15,7 +15,7 @@ import {
   getEmployeePropertyNames
 } from '../../helpers/functions.cache.js'
 import { getConfigProperty } from '../../helpers/functions.config.js'
-import * as permissionFunctions from '../../helpers/functions.permissions.js'
+import { hasPermission } from '../../helpers/functions.permissions.js'
 import type {
   AbsenceRecord,
   AbsenceType,
@@ -33,12 +33,7 @@ async function populateAbsenceVariables(sessionUser: MonTYUser): Promise<{
   let absenceRecords: AbsenceRecord[] = []
   let absenceTypes: AbsenceType[] = []
 
-  if (
-    permissionFunctions.hasPermission(
-      sessionUser,
-      'attendance.absences.canView'
-    )
-  ) {
+  if (hasPermission(sessionUser, 'attendance.absences.canView')) {
     absenceRecords = await getAbsenceRecords(
       {
         recentOnly: true,
@@ -48,12 +43,7 @@ async function populateAbsenceVariables(sessionUser: MonTYUser): Promise<{
     )
   }
 
-  if (
-    permissionFunctions.hasPermission(
-      sessionUser,
-      'attendance.absences.canUpdate'
-    )
-  ) {
+  if (hasPermission(sessionUser, 'attendance.absences.canUpdate')) {
     absenceTypes = await getAbsenceTypes()
   }
 
@@ -68,12 +58,7 @@ async function populateReturnToWorkVariables(sessionUser: MonTYUser): Promise<{
 }> {
   let returnToWorkRecords: ReturnToWorkRecord[] = []
 
-  if (
-    permissionFunctions.hasPermission(
-      sessionUser,
-      'attendance.returnsToWork.canView'
-    )
-  ) {
+  if (hasPermission(sessionUser, 'attendance.returnsToWork.canView')) {
     returnToWorkRecords = await getReturnToWorkRecords(
       {
         recentOnly: true,
@@ -101,12 +86,7 @@ async function populateCallOutVariables(sessionUser: MonTYUser): Promise<{
   const employeeSortKeyFunctionNames: string[] = []
   let employeePropertyNames: string[] = []
 
-  if (
-    permissionFunctions.hasPermission(
-      sessionUser,
-      'attendance.callOuts.canView'
-    )
-  ) {
+  if (hasPermission(sessionUser, 'attendance.callOuts.canView')) {
     callOutLists = await getCallOutLists(
       {
         favouriteOnly: false
@@ -115,21 +95,11 @@ async function populateCallOutVariables(sessionUser: MonTYUser): Promise<{
     )
   }
 
-  if (
-    permissionFunctions.hasPermission(
-      sessionUser,
-      'attendance.callOuts.canUpdate'
-    )
-  ) {
+  if (hasPermission(sessionUser, 'attendance.callOuts.canUpdate')) {
     callOutResponseTypes = await getCallOutResponseTypes()
   }
 
-  if (
-    permissionFunctions.hasPermission(
-      sessionUser,
-      'attendance.callOuts.canManage'
-    )
-  ) {
+  if (hasPermission(sessionUser, 'attendance.callOuts.canManage')) {
     const employeeEligibilityFunctions = getConfigProperty(
       'settings.employeeEligibilityFunctions'
     )
@@ -165,12 +135,7 @@ async function populateAfterHoursVariables(sessionUser: MonTYUser): Promise<{
   let afterHoursRecords: AfterHoursRecord[] = []
   let afterHoursReasons: AfterHoursReason[] = []
 
-  if (
-    permissionFunctions.hasPermission(
-      sessionUser,
-      'attendance.afterHours.canView'
-    )
-  ) {
+  if (hasPermission(sessionUser, 'attendance.afterHours.canView')) {
     afterHoursRecords = await getAfterHoursRecords(
       {
         recentOnly: true,
@@ -180,12 +145,7 @@ async function populateAfterHoursVariables(sessionUser: MonTYUser): Promise<{
     )
   }
 
-  if (
-    permissionFunctions.hasPermission(
-      sessionUser,
-      'attendance.afterHours.canUpdate'
-    )
-  ) {
+  if (hasPermission(sessionUser, 'attendance.afterHours.canUpdate')) {
     afterHoursReasons = await getAfterHoursReasons()
   }
 

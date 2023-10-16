@@ -15,3 +15,8 @@ export declare const availablePermissionValues: {
 };
 export declare function hasAttendance(user: MonTYUser | undefined): boolean;
 export declare function hasPermission(user: MonTYUser, permissionKey: keyof typeof availablePermissionValues): boolean;
+declare const _default: {
+    hasAttendance: typeof hasAttendance;
+    hasPermission: typeof hasPermission;
+};
+export default _default;

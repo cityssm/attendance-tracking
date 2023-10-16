@@ -4,7 +4,7 @@ import { getEmployees } from '../../database/getEmployees.js';
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js';
 import { getCallOutResponseTypes } from '../../helpers/functions.cache.js';
 import { getConfigProperty } from '../../helpers/functions.config.js';
-import * as permissionFunctions from '../../helpers/functions.permissions.js';
+import { hasPermission } from '../../helpers/functions.permissions.js';
 function isTemporaryAdmin(user) {
     return (getConfigProperty('application.allowTesting') &&
         (user.userName.startsWith('~~') ?? false) &&
@@ -13,7 +13,7 @@ function isTemporaryAdmin(user) {
 async function getAbsenceVariables(user) {
     let absenceRecords = [];
     if (getConfigProperty('features.attendance.absences') &&
-        permissionFunctions.hasPermission(user, 'attendance.absences.canView')) {
+        hasPermission(user, 'attendance.absences.canView')) {
         absenceRecords = await getAbsenceRecords({
             recentOnly: true,
             todayOnly: true
@@ -26,7 +26,7 @@ async function getAbsenceVariables(user) {
 async function getReturnToWorkVariables(user) {
     let returnToWorkRecords = [];
     if (getConfigProperty('features.attendance.returnsToWork') &&
-        permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) {
+        hasPermission(user, 'attendance.returnsToWork.canView')) {
         returnToWorkRecords = await getReturnToWorkRecords({
             recentOnly: true,
             todayOnly: true
@@ -40,9 +40,9 @@ async function getCallOutVariables(user) {
     let callOutLists = [];
     let callOutResponseTypes = [];
     if (getConfigProperty('features.attendance.callOuts') &&
-        permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) {
+        hasPermission(user, 'attendance.callOuts.canView')) {
         callOutLists = await getCallOutLists({ favouriteOnly: true }, user);
-        if (permissionFunctions.hasPermission(user, 'attendance.callOuts.canUpdate')) {
+        if (hasPermission(user, 'attendance.callOuts.canUpdate')) {
             callOutResponseTypes = await getCallOutResponseTypes();
         }
     }
