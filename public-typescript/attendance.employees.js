@@ -127,7 +127,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
               ${employee.employeeSurname}, ${employee.employeeGivenName}
             </div>
           </div>`;
-                cityssm.postJSON(MonTY.urlPrefix + '/attendance/doGetAttendanceRecords', {
+                cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doGetAttendanceRecords`, {
                     employeeNumber
                 }, (rawResponseJSON) => {
                     renderAttendanceRecords(rawResponseJSON);

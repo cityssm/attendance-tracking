@@ -219,7 +219,7 @@ declare const cityssm: cityssmGlobal
           </div>`
 
         cityssm.postJSON(
-          MonTY.urlPrefix + '/attendance/doGetAttendanceRecords',
+          `${MonTY.urlPrefix}/attendance/doGetAttendanceRecords`,
           {
             employeeNumber
           },

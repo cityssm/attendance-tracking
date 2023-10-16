@@ -416,7 +416,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const rowElement = clickEvent.currentTarget.closest('tr');
         const afterHoursReasonId = rowElement.dataset.afterHoursReasonId;
         const afterHoursReason = rowElement.querySelector('input').value;
-        cityssm.postJSON(MonTY.urlPrefix + '/admin/doUpdateAfterHoursReason', {
+        cityssm.postJSON(`${MonTY.urlPrefix}/admin/doUpdateAfterHoursReason`, {
             afterHoursReasonId,
             afterHoursReason
         }, (rawResponseJSON) => {

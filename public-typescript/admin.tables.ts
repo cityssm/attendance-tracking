@@ -640,7 +640,7 @@ declare const cityssm: cityssmGlobal
     ).value
 
     cityssm.postJSON(
-      MonTY.urlPrefix + '/admin/doUpdateAfterHoursReason',
+      `${MonTY.urlPrefix}/admin/doUpdateAfterHoursReason`,
       {
         afterHoursReasonId,
         afterHoursReason

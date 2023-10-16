@@ -250,7 +250,7 @@ declare const cityssm: cityssmGlobal
 
       function doDelete(): void {
         cityssm.postJSON(
-          MonTY.urlPrefix + '/admin/doDeleteEmployee',
+          `${MonTY.urlPrefix}/admin/doDeleteEmployee`,
           {
             employeeNumber
           },
@@ -658,13 +658,8 @@ declare const cityssm: cityssmGlobal
         return false
       }
 
-      const employeeSearchString = (
-        possibleEmployee.employeeGivenName +
-        ' ' +
-        possibleEmployee.employeeSurname +
-        ' ' +
-        possibleEmployee.employeeNumber
-      ).toLowerCase()
+      const employeeSearchString =
+        `${possibleEmployee.employeeGivenName} ${possibleEmployee.employeeSurname} ${possibleEmployee.employeeNumber}`.toLowerCase()
 
       const searchStringPieces = employeeNameNumberSearchElement.value
         .trim()

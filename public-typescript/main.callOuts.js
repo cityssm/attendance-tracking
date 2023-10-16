@@ -154,9 +154,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             onshow(modalElement) {
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
                 callOutMemberModalElement = modalElement;
-                const employeeName = callOutListMember.employeeSurname +
-                    ', ' +
-                    callOutListMember.employeeGivenName;
+                const employeeName = `${callOutListMember.employeeSurname}, ${callOutListMember.employeeGivenName}`;
                 modalElement.querySelector('.modal-card-title').textContent = employeeName;
                 modalElement.querySelector('#callOutListMember--listName').textContent = callOutList.listName;
                 modalElement.querySelector('#callOutListMember--employeeName').textContent = employeeName;
@@ -180,7 +178,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     (_l = modalElement
                         .querySelector('#tab--recentCalls')) === null || _l === void 0 ? void 0 : _l.classList.remove('is-hidden');
                 }
-                cityssm.postJSON(MonTY.urlPrefix + '/attendance/doGetCallOutRecords', {
+                cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doGetCallOutRecords`, {
                     listId: callOutList.listId,
                     employeeNumber
                 }, (rawResponseJSON) => {

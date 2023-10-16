@@ -169,7 +169,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         function deleteEmployee(clickEvent) {
             clickEvent.preventDefault();
             function doDelete() {
-                cityssm.postJSON(MonTY.urlPrefix + '/admin/doDeleteEmployee', {
+                cityssm.postJSON(`${MonTY.urlPrefix}/admin/doDeleteEmployee`, {
                     employeeNumber
                 }, (rawResponseJSON) => {
                     const responseJSON = rawResponseJSON;
@@ -399,11 +399,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 (isActiveSearchElement.value === '0' && possibleEmployee.isActive)) {
                 return false;
             }
-            const employeeSearchString = (possibleEmployee.employeeGivenName +
-                ' ' +
-                possibleEmployee.employeeSurname +
-                ' ' +
-                possibleEmployee.employeeNumber).toLowerCase();
+            const employeeSearchString = `${possibleEmployee.employeeGivenName} ${possibleEmployee.employeeSurname} ${possibleEmployee.employeeNumber}`.toLowerCase();
             const searchStringPieces = employeeNameNumberSearchElement.value
                 .trim()
                 .toLowerCase()

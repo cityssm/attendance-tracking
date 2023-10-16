@@ -266,10 +266,7 @@ declare const cityssm: cityssmGlobal
       onshow(modalElement) {
         callOutMemberModalElement = modalElement
 
-        const employeeName =
-          callOutListMember.employeeSurname +
-          ', ' +
-          callOutListMember.employeeGivenName
+        const employeeName = `${callOutListMember.employeeSurname}, ${callOutListMember.employeeGivenName}`
 
         ;(
           modalElement.querySelector('.modal-card-title') as HTMLElement
@@ -341,7 +338,7 @@ declare const cityssm: cityssmGlobal
         }
 
         cityssm.postJSON(
-          MonTY.urlPrefix + '/attendance/doGetCallOutRecords',
+          `${MonTY.urlPrefix}/attendance/doGetCallOutRecords`,
           {
             listId: callOutList.listId,
             employeeNumber
