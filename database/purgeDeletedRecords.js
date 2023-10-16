@@ -1,4 +1,4 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty, deleteDays } from '../helpers/functions.config.js';
 const historicalRecordTables = [
     'HistoricalAbsenceRecords',
@@ -56,7 +56,7 @@ const foreignKeySQLStatements = [
     and userName not in (select userName from MonTY.Employees)`
 ];
 export async function purgeDeletedRecords() {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let rowsAffected = 0;
     for (const historicalRecordTable of historicalRecordTables) {
         const result = await pool.request().input('deleteDays', deleteDays)

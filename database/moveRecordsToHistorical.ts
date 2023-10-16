@@ -1,4 +1,4 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool'
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 
 import {
   getConfigProperty,
@@ -6,7 +6,7 @@ import {
 } from '../helpers/functions.config.js'
 
 export async function moveRecordsToHistorical(): Promise<number> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   let rowsAffected = 0
 

@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import camelCase from 'camelcase';
 import { clearCacheByTableName } from '../helpers/functions.cache.js';
 import { getConfigProperty } from '../helpers/functions.config.js';
@@ -8,7 +8,7 @@ export async function addAbsenceType(form, sessionUser) {
     while (absenceTypeKey === '') {
         absenceTypeKey = await getAvailableAbsenceTypeKey(crypto.randomUUID());
     }
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     await pool
         .request()
         .input('absenceTypeKey', absenceTypeKey)
@@ -25,7 +25,7 @@ export async function addAbsenceType(form, sessionUser) {
 }
 async function getAvailableAbsenceTypeKey(absenceType) {
     const absenceTypeKeyRoot = camelCase(absenceType).slice(0, 10);
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     for (let index = 0; index <= 9999999999; index += 1) {
         const indexString = index.toString();
         const absenceTypeKey = index === 0

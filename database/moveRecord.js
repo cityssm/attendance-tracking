@@ -1,4 +1,4 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { clearCacheByTableName } from '../helpers/functions.cache.js';
 import { getConfigProperty } from '../helpers/functions.config.js';
 import { updateRecordOrderNumber } from './updateRecordOrderNumber.js';
@@ -7,7 +7,7 @@ recordIdColumns.set('AbsenceTypes', 'absenceTypeKey');
 recordIdColumns.set('AfterHoursReasons', 'afterHoursReasonId');
 recordIdColumns.set('CallOutResponseTypes', 'responseTypeId');
 async function getCurrentOrderNumber(recordTable, recordId) {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     const result = await pool
         .request()
         .input('recordId', recordId)
@@ -18,7 +18,7 @@ async function getCurrentOrderNumber(recordTable, recordId) {
 }
 export async function moveRecordDown(recordTable, recordId) {
     const currentOrderNumber = await getCurrentOrderNumber(recordTable, recordId);
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     await pool
         .request()
         .input('currentOrderNumber', currentOrderNumber)
@@ -31,7 +31,7 @@ export async function moveRecordDown(recordTable, recordId) {
     return success;
 }
 export async function moveRecordDownToBottom(recordTable, recordId) {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     const currentOrderNumber = await getCurrentOrderNumber(recordTable, recordId);
     const maxOrderNumberResult = await pool
         .request()
@@ -53,7 +53,7 @@ export async function moveRecordDownToBottom(recordTable, recordId) {
     return true;
 }
 export async function moveRecordUp(recordTable, recordId) {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     const currentOrderNumber = await getCurrentOrderNumber(recordTable, recordId);
     if (currentOrderNumber <= 0) {
         return true;
@@ -70,7 +70,7 @@ export async function moveRecordUp(recordTable, recordId) {
     return success;
 }
 export async function moveRecordUpToTop(recordTable, recordId) {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     const currentOrderNumber = await getCurrentOrderNumber(recordTable, recordId);
     if (currentOrderNumber > 0) {
         await updateRecordOrderNumber(recordTable, recordId, -1);

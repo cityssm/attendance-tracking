@@ -1,4 +1,4 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool'
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
@@ -7,7 +7,7 @@ import type { AbsenceType } from '../types/recordTypes.js'
 import { updateRecordOrderNumber } from './updateRecordOrderNumber.js'
 
 export async function getAbsenceTypes(): Promise<AbsenceType[]> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   const absenceTypeResult: IResult<AbsenceType> = await pool.request()
     .query(`select

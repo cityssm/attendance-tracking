@@ -1,8 +1,8 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
 import * as permissionFunctions from '../helpers/functions.permissions.js';
 export async function getAfterHoursRecords(filters, sessionUser) {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let sql = `select r.recordId,
     r.employeeNumber, r.employeeName,
     r.attendanceDateTime,

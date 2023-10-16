@@ -1,7 +1,7 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
 export async function getCallOutLists(filters, sessionUser) {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     const request = pool.request();
     let sql = `select l.listId, l.listName, l.listDescription,
     l.allowSelfSignUp, l.selfSignUpKey,

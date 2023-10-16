@@ -1,6 +1,6 @@
 import '../helpers/polyfills.js'
 
-import * as sqlPool from '@cityssm/mssql-multi-pool'
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
@@ -19,7 +19,7 @@ export async function getCallOutListMembers(
   filters: CallOutListMemberFilters,
   options: CallOutListMemberOptions
 ): Promise<CallOutListMember[]> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   let request = pool.request()
 

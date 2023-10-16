@@ -1,8 +1,8 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
 import { updateRecordOrderNumber } from './updateRecordOrderNumber.js';
 export async function getCallOutResponseTypes() {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     const responseTypeResult = await pool.request()
         .query(`select
       responseTypeId, responseType, isSuccessful, orderNumber

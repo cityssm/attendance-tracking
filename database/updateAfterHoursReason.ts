@@ -1,4 +1,4 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool'
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import { getConfigProperty } from '../helpers/functions.config.js'
@@ -8,7 +8,7 @@ export async function updateAfterHoursReason(
   afterHoursReason: AfterHoursReason,
   sessionUser: MonTYUser
 ): Promise<boolean> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   const result = await pool
     .request()

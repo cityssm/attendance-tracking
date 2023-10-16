@@ -1,4 +1,4 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool'
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
@@ -13,7 +13,7 @@ export async function addCallOutResponseType(
   form: AddCallOutResponseTypeForm,
   sessionUser: MonTYUser
 ): Promise<string> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   const result: IResult<{ responseTypeId: string }> = await pool
     .request()

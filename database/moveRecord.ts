@@ -1,4 +1,4 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool'
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
@@ -17,7 +17,7 @@ async function getCurrentOrderNumber(
   recordTable: RecordTable,
   recordId: number | string
 ): Promise<number> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   const result: IResult<{ orderNumber: number }> = await pool
     .request()
@@ -37,7 +37,7 @@ export async function moveRecordDown(
 ): Promise<boolean> {
   const currentOrderNumber = await getCurrentOrderNumber(recordTable, recordId)
 
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   await pool
     .request()
@@ -64,7 +64,7 @@ export async function moveRecordDownToBottom(
   recordTable: RecordTable,
   recordId: number
 ): Promise<boolean> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   const currentOrderNumber = await getCurrentOrderNumber(recordTable, recordId)
 
@@ -101,7 +101,7 @@ export async function moveRecordUp(
   recordTable: RecordTable,
   recordId: number
 ): Promise<boolean> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   const currentOrderNumber = await getCurrentOrderNumber(recordTable, recordId)
 
@@ -134,7 +134,7 @@ export async function moveRecordUpToTop(
   recordTable: RecordTable,
   recordId: number
 ): Promise<boolean> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   const currentOrderNumber = await getCurrentOrderNumber(recordTable, recordId)
 

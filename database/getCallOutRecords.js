@@ -1,7 +1,7 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
 export async function getCallOutRecords(filters) {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let sql = `select r.recordId, r.listId, r.employeeNumber,
     r.callOutDateTime, r.callOutHours,
     r.responseTypeId, t.responseType, t.isSuccessful,

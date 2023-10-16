@@ -1,7 +1,7 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/indent */
 
-import * as sqlPool from '@cityssm/mssql-multi-pool'
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
@@ -12,7 +12,7 @@ import { updateRecordOrderNumber } from './updateRecordOrderNumber.js'
 export async function getCallOutResponseTypes(): Promise<
   CallOutResponseType[]
 > {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   const responseTypeResult: IResult<CallOutResponseType> = await pool.request()
     .query(`select

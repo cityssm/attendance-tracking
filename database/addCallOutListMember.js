@@ -1,8 +1,8 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
 import { getEmployee } from './getEmployee.js';
 export async function addCallOutListMember(listId, employeeNumber, sessionUser) {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     const sortKeyResult = await pool.request().input('listId', listId)
         .query(`select sortKeyFunction, employeePropertyName
       from MonTY.CallOutLists

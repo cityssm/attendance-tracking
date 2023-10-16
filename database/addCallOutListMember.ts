@@ -1,4 +1,4 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool'
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
@@ -10,7 +10,7 @@ export async function addCallOutListMember(
   employeeNumber: string,
   sessionUser: MonTYUser
 ): Promise<boolean> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   const sortKeyResult: IResult<{
     sortKeyFunction: string

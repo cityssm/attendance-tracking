@@ -1,8 +1,8 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
 import { getEmployeeProperties } from './getEmployeeProperties.js';
 export async function getEmployee(employeeNumber) {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     const employeeResult = await pool
         .request()
         .input('employeeNumber', employeeNumber).query(`select

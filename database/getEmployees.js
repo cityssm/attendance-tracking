@@ -1,9 +1,9 @@
 import '../helpers/polyfills.js';
-import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
 import { getEmployeeProperties } from './getEmployeeProperties.js';
 export async function getEmployees(filters, options) {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let request = pool.request();
     let sql = `select
     employeeNumber, employeeSurname, employeeGivenName,

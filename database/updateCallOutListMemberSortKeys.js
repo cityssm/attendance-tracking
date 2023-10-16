@@ -1,5 +1,5 @@
 import '../helpers/polyfills.js';
-import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
 import { getCallOutListMembers } from './getCallOutListMembers.js';
 import { getEmployeeProperties } from './getEmployeeProperties.js';
@@ -7,7 +7,7 @@ export async function updateCallOutListMemberSortKeys(filters, sessionUser) {
     const callOutListMembers = await getCallOutListMembers(filters, {
         includeSortKeyFunction: true
     });
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let updateCount = 0;
     for (const member of callOutListMembers) {
         const sortKeyFunctionName = (member.sortKeyFunction ?? '').toLowerCase();

@@ -1,4 +1,4 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool'
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
@@ -7,7 +7,7 @@ import type { CallOutList } from '../types/recordTypes.js'
 export async function getCallOutList(
   listId: string
 ): Promise<CallOutList | undefined> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   const listResult: IResult<CallOutList> = await pool
     .request()

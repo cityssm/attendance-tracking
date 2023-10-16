@@ -1,4 +1,4 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool'
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 
 import { getConfigProperty, deleteDays } from '../helpers/functions.config.js'
 
@@ -77,7 +77,7 @@ const foreignKeySQLStatements = [
 ]
 
 export async function purgeDeletedRecords(): Promise<number> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   let rowsAffected = 0
 

@@ -1,7 +1,7 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/indent */
 
-import * as sqlPool from '@cityssm/mssql-multi-pool'
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
@@ -10,7 +10,7 @@ import type { availablePermissionValues } from '../helpers/functions.permissions
 export async function getUserPermissions(
   userName: string
 ): Promise<Partial<Record<keyof typeof availablePermissionValues, string>>> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   const permissionsResult: IResult<{
     permissionKey: string

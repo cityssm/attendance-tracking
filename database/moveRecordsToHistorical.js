@@ -1,7 +1,7 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty, historicalDays } from '../helpers/functions.config.js';
 export async function moveRecordsToHistorical() {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let rowsAffected = 0;
     let result = await pool.request().input('historicalDays', historicalDays)
         .query(`insert into MonTY.HistoricalAbsenceRecords

@@ -1,4 +1,4 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool';
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
 const recentDays = getConfigProperty('settings.recentDays');
 const absenceRecordsRecentSQL = `select r.recordId,
@@ -43,7 +43,7 @@ const afterHoursRecordsRecentSQL = `select r.recordId,
   where r.recordDelete_datetime is null
   and datediff(day, r.attendanceDateTime, getdate()) <= @recentDays`;
 export async function getReportData(reportName, reportParameters = {}) {
-    const pool = await sqlPool.connect(getConfigProperty('mssql'));
+    const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let request = pool.request();
     let sql = '';
     switch (reportName) {

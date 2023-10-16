@@ -1,4 +1,4 @@
-import * as sqlPool from '@cityssm/mssql-multi-pool'
+import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
 
@@ -7,7 +7,7 @@ export async function updateUserCanLogin(
   canLogin: '0' | '1' | 0 | 1 | false | true,
   sessionUser: MonTYUser
 ): Promise<boolean> {
-  const pool = await sqlPool.connect(getConfigProperty('mssql'))
+  const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   const result = await pool
     .request()
