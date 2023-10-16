@@ -1,6 +1,6 @@
 import { testUser } from '../../../test/_globals.js';
 import { logout, login } from '../../support/index.js';
-const newCallOutListName = 'Test Call Out List - ' + Date.now().toString();
+const newCallOutListName = `Test Call Out List - ${Date.now().toString()}`;
 describe('Attendance - Call Out Lists', () => {
     beforeEach(() => {
         logout();
@@ -52,7 +52,7 @@ describe('Attendance - Call Out Lists', () => {
         cy.log('Make changes');
         cy.get(`${formSelector} input[name="listName"]`).should('have.value', newCallOutListName);
         cy.get(`${formSelector} select[name="allowSelfSignUp"]`).select('1');
-        cy.get(formSelector + ' input[name="selfSignUpKey"]')
+        cy.get(`${formSelector} input[name="selfSignUpKey"]`)
             .clear()
             .type('abcd');
         cy.get(`${formSelector} select[name="sortKeyFunction"]`).select(1);
@@ -124,7 +124,7 @@ describe('Attendance - Call Out Lists', () => {
         cy.get(formSelector).submit();
         cy.get('.modal [role="alert"]').contains('success');
         cy.get('.modal [role="alert"] [data-cy="ok"').click();
-        cy.get(formSelector + ' input[name="callOutHours"]').should('not.have.value');
+        cy.get(`${formSelector} input[name="callOutHours"]`).should('not.have.value');
     });
     it('Adds call out list to user favourites', () => {
         cy.get(`#callOuts--searchResults a[data-cy="${newCallOutListName}"]`)

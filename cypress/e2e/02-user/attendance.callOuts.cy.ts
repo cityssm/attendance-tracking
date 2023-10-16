@@ -5,7 +5,7 @@ import { testUser } from '../../../test/_globals.js'
 import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes.js'
 import { logout, login } from '../../support/index.js'
 
-const newCallOutListName = 'Test Call Out List - ' + Date.now().toString()
+const newCallOutListName = `Test Call Out List - ${Date.now().toString()}`
 
 describe('Attendance - Call Out Lists', () => {
   beforeEach(() => {
@@ -86,7 +86,7 @@ describe('Attendance - Call Out Lists', () => {
 
     cy.get(`${formSelector} select[name="allowSelfSignUp"]`).select('1')
 
-    cy.get(formSelector + ' input[name="selfSignUpKey"]')
+    cy.get(`${formSelector} input[name="selfSignUpKey"]`)
       .clear()
       .type('abcd')
 
@@ -214,7 +214,7 @@ describe('Attendance - Call Out Lists', () => {
 
     cy.get('.modal [role="alert"] [data-cy="ok"').click()
 
-    cy.get(formSelector + ' input[name="callOutHours"]').should(
+    cy.get(`${formSelector} input[name="callOutHours"]`).should(
       'not.have.value'
     )
   })

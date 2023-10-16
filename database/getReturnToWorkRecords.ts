@@ -2,7 +2,7 @@ import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
-import * as permissionFunctions from '../helpers/functions.permissions.js'
+import { hasPermission } from '../helpers/functions.permissions.js'
 import type { ReturnToWorkRecord } from '../types/recordTypes.js'
 
 interface GetReturnToWorkRecordsFilters {
@@ -54,18 +54,10 @@ export async function getReturnToWorkRecords(
 
   const returnToWorkRecords = recordsResult.recordset
 
-  if (
-    permissionFunctions.hasPermission(
-      sessionUser,
-      'attendance.returnsToWork.canUpdate'
-    )
-  ) {
+  if (hasPermission(sessionUser, 'attendance.returnsToWork.canUpdate')) {
     for (const returnToWorkRecord of returnToWorkRecords) {
       returnToWorkRecord.canUpdate =
-        permissionFunctions.hasPermission(
-          sessionUser,
-          'attendance.returnsToWork.canManage'
-        ) ||
+        hasPermission(sessionUser, 'attendance.returnsToWork.canManage') ||
         (returnToWorkRecord.recordCreate_userName === sessionUser.userName &&
           Date.now() -
             (returnToWorkRecord.recordCreate_dateTime as Date).getTime() <=

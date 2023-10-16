@@ -1,6 +1,6 @@
 import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
-import * as permissionFunctions from '../helpers/functions.permissions.js';
+import { hasPermission } from '../helpers/functions.permissions.js';
 export async function getAbsenceRecords(filters, sessionUser) {
     const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let sql = `select r.recordId,
@@ -32,10 +32,10 @@ export async function getAbsenceRecords(filters, sessionUser) {
     sql += ' order by r.absenceDateTime desc, r.recordId desc';
     const recordsResult = await request.query(sql);
     const absenceRecords = recordsResult.recordset;
-    if (permissionFunctions.hasPermission(sessionUser, 'attendance.absences.canUpdate')) {
+    if (hasPermission(sessionUser, 'attendance.absences.canUpdate')) {
         for (const absenceRecord of absenceRecords) {
             absenceRecord.canUpdate =
-                permissionFunctions.hasPermission(sessionUser, 'attendance.absences.canManage') ||
+                hasPermission(sessionUser, 'attendance.absences.canManage') ||
                     (absenceRecord.recordCreate_userName === sessionUser.userName &&
                         Date.now() -
                             absenceRecord.recordCreate_dateTime.getTime() <=

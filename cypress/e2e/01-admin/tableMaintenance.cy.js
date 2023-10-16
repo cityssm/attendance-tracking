@@ -196,7 +196,7 @@ describe('Admin - Table Maintenance', () => {
                 .should('have.value', updateResponseType);
         });
         it('Exports response types', () => {
-            cy.get(tabSelector + ' a[download][href*="/reports/"]').click();
+            cy.get(`${tabSelector} a[download][href*="/reports/"]`).click();
             cy.wait(1000);
         });
         it('Deletes a response type', () => {
@@ -297,7 +297,7 @@ describe('Admin - Table Maintenance', () => {
                 .should('have.value', updateReason);
         });
         it('Exports reasons', () => {
-            cy.get(tabSelector + ' a[download][href*="/reports/"]').click();
+            cy.get(`${tabSelector} a[download][href*="/reports/"]`).click();
             cy.wait(1000);
         });
         it('Deletes a reason', () => {

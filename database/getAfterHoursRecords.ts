@@ -2,7 +2,7 @@ import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
-import * as permissionFunctions from '../helpers/functions.permissions.js'
+import { hasPermission } from '../helpers/functions.permissions.js'
 import type { AfterHoursRecord } from '../types/recordTypes.js'
 
 interface GetAfterHoursRecordsFilters {
@@ -57,18 +57,10 @@ export async function getAfterHoursRecords(
 
   const afterHoursRecords = recordsResult.recordset
 
-  if (
-    permissionFunctions.hasPermission(
-      sessionUser,
-      'attendance.afterHours.canUpdate'
-    )
-  ) {
+  if (hasPermission(sessionUser, 'attendance.afterHours.canUpdate')) {
     for (const afterHoursRecord of afterHoursRecords) {
       afterHoursRecord.canUpdate =
-        permissionFunctions.hasPermission(
-          sessionUser,
-          'attendance.afterHours.canManage'
-        ) ||
+        hasPermission(sessionUser, 'attendance.afterHours.canManage') ||
         (afterHoursRecord.recordCreate_userName === sessionUser.userName &&
           Date.now() -
             (afterHoursRecord.recordCreate_dateTime as Date).getTime() <=

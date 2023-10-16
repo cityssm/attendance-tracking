@@ -264,7 +264,7 @@ describe('Admin - Table Maintenance', () => {
     })
 
     it('Exports response types', () => {
-      cy.get(tabSelector + ' a[download][href*="/reports/"]').click()
+      cy.get(`${tabSelector} a[download][href*="/reports/"]`).click()
       cy.wait(1000)
     })
 
@@ -399,7 +399,7 @@ describe('Admin - Table Maintenance', () => {
     })
 
     it('Exports reasons', () => {
-      cy.get(tabSelector + ' a[download][href*="/reports/"]').click()
+      cy.get(`${tabSelector} a[download][href*="/reports/"]`).click()
       cy.wait(1000)
     })
 

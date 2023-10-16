@@ -6,6 +6,8 @@ import {
   getScreenPrintConfig
 } from '../../helpers/functions.print.js'
 
+const urlPrefix = getConfigProperty('reverseProxy.urlPrefix')
+
 export async function handler(
   request: Request,
   response: Response
@@ -15,10 +17,7 @@ export async function handler(
   const printConfig = getScreenPrintConfig(printName)
 
   if (printConfig === undefined) {
-    response.redirect(
-      getConfigProperty('reverseProxy.urlPrefix') +
-        '/dashboard/?error=printNotFound'
-    )
+    response.redirect(`${urlPrefix}/dashboard/?error=printNotFound`)
     return
   }
 

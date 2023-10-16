@@ -1,6 +1,6 @@
 import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
-import * as permissionFunctions from '../helpers/functions.permissions.js';
+import { hasPermission } from '../helpers/functions.permissions.js';
 export async function getReturnToWorkRecords(filters, sessionUser) {
     const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let sql = `select r.recordId,
@@ -29,10 +29,10 @@ export async function getReturnToWorkRecords(filters, sessionUser) {
     sql += ' order by r.returnDateTime desc, r.recordId desc';
     const recordsResult = await request.query(sql);
     const returnToWorkRecords = recordsResult.recordset;
-    if (permissionFunctions.hasPermission(sessionUser, 'attendance.returnsToWork.canUpdate')) {
+    if (hasPermission(sessionUser, 'attendance.returnsToWork.canUpdate')) {
         for (const returnToWorkRecord of returnToWorkRecords) {
             returnToWorkRecord.canUpdate =
-                permissionFunctions.hasPermission(sessionUser, 'attendance.returnsToWork.canManage') ||
+                hasPermission(sessionUser, 'attendance.returnsToWork.canManage') ||
                     (returnToWorkRecord.recordCreate_userName === sessionUser.userName &&
                         Date.now() -
                             returnToWorkRecord.recordCreate_dateTime.getTime() <=

@@ -1,6 +1,6 @@
 import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
-import * as permissionFunctions from '../helpers/functions.permissions.js';
+import { hasPermission } from '../helpers/functions.permissions.js';
 export async function getAfterHoursRecords(filters, sessionUser) {
     const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let sql = `select r.recordId,
@@ -32,10 +32,10 @@ export async function getAfterHoursRecords(filters, sessionUser) {
     sql += ' order by r.attendanceDateTime desc, r.recordId desc';
     const recordsResult = await request.query(sql);
     const afterHoursRecords = recordsResult.recordset;
-    if (permissionFunctions.hasPermission(sessionUser, 'attendance.afterHours.canUpdate')) {
+    if (hasPermission(sessionUser, 'attendance.afterHours.canUpdate')) {
         for (const afterHoursRecord of afterHoursRecords) {
             afterHoursRecord.canUpdate =
-                permissionFunctions.hasPermission(sessionUser, 'attendance.afterHours.canManage') ||
+                hasPermission(sessionUser, 'attendance.afterHours.canManage') ||
                     (afterHoursRecord.recordCreate_userName === sessionUser.userName &&
                         Date.now() -
                             afterHoursRecord.recordCreate_dateTime.getTime() <=

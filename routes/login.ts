@@ -7,7 +7,10 @@ import {
 } from 'express'
 
 import { getUser } from '../database/getUser.js'
-import * as authenticationFunctions from '../helpers/functions.authentication.js'
+import {
+  authenticate,
+  getSafeRedirectURL
+} from '../helpers/functions.authentication.js'
 import { getConfigProperty } from '../helpers/functions.config.js'
 import type { ConfigTemporaryUserCredentials } from '../types/configTypes.js'
 
@@ -20,7 +23,7 @@ function getHandler(request: Request, response: Response): void {
     request.session.user !== undefined &&
     request.cookies[sessionCookieName] !== undefined
   ) {
-    const redirectURL = authenticationFunctions.getSafeRedirectURL(
+    const redirectURL = getSafeRedirectURL(
       (request.query.redirect ?? '') as string
     )
 
@@ -49,7 +52,7 @@ async function postHandler(
 
   const unsafeRedirectURL = request.body.redirect
 
-  const redirectURL = authenticationFunctions.getSafeRedirectURL(
+  const redirectURL = getSafeRedirectURL(
     typeof unsafeRedirectURL === 'string' ? unsafeRedirectURL : ''
   )
 
@@ -76,10 +79,7 @@ async function postHandler(
       userObject = (potentialUser as ConfigTemporaryUserCredentials).user
     }
   } else if (userName !== '' && passwordPlain !== '') {
-    isAuthenticated = await authenticationFunctions.authenticate(
-      userName,
-      passwordPlain
-    )
+    isAuthenticated = await authenticate(userName, passwordPlain)
   }
 
   if (isAuthenticated && !isTemporaryUser) {
