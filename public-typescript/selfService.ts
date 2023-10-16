@@ -9,8 +9,6 @@ import type { CallOutList } from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 declare const cityssm: cityssmGlobal
-
-  // eslint-disable-next-line sonarjs/cognitive-complexity
 ;(() => {
   // eslint-disable-next-line unicorn/prefer-module
   const urlPrefix = exports.urlPrefix as string
@@ -77,7 +75,7 @@ declare const cityssm: cityssmGlobal
     }
 
     cityssm.postJSON(
-      urlPrefix + '/doValidateEmployee',
+      `${urlPrefix}/doValidateEmployee`,
       {
         employeeNumber: employeeNumberElement.value,
         employeeHomeContactLastFourDigits:
@@ -253,6 +251,7 @@ declare const cityssm: cityssmGlobal
     if (selfSignUpKeyElement !== null) {
       selfSignUpKey = (selfSignUpKeyElement as HTMLInputElement).value
       if (selfSignUpKey === '') {
+        // eslint-disable-next-line no-extra-semi
         ;(selfSignUpKeyElement as HTMLInputElement).focus()
 
         buttonElement.disabled = false
@@ -262,7 +261,7 @@ declare const cityssm: cityssmGlobal
     }
 
     cityssm.postJSON(
-      urlPrefix + '/doAddEmployeeToCallOutList',
+      `${urlPrefix}/doAddEmployeeToCallOutList`,
       {
         employeeNumber: employeeNumberElement.value,
         employeeHomeContactLastFourDigits:
@@ -277,6 +276,7 @@ declare const cityssm: cityssmGlobal
         }
 
         if (responseJSON.success) {
+          // eslint-disable-next-line no-extra-semi
           ;(
             panelBlockElement.querySelector(
               '.is-add-button-container'
@@ -346,6 +346,7 @@ declare const cityssm: cityssmGlobal
             <div class="is-add-button-container"></div>`
 
           if (callOutList.hasSelfSignUpKey ?? true) {
+            // eslint-disable-next-line no-extra-semi
             ;(
               panelBlockElement.querySelector(
                 '.is-add-button-container'
@@ -372,6 +373,7 @@ declare const cityssm: cityssmGlobal
                 </div>
               </div>`
           } else {
+            // eslint-disable-next-line no-extra-semi
             ;(
               panelBlockElement.querySelector(
                 '.is-add-button-container'

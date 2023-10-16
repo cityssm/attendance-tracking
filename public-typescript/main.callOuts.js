@@ -45,7 +45,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         function addCallOutRecord(formEvent) {
             formEvent.preventDefault();
             const formElement = formEvent.currentTarget;
-            cityssm.postJSON(MonTY.urlPrefix + '/attendance/doAddCallOutRecord', formElement, (rawResponseJSON) => {
+            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doAddCallOutRecord`, formElement, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     bulmaJS.alert({
@@ -62,7 +62,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             clickEvent.preventDefault();
             const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
             function doDelete() {
-                cityssm.postJSON(MonTY.urlPrefix + '/attendance/doDeleteCallOutRecord', {
+                cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doDeleteCallOutRecord`, {
                     recordId,
                     employeeNumber,
                     listId: currentListId
@@ -161,6 +161,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 modalElement.querySelector('#callOutListMember--sortKey').textContent = (_a = callOutListMember.sortKey) !== null && _a !== void 0 ? _a : '';
                 modalElement.querySelector('#callOutListMember--listPosition').textContent = `${callOutListMemberIndex + 1} / ${currentCallOutListMembers.length}`;
                 if (canUpdate) {
+                    // eslint-disable-next-line no-extra-semi
                     ;
                     modalElement.querySelector('#callOutListMember--workContact1').textContent = (_b = callOutListMember.workContact1) !== null && _b !== void 0 ? _b : '';
                     modalElement.querySelector('#callOutListMember--workContact2').textContent = (_c = callOutListMember.workContact2) !== null && _c !== void 0 ? _c : '';
@@ -188,6 +189,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 bulmaJS.toggleHtmlClipped();
                 bulmaJS.init(modalElement);
                 if (canUpdate) {
+                    // eslint-disable-next-line no-extra-semi
                     ;
                     modalElement.querySelector('#callOutRecordAdd--listId').value = callOutList.listId;
                     modalElement.querySelector('#callOutRecordAdd--employeeNumber').value = callOutListMember.employeeNumber;
@@ -198,6 +200,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                         optionElement.textContent = responseType.responseType;
                         responseTypeElement.append(optionElement);
                     }
+                    // eslint-disable-next-line no-extra-semi
                     ;
                     modalElement.querySelector('#form--callOutRecordAdd').addEventListener('submit', addCallOutRecord);
                 }
@@ -287,6 +290,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         function initializeListDetailsTab() {
             var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+            // eslint-disable-next-line no-extra-semi
             ;
             callOutListModalElement.querySelector('#callOutListEdit--listId').value = callOutList.listId;
             callOutListModalElement.querySelector('#callOutListEdit--listName').value = callOutList.listName;
@@ -334,6 +338,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 optionElement.selected = true;
                 sortKeyFunctionElement.append(optionElement);
             }
+            // eslint-disable-next-line no-extra-semi
             ;
             callOutListModalElement.querySelector('#callOutListEdit--employeePropertyName').value = (_h = callOutList.employeePropertyName) !== null && _h !== void 0 ? _h : '';
             if (canManage) {
@@ -357,7 +362,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             clickEvent.preventDefault();
             const employeeNumber = clickEvent.currentTarget
                 .dataset.employeeNumber;
-            cityssm.postJSON(MonTY.urlPrefix + '/attendance/doAddCallOutListMember', {
+            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doAddCallOutListMember`, {
                 listId: callOutList.listId,
                 employeeNumber
             }, (rawResponseJSON) => {
@@ -386,7 +391,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const employeeNumber = clickEvent.currentTarget
                 .dataset.employeeNumber;
             function doDelete() {
-                cityssm.postJSON(MonTY.urlPrefix + '/attendance/doDeleteCallOutListMember', {
+                cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doDeleteCallOutListMember`, {
                     listId: callOutList.listId,
                     employeeNumber
                 }, (rawResponseJSON) => {
@@ -555,7 +560,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         function deleteCallOutList(clickEvent) {
             clickEvent.preventDefault();
             function doDelete() {
-                cityssm.postJSON(MonTY.urlPrefix + '/attendance/doDeleteCallOutList', {
+                cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doDeleteCallOutList`, {
                     listId
                 }, (rawResponseJSON) => {
                     const responseJSON = rawResponseJSON;
@@ -602,7 +607,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 // List Details
                 initializeListDetailsTab();
                 // Members
-                cityssm.postJSON(MonTY.urlPrefix + '/attendance/doGetCallOutListMembers', {
+                cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doGetCallOutListMembers`, {
                     listId: callOutList.listId,
                     includeAvailableEmployees: canManage
                 }, (rawResponseJSON) => {
@@ -621,15 +626,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 bulmaJS.toggleHtmlClipped();
                 bulmaJS.init(modalElement);
                 MonTY.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('.tabs-container > article'));
-                modalElement.querySelector('#reportingLink--callOutListReport').href = MonTY.urlPrefix + '/print/screen/callOutList/?listId=' + listId;
-                modalElement.querySelector('#reportingLink--callOutListMembersCSV').href =
-                    MonTY.urlPrefix +
-                        '/reports/callOutListMembers-formatted-byListId/?listId=' +
-                        listId;
-                modalElement.querySelector('#reportingLink--callOutRecordsCSV').href =
-                    MonTY.urlPrefix +
-                        '/reports/callOutRecords-recent-byListId/?listId=' +
-                        listId;
+                modalElement.querySelector('#reportingLink--callOutListReport').href = `${MonTY.urlPrefix}/print/screen/callOutList/?listId=${listId}`;
+                modalElement.querySelector('#reportingLink--callOutListMembersCSV').href = `${MonTY.urlPrefix}/reports/callOutListMembers-formatted-byListId/?listId=${listId}`;
+                modalElement.querySelector('#reportingLink--callOutRecordsCSV').href = `${MonTY.urlPrefix}/reports/callOutRecords-recent-byListId/?listId=${listId}`;
                 cityssm.enableNavBlocker();
             },
             onhidden() {

@@ -40,7 +40,7 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        MonTY.urlPrefix + '/admin/doDeleteUser',
+        `${MonTY.urlPrefix}/admin/doDeleteUser`,
         {
           userName
         },
@@ -87,7 +87,7 @@ declare const cityssm: cityssmGlobal
         .userName ?? ''
 
     cityssm.postJSON(
-      MonTY.urlPrefix + '/admin/doUpdateUserCanLogin',
+      `${MonTY.urlPrefix}/admin/doUpdateUserCanLogin`,
       {
         userName,
         canLogin: canLoginSelectElement.value
@@ -137,7 +137,7 @@ declare const cityssm: cityssmGlobal
         .userName ?? ''
 
     cityssm.postJSON(
-      MonTY.urlPrefix + '/admin/doUpdateUserIsAdmin',
+      `${MonTY.urlPrefix}/admin/doUpdateUserIsAdmin`,
       {
         userName,
         isAdmin: isAdminSelectElement.value
@@ -185,7 +185,7 @@ declare const cityssm: cityssmGlobal
     ) as HTMLTableRowElement
 
     cityssm.postJSON(
-      MonTY.urlPrefix + '/admin/doSetUserPermission',
+      `${MonTY.urlPrefix}/admin/doSetUserPermission`,
       formEvent.currentTarget,
       (rawResponseJSON) => {
         const responseJSON = rawResponseJSON as {
@@ -210,6 +210,7 @@ declare const cityssm: cityssmGlobal
   }
 
   function highlightRow(changeEvent: Event): void {
+    // eslint-disable-next-line no-extra-semi
     ;(changeEvent.currentTarget as HTMLElement)
       .closest('tr')
       ?.classList.add('has-background-warning-light')
@@ -309,7 +310,7 @@ declare const cityssm: cityssmGlobal
       }
 
       cityssm.postJSON(
-        MonTY.urlPrefix + '/admin/doGetUserPermissions',
+        `${MonTY.urlPrefix}/admin/doGetUserPermissions`,
         {
           userName
         },
@@ -329,7 +330,7 @@ declare const cityssm: cityssmGlobal
 
             if (tableRowElement === null) {
               formIndex += 1
-              const formId = 'form--permissionValue-' + formIndex.toString()
+              const formId = `form--permissionValue-${formIndex.toString()}`
 
               tableBodyElement.insertAdjacentHTML(
                 'beforeend',
@@ -508,7 +509,7 @@ declare const cityssm: cityssmGlobal
         formEvent.preventDefault()
 
         cityssm.postJSON(
-          MonTY.urlPrefix + '/admin/doAddUser',
+          `${MonTY.urlPrefix}/admin/doAddUser`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as

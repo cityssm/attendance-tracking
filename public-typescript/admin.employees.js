@@ -23,7 +23,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const propertyName = rowElement === null || rowElement === void 0 ? void 0 : rowElement.dataset.propertyName;
             const propertyValue = (_a = rowElement === null || rowElement === void 0 ? void 0 : rowElement.querySelector('input')) === null || _a === void 0 ? void 0 : _a.value;
             const isSynced = (_b = rowElement === null || rowElement === void 0 ? void 0 : rowElement.querySelector('select')) === null || _b === void 0 ? void 0 : _b.value;
-            cityssm.postJSON(MonTY.urlPrefix + '/admin/doUpdateEmployeeProperty', {
+            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doUpdateEmployeeProperty`, {
                 employeeNumber,
                 propertyName,
                 propertyValue,
@@ -46,7 +46,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 const propertyName = rowElement === null || rowElement === void 0 ? void 0 : rowElement.dataset.propertyName;
                 const propertyValue = (_a = rowElement === null || rowElement === void 0 ? void 0 : rowElement.querySelector('input')) === null || _a === void 0 ? void 0 : _a.value;
                 const isSynced = (_b = rowElement === null || rowElement === void 0 ? void 0 : rowElement.querySelector('select')) === null || _b === void 0 ? void 0 : _b.value;
-                cityssm.postJSON(MonTY.urlPrefix + '/admin/doDeleteEmployeeProperty', {
+                cityssm.postJSON(`${MonTY.urlPrefix}/admin/doDeleteEmployeeProperty`, {
                     employeeNumber,
                     propertyName,
                     propertyValue,
@@ -124,7 +124,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         function addEmployeeProperty(formEvent) {
             formEvent.preventDefault();
             const addPropertyFormElement = formEvent.currentTarget;
-            cityssm.postJSON(MonTY.urlPrefix + '/admin/doAddEmployeeProperty', addPropertyFormElement, (rawResponseJSON) => {
+            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doAddEmployeeProperty`, addPropertyFormElement, (rawResponseJSON) => {
                 var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
@@ -133,6 +133,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                         contextualColorName: 'success',
                         okButton: {
                             callbackFunction() {
+                                // eslint-disable-next-line no-extra-semi
                                 ;
                                 employeeModalElement.querySelector('#employeePropertyAdd--propertyName').focus();
                             }
@@ -153,7 +154,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         function updateEmployee(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(MonTY.urlPrefix + '/admin/doUpdateEmployee', formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doUpdateEmployee`, formEvent.currentTarget, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     bulmaJS.alert({
@@ -211,10 +212,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 modalElement.querySelector('#employeeEdit--userName').value = (_b = employee.userName) !== null && _b !== void 0 ? _b : '';
                 modalElement.querySelector('#employeeEdit--department').value = (_c = employee.department) !== null && _c !== void 0 ? _c : '';
                 if (((_d = employee.seniorityDateTime) !== null && _d !== void 0 ? _d : '') !== '') {
+                    // eslint-disable-next-line no-extra-semi
                     ;
                     modalElement.querySelector('#employeeEdit--seniorityDateTime').valueAsDate = new Date(employee.seniorityDateTime);
                 }
                 // Contact Information
+                // eslint-disable-next-line no-extra-semi
                 ;
                 modalElement.querySelector('#employeeEdit--syncContacts').value = employee.syncContacts ? '1' : '0';
                 modalElement.querySelector('#employeeEdit--workContact1').value = (_e = employee.workContact1) !== null && _e !== void 0 ? _e : '';
@@ -222,7 +225,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 modalElement.querySelector('#employeeEdit--homeContact1').value = (_g = employee.homeContact1) !== null && _g !== void 0 ? _g : '';
                 modalElement.querySelector('#employeeEdit--homeContact2').value = (_h = employee.homeContact2) !== null && _h !== void 0 ? _h : '';
                 modalElement.querySelector('#employeePropertyAdd--employeeNumber').value = employee.employeeNumber;
-                cityssm.postJSON(MonTY.urlPrefix + '/admin/doGetEmployeeProperties', {
+                cityssm.postJSON(`${MonTY.urlPrefix}/admin/doGetEmployeeProperties`, {
                     employeeNumber
                 }, (rawResponseJSON) => {
                     employeeProperties = rawResponseJSON.employeeProperties;
@@ -259,7 +262,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         let addCloseModalFunction;
         function addEmployee(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(MonTY.urlPrefix + '/admin/doAddEmployee', formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doAddEmployee`, formEvent.currentTarget, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     addCloseModalFunction();
@@ -357,6 +360,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
       </button>
       </div>`;
         if (offset === 0) {
+            // eslint-disable-next-line no-extra-semi
             ;
             pagerElement.querySelector('.is-previous-button').disabled = true;
         }
@@ -365,6 +369,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 .querySelector('.is-previous-button')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', goToPrevious);
         }
         if (limit + offset >= filteredEmployees.length) {
+            // eslint-disable-next-line no-extra-semi
             ;
             pagerElement.querySelector('.is-next-button').disabled = true;
         }

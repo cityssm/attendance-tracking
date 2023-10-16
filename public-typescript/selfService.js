@@ -45,7 +45,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             employeeHomeContactLastFourDigitsElement.focus();
             return;
         }
-        cityssm.postJSON(urlPrefix + '/doValidateEmployee', {
+        cityssm.postJSON(`${urlPrefix}/doValidateEmployee`, {
             employeeNumber: employeeNumberElement.value,
             employeeHomeContactLastFourDigits: employeeHomeContactLastFourDigitsElement.value
         }, (rawResponseJSON) => {
@@ -159,6 +159,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         if (selfSignUpKeyElement !== null) {
             selfSignUpKey = selfSignUpKeyElement.value;
             if (selfSignUpKey === '') {
+                // eslint-disable-next-line no-extra-semi
                 ;
                 selfSignUpKeyElement.focus();
                 buttonElement.disabled = false;
@@ -166,7 +167,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 return;
             }
         }
-        cityssm.postJSON(urlPrefix + '/doAddEmployeeToCallOutList', {
+        cityssm.postJSON(`${urlPrefix}/doAddEmployeeToCallOutList`, {
             employeeNumber: employeeNumberElement.value,
             employeeHomeContactLastFourDigits: employeeHomeContactLastFourDigitsElement.value,
             listId,
@@ -175,6 +176,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             var _a;
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
+                // eslint-disable-next-line no-extra-semi
                 ;
                 panelBlockElement.querySelector('.is-add-button-container').innerHTML =
                     '<i class="fas fa-check" aria-hidden="true"></i> Added to List';
@@ -223,6 +225,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             </div>
             <div class="is-add-button-container"></div>`;
                 if ((_b = callOutList.hasSelfSignUpKey) !== null && _b !== void 0 ? _b : true) {
+                    // eslint-disable-next-line no-extra-semi
                     ;
                     panelBlockElement.querySelector('.is-add-button-container').innerHTML = `<div class="field has-addons">
                 <div class="control has-icons-left">
@@ -247,6 +250,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
               </div>`;
                 }
                 else {
+                    // eslint-disable-next-line no-extra-semi
                     ;
                     panelBlockElement.querySelector('.is-add-button-container').innerHTML = `<button class="button is-success is-add-button" type="button">
                 <span class="icon"><i class="fas fa-plus" aria-hidden="true"></i></span>

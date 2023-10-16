@@ -30,6 +30,7 @@ declare const cityssm: cityssmGlobal
   const deleteButtonClassName = 'is-delete-button'
 
   function setRowBackgroundColor(changeEvent: Event): void {
+    // eslint-disable-next-line no-extra-semi
     ;(
       (changeEvent.currentTarget as HTMLElement).closest(
         'tr'
@@ -63,7 +64,7 @@ declare const cityssm: cityssmGlobal
     const absenceType = rowElement.querySelector('input')!.value
 
     cityssm.postJSON(
-      MonTY.urlPrefix + '/admin/doUpdateAbsenceType',
+      `${MonTY.urlPrefix}/admin/doUpdateAbsenceType`,
       {
         absenceTypeKey,
         absenceType
@@ -91,11 +92,11 @@ declare const cityssm: cityssmGlobal
     const absenceTypeKey = tableRowElement.dataset.absenceTypeKey
 
     cityssm.postJSON(
-      MonTY.urlPrefix +
-        '/admin/' +
-        (buttonElement.dataset.direction === 'up'
+      `${MonTY.urlPrefix}/admin/${
+        buttonElement.dataset.direction === 'up'
           ? 'doMoveAbsenceTypeUp'
-          : 'doMoveAbsenceTypeDown'),
+          : 'doMoveAbsenceTypeDown'
+      }`,
       {
         absenceTypeKey,
         moveToEnd: clickEvent.shiftKey ? '1' : '0'
@@ -127,7 +128,7 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        MonTY.urlPrefix + '/admin/doDeleteAbsenceType',
+        `${MonTY.urlPrefix}/admin/doDeleteAbsenceType`,
         {
           absenceTypeKey
         },
@@ -264,7 +265,7 @@ declare const cityssm: cityssmGlobal
         formEvent.preventDefault()
 
         cityssm.postJSON(
-          MonTY.urlPrefix + '/admin/doAddAbsenceType',
+          `${MonTY.urlPrefix}/admin/doAddAbsenceType`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON =
@@ -343,7 +344,7 @@ declare const cityssm: cityssmGlobal
     ).value
 
     cityssm.postJSON(
-      MonTY.urlPrefix + '/admin/doUpdateCallOutResponseType',
+      `${MonTY.urlPrefix}/admin/doUpdateCallOutResponseType`,
       {
         responseTypeId,
         responseType,
@@ -372,11 +373,11 @@ declare const cityssm: cityssmGlobal
     const responseTypeId = tableRowElement.dataset.responseTypeId
 
     cityssm.postJSON(
-      MonTY.urlPrefix +
-        '/admin/' +
-        (buttonElement.dataset.direction === 'up'
+      `${MonTY.urlPrefix}/admin/${
+        buttonElement.dataset.direction === 'up'
           ? 'doMoveCallOutResponseTypeUp'
-          : 'doMoveCallOutResponseTypeDown'),
+          : 'doMoveCallOutResponseTypeDown'
+      }`,
       {
         responseTypeId,
         moveToEnd: clickEvent.shiftKey ? '1' : '0'
@@ -408,7 +409,7 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        MonTY.urlPrefix + '/admin/doDeleteCallOutResponseType',
+        `${MonTY.urlPrefix}/admin/doDeleteCallOutResponseType`,
         {
           responseTypeId
         },
@@ -563,7 +564,7 @@ declare const cityssm: cityssmGlobal
         formEvent.preventDefault()
 
         cityssm.postJSON(
-          MonTY.urlPrefix + '/admin/doAddCallOutResponseType',
+          `${MonTY.urlPrefix}/admin/doAddCallOutResponseType`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON =
@@ -632,7 +633,9 @@ declare const cityssm: cityssmGlobal
     ) as HTMLTableRowElement
 
     const afterHoursReasonId = rowElement.dataset.afterHoursReasonId
-    const afterHoursReason = rowElement.querySelector('input')!.value
+    const afterHoursReason = (
+      rowElement.querySelector('input') as HTMLInputElement
+    ).value
 
     cityssm.postJSON(
       MonTY.urlPrefix + '/admin/doUpdateAfterHoursReason',
@@ -663,11 +666,11 @@ declare const cityssm: cityssmGlobal
     const afterHoursReasonId = tableRowElement.dataset.afterHoursReasonId
 
     cityssm.postJSON(
-      MonTY.urlPrefix +
-        '/admin/' +
-        (buttonElement.dataset.direction === 'up'
+      `${MonTY.urlPrefix}/admin/${
+        buttonElement.dataset.direction === 'up'
           ? 'doMoveAfterHoursReasonUp'
-          : 'doMoveAfterHoursReasonDown'),
+          : 'doMoveAfterHoursReasonDown'
+      }`,
       {
         afterHoursReasonId,
         moveToEnd: clickEvent.shiftKey ? '1' : '0'
@@ -699,7 +702,7 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        MonTY.urlPrefix + '/admin/doDeleteAfterHoursReason',
+        `${MonTY.urlPrefix}/admin/doDeleteAfterHoursReason`,
         {
           afterHoursReasonId
         },
@@ -837,7 +840,7 @@ declare const cityssm: cityssmGlobal
         formEvent.preventDefault()
 
         cityssm.postJSON(
-          MonTY.urlPrefix + '/admin/doAddAfterHoursReason',
+          `${MonTY.urlPrefix}/admin/doAddAfterHoursReason`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON =

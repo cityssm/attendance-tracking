@@ -339,13 +339,8 @@ declare const cityssm: cityssmGlobal
 
     // eslint-disable-next-line no-labels
     employeeLoop: for (const employee of employees) {
-      const employeeSearchString = (
-        employee.employeeNumber +
-        ' ' +
-        employee.employeeGivenName +
-        ' ' +
-        employee.employeeSurname
-      ).toLowerCase()
+      const employeeSearchString =
+        `${employee.employeeNumber} ${employee.employeeGivenName} ${employee.employeeSurname}`.toLowerCase()
 
       for (const searchStringPiece of searchStringPieces) {
         if (!employeeSearchString.includes(searchStringPiece)) {

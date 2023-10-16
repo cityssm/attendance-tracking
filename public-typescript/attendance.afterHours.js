@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     function deleteAfterHoursRecord(clickEvent) {
         const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
         function doDelete() {
-            cityssm.postJSON(MonTY.urlPrefix + '/attendance/doDeleteAfterHoursRecord', {
+            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doDeleteAfterHoursRecord`, {
                 recordId
             }, (rawResponseJSON) => {
                 var _a;
@@ -129,14 +129,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 employeeNumberElement.value = matchingEmployees[0].employeeNumber;
                 previousEmployeeNumberPiece =
                     matchingEmployees[0].employeeNumber.toLowerCase();
-                employeeNameElement.value = (matchingEmployees[0].employeeGivenName +
-                    ' ' +
-                    matchingEmployees[0].employeeSurname).trim();
+                employeeNameElement.value =
+                    `${matchingEmployees[0].employeeGivenName} ${matchingEmployees[0].employeeSurname}`.trim();
             }
         }
         function recordAfterHours(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(MonTY.urlPrefix + '/attendance/doAddAfterHoursRecord', formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doAddAfterHoursRecord`, formEvent.currentTarget, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     afterHoursCloseModalFunction();

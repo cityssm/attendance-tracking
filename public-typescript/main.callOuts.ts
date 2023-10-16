@@ -97,7 +97,7 @@ declare const cityssm: cityssmGlobal
       const formElement = formEvent.currentTarget as HTMLFormElement
 
       cityssm.postJSON(
-        MonTY.urlPrefix + '/attendance/doAddCallOutRecord',
+        `${MonTY.urlPrefix}/attendance/doAddCallOutRecord`,
         formElement,
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
@@ -132,7 +132,7 @@ declare const cityssm: cityssmGlobal
 
       function doDelete(): void {
         cityssm.postJSON(
-          MonTY.urlPrefix + '/attendance/doDeleteCallOutRecord',
+          `${MonTY.urlPrefix}/attendance/doDeleteCallOutRecord`,
           {
             recordId,
             employeeNumber,
@@ -300,6 +300,7 @@ declare const cityssm: cityssmGlobal
         }`
 
         if (canUpdate) {
+          // eslint-disable-next-line no-extra-semi
           ;(
             modalElement.querySelector(
               '#callOutListMember--workContact1'
@@ -356,6 +357,7 @@ declare const cityssm: cityssmGlobal
         bulmaJS.init(modalElement)
 
         if (canUpdate) {
+          // eslint-disable-next-line no-extra-semi
           ;(
             modalElement.querySelector(
               '#callOutRecordAdd--listId'
@@ -378,6 +380,7 @@ declare const cityssm: cityssmGlobal
             responseTypeElement.append(optionElement)
           }
 
+          // eslint-disable-next-line no-extra-semi
           ;(
             modalElement.querySelector(
               '#form--callOutRecordAdd'
@@ -521,6 +524,7 @@ declare const cityssm: cityssmGlobal
     }
 
     function initializeListDetailsTab(): void {
+      // eslint-disable-next-line no-extra-semi
       ;(
         callOutListModalElement.querySelector(
           '#callOutListEdit--listId'
@@ -606,6 +610,7 @@ declare const cityssm: cityssmGlobal
         sortKeyFunctionElement.append(optionElement)
       }
 
+      // eslint-disable-next-line no-extra-semi
       ;(
         callOutListModalElement.querySelector(
           '#callOutListEdit--employeePropertyName'
@@ -650,7 +655,7 @@ declare const cityssm: cityssmGlobal
         .dataset.employeeNumber
 
       cityssm.postJSON(
-        MonTY.urlPrefix + '/attendance/doAddCallOutListMember',
+        `${MonTY.urlPrefix}/attendance/doAddCallOutListMember`,
         {
           listId: callOutList.listId,
           employeeNumber
@@ -695,7 +700,7 @@ declare const cityssm: cityssmGlobal
 
       function doDelete(): void {
         cityssm.postJSON(
-          MonTY.urlPrefix + '/attendance/doDeleteCallOutListMember',
+          `${MonTY.urlPrefix}/attendance/doDeleteCallOutListMember`,
           {
             listId: callOutList.listId,
             employeeNumber
@@ -939,7 +944,7 @@ declare const cityssm: cityssmGlobal
 
       function doDelete(): void {
         cityssm.postJSON(
-          MonTY.urlPrefix + '/attendance/doDeleteCallOutList',
+          `${MonTY.urlPrefix}/attendance/doDeleteCallOutList`,
           {
             listId
           },
@@ -1011,7 +1016,7 @@ declare const cityssm: cityssmGlobal
         // Members
 
         cityssm.postJSON(
-          MonTY.urlPrefix + '/attendance/doGetCallOutListMembers',
+          `${MonTY.urlPrefix}/attendance/doGetCallOutListMembers`,
           {
             listId: callOutList.listId,
             includeAvailableEmployees: canManage
@@ -1049,23 +1054,17 @@ declare const cityssm: cityssmGlobal
           modalElement.querySelector(
             '#reportingLink--callOutListReport'
           ) as HTMLAnchorElement
-        ).href = MonTY.urlPrefix + '/print/screen/callOutList/?listId=' + listId
+        ).href = `${MonTY.urlPrefix}/print/screen/callOutList/?listId=${listId}`
         ;(
           modalElement.querySelector(
             '#reportingLink--callOutListMembersCSV'
           ) as HTMLAnchorElement
-        ).href =
-          MonTY.urlPrefix +
-          '/reports/callOutListMembers-formatted-byListId/?listId=' +
-          listId
+        ).href = `${MonTY.urlPrefix}/reports/callOutListMembers-formatted-byListId/?listId=${listId}`
         ;(
           modalElement.querySelector(
             '#reportingLink--callOutRecordsCSV'
           ) as HTMLAnchorElement
-        ).href =
-          MonTY.urlPrefix +
-          '/reports/callOutRecords-recent-byListId/?listId=' +
-          listId
+        ).href = `${MonTY.urlPrefix}/reports/callOutRecords-recent-byListId/?listId=${listId}`
 
         cityssm.enableNavBlocker()
       },

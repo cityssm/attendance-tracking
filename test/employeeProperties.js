@@ -11,7 +11,7 @@ import { testAdmin } from './_globals.js';
 describe('database/employeeProperties.js', () => {
     let employee;
     let purgeEmployee = false;
-    const propertyName = 'testProperty.' + Date.now().toString();
+    const propertyName = `testProperty.${Date.now().toString()}`;
     const propertyValue = 'test value';
     const updatedPropertyValue = 'updated value';
     let user;

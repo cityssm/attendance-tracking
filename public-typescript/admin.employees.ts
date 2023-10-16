@@ -44,7 +44,7 @@ declare const cityssm: cityssmGlobal
       const isSynced = rowElement?.querySelector('select')?.value
 
       cityssm.postJSON(
-        MonTY.urlPrefix + '/admin/doUpdateEmployeeProperty',
+        `${MonTY.urlPrefix}/admin/doUpdateEmployeeProperty`,
         {
           employeeNumber,
           propertyName,
@@ -78,7 +78,7 @@ declare const cityssm: cityssmGlobal
         const isSynced = rowElement?.querySelector('select')?.value
 
         cityssm.postJSON(
-          MonTY.urlPrefix + '/admin/doDeleteEmployeeProperty',
+          `${MonTY.urlPrefix}/admin/doDeleteEmployeeProperty`,
           {
             employeeNumber,
             propertyName,
@@ -179,7 +179,7 @@ declare const cityssm: cityssmGlobal
       const addPropertyFormElement = formEvent.currentTarget as HTMLFormElement
 
       cityssm.postJSON(
-        MonTY.urlPrefix + '/admin/doAddEmployeeProperty',
+        `${MonTY.urlPrefix}/admin/doAddEmployeeProperty`,
         addPropertyFormElement,
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
@@ -194,6 +194,7 @@ declare const cityssm: cityssmGlobal
               contextualColorName: 'success',
               okButton: {
                 callbackFunction() {
+                  // eslint-disable-next-line no-extra-semi
                   ;(
                     employeeModalElement.querySelector(
                       '#employeePropertyAdd--propertyName'
@@ -223,7 +224,7 @@ declare const cityssm: cityssmGlobal
       formEvent.preventDefault()
 
       cityssm.postJSON(
-        MonTY.urlPrefix + '/admin/doUpdateEmployee',
+        `${MonTY.urlPrefix}/admin/doUpdateEmployee`,
         formEvent.currentTarget,
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
@@ -347,6 +348,7 @@ declare const cityssm: cityssmGlobal
         ).value = employee.department ?? ''
 
         if ((employee.seniorityDateTime ?? '') !== '') {
+          // eslint-disable-next-line no-extra-semi
           ;(
             modalElement.querySelector(
               '#employeeEdit--seniorityDateTime'
@@ -355,6 +357,7 @@ declare const cityssm: cityssmGlobal
         }
 
         // Contact Information
+        // eslint-disable-next-line no-extra-semi
         ;(
           modalElement.querySelector(
             '#employeeEdit--syncContacts'
@@ -389,7 +392,7 @@ declare const cityssm: cityssmGlobal
         ).value = employee.employeeNumber
 
         cityssm.postJSON(
-          MonTY.urlPrefix + '/admin/doGetEmployeeProperties',
+          `${MonTY.urlPrefix}/admin/doGetEmployeeProperties`,
           {
             employeeNumber
           },
@@ -452,7 +455,7 @@ declare const cityssm: cityssmGlobal
         formEvent.preventDefault()
 
         cityssm.postJSON(
-          MonTY.urlPrefix + '/admin/doAddEmployee',
+          `${MonTY.urlPrefix}/admin/doAddEmployee`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as
@@ -603,6 +606,7 @@ declare const cityssm: cityssmGlobal
       </div>`
 
     if (offset === 0) {
+      // eslint-disable-next-line no-extra-semi
       ;(
         pagerElement.querySelector('.is-previous-button') as HTMLButtonElement
       ).disabled = true
@@ -613,6 +617,7 @@ declare const cityssm: cityssmGlobal
     }
 
     if (limit + offset >= filteredEmployees.length) {
+      // eslint-disable-next-line no-extra-semi
       ;(
         pagerElement.querySelector('.is-next-button') as HTMLButtonElement
       ).disabled = true

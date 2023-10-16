@@ -16,7 +16,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const tableRowElement = clickEvent.currentTarget.closest('tr');
         const userName = (_a = tableRowElement.dataset.userName) !== null && _a !== void 0 ? _a : '';
         function doDelete() {
-            cityssm.postJSON(MonTY.urlPrefix + '/admin/doDeleteUser', {
+            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doDeleteUser`, {
                 userName
             }, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
@@ -48,7 +48,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const canLoginSelectElement = clickEvent.currentTarget;
         const userName = (_a = canLoginSelectElement.closest('tr').dataset
             .userName) !== null && _a !== void 0 ? _a : '';
-        cityssm.postJSON(MonTY.urlPrefix + '/admin/doUpdateUserCanLogin', {
+        cityssm.postJSON(`${MonTY.urlPrefix}/admin/doUpdateUserCanLogin`, {
             userName,
             canLogin: canLoginSelectElement.value
         }, (rawResponseJSON) => {
@@ -79,7 +79,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const isAdminSelectElement = clickEvent.currentTarget;
         const userName = (_a = isAdminSelectElement.closest('tr').dataset
             .userName) !== null && _a !== void 0 ? _a : '';
-        cityssm.postJSON(MonTY.urlPrefix + '/admin/doUpdateUserIsAdmin', {
+        cityssm.postJSON(`${MonTY.urlPrefix}/admin/doUpdateUserIsAdmin`, {
             userName,
             isAdmin: isAdminSelectElement.value
         }, (rawResponseJSON) => {
@@ -107,7 +107,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     function setUserPermission(formEvent) {
         formEvent.preventDefault();
         const rowElement = formEvent.currentTarget.closest('tr');
-        cityssm.postJSON(MonTY.urlPrefix + '/admin/doSetUserPermission', formEvent.currentTarget, (rawResponseJSON) => {
+        cityssm.postJSON(`${MonTY.urlPrefix}/admin/doSetUserPermission`, formEvent.currentTarget, (rawResponseJSON) => {
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
                 bulmaJS.alert({
@@ -127,6 +127,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     }
     function highlightRow(changeEvent) {
         var _a;
+        // eslint-disable-next-line no-extra-semi
         ;
         (_a = changeEvent.currentTarget
             .closest('tr')) === null || _a === void 0 ? void 0 : _a.classList.add('has-background-warning-light');
@@ -198,7 +199,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', setUserPermission);
                 tableBodyElement.append(tableRowElement);
             }
-            cityssm.postJSON(MonTY.urlPrefix + '/admin/doGetUserPermissions', {
+            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doGetUserPermissions`, {
                 userName
             }, (rawResponseJSON) => {
                 var _a, _b;
@@ -208,7 +209,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     const tableRowElement = tableBodyElement.querySelector(`tr[data-permission-key="${permissionKey}"]`);
                     if (tableRowElement === null) {
                         formIndex += 1;
-                        const formId = 'form--permissionValue-' + formIndex.toString();
+                        const formId = `form--permissionValue-${formIndex.toString()}`;
                         tableBodyElement.insertAdjacentHTML('beforeend', `<tr data-permission-key="${permissionKey}">
                     <td class="is-vcentered is-italic">${permissionKey}</td>
                     <td>
@@ -341,7 +342,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         let addCloseModalFunction;
         function doAddUser(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(MonTY.urlPrefix + '/admin/doAddUser', formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doAddUser`, formEvent.currentTarget, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     addCloseModalFunction();

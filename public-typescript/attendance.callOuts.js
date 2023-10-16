@@ -13,10 +13,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const oldIsFavourite = buttonElement.dataset.isFavourite === '1';
         const panelBlockElement = buttonElement.closest('.panel-block');
         const listId = panelBlockElement.dataset.listId;
-        cityssm.postJSON(MonTY.urlPrefix +
-            (oldIsFavourite
-                ? '/attendance/doRemoveFavouriteCallOutList'
-                : '/attendance/doAddFavouriteCallOutList'), { listId }, (rawResponseJSON) => {
+        cityssm.postJSON(`${MonTY.urlPrefix}/attendance/${oldIsFavourite
+            ? 'doRemoveFavouriteCallOutList'
+            : 'doAddFavouriteCallOutList'}`, { listId }, (rawResponseJSON) => {
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
                 MonTYCallOuts.callOutLists = responseJSON.callOutLists;
@@ -108,7 +107,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         let createCloseModalFunction;
         function doCreate(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(MonTY.urlPrefix + '/attendance/doCreateCallOutList', formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doCreateCallOutList`, formEvent.currentTarget, (rawResponseJSON) => {
                 var _a;
                 const responseJSON = rawResponseJSON;
                 MonTYCallOuts.callOutLists = responseJSON.callOutLists;

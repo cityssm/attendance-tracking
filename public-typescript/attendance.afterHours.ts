@@ -40,7 +40,7 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        MonTY.urlPrefix + '/attendance/doDeleteAfterHoursRecord',
+        `${MonTY.urlPrefix}/attendance/doDeleteAfterHoursRecord`,
         {
           recordId
         },
@@ -165,7 +165,6 @@ declare const cityssm: cityssmGlobal
 
     containerElement.innerHTML = ''
     containerElement.append(panelElement)
-
     ;(
       document.querySelector(
         '#menu--attendance a[href="#tab--afterHours"] .tag'
@@ -214,11 +213,8 @@ declare const cityssm: cityssmGlobal
           previousEmployeeNumberPiece =
             matchingEmployees[0].employeeNumber.toLowerCase()
 
-          employeeNameElement.value = (
-            matchingEmployees[0].employeeGivenName +
-            ' ' +
-            matchingEmployees[0].employeeSurname
-          ).trim()
+          employeeNameElement.value =
+            `${matchingEmployees[0].employeeGivenName} ${matchingEmployees[0].employeeSurname}`.trim()
         }
       }
 
@@ -226,7 +222,7 @@ declare const cityssm: cityssmGlobal
         formEvent.preventDefault()
 
         cityssm.postJSON(
-          MonTY.urlPrefix + '/attendance/doAddAfterHoursRecord',
+          `${MonTY.urlPrefix}/attendance/doAddAfterHoursRecord`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as

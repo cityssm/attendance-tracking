@@ -5,14 +5,15 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type { MonTYCallOuts as MonTYCallOutsGlobal, MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type {
+  MonTYCallOuts as MonTYCallOutsGlobal,
+  MonTY as MonTYGlobal
+} from '../types/globalTypes.js'
 import type { CallOutList } from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
-
-// eslint-disable-next-line sonarjs/cognitive-complexity
 ;(() => {
   const MonTY = exports.MonTY as MonTYGlobal
   const MonTYCallOuts = MonTY.callOuts as MonTYCallOutsGlobal
@@ -37,10 +38,11 @@ declare const cityssm: cityssmGlobal
     const listId = panelBlockElement.dataset.listId
 
     cityssm.postJSON(
-      MonTY.urlPrefix +
-        (oldIsFavourite
-          ? '/attendance/doRemoveFavouriteCallOutList'
-          : '/attendance/doAddFavouriteCallOutList'),
+      `${MonTY.urlPrefix}/attendance/${
+        oldIsFavourite
+          ? 'doRemoveFavouriteCallOutList'
+          : 'doAddFavouriteCallOutList'
+      }`,
       { listId },
       (rawResponseJSON) => {
         const responseJSON = rawResponseJSON as {
@@ -174,7 +176,7 @@ declare const cityssm: cityssmGlobal
       formEvent.preventDefault()
 
       cityssm.postJSON(
-        MonTY.urlPrefix + '/attendance/doCreateCallOutList',
+        `${MonTY.urlPrefix}/attendance/doCreateCallOutList`,
         formEvent.currentTarget,
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
