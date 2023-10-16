@@ -4,7 +4,7 @@ import { addAbsenceRecord } from '../../database/addAbsenceRecord.js'
 import { addReturnToWorkRecord } from '../../database/addReturnToWorkRecord.js'
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
-import * as permissionFunctions from '../../helpers/functions.permissions.js'
+import { hasPermission } from '../../helpers/functions.permissions.js'
 import type {
   AbsenceRecord,
   ReturnToWorkRecord
@@ -25,12 +25,15 @@ export async function handler(
   switch (callInType) {
     case 'absence': {
       if (
-        permissionFunctions.hasPermission(
+        hasPermission(
           request.session.user as MonTYUser,
           'attendance.absences.canUpdate'
         )
       ) {
-        recordId = await addAbsenceRecord(request.body, request.session.user as MonTYUser)
+        recordId = await addAbsenceRecord(
+          request.body,
+          request.session.user as MonTYUser
+        )
         success = true
         absenceRecords = await getAbsenceRecords(
           {
@@ -46,7 +49,7 @@ export async function handler(
 
     case 'returnToWork': {
       if (
-        permissionFunctions.hasPermission(
+        hasPermission(
           request.session.user as MonTYUser,
           'attendance.returnsToWork.canUpdate'
         )

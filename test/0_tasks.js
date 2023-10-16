@@ -1,4 +1,4 @@
-import * as assert from 'node:assert';
+import assert from 'node:assert';
 import { doDatabaseCleanup } from '../tasks/functions/doDatabaseCleanup.js';
 describe('tasks/databaseCleanup.js', () => {
     it('Runs task successfully', async () => {

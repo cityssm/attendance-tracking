@@ -1,12 +1,12 @@
 import { getCallOutList } from '../../database/getCallOutList.js';
 import { getCallOutListMembers } from '../../database/getCallOutListMembers.js';
 import { getEmployees } from '../../database/getEmployees.js';
-import * as permissionFunctions from '../../helpers/functions.permissions.js';
+import { hasPermission } from '../../helpers/functions.permissions.js';
 export async function handler(request, response) {
     const listId = request.body.listId;
     const callOutListMembers = await getCallOutListMembers({ listId }, {});
     let availableEmployees = [];
-    if (permissionFunctions.hasPermission(request.session.user, 'attendance.callOuts.canManage') &&
+    if (hasPermission(request.session.user, 'attendance.callOuts.canManage') &&
         request.body.includeAvailableEmployees) {
         const callOutList = await getCallOutList(listId);
         availableEmployees = await getEmployees({

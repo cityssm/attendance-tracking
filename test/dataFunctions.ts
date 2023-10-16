@@ -1,4 +1,4 @@
-import * as assert from 'node:assert'
+import assert from 'node:assert'
 
 import * as dataFunctions from '../data/functions.js'
 import type { Employee } from '../types/recordTypes.js'

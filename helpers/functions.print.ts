@@ -1,7 +1,7 @@
 import { getCallOutList } from '../database/getCallOutList.js'
 import { getCallOutListMembers } from '../database/getCallOutListMembers.js'
 
-import * as permissionFunctions from './functions.permissions.js'
+import { hasPermission } from './functions.permissions.js'
 
 interface PrintConfig {
   title: string
@@ -33,10 +33,7 @@ export async function getReportData(
   if (
     printConfig.params.includes('listId') &&
     typeof requestQuery.listId === 'string' &&
-    permissionFunctions.hasPermission(
-      sessionUser,
-      'attendance.callOuts.canView'
-    )
+    hasPermission(sessionUser, 'attendance.callOuts.canView')
   ) {
     const callOutList = await getCallOutList(requestQuery.listId)
     const callOutListMembers = await getCallOutListMembers(

@@ -4,7 +4,7 @@ import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
 import { getCallOutRecords } from '../../database/getCallOutRecords.js'
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 import { getConfigProperty } from '../../helpers/functions.config.js'
-import * as permissionFunctions from '../../helpers/functions.permissions.js'
+import { hasPermission } from '../../helpers/functions.permissions.js'
 import type {
   AbsenceRecord,
   CallOutRecord,
@@ -19,7 +19,7 @@ export async function handler(
 
   if (
     getConfigProperty('features.attendance.absences') &&
-    permissionFunctions.hasPermission(
+    hasPermission(
       request.session.user as MonTYUser,
       'attendance.absences.canView'
     )
@@ -38,7 +38,7 @@ export async function handler(
 
   if (
     getConfigProperty('features.attendance.returnsToWork') &&
-    permissionFunctions.hasPermission(
+    hasPermission(
       request.session.user as MonTYUser,
       'attendance.returnsToWork.canView'
     )
@@ -57,7 +57,7 @@ export async function handler(
 
   if (
     getConfigProperty('features.attendance.callOuts') &&
-    permissionFunctions.hasPermission(
+    hasPermission(
       request.session.user as MonTYUser,
       'attendance.callOuts.canView'
     )

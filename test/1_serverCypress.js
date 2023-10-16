@@ -1,4 +1,4 @@
-import * as assert from 'node:assert';
+import assert from 'node:assert';
 import { exec } from 'node:child_process';
 import * as http from 'node:http';
 import { app } from '../app.js';

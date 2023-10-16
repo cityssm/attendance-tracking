@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
-    const urlPrefix = document.querySelector('main').dataset.urlPrefix;
+    var _a;
+    const urlPrefix = (_a = document.querySelector('main')) === null || _a === void 0 ? void 0 : _a.dataset.urlPrefix;
     /*
      * Unsaved Changes
      */

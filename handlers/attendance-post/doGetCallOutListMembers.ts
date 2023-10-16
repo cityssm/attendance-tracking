@@ -3,7 +3,7 @@ import type { Request, Response } from 'express'
 import { getCallOutList } from '../../database/getCallOutList.js'
 import { getCallOutListMembers } from '../../database/getCallOutListMembers.js'
 import { getEmployees } from '../../database/getEmployees.js'
-import * as permissionFunctions from '../../helpers/functions.permissions.js'
+import { hasPermission } from '../../helpers/functions.permissions.js'
 import type { Employee } from '../../types/recordTypes.js'
 
 export async function handler(
@@ -17,7 +17,7 @@ export async function handler(
   let availableEmployees: Employee[] = []
 
   if (
-    permissionFunctions.hasPermission(
+    hasPermission(
       request.session.user as MonTYUser,
       'attendance.callOuts.canManage'
     ) &&

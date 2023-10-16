@@ -1,8 +1,8 @@
-import * as assert from 'node:assert';
+import assert from 'node:assert';
 import { v4 } from 'uuid';
 import { getEmployees } from '../database/getEmployees.js';
-import * as selfServiceFunctions from '../helpers/functions.selfService.js';
-import * as userFunctions from '../helpers/functions.user.js';
+import { validateEmployeeFields } from '../helpers/functions.selfService.js';
+import { userIsAdmin } from '../helpers/functions.user.js';
 async function getSelfServiceUser() {
     let employeeNumber = '';
     let employeeHomeContactLastFourDigitsValid = '';
@@ -48,7 +48,7 @@ describe('helpers/functions.selfService.js', () => {
         testSelfService = await getSelfServiceUser();
     });
     it('validates employee', async () => {
-        const validation = await selfServiceFunctions.validateEmployeeFields({
+        const validation = await validateEmployeeFields({
             body: {
                 employeeNumber: testSelfService.employeeNumber,
                 employeeHomeContactLastFourDigits: testSelfService.employeeHomeContactLastFourDigits.valid
@@ -57,7 +57,7 @@ describe('helpers/functions.selfService.js', () => {
         assert.ok(validation.success);
     });
     it('blocks employee with invalid employee number', async () => {
-        const validation = await selfServiceFunctions.validateEmployeeFields({
+        const validation = await validateEmployeeFields({
             body: {
                 employeeNumber: v4(),
                 employeeHomeContactLastFourDigits: testSelfService.employeeHomeContactLastFourDigits.valid
@@ -66,7 +66,7 @@ describe('helpers/functions.selfService.js', () => {
         assert.ok(!validation.success);
     });
     it('blocks employee with invalid four digits', async () => {
-        const validation = await selfServiceFunctions.validateEmployeeFields({
+        const validation = await validateEmployeeFields({
             body: {
                 employeeNumber: testSelfService.employeeNumber,
                 employeeHomeContactLastFourDigits: testSelfService.employeeHomeContactLastFourDigits.invalid
@@ -75,7 +75,7 @@ describe('helpers/functions.selfService.js', () => {
         assert.ok(!validation.success);
     });
     it('blocks employee with missing employee number', async () => {
-        const validation = await selfServiceFunctions.validateEmployeeFields({
+        const validation = await validateEmployeeFields({
             body: {
                 employeeNumber: '',
                 employeeHomeContactLastFourDigits: testSelfService.employeeHomeContactLastFourDigits.valid
@@ -84,7 +84,7 @@ describe('helpers/functions.selfService.js', () => {
         assert.ok(!validation.success);
     });
     it('blocks employee with missing four digits', async () => {
-        const validation = await selfServiceFunctions.validateEmployeeFields({
+        const validation = await validateEmployeeFields({
             body: {
                 employeeNumber: testSelfService.employeeNumber,
                 employeeHomeContactLastFourDigits: ''
@@ -99,7 +99,7 @@ describe('helpers/functions.user.js', () => {
             session: {}
         };
         it('is not admin', () => {
-            assert.strictEqual(userFunctions.userIsAdmin(noUserRequest), false);
+            assert.strictEqual(userIsAdmin(noUserRequest), false);
         });
     });
     describe('user, no admin', () => {
@@ -113,7 +113,7 @@ describe('helpers/functions.user.js', () => {
             }
         };
         it('is not admin', () => {
-            assert.strictEqual(userFunctions.userIsAdmin(readOnlyRequest), false);
+            assert.strictEqual(userIsAdmin(readOnlyRequest), false);
         });
     });
     describe('admin user', () => {
@@ -127,7 +127,7 @@ describe('helpers/functions.user.js', () => {
             }
         };
         it('is admin', () => {
-            assert.strictEqual(userFunctions.userIsAdmin(adminOnlyRequest), true);
+            assert.strictEqual(userIsAdmin(adminOnlyRequest), true);
         });
     });
 });

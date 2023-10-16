@@ -4,7 +4,7 @@ import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
 
 declare const cityssm: cityssmGlobal
 ;(() => {
-  const urlPrefix = document.querySelector('main')!.dataset.urlPrefix!
+  const urlPrefix = document.querySelector('main')?.dataset.urlPrefix as string
 
   /*
    * Unsaved Changes

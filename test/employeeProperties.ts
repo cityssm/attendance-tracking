@@ -1,4 +1,4 @@
-import * as assert from 'node:assert'
+import assert from 'node:assert'
 
 import { createEmployee } from '../database/createEmployee.js'
 import { deleteEmployee } from '../database/deleteEmployee.js'

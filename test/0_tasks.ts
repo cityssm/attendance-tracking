@@ -1,6 +1,6 @@
 /* eslint-disable eslint-comments/disable-enable-pair, unicorn/filename-case */
 
-import * as assert from 'node:assert'
+import assert from 'node:assert'
 
 import { doDatabaseCleanup } from '../tasks/functions/doDatabaseCleanup.js'
 
