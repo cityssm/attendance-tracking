@@ -82,10 +82,9 @@ export async function getReportData(reportName, reportParameters = {}) {
             break;
         }
         case 'absenceRecords-recent-byEmployeeNumber': {
-            sql =
-                absenceRecordsRecentSQL +
-                    ` and r.employeeNumber = @employeeNumber
-          order by r.absenceDateTime, r.recordId`;
+            sql = `${absenceRecordsRecentSQL}
+        and r.employeeNumber = @employeeNumber
+        order by r.absenceDateTime, r.recordId`;
             request = request
                 .input('recentDays', recentDays)
                 .input('employeeNumber', reportParameters.employeeNumber);
@@ -117,10 +116,9 @@ export async function getReportData(reportName, reportParameters = {}) {
             break;
         }
         case 'returnToWorkRecords-recent-byEmployeeNumber': {
-            sql =
-                returnToWorkRecordsRecentSQL +
-                    ` and r.employeeNumber = @employeeNumber
-          order by r.returnDateTime, r.recordId`;
+            sql = `${returnToWorkRecordsRecentSQL}
+        and r.employeeNumber = @employeeNumber
+        order by r.returnDateTime, r.recordId`;
             request = request
                 .input('recentDays', recentDays)
                 .input('employeeNumber', reportParameters.employeeNumber);
@@ -166,20 +164,18 @@ export async function getReportData(reportName, reportParameters = {}) {
             break;
         }
         case 'callOutRecords-recent-byListId': {
-            sql =
-                callOutRecordsRecentSQL +
-                    ` and r.listId = @listId
-          order by r.callOutDateTime, r.recordId`;
+            sql = `${callOutRecordsRecentSQL}
+        and r.listId = @listId
+        order by r.callOutDateTime, r.recordId`;
             request = request
                 .input('recentDays', recentDays)
                 .input('listId', reportParameters.listId);
             break;
         }
         case 'callOutRecords-recent-byEmployeeNumber': {
-            sql =
-                callOutRecordsRecentSQL +
-                    ` and r.employeeNumber = @employeeNumber
-          order by r.callOutDateTime, r.recordId`;
+            sql = `${callOutRecordsRecentSQL}
+        and r.employeeNumber = @employeeNumber
+        order by r.callOutDateTime, r.recordId`;
             request = request
                 .input('recentDays', recentDays)
                 .input('employeeNumber', reportParameters.employeeNumber);

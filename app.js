@@ -111,7 +111,7 @@ app.use((request, response, next) => {
     response.locals.urlPrefix = getConfigProperty('reverseProxy.urlPrefix');
     next();
 });
-app.get(urlPrefix + '/', sessionChecker, (_request, response) => {
+app.get(`${urlPrefix}/`, sessionChecker, (_request, response) => {
     response.redirect(`${urlPrefix}/dashboard`);
 });
 app.use(`${urlPrefix}/dashboard`, sessionChecker, routerDashboard);

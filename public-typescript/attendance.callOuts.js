@@ -30,7 +30,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         });
     }
     function renderCallOutLists() {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         const panelElement = document.createElement('div');
         panelElement.className = 'panel';
         const searchFilterPieces = searchFilterElement.value
@@ -66,7 +66,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
           </a>
         </div>
         <div class="column is-narrow">
-        ${callOutList.allowSelfSignUp
+        ${((_c = callOutList.allowSelfSignUp) !== null && _c !== void 0 ? _c : false)
                 ? `<span class="tag is-light is-info">
               <span class="icon is-small"><i class="fas fa-hand-paper" aria-hidden="true"></i></span>
               <span>Self Sign Up</span>
@@ -74,12 +74,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 : ''} 
           <span class="tag" data-tooltip="Members">
             <span class="icon is-small"><i class="fas fa-hard-hat" aria-hidden="true"></i></span>
-            <span>${(_c = callOutList.callOutListMembersCount) !== null && _c !== void 0 ? _c : ''}</span>
+            <span>${(_d = callOutList.callOutListMembersCount) !== null && _d !== void 0 ? _d : ''}</span>
           </span>
         </div>
         </div>`;
-            (_d = panelBlockElement
-                .querySelector('button')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', toggleCallOutListFavourite);
+            (_e = panelBlockElement
+                .querySelector('button')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', toggleCallOutListFavourite);
             const listAnchorElement = panelBlockElement.querySelector('a');
             listAnchorElement.dataset.cy = callOutList.listName;
             listAnchorElement.addEventListener('click', openCallOutListByClick);

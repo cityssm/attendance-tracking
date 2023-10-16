@@ -117,7 +117,7 @@ declare const cityssm: cityssmGlobal
         </div>
         <div class="column is-narrow">
         ${
-          callOutList.allowSelfSignUp!
+          callOutList.allowSelfSignUp ?? false
             ? `<span class="tag is-light is-info">
               <span class="icon is-small"><i class="fas fa-hand-paper" aria-hidden="true"></i></span>
               <span>Self Sign Up</span>

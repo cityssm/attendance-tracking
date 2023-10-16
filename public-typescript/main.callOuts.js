@@ -260,7 +260,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const submitButtonElement = formEvent.currentTarget.querySelector('button[type="submit"]');
             submitButtonElement.disabled = true;
             submitButtonElement.classList.add('is-loading');
-            cityssm.postJSON(MonTY.urlPrefix + '/attendance/doUpdateCallOutList', formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doUpdateCallOutList`, formEvent.currentTarget, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
                 submitButtonElement.disabled = false;
                 submitButtonElement.classList.remove('is-loading');
@@ -446,9 +446,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     .trim()
                     .toLowerCase()
                     .split(' ');
-                const employeeString = (availableEmployee.employeeGivenName +
-                    ' ' +
-                    availableEmployee.employeeSurname).toLowerCase();
+                const employeeString = `${availableEmployee.employeeGivenName} ${availableEmployee.employeeSurname}`.toLowerCase();
                 for (const searchStringPiece of searchStringPieces) {
                     if (!employeeString.includes(searchStringPiece)) {
                         // eslint-disable-next-line no-labels

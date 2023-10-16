@@ -24,7 +24,9 @@ import configFunctions, {
   getConfigProperty,
   includeAttendance
 } from './helpers/functions.config.js'
-import permissionFunctions, { hasAttendance } from './helpers/functions.permissions.js'
+import permissionFunctions, {
+  hasAttendance
+} from './helpers/functions.permissions.js'
 import routerAdmin from './routes/admin.js'
 import routerAttendance from './routes/attendance.js'
 import routerDashboard from './routes/dashboard.js'
@@ -222,7 +224,7 @@ app.use((request, response, next) => {
   next()
 })
 
-app.get(urlPrefix + '/', sessionChecker, (_request, response) => {
+app.get(`${urlPrefix}/`, sessionChecker, (_request, response) => {
   response.redirect(`${urlPrefix}/dashboard`)
 })
 

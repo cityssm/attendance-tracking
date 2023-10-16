@@ -112,10 +112,9 @@ export async function getReportData(
     }
 
     case 'absenceRecords-recent-byEmployeeNumber': {
-      sql =
-        absenceRecordsRecentSQL +
-        ` and r.employeeNumber = @employeeNumber
-          order by r.absenceDateTime, r.recordId`
+      sql = `${absenceRecordsRecentSQL}
+        and r.employeeNumber = @employeeNumber
+        order by r.absenceDateTime, r.recordId`
 
       request = request
         .input('recentDays', recentDays)
@@ -161,10 +160,9 @@ export async function getReportData(
     }
 
     case 'returnToWorkRecords-recent-byEmployeeNumber': {
-      sql =
-        returnToWorkRecordsRecentSQL +
-        ` and r.employeeNumber = @employeeNumber
-          order by r.returnDateTime, r.recordId`
+      sql = `${returnToWorkRecordsRecentSQL}
+        and r.employeeNumber = @employeeNumber
+        order by r.returnDateTime, r.recordId`
 
       request = request
         .input('recentDays', recentDays)
@@ -231,10 +229,9 @@ export async function getReportData(
     }
 
     case 'callOutRecords-recent-byListId': {
-      sql =
-        callOutRecordsRecentSQL +
-        ` and r.listId = @listId
-          order by r.callOutDateTime, r.recordId`
+      sql = `${callOutRecordsRecentSQL}
+        and r.listId = @listId
+        order by r.callOutDateTime, r.recordId`
 
       request = request
         .input('recentDays', recentDays)
@@ -244,10 +241,9 @@ export async function getReportData(
     }
 
     case 'callOutRecords-recent-byEmployeeNumber': {
-      sql =
-        callOutRecordsRecentSQL +
-        ` and r.employeeNumber = @employeeNumber
-          order by r.callOutDateTime, r.recordId`
+      sql = `${callOutRecordsRecentSQL}
+        and r.employeeNumber = @employeeNumber
+        order by r.callOutDateTime, r.recordId`
 
       request = request
         .input('recentDays', recentDays)

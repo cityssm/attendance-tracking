@@ -469,7 +469,7 @@ declare const cityssm: cityssmGlobal
       submitButtonElement.classList.add('is-loading')
 
       cityssm.postJSON(
-        MonTY.urlPrefix + '/attendance/doUpdateCallOutList',
+        `${MonTY.urlPrefix}/attendance/doUpdateCallOutList`,
         formEvent.currentTarget,
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as
@@ -783,11 +783,8 @@ declare const cityssm: cityssmGlobal
           .toLowerCase()
           .split(' ')
 
-        const employeeString = (
-          availableEmployee.employeeGivenName +
-          ' ' +
-          availableEmployee.employeeSurname
-        ).toLowerCase()
+        const employeeString =
+          `${availableEmployee.employeeGivenName} ${availableEmployee.employeeSurname}`.toLowerCase()
 
         for (const searchStringPiece of searchStringPieces) {
           if (!employeeString.includes(searchStringPiece)) {
