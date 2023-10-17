@@ -244,6 +244,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
     function openCallOutList(listId, onUpdateCallbackFunction) {
         currentListId = listId;
         currentCallOutListMembers = [];
+        let callOutListMemberEmployeeNumbers = [];
+        let availableEmployees = [];
         let callOutListCloseModalFunction;
         const callOutList = getCurrentCallOutList();
         let callOutListModalElement;
@@ -358,8 +360,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 });
             }
         }
-        let callOutListMemberEmployeeNumbers = [];
-        let availableEmployees = [];
         function addCallOutListMember(clickEvent) {
             clickEvent.preventDefault();
             const employeeNumber = clickEvent.currentTarget
@@ -533,7 +533,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 panelBlockElement.addEventListener('click', openCallOutListMemberByClick);
                 panelElement.append(panelBlockElement);
                 // Current Members (Management)
-                if (!canManage) {
+                if (!canManage || currentPanelElement === undefined) {
                     continue;
                 }
                 // Track employee number
@@ -553,7 +553,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             }
             callOutListMembersContainer.innerHTML = '';
             callOutListMembersContainer.append(panelElement);
-            if (canManage) {
+            if (canManage && currentPanelElement !== undefined) {
                 callOutListCurrentMembersContainer.innerHTML = '';
                 callOutListCurrentMembersContainer.append(currentPanelElement);
             }

@@ -443,6 +443,9 @@ declare const cityssm: cityssmGlobal
     currentListId = listId
     currentCallOutListMembers = []
 
+    let callOutListMemberEmployeeNumbers: string[] = []
+    let availableEmployees: Employee[] = []
+
     let callOutListCloseModalFunction: () => void
 
     const callOutList = getCurrentCallOutList()
@@ -647,9 +650,6 @@ declare const cityssm: cityssmGlobal
       }
     }
 
-    let callOutListMemberEmployeeNumbers: string[] = []
-    let availableEmployees: Employee[] = []
-
     function addCallOutListMember(clickEvent: MouseEvent): void {
       clickEvent.preventDefault()
 
@@ -852,7 +852,7 @@ declare const cityssm: cityssmGlobal
       const panelElement = document.createElement('div')
       panelElement.className = 'panel'
 
-      let currentPanelElement: HTMLElement
+      let currentPanelElement: HTMLElement | undefined
 
       if (canManage) {
         currentPanelElement = document.createElement('div')
@@ -888,7 +888,7 @@ declare const cityssm: cityssmGlobal
               <i class="fas fa-phone-volume" aria-hidden="true"></i> ${
                 member.callOutDateTimeMax === null
                   ? '(No Recent Call Out)'
-                  : new Date(member.callOutDateTimeMax!).toLocaleDateString()
+                  : new Date(member.callOutDateTimeMax as string).toLocaleDateString()
               }
             </span>
           </div>
@@ -903,7 +903,7 @@ declare const cityssm: cityssmGlobal
 
         // Current Members (Management)
 
-        if (!canManage) {
+        if (!canManage || currentPanelElement === undefined) {
           continue
         }
 
@@ -927,15 +927,15 @@ declare const cityssm: cityssmGlobal
           deleteCallOutListMember
         )
 
-        currentPanelElement!.append(currentPanelBlockElement)
+        currentPanelElement.append(currentPanelBlockElement)
       }
 
       callOutListMembersContainer.innerHTML = ''
       callOutListMembersContainer.append(panelElement)
 
-      if (canManage) {
+      if (canManage && currentPanelElement !== undefined) {
         callOutListCurrentMembersContainer.innerHTML = ''
-        callOutListCurrentMembersContainer.append(currentPanelElement!)
+        callOutListCurrentMembersContainer.append(currentPanelElement)
       }
     }
 

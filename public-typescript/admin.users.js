@@ -163,7 +163,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     }
                 }
                 uidCounter += 1;
-                const uid = 'permissionValue_' + uidCounter.toString();
+                const uid = `permissionValue_${uidCounter.toString()}`;
                 tableRowElement.innerHTML = `<td class="is-vcentered">
           <label for="${uid}">
             ${permissionKey}

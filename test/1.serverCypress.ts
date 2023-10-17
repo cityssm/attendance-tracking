@@ -1,5 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair, unicorn/filename-case */
-
 import assert from 'node:assert'
 import { exec } from 'node:child_process'
 import http from 'node:http'
@@ -7,6 +5,8 @@ import http from 'node:http'
 import { app } from '../app.js'
 
 import { portNumber } from './_globals.js'
+
+const cypressTimeoutMillis = 30 * 60 * 60 * 1000
 
 function runCypress(
   browser: 'chrome' | 'chrome-mobile' | 'firefox',
@@ -70,14 +70,14 @@ describe('MonTY', () => {
   describe('Cypress tests', () => {
     it('Should run Cypress tests in Chrome', (done) => {
       runCypress('chrome', done)
-    }).timeout(30 * 60 * 60 * 1000)
+    }).timeout(cypressTimeoutMillis)
 
     it('Should run Cypress tests in Firefox', (done) => {
       runCypress('firefox', done)
-    }).timeout(30 * 60 * 60 * 1000)
+    }).timeout(cypressTimeoutMillis)
 
     it('Should run Cypress tests in Chrome Mobile', (done) => {
       runCypress('chrome-mobile', done)
-    }).timeout(30 * 60 * 60 * 1000)
+    }).timeout(cypressTimeoutMillis)
   })
 })
