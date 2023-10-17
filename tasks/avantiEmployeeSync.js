@@ -1,4 +1,4 @@
-import * as avanti from '@cityssm/avanti-api';
+import { AvantiApi, lookups as avantiLookups } from '@cityssm/avanti-api';
 import Debug from 'debug';
 import exitHook from 'exit-hook';
 import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async';
@@ -17,7 +17,7 @@ const sessionUser = {
     isAdmin: false
 };
 const avantiConfig = getConfigProperty('settings.avantiSync.config');
-avanti.setConfiguration(avantiConfig);
+const avanti = new AvantiApi(avantiConfig);
 const getEmployeeOptions = {
     skip: 0,
     take: 10000
@@ -73,10 +73,10 @@ async function doSync() {
                 const workContacts = [];
                 const homeContacts = [];
                 for (const phoneTypeIndex of [1, 2, 3, 4]) {
-                    if (avanti.lookups.phoneTypes[avantiEmployeePersonal[`phoneType${phoneTypeIndex}`]].isPhone &&
+                    if (avantiLookups.phoneTypes[avantiEmployeePersonal[`phoneType${phoneTypeIndex}`]].isPhone &&
                         (avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`] ?? '') !==
                             '') {
-                        if (avanti.lookups.phoneTypes[avantiEmployeePersonal[`phoneType${phoneTypeIndex}`]].isWork) {
+                        if (avantiLookups.phoneTypes[avantiEmployeePersonal[`phoneType${phoneTypeIndex}`]].isWork) {
                             workContacts.push(avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`]);
                         }
                         else {

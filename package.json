@@ -48,10 +48,10 @@
   "private": true,
   "dependencies": {
     "@cityssm/ad-web-auth-connector": "^0.4.0",
-    "@cityssm/avanti-api": "^0.4.1",
+    "@cityssm/avanti-api": "^0.5.1",
     "@cityssm/bulma-js": "^0.4.0",
     "@cityssm/bulma-webapp-js": "^1.5.0",
-    "@cityssm/express-abuse-points": "^1.1.0",
+    "@cityssm/express-abuse-points": "^2.0.0",
     "@cityssm/mssql-multi-pool": "^2.2.4",
     "@cityssm/utils-datetime": "^0.2.0",
     "@fortawesome/fontawesome-free": "^5.15.4",

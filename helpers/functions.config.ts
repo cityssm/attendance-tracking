@@ -5,7 +5,7 @@ import './polyfills.js'
 
 // eslint-disable-next-line n/no-missing-import
 import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types.js'
-import type { Configuration as AvantiConfig } from '@cityssm/avanti-api'
+import type { types as AvantiApiTypes } from '@cityssm/avanti-api'
 import type { config as MSSQLConfig } from 'mssql'
 
 import { config } from '../data/config.js'
@@ -122,7 +122,7 @@ export function getConfigProperty(propertyName: 'mssql'): MSSQLConfig
 
 export function getConfigProperty(
   propertyName: 'settings.avantiSync.config'
-): AvantiConfig
+): AvantiApiTypes.AvantiApiConfiguration
 export function getConfigProperty(
   propertyName: 'settings.avantiSync.locationCodes'
 ): string[]

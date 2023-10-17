@@ -1,4 +1,4 @@
-import * as avanti from '@cityssm/avanti-api'
+import { AvantiApi, lookups as avantiLookups, type types as AvantiApiTypes } from '@cityssm/avanti-api'
 import Debug from 'debug'
 import exitHook from 'exit-hook'
 import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async'
@@ -23,9 +23,10 @@ const sessionUser: MonTYUser = {
 }
 
 const avantiConfig = getConfigProperty('settings.avantiSync.config')
-avanti.setConfiguration(avantiConfig)
 
-const getEmployeeOptions: avanti.GetEmployees_Request = {
+const avanti = new AvantiApi(avantiConfig)
+
+const getEmployeeOptions: AvantiApiTypes.GetEmployeesRequest = {
   skip: 0,
   take: 10_000
 }
@@ -116,14 +117,14 @@ async function doSync(): Promise<void> {
 
         for (const phoneTypeIndex of [1, 2, 3, 4]) {
           if (
-            avanti.lookups.phoneTypes[
+            avantiLookups.phoneTypes[
               avantiEmployeePersonal[`phoneType${phoneTypeIndex}`]
             ].isPhone &&
             (avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`] ?? '') !==
               ''
           ) {
             if (
-              avanti.lookups.phoneTypes[
+              avantiLookups.phoneTypes[
                 avantiEmployeePersonal[`phoneType${phoneTypeIndex}`]
               ].isWork
             ) {

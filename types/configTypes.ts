@@ -1,6 +1,6 @@
 // eslint-disable-next-line n/no-missing-import
 import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types.js'
-import type { Configuration as AvantiConfig } from '@cityssm/avanti-api'
+import type { types as AvantiApiTypes } from '@cityssm/avanti-api'
 import type { config as MSSQLConfig } from 'mssql'
 
 import type { availablePermissionValues } from '../helpers/functions.permissions.js'
@@ -54,7 +54,7 @@ export interface Config {
       contentDisposition?: 'attachment' | 'inline'
     }
     avantiSync?: {
-      config: AvantiConfig
+      config: AvantiApiTypes.AvantiApiConfiguration
       locationCodes?: string[]
     }
     employeeSortKeyFunctions?: ConfigEmployeeSortKeyFunction[]

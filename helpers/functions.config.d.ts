@@ -1,6 +1,6 @@
 import './polyfills.js';
 import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types.js';
-import type { Configuration as AvantiConfig } from '@cityssm/avanti-api';
+import type { types as AvantiApiTypes } from '@cityssm/avanti-api';
 import type { config as MSSQLConfig } from 'mssql';
 import type { ConfigActiveDirectory, ConfigEmployeeEligibilityFunction, ConfigEmployeeSortKeyFunction, ConfigTemporaryUserCredentials } from '../types/configTypes.js';
 export declare function getConfigProperty(propertyName: 'application.applicationName' | 'application.backgroundURL' | 'application.bigLogoURL' | 'application.smallLogoURL' | 'application.userDomain' | 'reverseProxy.urlPrefix' | 'session.cookieName' | 'session.secret'): string;
@@ -10,7 +10,7 @@ export declare function getConfigProperty(propertyName: 'tempUsers'): ConfigTemp
 export declare function getConfigProperty(propertyName: 'activeDirectory'): ConfigActiveDirectory | undefined;
 export declare function getConfigProperty(propertyName: 'adWebAuthConfig'): ADWebAuthConfig | undefined;
 export declare function getConfigProperty(propertyName: 'mssql'): MSSQLConfig;
-export declare function getConfigProperty(propertyName: 'settings.avantiSync.config'): AvantiConfig;
+export declare function getConfigProperty(propertyName: 'settings.avantiSync.config'): AvantiApiTypes.AvantiApiConfiguration;
 export declare function getConfigProperty(propertyName: 'settings.avantiSync.locationCodes'): string[];
 export declare function getConfigProperty(propertyName: 'settings.printPdf.contentDisposition'): 'attachment' | 'inline';
 export declare function getConfigProperty(propertyName: 'settings.employeeEligibilityFunctions'): ConfigEmployeeEligibilityFunction[];
