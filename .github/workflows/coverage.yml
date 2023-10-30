@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [ 14, 16, 18, 20 ]
+        node: [ 18, 20, 21 ]
     env:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
@@ -35,10 +35,6 @@ jobs:
         run: |
           sqlcmd -S localhost -U sa -P dbatools.I0 -d tempdb -Q "create database MonTY"
           sqlcmd -S localhost -U sa -P dbatools.I0 -d MonTY -i database/scripts/createTables.sql -I
-      
-      - name: Update NPM (Node 14)
-        if: ${{ matrix.node == 14 }}
-        run: npm install -g npm@7
 
       - name: Install Package
         run: |

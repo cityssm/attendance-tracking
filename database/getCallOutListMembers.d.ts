@@ -1,4 +1,3 @@
-import '../helpers/polyfills.js';
 import type { CallOutListMember } from '../types/recordTypes.js';
 interface CallOutListMemberFilters {
     listId?: string;

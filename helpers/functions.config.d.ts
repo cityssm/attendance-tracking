@@ -1,4 +1,3 @@
-import './polyfills.js';
 import type { ADWebAuthConfig } from '@cityssm/ad-web-auth-connector/types.js';
 import type { types as AvantiApiTypes } from '@cityssm/avanti-api';
 import type { config as MSSQLConfig } from 'mssql';

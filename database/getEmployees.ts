@@ -1,5 +1,3 @@
-import '../helpers/polyfills.js'
-
 import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 

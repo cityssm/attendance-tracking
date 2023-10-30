@@ -1,4 +1,3 @@
-import '../helpers/polyfills.js';
 interface CallOutListMemberFilters {
     listId?: string;
     employeeNumber?: string;
