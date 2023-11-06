@@ -52,7 +52,7 @@
     "@cityssm/bulma-js": "^0.4.0",
     "@cityssm/bulma-webapp-js": "^1.5.0",
     "@cityssm/express-abuse-points": "^2.0.0",
-    "@cityssm/mssql-multi-pool": "^2.2.4",
+    "@cityssm/mssql-multi-pool": "^3.0.0",
     "@cityssm/utils-datetime": "^0.2.0",
     "@fortawesome/fontawesome-free": "^5.15.4",
     "activedirectory2": "^2.2.0",
