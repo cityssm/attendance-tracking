@@ -5,7 +5,7 @@
 While this application can run on a high end server, that is by no means a requirement.
 Most user workstations are sufficient.
 
-## Step 1: Install Node.js 14 or better and npm
+## Step 1: Install Node.js 18 or better and npm
 
 [Node.js](https://nodejs.org) is a JavaScript runtime environment.
 MonTY is built to run on Node.js.

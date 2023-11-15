@@ -32,7 +32,7 @@ An application built for Public Works departments to
 
 ## Prerequisities
 
-- **NodeJS 14 or better** to run the application.
+- **NodeJS 18 or better** to run the application.
 - **Active Directory** for authentication.
 - **SQL Server** for database storage.
 
