@@ -42,11 +42,11 @@ export async function moveRecordsToHistorical() {
     }
     result = await pool.request().input('historicalDays', historicalDays)
         .query(`insert into MonTY.HistoricalCallOutRecords
-      (recordId, listId, employeeNumber, callOutDateTime, callOutHours, responseTypeId, recordComment,
+      (recordId, listId, employeeNumber, callOutDateTime, callOutHours, natureOfCallOut, responseTypeId, recordComment,
         recordCreate_userName, recordCreate_dateTime,
         recordUpdate_userName, recordUpdate_dateTime,
         recordDelete_userName, recordDelete_dateTime)
-      select recordId, listId, employeeNumber, callOutDateTime, callOutHours, responseTypeId, recordComment,
+      select recordId, listId, employeeNumber, callOutDateTime, callOutHours, natureOfCallOut, responseTypeId, recordComment,
         recordCreate_userName, recordCreate_dateTime,
         recordUpdate_userName, recordUpdate_dateTime,
         recordDelete_userName, recordDelete_dateTime

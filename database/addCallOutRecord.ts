@@ -9,6 +9,7 @@ interface AddCallOutRecordForm {
   callOutDateString?: string
   callOutTimeString?: string
   callOutHours: string
+  natureOfCallOut: string
   responseTypeId: string
   recordComment: string
 }
@@ -39,15 +40,16 @@ export async function addCallOutRecord(
       callOutDateTimeString === '' ? new Date() : callOutDateTimeString
     )
     .input('callOutHours', form.callOutHours)
+    .input('natureOfCallOut', form.natureOfCallOut)
     .input('responseTypeId', form.responseTypeId)
     .input('recordComment', form.recordComment)
     .input('record_userName', sessionUser.userName)
     .input('record_dateTime', new Date())
     .query(`insert into MonTY.CallOutRecords
-      (listId, employeeNumber, callOutDateTime, callOutHours, responseTypeId, recordComment,
+      (listId, employeeNumber, callOutDateTime, callOutHours, natureOfCallOut, responseTypeId, recordComment,
         recordCreate_userName, recordCreate_dateTime, recordUpdate_userName, recordUpdate_dateTime)
       output inserted.recordId
-      values (@listId, @employeeNumber, @callOutDateTime, @callOutHours, @responseTypeId, @recordComment,
+      values (@listId, @employeeNumber, @callOutDateTime, @callOutHours, @natureOfCallOut, @responseTypeId, @recordComment,
         @record_userName, @record_dateTime, @record_userName, @record_dateTime)`)
 
   return result.recordset[0].recordId

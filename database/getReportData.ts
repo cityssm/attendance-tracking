@@ -29,7 +29,7 @@ const returnToWorkRecordsRecentSQL = `select r.recordId,
 const callOutRecordsRecentSQL = `select r.recordId,
   r.listId, l.listName,
   r.employeeNumber, e.employeeSurname, e.employeeGivenName,
-  r.callOutDateTime, r.callOutHours,
+  r.callOutDateTime, r.callOutHours, r.natureOfCallOut,
   t.responseType, t.isSuccessful,
   r.recordComment,
   r.recordUpdate_userName, r.recordUpdate_dateTime

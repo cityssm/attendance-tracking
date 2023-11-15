@@ -33,7 +33,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             return possibleEmployee.employeeNumber === employeeNumber;
         });
         function renderAttendanceRecords(records) {
-            var _a, _b, _c, _d, _e, _f, _g;
+            var _a, _b, _c, _d, _e, _f, _g, _h;
             const panelElement = document.createElement('div');
             panelElement.className = 'panel';
             const containerElement = employeeModalElement.querySelector('#container--attendanceLog');
@@ -99,7 +99,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
           </div>
           <div class="column">
             <strong>Call Out</strong><br />
-            <span class="is-size-7">${(_g = callOutRecord.recordComment) !== null && _g !== void 0 ? _g : ''}</span>
+            <span class="is-size-7">
+                <span class="has-tooltip-right" data-tooltip="Nature of Call Out">
+                <i class="fas fa-fw fa-info-circle" aria-hidden="true"></i>
+                ${(_g = callOutRecord.natureOfCallOut) !== null && _g !== void 0 ? _g : ''}
+              </span><br />
+              <span class="has-tooltip-right" data-tooltip="Comment">
+                <i class="fas fa-fw fa-comment" aria-hidden="true"></i>
+                ${(_h = callOutRecord.recordComment) !== null && _h !== void 0 ? _h : ''}
+              </span>
+            </span>
           </div>
           </div>`;
                 insertRecord(panelElement, panelBlockElement);

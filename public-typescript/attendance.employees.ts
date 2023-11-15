@@ -181,7 +181,16 @@ declare const cityssm: cityssmGlobal
           </div>
           <div class="column">
             <strong>Call Out</strong><br />
-            <span class="is-size-7">${callOutRecord.recordComment ?? ''}</span>
+            <span class="is-size-7">
+                <span class="has-tooltip-right" data-tooltip="Nature of Call Out">
+                <i class="fas fa-fw fa-info-circle" aria-hidden="true"></i>
+                ${callOutRecord.natureOfCallOut ?? ''}
+              </span><br />
+              <span class="has-tooltip-right" data-tooltip="Comment">
+                <i class="fas fa-fw fa-comment" aria-hidden="true"></i>
+                ${callOutRecord.recordComment ?? ''}
+              </span>
+            </span>
           </div>
           </div>`
 

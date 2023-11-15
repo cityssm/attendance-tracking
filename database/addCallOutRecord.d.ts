@@ -4,6 +4,7 @@ interface AddCallOutRecordForm {
     callOutDateString?: string;
     callOutTimeString?: string;
     callOutHours: string;
+    natureOfCallOut: string;
     responseTypeId: string;
     recordComment: string;
 }

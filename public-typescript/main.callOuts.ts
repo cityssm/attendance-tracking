@@ -236,7 +236,14 @@ declare const cityssm: cityssmGlobal
             ${callOutDateTime.toLocaleDateString()} ${callOutDateTime.toLocaleTimeString()}<br />
             <span class="is-size-7">
               <strong>${record.responseType ?? '(No Response)'}</strong><br />
-              ${record.recordComment ?? ''}
+              <span class="has-tooltip-right" data-tooltip="Nature of Call Out">
+                <i class="fas fa-fw fa-info-circle" aria-hidden="true"></i>
+                ${record.natureOfCallOut ?? ''}
+              </span><br />
+              <span class="has-tooltip-right" data-tooltip="Comment">
+                <i class="fas fa-fw fa-comment" aria-hidden="true"></i>
+                ${record.recordComment ?? ''}
+              </span>
             </span>
           </div>
           <div class="column is-narrow">
@@ -888,7 +895,9 @@ declare const cityssm: cityssmGlobal
               <i class="fas fa-phone-volume" aria-hidden="true"></i> ${
                 member.callOutDateTimeMax === null
                   ? '(No Recent Call Out)'
-                  : new Date(member.callOutDateTimeMax as string).toLocaleDateString()
+                  : new Date(
+                      member.callOutDateTimeMax as string
+                    ).toLocaleDateString()
               }
             </span>
           </div>

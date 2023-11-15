@@ -3,7 +3,7 @@ import { getConfigProperty } from '../helpers/functions.config.js';
 export async function getCallOutRecords(filters) {
     const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let sql = `select r.recordId, r.listId, r.employeeNumber,
-    r.callOutDateTime, r.callOutHours,
+    r.callOutDateTime, r.callOutHours, r.natureOfCallOut,
     r.responseTypeId, t.responseType, t.isSuccessful,
     coalesce(r.recordComment, '') as recordComment,
     r.recordCreate_userName, r.recordCreate_dateTime

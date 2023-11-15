@@ -91,7 +91,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         function renderCallOutRecords() {
             // Tag Count
-            var _a, _b, _c;
+            var _a, _b, _c, _d;
             // eslint-disable-next-line no-extra-semi
             ;
             callOutMemberModalElement.querySelector('#tag--recentCalls').textContent = callOutRecords.length.toString();
@@ -131,7 +131,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
             ${callOutDateTime.toLocaleDateString()} ${callOutDateTime.toLocaleTimeString()}<br />
             <span class="is-size-7">
               <strong>${(_a = record.responseType) !== null && _a !== void 0 ? _a : '(No Response)'}</strong><br />
-              ${(_b = record.recordComment) !== null && _b !== void 0 ? _b : ''}
+              <span class="has-tooltip-right" data-tooltip="Nature of Call Out">
+                <i class="fas fa-fw fa-info-circle" aria-hidden="true"></i>
+                ${(_b = record.natureOfCallOut) !== null && _b !== void 0 ? _b : ''}
+              </span><br />
+              <span class="has-tooltip-right" data-tooltip="Comment">
+                <i class="fas fa-fw fa-comment" aria-hidden="true"></i>
+                ${(_c = record.recordComment) !== null && _c !== void 0 ? _c : ''}
+              </span>
             </span>
           </div>
           <div class="column is-narrow">
@@ -143,8 +150,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     : ''}
           </div>
           </div>`;
-                (_c = panelBlockElement
-                    .querySelector('.is-delete-button')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', deleteCallOutRecord);
+                (_d = panelBlockElement
+                    .querySelector('.is-delete-button')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', deleteCallOutRecord);
                 panelElement.append(panelBlockElement);
             }
             callOutRecordsContainerElement.innerHTML = '';

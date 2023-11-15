@@ -137,6 +137,7 @@ export interface CallOutRecord
   employeeNumber: string
   callOutDateTime: string | Date
   callOutHours: number
+  natureOfCallOut: string
   responseTypeId: number
   recordComment: string
 }
