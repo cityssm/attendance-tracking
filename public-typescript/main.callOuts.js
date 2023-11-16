@@ -1,6 +1,6 @@
 "use strict";
 // eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable @typescript-eslint/indent */
+/* eslint-disable no-extra-semi */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a, _b, _c, _d, _e, _f, _g;
@@ -89,10 +89,80 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
             });
         }
+        function openUpdateCallOutRecordModal(clickEvent) {
+            clickEvent.preventDefault();
+            let updateCallOutRecordCloseModalFunction;
+            const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
+            function doUpdateCallOutRecord(formEvent) {
+                formEvent.preventDefault();
+                cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doUpdateCallOutRecord`, formEvent.currentTarget, (rawResponseJSON) => {
+                    const responseJSON = rawResponseJSON;
+                    if (responseJSON.success) {
+                        updateCallOutRecordCloseModalFunction();
+                        bulmaJS.alert({
+                            message: 'Call out record updated successfully.',
+                            contextualColorName: 'success'
+                        });
+                        callOutRecords = responseJSON.callOutRecords;
+                        renderCallOutRecords();
+                    }
+                });
+            }
+            const callOutRecord = callOutRecords.find((possibleCallOutRecord) => {
+                return possibleCallOutRecord.recordId === recordId;
+            });
+            if (callOutRecord === undefined) {
+                bulmaJS.alert({
+                    title: 'Call Out Record Unavailable',
+                    message: 'Please refresh and try again.',
+                    contextualColorName: 'danger'
+                });
+                return;
+            }
+            const callOutDateTime = new Date(callOutRecord.callOutDateTime);
+            cityssm.openHtmlModal('callOutRecord-edit', {
+                onshow(modalElement) {
+                    var _a;
+                    ;
+                    modalElement.querySelector('#callOutRecordEdit--recordId').value = callOutRecord.recordId;
+                    modalElement.querySelector('#callOutRecordEdit--listId').value = callOutRecord.listId;
+                    modalElement.querySelector('#callOutRecordEdit--employeeNumber').value = callOutRecord.employeeNumber;
+                    modalElement.querySelector('#callOutRecordEdit--callOutDateString').value = cityssm.dateToString(callOutDateTime);
+                    modalElement.querySelector('#callOutRecordEdit--callOutTimeString').value = cityssm.dateToTimeString(callOutDateTime);
+                    modalElement.querySelector('#callOutRecordEdit--natureOfCallOut').value = callOutRecord.natureOfCallOut;
+                    modalElement.querySelector('#callOutRecordEdit--callOutHours').value = callOutRecord.callOutHours.toString();
+                    const responseTypeElement = modalElement.querySelector('#callOutRecordEdit--responseTypeId');
+                    let responseTypeFound = false;
+                    for (const responseType of callOutResponseTypes) {
+                        const optionElement = document.createElement('option');
+                        optionElement.value = responseType.responseTypeId.toString();
+                        optionElement.textContent = responseType.responseType;
+                        if (callOutRecord.responseTypeId === responseType.responseTypeId) {
+                            responseTypeFound = true;
+                        }
+                        responseTypeElement.append(optionElement);
+                    }
+                    if (!responseTypeFound) {
+                        const optionElement = document.createElement('option');
+                        optionElement.value = callOutRecord.responseTypeId.toString();
+                        optionElement.textContent =
+                            (_a = callOutRecord.responseType) !== null && _a !== void 0 ? _a : `responseTypeId:${callOutRecord.responseTypeId.toString()}`;
+                        responseTypeElement.append(optionElement);
+                    }
+                    responseTypeElement.value = callOutRecord.responseTypeId.toString();
+                    modalElement.querySelector('#callOutRecordEdit--recordComment').value = callOutRecord.recordComment;
+                },
+                onshown(modalElement, closeModalFunction) {
+                    var _a;
+                    updateCallOutRecordCloseModalFunction = closeModalFunction;
+                    (_a = modalElement
+                        .querySelector('form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', doUpdateCallOutRecord);
+                }
+            });
+        }
         function renderCallOutRecords() {
             // Tag Count
-            var _a, _b, _c, _d;
-            // eslint-disable-next-line no-extra-semi
+            var _a, _b, _c, _d, _e;
             ;
             callOutMemberModalElement.querySelector('#tag--recentCalls').textContent = callOutRecords.length.toString();
             // Data
@@ -144,14 +214,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
           <div class="column is-narrow">
             ${canUpdate &&
                     (isAdmin || record.recordCreate_userName === userName)
-                    ? `<button class="button is-inverted is-danger is-delete-button" data-tooltip="Delete Record">
-                  <i class="fas fa-trash" aria-hidden="true"></i>
-                  </button>`
+                    ? `<div class="field has-addons">
+                  <div class="control">
+                    <button class="button is-update-button" data-tooltip="Edit Record">
+                      <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <div class="control">
+                    <button class="button is-delete-button" data-tooltip="Delete Record">
+                      <i class="fas fa-trash has-text-danger" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  </div>`
                     : ''}
           </div>
           </div>`;
                 (_d = panelBlockElement
-                    .querySelector('.is-delete-button')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', deleteCallOutRecord);
+                    .querySelector('.is-update-button')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', openUpdateCallOutRecordModal);
+                (_e = panelBlockElement
+                    .querySelector('.is-delete-button')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', deleteCallOutRecord);
                 panelElement.append(panelBlockElement);
             }
             callOutRecordsContainerElement.innerHTML = '';
@@ -169,7 +250,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 modalElement.querySelector('#callOutListMember--sortKey').textContent = (_a = callOutListMember.sortKey) !== null && _a !== void 0 ? _a : '';
                 modalElement.querySelector('#callOutListMember--listPosition').textContent = `${callOutListMemberIndex + 1} / ${currentCallOutListMembers.length}`;
                 if (canUpdate) {
-                    // eslint-disable-next-line no-extra-semi
                     ;
                     modalElement.querySelector('#callOutListMember--workContact1').textContent = (_b = callOutListMember.workContact1) !== null && _b !== void 0 ? _b : '';
                     modalElement.querySelector('#callOutListMember--workContact2').textContent = (_c = callOutListMember.workContact2) !== null && _c !== void 0 ? _c : '';
@@ -197,7 +277,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 bulmaJS.toggleHtmlClipped();
                 bulmaJS.init(modalElement);
                 if (canUpdate) {
-                    // eslint-disable-next-line no-extra-semi
                     ;
                     modalElement.querySelector('#callOutRecordAdd--listId').value = callOutList.listId;
                     modalElement.querySelector('#callOutRecordAdd--employeeNumber').value = callOutListMember.employeeNumber;
@@ -208,7 +287,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
                         optionElement.textContent = responseType.responseType;
                         responseTypeElement.append(optionElement);
                     }
-                    // eslint-disable-next-line no-extra-semi
                     ;
                     modalElement.querySelector('#form--callOutRecordAdd').addEventListener('submit', addCallOutRecord);
                 }
@@ -301,7 +379,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         function initializeListDetailsTab() {
             var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
-            // eslint-disable-next-line no-extra-semi
             ;
             callOutListModalElement.querySelector('#callOutListEdit--listId').value = callOutList.listId;
             callOutListModalElement.querySelector('#callOutListEdit--listName').value = callOutList.listName;
@@ -349,7 +426,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 optionElement.selected = true;
                 sortKeyFunctionElement.append(optionElement);
             }
-            // eslint-disable-next-line no-extra-semi
             ;
             callOutListModalElement.querySelector('#callOutListEdit--employeePropertyName').value = (_k = callOutList.employeePropertyName) !== null && _k !== void 0 ? _k : '';
             if (canManage) {

@@ -17,6 +17,7 @@ import handler_doGetCallOutRecords from '../handlers/attendance-post/doGetCallOu
 import handler_doRecordCallIn from '../handlers/attendance-post/doRecordCallIn.js';
 import handler_doRemoveFavouriteCallOutList from '../handlers/attendance-post/doRemoveFavouriteCallOutList.js';
 import handler_doUpdateCallOutList from '../handlers/attendance-post/doUpdateCallOutList.js';
+import handler_doUpdateCallOutRecord from '../handlers/attendance-post/doUpdateCallOutRecord.js';
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js';
 import { getConfigProperty } from '../helpers/functions.config.js';
 import { hasPermission } from '../helpers/functions.permissions.js';
@@ -67,6 +68,7 @@ if (getConfigProperty('features.attendance.callOuts')) {
     router.post('/doDeleteCallOutListMember', callOutsManagePostHandler, handler_doDeleteCallOutListMember);
     router.post('/doGetCallOutRecords', callOutsViewPostHandler, handler_doGetCallOutRecords);
     router.post('/doAddCallOutRecord', callOutsUpdatePostHandler, handler_doAddCallOutRecord);
+    router.post('/doUpdateCallOutRecord', callOutsUpdatePostHandler, handler_doUpdateCallOutRecord);
     router.post('/doDeleteCallOutRecord', callOutsUpdatePostHandler, handler_doDeleteCallOutRecord);
 }
 if (getConfigProperty('features.attendance.afterHours')) {

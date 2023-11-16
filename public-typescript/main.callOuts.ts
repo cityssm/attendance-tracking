@@ -1,4 +1,7 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable no-extra-semi */
+
+// eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable @typescript-eslint/indent */
 
 // eslint-disable-next-line eslint-comments/disable-enable-pair
@@ -168,10 +171,144 @@ declare const cityssm: cityssmGlobal
       })
     }
 
+    function openUpdateCallOutRecordModal(clickEvent: Event): void {
+      clickEvent.preventDefault()
+
+      let updateCallOutRecordCloseModalFunction: () => void
+
+      const recordId = (
+        (clickEvent.currentTarget as HTMLButtonElement).closest(
+          '.panel-block'
+        ) as HTMLElement
+      ).dataset.recordId
+
+      function doUpdateCallOutRecord(formEvent: SubmitEvent): void {
+        formEvent.preventDefault()
+
+        cityssm.postJSON(
+          `${MonTY.urlPrefix}/attendance/doUpdateCallOutRecord`,
+          formEvent.currentTarget,
+          (rawResponseJSON) => {
+            const responseJSON = rawResponseJSON as {
+              success: boolean
+              callOutRecords: CallOutRecord[]
+            }
+
+            if (responseJSON.success) {
+              updateCallOutRecordCloseModalFunction()
+
+              bulmaJS.alert({
+                message: 'Call out record updated successfully.',
+                contextualColorName: 'success'
+              })
+
+              callOutRecords = responseJSON.callOutRecords
+              renderCallOutRecords()
+            }
+          }
+        )
+      }
+
+      const callOutRecord = callOutRecords.find((possibleCallOutRecord) => {
+        return possibleCallOutRecord.recordId === recordId
+      })
+
+      if (callOutRecord === undefined) {
+        bulmaJS.alert({
+          title: 'Call Out Record Unavailable',
+          message: 'Please refresh and try again.',
+          contextualColorName: 'danger'
+        })
+
+        return
+      }
+
+      const callOutDateTime = new Date(callOutRecord.callOutDateTime)
+
+      cityssm.openHtmlModal('callOutRecord-edit', {
+        onshow(modalElement) {
+          ;(
+            modalElement.querySelector(
+              '#callOutRecordEdit--recordId'
+            ) as HTMLInputElement
+          ).value = callOutRecord.recordId
+          ;(
+            modalElement.querySelector(
+              '#callOutRecordEdit--listId'
+            ) as HTMLInputElement
+          ).value = callOutRecord.listId
+          ;(
+            modalElement.querySelector(
+              '#callOutRecordEdit--employeeNumber'
+            ) as HTMLInputElement
+          ).value = callOutRecord.employeeNumber
+          ;(
+            modalElement.querySelector(
+              '#callOutRecordEdit--callOutDateString'
+            ) as HTMLInputElement
+          ).value = cityssm.dateToString(callOutDateTime)
+          ;(
+            modalElement.querySelector(
+              '#callOutRecordEdit--callOutTimeString'
+            ) as HTMLInputElement
+          ).value = cityssm.dateToTimeString(callOutDateTime)
+          ;(
+            modalElement.querySelector(
+              '#callOutRecordEdit--natureOfCallOut'
+            ) as HTMLInputElement
+          ).value = callOutRecord.natureOfCallOut
+          ;(
+            modalElement.querySelector(
+              '#callOutRecordEdit--callOutHours'
+            ) as HTMLInputElement
+          ).value = callOutRecord.callOutHours.toString()
+
+          const responseTypeElement = modalElement.querySelector(
+            '#callOutRecordEdit--responseTypeId'
+          ) as HTMLSelectElement
+
+          let responseTypeFound = false
+
+          for (const responseType of callOutResponseTypes) {
+            const optionElement = document.createElement('option')
+            optionElement.value = responseType.responseTypeId.toString()
+            optionElement.textContent = responseType.responseType
+
+            if (callOutRecord.responseTypeId === responseType.responseTypeId) {
+              responseTypeFound = true
+            }
+
+            responseTypeElement.append(optionElement)
+          }
+
+          if (!responseTypeFound) {
+            const optionElement = document.createElement('option')
+            optionElement.value = callOutRecord.responseTypeId.toString()
+            optionElement.textContent =
+              callOutRecord.responseType ??
+              `responseTypeId:${callOutRecord.responseTypeId.toString()}`
+            responseTypeElement.append(optionElement)
+          }
+
+          responseTypeElement.value = callOutRecord.responseTypeId.toString()
+          ;(
+            modalElement.querySelector(
+              '#callOutRecordEdit--recordComment'
+            ) as HTMLInputElement
+          ).value = callOutRecord.recordComment
+        },
+        onshown(modalElement, closeModalFunction) {
+          updateCallOutRecordCloseModalFunction = closeModalFunction
+          modalElement
+            .querySelector('form')
+            ?.addEventListener('submit', doUpdateCallOutRecord)
+        }
+      })
+    }
+
     function renderCallOutRecords(): void {
       // Tag Count
 
-      // eslint-disable-next-line no-extra-semi
       ;(
         callOutMemberModalElement.querySelector(
           '#tag--recentCalls'
@@ -250,13 +387,26 @@ declare const cityssm: cityssmGlobal
             ${
               canUpdate &&
               (isAdmin || record.recordCreate_userName === userName)
-                ? `<button class="button is-inverted is-danger is-delete-button" data-tooltip="Delete Record">
-                  <i class="fas fa-trash" aria-hidden="true"></i>
-                  </button>`
+                ? `<div class="field has-addons">
+                  <div class="control">
+                    <button class="button is-update-button" data-tooltip="Edit Record">
+                      <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <div class="control">
+                    <button class="button is-delete-button" data-tooltip="Delete Record">
+                      <i class="fas fa-trash has-text-danger" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  </div>`
                 : ''
             }
           </div>
           </div>`
+
+        panelBlockElement
+          .querySelector('.is-update-button')
+          ?.addEventListener('click', openUpdateCallOutRecordModal)
 
         panelBlockElement
           .querySelector('.is-delete-button')
@@ -307,7 +457,6 @@ declare const cityssm: cityssmGlobal
         }`
 
         if (canUpdate) {
-          // eslint-disable-next-line no-extra-semi
           ;(
             modalElement.querySelector(
               '#callOutListMember--workContact1'
@@ -364,7 +513,6 @@ declare const cityssm: cityssmGlobal
         bulmaJS.init(modalElement)
 
         if (canUpdate) {
-          // eslint-disable-next-line no-extra-semi
           ;(
             modalElement.querySelector(
               '#callOutRecordAdd--listId'
@@ -387,7 +535,6 @@ declare const cityssm: cityssmGlobal
             responseTypeElement.append(optionElement)
           }
 
-          // eslint-disable-next-line no-extra-semi
           ;(
             modalElement.querySelector(
               '#form--callOutRecordAdd'
@@ -535,7 +682,6 @@ declare const cityssm: cityssmGlobal
     }
 
     function initializeListDetailsTab(): void {
-      // eslint-disable-next-line no-extra-semi
       ;(
         callOutListModalElement.querySelector(
           '#callOutListEdit--listId'
@@ -621,7 +767,6 @@ declare const cityssm: cityssmGlobal
         sortKeyFunctionElement.append(optionElement)
       }
 
-      // eslint-disable-next-line no-extra-semi
       ;(
         callOutListModalElement.querySelector(
           '#callOutListEdit--employeePropertyName'
