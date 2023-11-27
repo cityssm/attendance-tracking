@@ -33,7 +33,7 @@ export const config: Config = {
     employees: {
       avantiSync: true
     },
-    selfService: true
+    selfService: false
   },
   settings: {
     printPdf: {
