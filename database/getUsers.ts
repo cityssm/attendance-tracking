@@ -17,7 +17,8 @@ export async function getUsers(): Promise<MonTYUser[]> {
       group by userName
     ) em on u.userName = em.userName
     left join MonTY.Employees e on em.employeeNumberMin = e.employeeNumber
-    where u.recordDelete_dateTime is null`)
+    where u.recordDelete_dateTime is null
+    order by u.userName`)
 
   return userResult.recordset
 }
