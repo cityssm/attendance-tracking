@@ -406,15 +406,10 @@ declare const cityssm: cityssmGlobal
           const responseJSON = rawResponseJSON as
             | {
                 success: true
-                callInType: 'absence'
+                callInType: 'absence' | 'returnToWork'
                 recordId: string
-                absenceRecords: AbsenceRecord[]
-              }
-            | {
-                success: true
-                callInType: 'returnToWork'
-                recordId: string
-                returnToWorkRecords: ReturnToWorkRecord[]
+                absenceRecords: AbsenceRecord[] | []
+                returnToWorkRecords: ReturnToWorkRecord[] | []
               }
             | {
                 success: false

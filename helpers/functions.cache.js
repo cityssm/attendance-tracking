@@ -55,6 +55,10 @@ export function clearCacheByTableName(tableName, relayMessage = true) {
             employeeProperties = [];
             break;
         }
+        default: {
+            debug(`Unknown table name: ${tableName}`);
+            break;
+        }
     }
     try {
         if (relayMessage && cluster.isWorker && process.send !== undefined) {
