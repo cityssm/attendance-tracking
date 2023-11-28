@@ -4,7 +4,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a;
-    const Attend = exports.MonTY;
+    const Attend = exports.Attend;
     const AttendCallOuts = Attend.callOuts;
     const searchFilterElement = document.querySelector('#callOuts--searchFilter');
     const searchResultsElement = document.querySelector('#callOuts--searchResults');

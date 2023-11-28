@@ -15,7 +15,7 @@ declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
-  const Attend = exports.MonTY as AttendGlobal
+  const Attend = exports.Attend as AttendGlobal
   const AttendCallOuts = Attend.callOuts as AttendCallOutsGlobal
 
   const searchFilterElement = document.querySelector(
