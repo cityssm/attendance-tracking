@@ -1,6 +1,6 @@
 {
   "name": "@cityssm/monty",
-  "version": "1.0.0-beta",
+  "version": "1.0.0-beta.1",
   "type": "module",
   "description": "MonTY (MONitor and Track Your...)",
   "exports": "./app.js",
