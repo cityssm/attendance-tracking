@@ -5,7 +5,7 @@ import { getConfigProperty } from '../helpers/functions.config.js'
 
 export async function deleteMissingSyncedEmployees(
   syncDateTime: Date,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<number> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

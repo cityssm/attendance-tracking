@@ -91,7 +91,7 @@ export async function handler(
   let success = false
 
   if (isEligible) {
-    const sessionUser: MonTYUser = {
+    const sessionUser: AttendUser = {
       userName: employee.employeeNumber,
       canLogin: false,
       isAdmin: false

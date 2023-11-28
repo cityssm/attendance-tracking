@@ -12,7 +12,7 @@ export async function handler(
 
   const afterHoursRecord = await getAfterHoursRecord(
     recordId,
-    request.session.user as MonTYUser
+    request.session.user as AttendUser
   )
 
   if (afterHoursRecord === undefined) {
@@ -31,14 +31,14 @@ export async function handler(
     return
   }
 
-  const success = await deleteAfterHoursRecord(recordId, request.session.user as MonTYUser)
+  const success = await deleteAfterHoursRecord(recordId, request.session.user as AttendUser)
 
   const afterHoursRecords = await getAfterHoursRecords(
     {
       recentOnly: true,
       todayOnly: false
     },
-    request.session.user as MonTYUser
+    request.session.user as AttendUser
   )
 
   response.json({

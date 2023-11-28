@@ -8,7 +8,7 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 import type {
   AfterHoursReason,
   AfterHoursRecord,
@@ -19,7 +19,7 @@ declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
-  const MonTY = exports.MonTY as MonTYGlobal
+  const Attend = exports.Attend as AttendGlobal
 
   const afterHoursReasons = exports.afterHoursReasons as AfterHoursReason[]
   const employees = exports.employees as Employee[]
@@ -40,7 +40,7 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/attendance/doDeleteAfterHoursRecord`,
+        `${Attend.urlPrefix}/attendance/doDeleteAfterHoursRecord`,
         {
           recordId
         },
@@ -222,7 +222,7 @@ declare const cityssm: cityssmGlobal
         formEvent.preventDefault()
 
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/attendance/doAddAfterHoursRecord`,
+          `${Attend.urlPrefix}/attendance/doAddAfterHoursRecord`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as

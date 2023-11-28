@@ -14,7 +14,7 @@ interface GetReturnToWorkRecordsFilters {
 
 export async function getReturnToWorkRecords(
   filters: GetReturnToWorkRecordsFilters,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<ReturnToWorkRecord[]> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

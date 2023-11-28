@@ -7,10 +7,10 @@ import { getUserPermissions } from './getUserPermissions.js'
 
 export async function getUser(
   userName: string
-): Promise<MonTYUser | undefined> {
+): Promise<AttendUser | undefined> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
-  const userResult: IResult<MonTYUser> = await pool
+  const userResult: IResult<AttendUser> = await pool
     .request()
     .input('userName', userName).query(`select
       userName,

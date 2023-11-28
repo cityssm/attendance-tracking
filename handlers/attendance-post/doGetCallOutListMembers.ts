@@ -18,7 +18,7 @@ export async function handler(
 
   if (
     hasPermission(
-      request.session.user as MonTYUser,
+      request.session.user as AttendUser,
       'attendance.callOuts.canManage'
     ) &&
     (request.body.includeAvailableEmployees as boolean)

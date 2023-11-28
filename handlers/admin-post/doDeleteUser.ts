@@ -7,7 +7,7 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const success = await deleteUser(request.body.userName, request.session.user as MonTYUser)
+  const success = await deleteUser(request.body.userName, request.session.user as AttendUser)
 
   const users = await getUsers()
 

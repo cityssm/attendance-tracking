@@ -20,7 +20,7 @@ export async function handler(
   if (
     getConfigProperty('features.attendance.absences') &&
     hasPermission(
-      request.session.user as MonTYUser,
+      request.session.user as AttendUser,
       'attendance.absences.canView'
     )
   ) {
@@ -30,7 +30,7 @@ export async function handler(
         recentOnly: true,
         todayOnly: false
       },
-      request.session.user as MonTYUser
+      request.session.user as AttendUser
     )
   }
 
@@ -39,7 +39,7 @@ export async function handler(
   if (
     getConfigProperty('features.attendance.returnsToWork') &&
     hasPermission(
-      request.session.user as MonTYUser,
+      request.session.user as AttendUser,
       'attendance.returnsToWork.canView'
     )
   ) {
@@ -49,7 +49,7 @@ export async function handler(
         recentOnly: true,
         todayOnly: false
       },
-      request.session.user as MonTYUser
+      request.session.user as AttendUser
     )
   }
 
@@ -58,7 +58,7 @@ export async function handler(
   if (
     getConfigProperty('features.attendance.callOuts') &&
     hasPermission(
-      request.session.user as MonTYUser,
+      request.session.user as AttendUser,
       'attendance.callOuts.canView'
     )
   ) {

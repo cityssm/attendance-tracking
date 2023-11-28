@@ -16,7 +16,7 @@ interface AddCallOutRecordForm {
 
 export async function addCallOutRecord(
   form: AddCallOutRecordForm,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<string> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

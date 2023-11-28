@@ -6,5 +6,5 @@ interface AddAfterHoursRecordForm {
     afterHoursReasonId: string;
     recordComment: string;
 }
-export declare function addAfterHoursRecord(form: AddAfterHoursRecordForm, sessionUser: MonTYUser): Promise<string>;
+export declare function addAfterHoursRecord(form: AddAfterHoursRecordForm, sessionUser: AttendUser): Promise<string>;
 export {};

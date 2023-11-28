@@ -3,5 +3,5 @@ interface GetCallOutListsFilters {
     favouriteOnly: boolean;
     allowSelfSignUp?: boolean;
 }
-export declare function getCallOutLists(filters: GetCallOutListsFilters, sessionUser: MonTYUser): Promise<CallOutList[]>;
+export declare function getCallOutLists(filters: GetCallOutListsFilters, sessionUser: AttendUser): Promise<CallOutList[]>;
 export {};

@@ -1,1 +1,1 @@
-export declare function deleteCallOutList(listId: string, sessionUser: MonTYUser): Promise<boolean>;
+export declare function deleteCallOutList(listId: string, sessionUser: AttendUser): Promise<boolean>;

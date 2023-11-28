@@ -4,7 +4,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a;
-    const MonTY = exports.MonTY;
+    const Attend = exports.Attend;
     const afterHoursReasons = exports.afterHoursReasons;
     const employees = exports.employees;
     let afterHoursRecords = exports.afterHoursRecords;
@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     function deleteAfterHoursRecord(clickEvent) {
         const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
         function doDelete() {
-            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doDeleteAfterHoursRecord`, {
+            cityssm.postJSON(`${Attend.urlPrefix}/attendance/doDeleteAfterHoursRecord`, {
                 recordId
             }, (rawResponseJSON) => {
                 var _a;
@@ -135,7 +135,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         function recordAfterHours(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doAddAfterHoursRecord`, formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${Attend.urlPrefix}/attendance/doAddAfterHoursRecord`, formEvent.currentTarget, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     afterHoursCloseModalFunction();

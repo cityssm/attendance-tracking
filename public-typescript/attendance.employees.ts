@@ -5,7 +5,7 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 import type {
   AbsenceRecord,
   CallOutRecord,
@@ -17,7 +17,7 @@ declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
-  const MonTY = exports.MonTY as MonTYGlobal
+  const Attend = exports.Attend as AttendGlobal
 
   const employees = exports.employees as Employee[]
 
@@ -228,7 +228,7 @@ declare const cityssm: cityssmGlobal
           </div>`
 
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/attendance/doGetAttendanceRecords`,
+          `${Attend.urlPrefix}/attendance/doGetAttendanceRecords`,
           {
             employeeNumber
           },
@@ -246,7 +246,7 @@ declare const cityssm: cityssmGlobal
       onshown(modalElement) {
         bulmaJS.toggleHtmlClipped()
 
-        MonTY.initializeMenuTabs(
+        Attend.initializeMenuTabs(
           modalElement.querySelectorAll('.menu a'),
           modalElement.querySelectorAll('article')
         )
@@ -258,7 +258,7 @@ declare const cityssm: cityssmGlobal
         if (absencesCanView) {
           reportsPanelElement?.insertAdjacentHTML(
             'beforeend',
-            `<a class="panel-block" href="${MonTY.urlPrefix}/reports/absenceRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
+            `<a class="panel-block" href="${Attend.urlPrefix}/reports/absenceRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
               <div class="columns is-mobile is-variable is-2">
                 <div class="column is-narrow">
                   <i class="fas fa-2x fa-file" aria-hidden="true"></i>
@@ -274,7 +274,7 @@ declare const cityssm: cityssmGlobal
         if (returnsToWorkCanView) {
           reportsPanelElement?.insertAdjacentHTML(
             'beforeend',
-            `<a class="panel-block" href="${MonTY.urlPrefix}/reports/returnToWorkRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
+            `<a class="panel-block" href="${Attend.urlPrefix}/reports/returnToWorkRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
               <div class="columns is-mobile is-variable is-2">
                 <div class="column is-narrow">
                   <i class="fas fa-2x fa-file" aria-hidden="true"></i>
@@ -290,7 +290,7 @@ declare const cityssm: cityssmGlobal
         if (callOutsCanView) {
           reportsPanelElement?.insertAdjacentHTML(
             'beforeend',
-            `<a class="panel-block" href="${MonTY.urlPrefix}/reports/callOutRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
+            `<a class="panel-block" href="${Attend.urlPrefix}/reports/callOutRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
               <div class="columns is-mobile is-variable is-2">
                 <div class="column is-narrow">
                   <i class="fas fa-2x fa-file" aria-hidden="true"></i>
@@ -306,7 +306,7 @@ declare const cityssm: cityssmGlobal
         if (afterHoursCanView) {
           reportsPanelElement?.insertAdjacentHTML(
             'beforeend',
-            `<a class="panel-block" href="${MonTY.urlPrefix}/reports/afterHoursRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
+            `<a class="panel-block" href="${Attend.urlPrefix}/reports/afterHoursRecords-recent-byEmployeeNumber/?employeeNumber=${employeeNumber}" download>
               <div class="columns is-mobile is-variable is-2">
                 <div class="column is-narrow">
                   <i class="fas fa-2x fa-file" aria-hidden="true"></i>

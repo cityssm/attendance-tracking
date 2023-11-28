@@ -1,1 +1,1 @@
-export declare function getUsers(): Promise<MonTYUser[]>;
+export declare function getUsers(): Promise<AttendUser[]>;

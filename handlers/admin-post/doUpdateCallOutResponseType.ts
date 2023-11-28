@@ -6,7 +6,7 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const success = await updateCallOutResponseType(request.body, request.session.user as MonTYUser)
+  const success = await updateCallOutResponseType(request.body, request.session.user as AttendUser)
 
   response.json({
     success

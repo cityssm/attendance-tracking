@@ -7,7 +7,7 @@ import type { EmployeeProperty } from '../types/recordTypes.js'
 export async function setEmployeeProperty(
   employeeProperty: EmployeeProperty,
   isSyncUpdate: boolean,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<boolean> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

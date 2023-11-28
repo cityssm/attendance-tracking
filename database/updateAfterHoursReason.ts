@@ -6,7 +6,7 @@ import type { AfterHoursReason } from '../types/recordTypes.js'
 
 export async function updateAfterHoursReason(
   afterHoursReason: AfterHoursReason,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<boolean> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

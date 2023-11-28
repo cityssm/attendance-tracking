@@ -12,7 +12,7 @@ interface CallOutListMemberFilters {
 
 export async function updateCallOutListMemberSortKeys(
   filters: CallOutListMemberFilters,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<number> {
   const callOutListMembers = await getCallOutListMembers(filters, {
     includeSortKeyFunction: true

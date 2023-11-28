@@ -13,7 +13,7 @@ interface AddReturnToWorkRecordForm {
 
 export async function addReturnToWorkRecord(
   form: AddReturnToWorkRecordForm,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<string> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

@@ -56,7 +56,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             }
         }
     }
-    const MonTY = {
+    const Attend = {
         urlPrefix,
         setUnsavedChanges,
         clearUnsavedChanges,
@@ -64,5 +64,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
         initializeMenuTabs
     };
     // eslint-disable-next-line unicorn/prefer-module
-    exports.MonTY = MonTY;
+    exports.Attend = Attend;
 })();

@@ -11,7 +11,7 @@ interface AddCallOutResponseTypeForm {
 
 export async function addCallOutResponseType(
   form: AddCallOutResponseTypeForm,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<string> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

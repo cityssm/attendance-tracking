@@ -5,7 +5,7 @@ import { getConfigProperty } from '../helpers/functions.config.js'
 export async function updateUserIsAdmin(
   userName: string,
   isAdmin: '0' | '1' | 0 | 1 | false | true,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<boolean> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

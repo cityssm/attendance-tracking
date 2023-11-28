@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/indent */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
-    const MonTY = exports.MonTY;
+    const Attend = exports.Attend;
     const absenceTypes = exports.absenceTypes;
     const employees = exports.employees;
     const employeeNumberRegularExpression = exports.employeeNumberRegularExpression;
@@ -17,7 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     function deleteAbsenceRecord(clickEvent) {
         const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
         function doDelete() {
-            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doDeleteAbsenceRecord`, {
+            cityssm.postJSON(`${Attend.urlPrefix}/attendance/doDeleteAbsenceRecord`, {
                 recordId
             }, (rawResponseJSON) => {
                 var _a;
@@ -110,7 +110,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     function deleteReturnToWorkRecord(clickEvent) {
         const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
         function doDelete() {
-            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doDeleteReturnToWorkRecord`, {
+            cityssm.postJSON(`${Attend.urlPrefix}/attendance/doDeleteReturnToWorkRecord`, {
                 recordId
             }, (rawResponseJSON) => {
                 var _a;
@@ -249,7 +249,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         function recordCallIn(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doRecordCallIn`, formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${Attend.urlPrefix}/attendance/doRecordCallIn`, formEvent.currentTarget, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     callInCloseModalFunction();

@@ -1,1 +1,1 @@
-export declare function deleteEmployee(employeeNumber: string, sessionUser: MonTYUser): Promise<boolean>;
+export declare function deleteEmployee(employeeNumber: string, sessionUser: AttendUser): Promise<boolean>;

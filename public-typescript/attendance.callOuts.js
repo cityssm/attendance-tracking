@@ -4,8 +4,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a;
-    const MonTY = exports.MonTY;
-    const MonTYCallOuts = MonTY.callOuts;
+    const Attend = exports.MonTY;
+    const AttendCallOuts = Attend.callOuts;
     const searchFilterElement = document.querySelector('#callOuts--searchFilter');
     const searchResultsElement = document.querySelector('#callOuts--searchResults');
     function toggleCallOutListFavourite(clickEvent) {
@@ -13,12 +13,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const oldIsFavourite = buttonElement.dataset.isFavourite === '1';
         const panelBlockElement = buttonElement.closest('.panel-block');
         const listId = panelBlockElement.dataset.listId;
-        cityssm.postJSON(`${MonTY.urlPrefix}/attendance/${oldIsFavourite
+        cityssm.postJSON(`${Attend.urlPrefix}/attendance/${oldIsFavourite
             ? 'doRemoveFavouriteCallOutList'
             : 'doAddFavouriteCallOutList'}`, { listId }, (rawResponseJSON) => {
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
-                MonTYCallOuts.callOutLists = responseJSON.callOutLists;
+                AttendCallOuts.callOutLists = responseJSON.callOutLists;
                 renderCallOutLists();
             }
             else {
@@ -38,7 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             .toLowerCase()
             .split(' ');
         // eslint-disable-next-line no-labels
-        callOutListLoop: for (const callOutList of MonTYCallOuts.callOutLists) {
+        callOutListLoop: for (const callOutList of AttendCallOuts.callOutLists) {
             const listStringToSearch = `${callOutList.listName} ${(_a = callOutList.listDescription) !== null && _a !== void 0 ? _a : ''}`.toLowerCase();
             for (const searchFilterPiece of searchFilterPieces) {
                 if (!listStringToSearch.includes(searchFilterPiece)) {
@@ -96,21 +96,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
     }
     function openCallOutListByClick(clickEvent) {
-        var _a;
         clickEvent.preventDefault();
         const listId = clickEvent.currentTarget.closest('.panel-block').dataset.listId;
-        (_a = MonTY.callOuts) === null || _a === void 0 ? void 0 : _a.openCallOutList(listId, renderCallOutLists);
+        AttendCallOuts.openCallOutList(listId, renderCallOutLists);
     }
     (_a = document.querySelector('#callOuts--create')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
         let createCloseModalFunction;
         function doCreate(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doCreateCallOutList`, formEvent.currentTarget, (rawResponseJSON) => {
-                var _a;
+            cityssm.postJSON(`${Attend.urlPrefix}/attendance/doCreateCallOutList`, formEvent.currentTarget, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
-                MonTYCallOuts.callOutLists = responseJSON.callOutLists;
+                AttendCallOuts.callOutLists = responseJSON.callOutLists;
                 renderCallOutLists();
-                (_a = MonTY.callOuts) === null || _a === void 0 ? void 0 : _a.openCallOutList(responseJSON.listId);
+                AttendCallOuts.openCallOutList(responseJSON.listId);
                 createCloseModalFunction();
             });
         }

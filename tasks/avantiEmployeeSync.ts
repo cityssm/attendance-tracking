@@ -16,7 +16,7 @@ const debug = Debug('attendance-tracking:tasks:avantiEmployeeSync')
 
 let terminateTask = false
 
-const sessionUser: MonTYUser = {
+const sessionUser: AttendUser = {
   userName: 'sys.employeeSync',
   canLogin: true,
   isAdmin: false

@@ -8,7 +8,7 @@ import { getEmployee } from './getEmployee.js'
 export async function addCallOutListMember(
   listId: string,
   employeeNumber: string,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<boolean> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

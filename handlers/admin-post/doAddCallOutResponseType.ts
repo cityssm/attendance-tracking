@@ -9,7 +9,7 @@ export async function handler(
 ): Promise<void> {
   const responseTypeId = await addCallOutResponseType(
     request.body,
-    request.session.user as MonTYUser
+    request.session.user as AttendUser
   )
 
   const callOutResponseTypes = await getCallOutResponseTypes()

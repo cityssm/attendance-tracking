@@ -3,10 +3,10 @@ import type { IResult } from 'mssql'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
 
-export async function getUsers(): Promise<MonTYUser[]> {
+export async function getUsers(): Promise<AttendUser[]> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
-  const userResult: IResult<MonTYUser> = await pool.request().query(`select
+  const userResult: IResult<AttendUser> = await pool.request().query(`select
     u.userName, u.canLogin, u.isAdmin,
     e.employeeNumber, e.employeeSurname, e.employeeGivenName
     from MonTY.Users u

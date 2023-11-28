@@ -4,7 +4,7 @@ import { getReturnToWorkRecords } from './getReturnToWorkRecords.js'
 
 export async function getReturnToWorkRecord(
   recordId: string,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<ReturnToWorkRecord | undefined> {
   const returnToWorkRecords = await getReturnToWorkRecords(
     {

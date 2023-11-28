@@ -6,7 +6,7 @@ import type { CallOutResponseType } from '../types/recordTypes.js'
 
 export async function updateCallOutResponseType(
   callOutResponseType: CallOutResponseType,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<boolean> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

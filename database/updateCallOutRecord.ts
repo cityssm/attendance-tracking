@@ -16,7 +16,7 @@ interface EditCallOutRecordForm {
 
 export async function updateCallOutRecord(
   form: EditCallOutRecordForm,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<boolean> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

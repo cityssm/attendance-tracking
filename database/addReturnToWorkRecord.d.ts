@@ -5,5 +5,5 @@ interface AddReturnToWorkRecordForm {
     returnShift: string;
     recordComment: string;
 }
-export declare function addReturnToWorkRecord(form: AddReturnToWorkRecordForm, sessionUser: MonTYUser): Promise<string>;
+export declare function addReturnToWorkRecord(form: AddReturnToWorkRecordForm, sessionUser: AttendUser): Promise<string>;
 export {};

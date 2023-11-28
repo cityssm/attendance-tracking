@@ -5,5 +5,5 @@ interface GetReturnToWorkRecordsFilters {
     recentOnly: boolean;
     todayOnly: boolean;
 }
-export declare function getReturnToWorkRecords(filters: GetReturnToWorkRecordsFilters, sessionUser: MonTYUser): Promise<ReturnToWorkRecord[]>;
+export declare function getReturnToWorkRecords(filters: GetReturnToWorkRecordsFilters, sessionUser: AttendUser): Promise<ReturnToWorkRecord[]>;
 export {};

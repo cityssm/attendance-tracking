@@ -11,7 +11,7 @@ interface GetCallOutListsFilters {
 
 export async function getCallOutLists(
   filters: GetCallOutListsFilters,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<CallOutList[]> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

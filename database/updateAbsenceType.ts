@@ -6,7 +6,7 @@ import type { AbsenceType } from '../types/recordTypes.js'
 
 export async function updateAbsenceType(
   absenceType: AbsenceType,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<boolean> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

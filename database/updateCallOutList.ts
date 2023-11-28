@@ -14,7 +14,7 @@ interface UpdateCallOutListReturn {
 
 export async function updateCallOutList(
   callOutList: CallOutList,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<UpdateCallOutListReturn> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

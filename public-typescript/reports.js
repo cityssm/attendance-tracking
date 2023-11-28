@@ -2,13 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     // eslint-disable-next-line unicorn/prefer-module
-    const MonTY = exports.MonTY;
+    const Attend = exports.Attend;
     /*
      * Menu Tabs
      */
     const menuTabElements = document.querySelectorAll('#menu--reports a');
     const tabContainerElements = document.querySelectorAll('#tabs-container--reports > article');
-    MonTY.initializeMenuTabs(menuTabElements, tabContainerElements);
+    Attend.initializeMenuTabs(menuTabElements, tabContainerElements);
     /*
      * Raw Exports Toggle
      */

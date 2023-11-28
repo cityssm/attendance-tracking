@@ -9,7 +9,7 @@ export async function handler(
 ): Promise<void> {
   const success = await deleteAbsenceType(
     request.body.absenceTypeKey,
-    request.session.user as MonTYUser
+    request.session.user as AttendUser
   )
 
   const absenceTypes = await getAbsenceTypes()

@@ -12,7 +12,7 @@ interface AddAbsenceTypeForm {
 
 export async function addAbsenceType(
   form: AddAbsenceTypeForm,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<string> {
   let absenceTypeKey = await getAvailableAbsenceTypeKey(form.absenceType)
 

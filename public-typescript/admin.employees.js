@@ -4,7 +4,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a;
-    const MonTY = exports.MonTY;
+    const Attend = exports.Attend;
     let unfilteredEmployees = exports.employees;
     delete exports.employees;
     let filteredEmployees = unfilteredEmployees;
@@ -23,7 +23,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const propertyName = rowElement === null || rowElement === void 0 ? void 0 : rowElement.dataset.propertyName;
             const propertyValue = (_a = rowElement === null || rowElement === void 0 ? void 0 : rowElement.querySelector('input')) === null || _a === void 0 ? void 0 : _a.value;
             const isSynced = (_b = rowElement === null || rowElement === void 0 ? void 0 : rowElement.querySelector('select')) === null || _b === void 0 ? void 0 : _b.value;
-            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doUpdateEmployeeProperty`, {
+            cityssm.postJSON(`${Attend.urlPrefix}/admin/doUpdateEmployeeProperty`, {
                 employeeNumber,
                 propertyName,
                 propertyValue,
@@ -46,7 +46,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 const propertyName = rowElement === null || rowElement === void 0 ? void 0 : rowElement.dataset.propertyName;
                 const propertyValue = (_a = rowElement === null || rowElement === void 0 ? void 0 : rowElement.querySelector('input')) === null || _a === void 0 ? void 0 : _a.value;
                 const isSynced = (_b = rowElement === null || rowElement === void 0 ? void 0 : rowElement.querySelector('select')) === null || _b === void 0 ? void 0 : _b.value;
-                cityssm.postJSON(`${MonTY.urlPrefix}/admin/doDeleteEmployeeProperty`, {
+                cityssm.postJSON(`${Attend.urlPrefix}/admin/doDeleteEmployeeProperty`, {
                     employeeNumber,
                     propertyName,
                     propertyValue,
@@ -124,7 +124,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         function addEmployeeProperty(formEvent) {
             formEvent.preventDefault();
             const addPropertyFormElement = formEvent.currentTarget;
-            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doAddEmployeeProperty`, addPropertyFormElement, (rawResponseJSON) => {
+            cityssm.postJSON(`${Attend.urlPrefix}/admin/doAddEmployeeProperty`, addPropertyFormElement, (rawResponseJSON) => {
                 var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
@@ -154,7 +154,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         function updateEmployee(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doUpdateEmployee`, formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${Attend.urlPrefix}/admin/doUpdateEmployee`, formEvent.currentTarget, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     bulmaJS.alert({
@@ -169,7 +169,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         function deleteEmployee(clickEvent) {
             clickEvent.preventDefault();
             function doDelete() {
-                cityssm.postJSON(`${MonTY.urlPrefix}/admin/doDeleteEmployee`, {
+                cityssm.postJSON(`${Attend.urlPrefix}/admin/doDeleteEmployee`, {
                     employeeNumber
                 }, (rawResponseJSON) => {
                     const responseJSON = rawResponseJSON;
@@ -224,7 +224,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 modalElement.querySelector('#employeeEdit--homeContact1').value = (_g = employee.homeContact1) !== null && _g !== void 0 ? _g : '';
                 modalElement.querySelector('#employeeEdit--homeContact2').value = (_h = employee.homeContact2) !== null && _h !== void 0 ? _h : '';
                 modalElement.querySelector('#employeePropertyAdd--employeeNumber').value = employee.employeeNumber;
-                cityssm.postJSON(`${MonTY.urlPrefix}/admin/doGetEmployeeProperties`, {
+                cityssm.postJSON(`${Attend.urlPrefix}/admin/doGetEmployeeProperties`, {
                     employeeNumber
                 }, (rawResponseJSON) => {
                     employeeProperties = rawResponseJSON.employeeProperties;
@@ -236,7 +236,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 closeEmployeeModalFunction = closeModalFunction;
                 bulmaJS.toggleHtmlClipped();
                 bulmaJS.init(modalElement);
-                MonTY.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('.tabs-container > article'));
+                Attend.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('.tabs-container > article'));
                 (_a = modalElement
                     .querySelector('#form--employeeEdit')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', updateEmployee);
                 (_b = modalElement
@@ -261,7 +261,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         let addCloseModalFunction;
         function addEmployee(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doAddEmployee`, formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${Attend.urlPrefix}/admin/doAddEmployee`, formEvent.currentTarget, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     addCloseModalFunction();

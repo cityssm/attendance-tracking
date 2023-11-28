@@ -10,7 +10,7 @@ export async function handler(
   const success = await addCallOutListMember(
     request.body.listId,
     request.body.employeeNumber,
-    request.session.user as MonTYUser
+    request.session.user as AttendUser
   )
 
   const callOutListMembers = await getCallOutListMembers(

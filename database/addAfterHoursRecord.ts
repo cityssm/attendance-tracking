@@ -14,7 +14,7 @@ interface AddAfterHoursRecordForm {
 
 export async function addAfterHoursRecord(
   form: AddAfterHoursRecordForm,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<string> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

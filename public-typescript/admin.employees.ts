@@ -8,13 +8,13 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 import type { Employee, EmployeeProperty } from '../types/recordTypes.js'
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
-  const MonTY = exports.MonTY as MonTYGlobal
+  const Attend = exports.Attend as AttendGlobal
 
   let unfilteredEmployees = exports.employees as Employee[]
   delete exports.employees
@@ -44,7 +44,7 @@ declare const cityssm: cityssmGlobal
       const isSynced = rowElement?.querySelector('select')?.value
 
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/admin/doUpdateEmployeeProperty`,
+        `${Attend.urlPrefix}/admin/doUpdateEmployeeProperty`,
         {
           employeeNumber,
           propertyName,
@@ -78,7 +78,7 @@ declare const cityssm: cityssmGlobal
         const isSynced = rowElement?.querySelector('select')?.value
 
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/admin/doDeleteEmployeeProperty`,
+          `${Attend.urlPrefix}/admin/doDeleteEmployeeProperty`,
           {
             employeeNumber,
             propertyName,
@@ -179,7 +179,7 @@ declare const cityssm: cityssmGlobal
       const addPropertyFormElement = formEvent.currentTarget as HTMLFormElement
 
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/admin/doAddEmployeeProperty`,
+        `${Attend.urlPrefix}/admin/doAddEmployeeProperty`,
         addPropertyFormElement,
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
@@ -224,7 +224,7 @@ declare const cityssm: cityssmGlobal
       formEvent.preventDefault()
 
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/admin/doUpdateEmployee`,
+        `${Attend.urlPrefix}/admin/doUpdateEmployee`,
         formEvent.currentTarget,
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
@@ -250,7 +250,7 @@ declare const cityssm: cityssmGlobal
 
       function doDelete(): void {
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/admin/doDeleteEmployee`,
+          `${Attend.urlPrefix}/admin/doDeleteEmployee`,
           {
             employeeNumber
           },
@@ -391,7 +391,7 @@ declare const cityssm: cityssmGlobal
         ).value = employee.employeeNumber
 
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/admin/doGetEmployeeProperties`,
+          `${Attend.urlPrefix}/admin/doGetEmployeeProperties`,
           {
             employeeNumber
           },
@@ -413,7 +413,7 @@ declare const cityssm: cityssmGlobal
 
         bulmaJS.init(modalElement)
 
-        MonTY.initializeMenuTabs(
+        Attend.initializeMenuTabs(
           modalElement.querySelectorAll('.menu a'),
           modalElement.querySelectorAll('.tabs-container > article')
         )
@@ -454,7 +454,7 @@ declare const cityssm: cityssmGlobal
         formEvent.preventDefault()
 
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/admin/doAddEmployee`,
+          `${Attend.urlPrefix}/admin/doAddEmployee`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as

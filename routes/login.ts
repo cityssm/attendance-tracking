@@ -58,7 +58,7 @@ async function postHandler(
 
   let isAuthenticated = false
   let isTemporaryUser = false
-  let userObject: MonTYUser | undefined
+  let userObject: AttendUser | undefined
 
   if (userName.startsWith('~~')) {
     isTemporaryUser = true

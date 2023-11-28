@@ -4,7 +4,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a, _b, _c, _d, _e, _f, _g;
-    const MonTY = exports.MonTY;
+    const Attend = exports.Attend;
     let currentListId = '';
     let currentCallOutListMembers = [];
     /*
@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     let callOutLists = exports.callOutLists;
     function getCurrentCallOutList() {
         var _a;
-        return (_a = MonTY.callOuts) === null || _a === void 0 ? void 0 : _a.callOutLists.find((possibleCallOutList) => {
+        return (_a = Attend.callOuts) === null || _a === void 0 ? void 0 : _a.callOutLists.find((possibleCallOutList) => {
             return possibleCallOutList.listId === currentListId;
         });
     }
@@ -46,7 +46,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         function addCallOutRecord(formEvent) {
             formEvent.preventDefault();
             const formElement = formEvent.currentTarget;
-            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doAddCallOutRecord`, formElement, (rawResponseJSON) => {
+            cityssm.postJSON(`${Attend.urlPrefix}/attendance/doAddCallOutRecord`, formElement, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     bulmaJS.alert({
@@ -63,7 +63,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             clickEvent.preventDefault();
             const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
             function doDelete() {
-                cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doDeleteCallOutRecord`, {
+                cityssm.postJSON(`${Attend.urlPrefix}/attendance/doDeleteCallOutRecord`, {
                     recordId,
                     employeeNumber,
                     listId: currentListId
@@ -95,7 +95,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const recordId = clickEvent.currentTarget.closest('.panel-block').dataset.recordId;
             function doUpdateCallOutRecord(formEvent) {
                 formEvent.preventDefault();
-                cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doUpdateCallOutRecord`, formEvent.currentTarget, (rawResponseJSON) => {
+                cityssm.postJSON(`${Attend.urlPrefix}/attendance/doUpdateCallOutRecord`, formEvent.currentTarget, (rawResponseJSON) => {
                     const responseJSON = rawResponseJSON;
                     if (responseJSON.success) {
                         updateCallOutRecordCloseModalFunction();
@@ -265,7 +265,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     (_l = modalElement
                         .querySelector('#tab--recentCalls')) === null || _l === void 0 ? void 0 : _l.classList.remove('is-hidden');
                 }
-                cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doGetCallOutRecords`, {
+                cityssm.postJSON(`${Attend.urlPrefix}/attendance/doGetCallOutRecords`, {
                     listId: callOutList.listId,
                     employeeNumber
                 }, (rawResponseJSON) => {
@@ -347,7 +347,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const submitButtonElement = formEvent.currentTarget.querySelector('button[type="submit"]');
             submitButtonElement.disabled = true;
             submitButtonElement.classList.add('is-loading');
-            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doUpdateCallOutList`, formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${Attend.urlPrefix}/attendance/doUpdateCallOutList`, formEvent.currentTarget, (rawResponseJSON) => {
                 const responseJSON = rawResponseJSON;
                 submitButtonElement.disabled = false;
                 submitButtonElement.classList.remove('is-loading');
@@ -362,7 +362,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     renderCallOutListMembers();
                     renderAvailableEmployees();
                     callOutLists = responseJSON.callOutLists;
-                    MonTY.callOuts.callOutLists =
+                    Attend.callOuts.callOutLists =
                         responseJSON.callOutLists;
                     if (onUpdateCallbackFunction !== undefined) {
                         onUpdateCallbackFunction();
@@ -447,7 +447,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             clickEvent.preventDefault();
             const employeeNumber = clickEvent.currentTarget
                 .dataset.employeeNumber;
-            cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doAddCallOutListMember`, {
+            cityssm.postJSON(`${Attend.urlPrefix}/attendance/doAddCallOutListMember`, {
                 listId: callOutList.listId,
                 employeeNumber
             }, (rawResponseJSON) => {
@@ -477,7 +477,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             const employeeNumber = (_a = clickEvent.currentTarget.dataset
                 .employeeNumber) !== null && _a !== void 0 ? _a : '';
             function doDelete() {
-                cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doDeleteCallOutListMember`, {
+                cityssm.postJSON(`${Attend.urlPrefix}/attendance/doDeleteCallOutListMember`, {
                     listId: callOutList.listId,
                     employeeNumber
                 }, (rawResponseJSON) => {
@@ -644,7 +644,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         function deleteCallOutList(clickEvent) {
             clickEvent.preventDefault();
             function doDelete() {
-                cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doDeleteCallOutList`, {
+                cityssm.postJSON(`${Attend.urlPrefix}/attendance/doDeleteCallOutList`, {
                     listId
                 }, (rawResponseJSON) => {
                     const responseJSON = rawResponseJSON;
@@ -655,7 +655,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                             message: 'Call Out List deleted successfully.'
                         });
                         callOutLists = responseJSON.callOutLists;
-                        MonTY.callOuts.callOutLists =
+                        Attend.callOuts.callOutLists =
                             responseJSON.callOutLists;
                         if (onUpdateCallbackFunction !== undefined) {
                             onUpdateCallbackFunction();
@@ -692,7 +692,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 // List Details
                 initializeListDetailsTab();
                 // Members
-                cityssm.postJSON(`${MonTY.urlPrefix}/attendance/doGetCallOutListMembers`, {
+                cityssm.postJSON(`${Attend.urlPrefix}/attendance/doGetCallOutListMembers`, {
                     listId: callOutList.listId,
                     includeAvailableEmployees: canManage
                 }, (rawResponseJSON) => {
@@ -710,10 +710,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 callOutListCloseModalFunction = closeModalFunction;
                 bulmaJS.toggleHtmlClipped();
                 bulmaJS.init(modalElement);
-                MonTY.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('.tabs-container > article'));
-                modalElement.querySelector('#reportingLink--callOutListReport').href = `${MonTY.urlPrefix}/print/screen/callOutList/?listId=${listId}`;
-                modalElement.querySelector('#reportingLink--callOutListMembersCSV').href = `${MonTY.urlPrefix}/reports/callOutListMembers-formatted-byListId/?listId=${listId}`;
-                modalElement.querySelector('#reportingLink--callOutRecordsCSV').href = `${MonTY.urlPrefix}/reports/callOutRecords-recent-byListId/?listId=${listId}`;
+                Attend.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('.tabs-container > article'));
+                modalElement.querySelector('#reportingLink--callOutListReport').href = `${Attend.urlPrefix}/print/screen/callOutList/?listId=${listId}`;
+                modalElement.querySelector('#reportingLink--callOutListMembersCSV').href = `${Attend.urlPrefix}/reports/callOutListMembers-formatted-byListId/?listId=${listId}`;
+                modalElement.querySelector('#reportingLink--callOutRecordsCSV').href = `${Attend.urlPrefix}/reports/callOutRecords-recent-byListId/?listId=${listId}`;
                 cityssm.enableNavBlocker();
             },
             onhidden() {
@@ -724,9 +724,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
             }
         });
     }
-    const MonTYCallOuts = {
+    const AttendCallOuts = {
         callOutLists,
         openCallOutList
     };
-    exports.MonTY.callOuts = MonTYCallOuts;
+    exports.Attend.callOuts = AttendCallOuts;
 })();

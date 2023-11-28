@@ -12,8 +12,8 @@ import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
 import type {
-  MonTYCallOuts,
-  MonTY as MonTYGlobal
+  AttendCallOuts,
+  Attend as AttendGlobal
 } from '../types/globalTypes.js'
 import type {
   CallOutList,
@@ -29,7 +29,7 @@ declare const cityssm: cityssmGlobal
 
   // eslint-disable-next-line sonarjs/cognitive-complexity
 ;(() => {
-  const MonTY = exports.MonTY as MonTYGlobal
+  const Attend = exports.Attend as AttendGlobal
 
   let currentListId = ''
   let currentCallOutListMembers: CallOutListMember[] = []
@@ -41,7 +41,7 @@ declare const cityssm: cityssmGlobal
   let callOutLists = exports.callOutLists as CallOutList[]
 
   function getCurrentCallOutList(): CallOutList {
-    return MonTY.callOuts?.callOutLists.find((possibleCallOutList) => {
+    return Attend.callOuts?.callOutLists.find((possibleCallOutList) => {
       return possibleCallOutList.listId === currentListId
     }) as CallOutList
   }
@@ -100,7 +100,7 @@ declare const cityssm: cityssmGlobal
       const formElement = formEvent.currentTarget as HTMLFormElement
 
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/attendance/doAddCallOutRecord`,
+        `${Attend.urlPrefix}/attendance/doAddCallOutRecord`,
         formElement,
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
@@ -135,7 +135,7 @@ declare const cityssm: cityssmGlobal
 
       function doDelete(): void {
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/attendance/doDeleteCallOutRecord`,
+          `${Attend.urlPrefix}/attendance/doDeleteCallOutRecord`,
           {
             recordId,
             employeeNumber,
@@ -186,7 +186,7 @@ declare const cityssm: cityssmGlobal
         formEvent.preventDefault()
 
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/attendance/doUpdateCallOutRecord`,
+          `${Attend.urlPrefix}/attendance/doUpdateCallOutRecord`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as {
@@ -494,7 +494,7 @@ declare const cityssm: cityssmGlobal
         }
 
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/attendance/doGetCallOutRecords`,
+          `${Attend.urlPrefix}/attendance/doGetCallOutRecords`,
           {
             listId: callOutList.listId,
             employeeNumber
@@ -626,7 +626,7 @@ declare const cityssm: cityssmGlobal
       submitButtonElement.classList.add('is-loading')
 
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/attendance/doUpdateCallOutList`,
+        `${Attend.urlPrefix}/attendance/doUpdateCallOutList`,
         formEvent.currentTarget,
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as
@@ -664,7 +664,7 @@ declare const cityssm: cityssmGlobal
             renderAvailableEmployees()
 
             callOutLists = responseJSON.callOutLists
-            ;(MonTY.callOuts as MonTYCallOuts).callOutLists =
+            ;(Attend.callOuts as AttendCallOuts).callOutLists =
               responseJSON.callOutLists
 
             if (onUpdateCallbackFunction !== undefined) {
@@ -809,7 +809,7 @@ declare const cityssm: cityssmGlobal
         .dataset.employeeNumber
 
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/attendance/doAddCallOutListMember`,
+        `${Attend.urlPrefix}/attendance/doAddCallOutListMember`,
         {
           listId: callOutList.listId,
           employeeNumber
@@ -855,7 +855,7 @@ declare const cityssm: cityssmGlobal
 
       function doDelete(): void {
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/attendance/doDeleteCallOutListMember`,
+          `${Attend.urlPrefix}/attendance/doDeleteCallOutListMember`,
           {
             listId: callOutList.listId,
             employeeNumber
@@ -1098,7 +1098,7 @@ declare const cityssm: cityssmGlobal
 
       function doDelete(): void {
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/attendance/doDeleteCallOutList`,
+          `${Attend.urlPrefix}/attendance/doDeleteCallOutList`,
           {
             listId
           },
@@ -1117,7 +1117,7 @@ declare const cityssm: cityssmGlobal
               })
 
               callOutLists = responseJSON.callOutLists
-              ;(MonTY.callOuts as MonTYCallOuts).callOutLists =
+              ;(Attend.callOuts as AttendCallOuts).callOutLists =
                 responseJSON.callOutLists
 
               if (onUpdateCallbackFunction !== undefined) {
@@ -1171,7 +1171,7 @@ declare const cityssm: cityssmGlobal
         // Members
 
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/attendance/doGetCallOutListMembers`,
+          `${Attend.urlPrefix}/attendance/doGetCallOutListMembers`,
           {
             listId: callOutList.listId,
             includeAvailableEmployees: canManage
@@ -1201,7 +1201,7 @@ declare const cityssm: cityssmGlobal
 
         bulmaJS.init(modalElement)
 
-        MonTY.initializeMenuTabs(
+        Attend.initializeMenuTabs(
           modalElement.querySelectorAll('.menu a'),
           modalElement.querySelectorAll('.tabs-container > article')
         )
@@ -1209,17 +1209,17 @@ declare const cityssm: cityssmGlobal
           modalElement.querySelector(
             '#reportingLink--callOutListReport'
           ) as HTMLAnchorElement
-        ).href = `${MonTY.urlPrefix}/print/screen/callOutList/?listId=${listId}`
+        ).href = `${Attend.urlPrefix}/print/screen/callOutList/?listId=${listId}`
         ;(
           modalElement.querySelector(
             '#reportingLink--callOutListMembersCSV'
           ) as HTMLAnchorElement
-        ).href = `${MonTY.urlPrefix}/reports/callOutListMembers-formatted-byListId/?listId=${listId}`
+        ).href = `${Attend.urlPrefix}/reports/callOutListMembers-formatted-byListId/?listId=${listId}`
         ;(
           modalElement.querySelector(
             '#reportingLink--callOutRecordsCSV'
           ) as HTMLAnchorElement
-        ).href = `${MonTY.urlPrefix}/reports/callOutRecords-recent-byListId/?listId=${listId}`
+        ).href = `${Attend.urlPrefix}/reports/callOutRecords-recent-byListId/?listId=${listId}`
 
         cityssm.enableNavBlocker()
       },
@@ -1234,10 +1234,10 @@ declare const cityssm: cityssmGlobal
     })
   }
 
-  const MonTYCallOuts: MonTYCallOuts = {
+  const AttendCallOuts: AttendCallOuts = {
     callOutLists,
     openCallOutList
   }
 
-  exports.MonTY.callOuts = MonTYCallOuts
+  exports.Attend.callOuts = AttendCallOuts
 })()

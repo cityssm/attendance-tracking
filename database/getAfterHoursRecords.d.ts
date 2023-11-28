@@ -5,5 +5,5 @@ interface GetAfterHoursRecordsFilters {
     recentOnly: boolean;
     todayOnly: boolean;
 }
-export declare function getAfterHoursRecords(filters: GetAfterHoursRecordsFilters, sessionUser: MonTYUser): Promise<AfterHoursRecord[]>;
+export declare function getAfterHoursRecords(filters: GetAfterHoursRecordsFilters, sessionUser: AttendUser): Promise<AfterHoursRecord[]>;
 export {};

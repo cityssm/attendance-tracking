@@ -1,7 +1,7 @@
-import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 ;(() => {
   // eslint-disable-next-line unicorn/prefer-module
-  const MonTY = exports.MonTY as MonTYGlobal
+  const Attend = exports.Attend as AttendGlobal
 
   /*
    * Menu Tabs
@@ -13,7 +13,7 @@ import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
   const tabContainerElements: NodeListOf<HTMLElement> =
     document.querySelectorAll('#tabs-container--reports > article')
 
-  MonTY.initializeMenuTabs(menuTabElements, tabContainerElements)
+  Attend.initializeMenuTabs(menuTabElements, tabContainerElements)
 
   /*
    * Raw Exports Toggle

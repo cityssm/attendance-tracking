@@ -9,7 +9,7 @@ export async function handler(
 ): Promise<void> {
   const success = await deleteEmployee(
     request.body.employeeNumber,
-    request.session.user as MonTYUser
+    request.session.user as AttendUser
   )
 
   const employees = await getEmployees(

@@ -6,8 +6,8 @@ import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
 import type {
-  MonTYCallOuts as MonTYCallOutsGlobal,
-  MonTY as MonTYGlobal
+  AttendCallOuts as AttendCallOutsGlobal,
+  Attend as AttendGlobal
 } from '../types/globalTypes.js'
 import type { CallOutList } from '../types/recordTypes.js'
 
@@ -15,8 +15,8 @@ declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
-  const MonTY = exports.MonTY as MonTYGlobal
-  const MonTYCallOuts = MonTY.callOuts as MonTYCallOutsGlobal
+  const Attend = exports.MonTY as AttendGlobal
+  const AttendCallOuts = Attend.callOuts as AttendCallOutsGlobal
 
   const searchFilterElement = document.querySelector(
     '#callOuts--searchFilter'
@@ -38,7 +38,7 @@ declare const cityssm: cityssmGlobal
     const listId = panelBlockElement.dataset.listId
 
     cityssm.postJSON(
-      `${MonTY.urlPrefix}/attendance/${
+      `${Attend.urlPrefix}/attendance/${
         oldIsFavourite
           ? 'doRemoveFavouriteCallOutList'
           : 'doAddFavouriteCallOutList'
@@ -51,7 +51,7 @@ declare const cityssm: cityssmGlobal
         }
 
         if (responseJSON.success) {
-          MonTYCallOuts.callOutLists = responseJSON.callOutLists
+          AttendCallOuts.callOutLists = responseJSON.callOutLists
 
           renderCallOutLists()
         } else {
@@ -74,7 +74,7 @@ declare const cityssm: cityssmGlobal
       .split(' ')
 
     // eslint-disable-next-line no-labels
-    callOutListLoop: for (const callOutList of MonTYCallOuts.callOutLists) {
+    callOutListLoop: for (const callOutList of AttendCallOuts.callOutLists) {
       const listStringToSearch = `${callOutList.listName} ${
         callOutList.listDescription ?? ''
       }`.toLowerCase()
@@ -164,7 +164,7 @@ declare const cityssm: cityssmGlobal
       ) as HTMLElement
     ).dataset.listId as string
 
-    MonTY.callOuts?.openCallOutList(listId, renderCallOutLists)
+    AttendCallOuts.openCallOutList(listId, renderCallOutLists)
   }
 
   document.querySelector('#callOuts--create')?.addEventListener('click', () => {
@@ -174,7 +174,7 @@ declare const cityssm: cityssmGlobal
       formEvent.preventDefault()
 
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/attendance/doCreateCallOutList`,
+        `${Attend.urlPrefix}/attendance/doCreateCallOutList`,
         formEvent.currentTarget,
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
@@ -183,10 +183,10 @@ declare const cityssm: cityssmGlobal
             callOutLists: CallOutList[]
           }
 
-          MonTYCallOuts.callOutLists = responseJSON.callOutLists
+          AttendCallOuts.callOutLists = responseJSON.callOutLists
           renderCallOutLists()
 
-          MonTY.callOuts?.openCallOutList(responseJSON.listId)
+          AttendCallOuts.openCallOutList(responseJSON.listId)
 
           createCloseModalFunction()
         }

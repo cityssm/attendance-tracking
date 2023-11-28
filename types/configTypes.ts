@@ -95,7 +95,7 @@ export interface ConfigTemporaryUserCredentials {
   password: string
 }
 
-export interface ConfigTemporaryUser extends MonTYUser {
+export interface ConfigTemporaryUser extends AttendUser {
   userName: `~~${string}`
   permissions: Partial<Record<keyof typeof availablePermissionValues, string>>
 }

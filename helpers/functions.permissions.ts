@@ -20,7 +20,7 @@ export const availablePermissionValues = {
   'reports.hasRawExports': trueFalseStrings
 }
 
-export function hasAttendance(user: MonTYUser | undefined): boolean {
+export function hasAttendance(user: AttendUser | undefined): boolean {
   if (user === undefined) {
     return false
   }
@@ -34,7 +34,7 @@ export function hasAttendance(user: MonTYUser | undefined): boolean {
 }
 
 export function hasPermission(
-  user: MonTYUser,
+  user: AttendUser,
   permissionKey: keyof typeof availablePermissionValues
 ): boolean {
   return (user.permissions?.[permissionKey] ?? 'false') === 'true'

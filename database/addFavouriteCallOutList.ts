@@ -4,7 +4,7 @@ import { getConfigProperty } from '../helpers/functions.config.js'
 
 export async function addFavouriteCallOutList(
   listId: string,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<boolean> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

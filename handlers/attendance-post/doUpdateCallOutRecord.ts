@@ -7,7 +7,7 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const success = await updateCallOutRecord(request.body, request.session.user as MonTYUser)
+  const success = await updateCallOutRecord(request.body, request.session.user as AttendUser)
 
   const callOutRecords = await getCallOutRecords({
     listId: request.body.listId,

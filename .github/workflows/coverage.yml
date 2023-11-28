@@ -31,7 +31,7 @@ jobs:
         with:
           install: sqlengine, sqlclient, sqlpackage
 
-      - name: Create MonTY Database
+      - name: Create Database
         run: |
           sqlcmd -S localhost -U sa -P dbatools.I0 -d tempdb -Q "create database MonTY"
           sqlcmd -S localhost -U sa -P dbatools.I0 -d MonTY -i database/scripts/createTables.sql -I

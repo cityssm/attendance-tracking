@@ -14,7 +14,7 @@ interface GetAfterHoursRecordsFilters {
 
 export async function getAfterHoursRecords(
   filters: GetAfterHoursRecordsFilters,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<AfterHoursRecord[]> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

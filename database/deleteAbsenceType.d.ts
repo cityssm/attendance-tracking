@@ -1,1 +1,1 @@
-export declare function deleteAbsenceType(absenceTypeKey: string, sessionUser: MonTYUser): Promise<boolean>;
+export declare function deleteAbsenceType(absenceTypeKey: string, sessionUser: AttendUser): Promise<boolean>;

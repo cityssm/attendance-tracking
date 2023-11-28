@@ -4,5 +4,5 @@ interface UpdateCallOutListReturn {
     sortKeyFunctionChanged: boolean;
     eligibilityFunctionChanged: boolean;
 }
-export declare function updateCallOutList(callOutList: CallOutList, sessionUser: MonTYUser): Promise<UpdateCallOutListReturn>;
+export declare function updateCallOutList(callOutList: CallOutList, sessionUser: AttendUser): Promise<UpdateCallOutListReturn>;
 export {};

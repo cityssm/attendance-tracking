@@ -1,1 +1,1 @@
-export declare function deleteAfterHoursRecord(recordId: string, sessionUser: MonTYUser): Promise<boolean>;
+export declare function deleteAfterHoursRecord(recordId: string, sessionUser: AttendUser): Promise<boolean>;

@@ -4,7 +4,7 @@ import { getAfterHoursRecords } from './getAfterHoursRecords.js'
 
 export async function getAfterHoursRecord(
   recordId: string,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<AfterHoursRecord | undefined> {
   const afterHoursRecords = await getAfterHoursRecords(
     {

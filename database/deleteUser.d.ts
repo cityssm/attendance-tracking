@@ -1,1 +1,1 @@
-export declare function deleteUser(userName: string, sessionUser: MonTYUser): Promise<boolean>;
+export declare function deleteUser(userName: string, sessionUser: AttendUser): Promise<boolean>;

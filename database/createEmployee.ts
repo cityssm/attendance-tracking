@@ -6,7 +6,7 @@ import type { Employee } from '../types/recordTypes.js'
 
 export async function createEmployee(
   employee: Employee,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<boolean> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

@@ -11,7 +11,7 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 import type {
   AbsenceType,
   AfterHoursReason,
@@ -22,7 +22,7 @@ declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
-  const MonTY = exports.MonTY as MonTYGlobal
+  const Attend = exports.Attend as AttendGlobal
 
   const updateButtonClassName = 'is-update-button'
   const upButtonClassName = 'is-up-button'
@@ -65,7 +65,7 @@ declare const cityssm: cityssmGlobal
       .value
 
     cityssm.postJSON(
-      `${MonTY.urlPrefix}/admin/doUpdateAbsenceType`,
+      `${Attend.urlPrefix}/admin/doUpdateAbsenceType`,
       {
         absenceTypeKey,
         absenceType
@@ -93,7 +93,7 @@ declare const cityssm: cityssmGlobal
     const absenceTypeKey = tableRowElement.dataset.absenceTypeKey
 
     cityssm.postJSON(
-      `${MonTY.urlPrefix}/admin/${
+      `${Attend.urlPrefix}/admin/${
         buttonElement.dataset.direction === 'up'
           ? 'doMoveAbsenceTypeUp'
           : 'doMoveAbsenceTypeDown'
@@ -129,7 +129,7 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/admin/doDeleteAbsenceType`,
+        `${Attend.urlPrefix}/admin/doDeleteAbsenceType`,
         {
           absenceTypeKey
         },
@@ -266,7 +266,7 @@ declare const cityssm: cityssmGlobal
         formEvent.preventDefault()
 
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/admin/doAddAbsenceType`,
+          `${Attend.urlPrefix}/admin/doAddAbsenceType`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON =
@@ -345,7 +345,7 @@ declare const cityssm: cityssmGlobal
     ).value
 
     cityssm.postJSON(
-      `${MonTY.urlPrefix}/admin/doUpdateCallOutResponseType`,
+      `${Attend.urlPrefix}/admin/doUpdateCallOutResponseType`,
       {
         responseTypeId,
         responseType,
@@ -374,7 +374,7 @@ declare const cityssm: cityssmGlobal
     const responseTypeId = tableRowElement.dataset.responseTypeId
 
     cityssm.postJSON(
-      `${MonTY.urlPrefix}/admin/${
+      `${Attend.urlPrefix}/admin/${
         buttonElement.dataset.direction === 'up'
           ? 'doMoveCallOutResponseTypeUp'
           : 'doMoveCallOutResponseTypeDown'
@@ -410,7 +410,7 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/admin/doDeleteCallOutResponseType`,
+        `${Attend.urlPrefix}/admin/doDeleteCallOutResponseType`,
         {
           responseTypeId
         },
@@ -566,7 +566,7 @@ declare const cityssm: cityssmGlobal
         formEvent.preventDefault()
 
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/admin/doAddCallOutResponseType`,
+          `${Attend.urlPrefix}/admin/doAddCallOutResponseType`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON =
@@ -640,7 +640,7 @@ declare const cityssm: cityssmGlobal
     ).value
 
     cityssm.postJSON(
-      `${MonTY.urlPrefix}/admin/doUpdateAfterHoursReason`,
+      `${Attend.urlPrefix}/admin/doUpdateAfterHoursReason`,
       {
         afterHoursReasonId,
         afterHoursReason
@@ -668,7 +668,7 @@ declare const cityssm: cityssmGlobal
     const afterHoursReasonId = tableRowElement.dataset.afterHoursReasonId
 
     cityssm.postJSON(
-      `${MonTY.urlPrefix}/admin/${
+      `${Attend.urlPrefix}/admin/${
         buttonElement.dataset.direction === 'up'
           ? 'doMoveAfterHoursReasonUp'
           : 'doMoveAfterHoursReasonDown'
@@ -704,7 +704,7 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/admin/doDeleteAfterHoursReason`,
+        `${Attend.urlPrefix}/admin/doDeleteAfterHoursReason`,
         {
           afterHoursReasonId
         },
@@ -842,7 +842,7 @@ declare const cityssm: cityssmGlobal
         formEvent.preventDefault()
 
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/admin/doAddAfterHoursReason`,
+          `${Attend.urlPrefix}/admin/doAddAfterHoursReason`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON =

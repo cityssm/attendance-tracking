@@ -6,7 +6,7 @@ import type { CallOutList } from '../types/recordTypes.js'
 
 export async function createCallOutList(
   callOutList: CallOutList,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<number> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

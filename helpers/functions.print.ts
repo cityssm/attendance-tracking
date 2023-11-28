@@ -24,7 +24,7 @@ export function getScreenPrintConfig(
 export async function getReportData(
   printConfig: PrintConfig,
   requestQuery: Record<string, unknown>,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<Record<string, unknown>> {
   const reportData: Record<string, unknown> = {
     headTitle: printConfig.title

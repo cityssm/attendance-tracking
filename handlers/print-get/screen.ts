@@ -24,7 +24,7 @@ export async function handler(
   const reportData = await getReportData(
     printConfig,
     request.query,
-    request.session.user as MonTYUser
+    request.session.user as AttendUser
   )
 
   response.render(`print/screen/${printName}`, reportData)

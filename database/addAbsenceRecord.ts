@@ -14,7 +14,7 @@ interface AddAbsenceRecordForm {
 
 export async function addAbsenceRecord(
   form: AddAbsenceRecordForm,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<string> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

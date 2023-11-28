@@ -1,10 +1,10 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable unicorn/prefer-module */
 
-import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 import type { CallOutList } from '../types/recordTypes.js'
 ;(() => {
-  const MonTY = exports.MonTY as MonTYGlobal
+  const Attend = exports.Attend as AttendGlobal
 
   const callOutListContainerElement = document.querySelector(
     '#container--favouriteCallOutLists'
@@ -17,7 +17,7 @@ import type { CallOutList } from '../types/recordTypes.js'
     const listId = (clickEvent.currentTarget as HTMLAnchorElement).dataset
       .listId as string
 
-    MonTY.callOuts?.openCallOutList(listId)
+    Attend.callOuts?.openCallOutList(listId)
   }
 
   if (callOutListContainerElement !== null) {

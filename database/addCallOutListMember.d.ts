@@ -1,1 +1,1 @@
-export declare function addCallOutListMember(listId: string, employeeNumber: string, sessionUser: MonTYUser): Promise<boolean>;
+export declare function addCallOutListMember(listId: string, employeeNumber: string, sessionUser: AttendUser): Promise<boolean>;

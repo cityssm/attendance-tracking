@@ -14,7 +14,7 @@ interface GetAbsenceRecordsFilters {
 
 export async function getAbsenceRecords(
   filters: GetAbsenceRecordsFilters,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<AbsenceRecord[]> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

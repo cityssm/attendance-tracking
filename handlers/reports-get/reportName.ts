@@ -15,7 +15,7 @@ export async function handler(
   const rows = await getReportData(
     reportName,
     request.query as ReportParameters,
-    request.session.user as MonTYUser
+    request.session.user as AttendUser
   )
 
   if (rows === undefined) {

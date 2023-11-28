@@ -4,7 +4,7 @@ import { getAbsenceRecords } from './getAbsenceRecords.js'
 
 export async function getAbsenceRecord(
   recordId: string,
-  sessionUser: MonTYUser
+  sessionUser: AttendUser
 ): Promise<AbsenceRecord | undefined> {
   const absenceRecords = await getAbsenceRecords(
     {

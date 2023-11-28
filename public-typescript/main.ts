@@ -1,6 +1,6 @@
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 
 declare const cityssm: cityssmGlobal
 ;(() => {
@@ -74,7 +74,7 @@ declare const cityssm: cityssmGlobal
     }
   }
 
-  const MonTY: MonTYGlobal = {
+  const Attend: AttendGlobal = {
     urlPrefix,
     setUnsavedChanges,
     clearUnsavedChanges,
@@ -83,5 +83,5 @@ declare const cityssm: cityssmGlobal
   }
 
   // eslint-disable-next-line unicorn/prefer-module
-  exports.MonTY = MonTY
+  exports.Attend = Attend
 })()

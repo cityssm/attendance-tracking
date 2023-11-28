@@ -8,15 +8,15 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
 ;(() => {
-  const MonTY = exports.MonTY as MonTYGlobal
+  const Attend = exports.Attend as AttendGlobal
 
-  let users = exports.users as MonTYUser[]
+  let users = exports.users as AttendUser[]
   delete exports.users
 
   const availablePermissionValues = exports.availablePermissionValues as Record<
@@ -40,14 +40,14 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/admin/doDeleteUser`,
+        `${Attend.urlPrefix}/admin/doDeleteUser`,
         {
           userName
         },
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as {
             success: boolean
-            users: MonTYUser[]
+            users: AttendUser[]
           }
 
           if (responseJSON.success) {
@@ -87,7 +87,7 @@ declare const cityssm: cityssmGlobal
         .userName ?? ''
 
     cityssm.postJSON(
-      `${MonTY.urlPrefix}/admin/doUpdateUserCanLogin`,
+      `${Attend.urlPrefix}/admin/doUpdateUserCanLogin`,
       {
         userName,
         canLogin: canLoginSelectElement.value
@@ -95,7 +95,7 @@ declare const cityssm: cityssmGlobal
       (rawResponseJSON) => {
         const responseJSON = rawResponseJSON as {
           success: boolean
-          users: MonTYUser[]
+          users: AttendUser[]
         }
 
         if (responseJSON.success) {
@@ -140,7 +140,7 @@ declare const cityssm: cityssmGlobal
         .userName ?? ''
 
     cityssm.postJSON(
-      `${MonTY.urlPrefix}/admin/doUpdateUserIsAdmin`,
+      `${Attend.urlPrefix}/admin/doUpdateUserIsAdmin`,
       {
         userName,
         isAdmin: isAdminSelectElement.value
@@ -148,7 +148,7 @@ declare const cityssm: cityssmGlobal
       (rawResponseJSON) => {
         const responseJSON = rawResponseJSON as {
           success: boolean
-          users: MonTYUser[]
+          users: AttendUser[]
         }
 
         if (responseJSON.success) {
@@ -191,7 +191,7 @@ declare const cityssm: cityssmGlobal
     ) as HTMLTableRowElement
 
     cityssm.postJSON(
-      `${MonTY.urlPrefix}/admin/doSetUserPermission`,
+      `${Attend.urlPrefix}/admin/doSetUserPermission`,
       formEvent.currentTarget,
       (rawResponseJSON) => {
         const responseJSON = rawResponseJSON as {
@@ -320,7 +320,7 @@ declare const cityssm: cityssmGlobal
       }
 
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/admin/doGetUserPermissions`,
+        `${Attend.urlPrefix}/admin/doGetUserPermissions`,
         {
           userName
         },
@@ -519,13 +519,13 @@ declare const cityssm: cityssmGlobal
         formEvent.preventDefault()
 
         cityssm.postJSON(
-          `${MonTY.urlPrefix}/admin/doAddUser`,
+          `${Attend.urlPrefix}/admin/doAddUser`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON = rawResponseJSON as
               | {
                   success: true
-                  users: MonTYUser[]
+                  users: AttendUser[]
                 }
               | {
                   success: false

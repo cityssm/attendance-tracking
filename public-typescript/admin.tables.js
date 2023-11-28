@@ -4,7 +4,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     var _a, _b, _c;
-    const MonTY = exports.MonTY;
+    const Attend = exports.Attend;
     const updateButtonClassName = 'is-update-button';
     const upButtonClassName = 'is-up-button';
     const downButtonClassName = 'is-down-button';
@@ -21,7 +21,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const absenceTypeKey = rowElement.dataset.absenceTypeKey;
         const absenceType = rowElement.querySelector('input')
             .value;
-        cityssm.postJSON(`${MonTY.urlPrefix}/admin/doUpdateAbsenceType`, {
+        cityssm.postJSON(`${Attend.urlPrefix}/admin/doUpdateAbsenceType`, {
             absenceTypeKey,
             absenceType
         }, (rawResponseJSON) => {
@@ -38,7 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const buttonElement = clickEvent.currentTarget;
         const tableRowElement = buttonElement.closest('tr');
         const absenceTypeKey = tableRowElement.dataset.absenceTypeKey;
-        cityssm.postJSON(`${MonTY.urlPrefix}/admin/${buttonElement.dataset.direction === 'up'
+        cityssm.postJSON(`${Attend.urlPrefix}/admin/${buttonElement.dataset.direction === 'up'
             ? 'doMoveAbsenceTypeUp'
             : 'doMoveAbsenceTypeDown'}`, {
             absenceTypeKey,
@@ -63,7 +63,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const rowElement = clickEvent.currentTarget.closest('tr');
         const absenceTypeKey = rowElement.dataset.absenceTypeKey;
         function doDelete() {
-            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doDeleteAbsenceType`, {
+            cityssm.postJSON(`${Attend.urlPrefix}/admin/doDeleteAbsenceType`, {
                 absenceTypeKey
             }, (rawResponseJSON) => {
                 var _a;
@@ -166,7 +166,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         let addCloseModalFunction;
         function addAbsenceType(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doAddAbsenceType`, formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${Attend.urlPrefix}/admin/doAddAbsenceType`, formEvent.currentTarget, (rawResponseJSON) => {
                 var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
@@ -210,7 +210,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const responseType = rowElement.querySelector('input')
             .value;
         const isSuccessful = rowElement.querySelector('select').value;
-        cityssm.postJSON(`${MonTY.urlPrefix}/admin/doUpdateCallOutResponseType`, {
+        cityssm.postJSON(`${Attend.urlPrefix}/admin/doUpdateCallOutResponseType`, {
             responseTypeId,
             responseType,
             isSuccessful
@@ -228,7 +228,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const buttonElement = clickEvent.currentTarget;
         const tableRowElement = buttonElement.closest('tr');
         const responseTypeId = tableRowElement.dataset.responseTypeId;
-        cityssm.postJSON(`${MonTY.urlPrefix}/admin/${buttonElement.dataset.direction === 'up'
+        cityssm.postJSON(`${Attend.urlPrefix}/admin/${buttonElement.dataset.direction === 'up'
             ? 'doMoveCallOutResponseTypeUp'
             : 'doMoveCallOutResponseTypeDown'}`, {
             responseTypeId,
@@ -253,7 +253,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const rowElement = clickEvent.currentTarget.closest('tr');
         const responseTypeId = rowElement.dataset.responseTypeId;
         function doDelete() {
-            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doDeleteCallOutResponseType`, {
+            cityssm.postJSON(`${Attend.urlPrefix}/admin/doDeleteCallOutResponseType`, {
                 responseTypeId
             }, (rawResponseJSON) => {
                 var _a;
@@ -374,7 +374,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         let addCloseModalFunction;
         function addCallOutResponseType(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doAddCallOutResponseType`, formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${Attend.urlPrefix}/admin/doAddCallOutResponseType`, formEvent.currentTarget, (rawResponseJSON) => {
                 var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
@@ -416,7 +416,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const rowElement = clickEvent.currentTarget.closest('tr');
         const afterHoursReasonId = rowElement.dataset.afterHoursReasonId;
         const afterHoursReason = rowElement.querySelector('input').value;
-        cityssm.postJSON(`${MonTY.urlPrefix}/admin/doUpdateAfterHoursReason`, {
+        cityssm.postJSON(`${Attend.urlPrefix}/admin/doUpdateAfterHoursReason`, {
             afterHoursReasonId,
             afterHoursReason
         }, (rawResponseJSON) => {
@@ -433,7 +433,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const buttonElement = clickEvent.currentTarget;
         const tableRowElement = buttonElement.closest('tr');
         const afterHoursReasonId = tableRowElement.dataset.afterHoursReasonId;
-        cityssm.postJSON(`${MonTY.urlPrefix}/admin/${buttonElement.dataset.direction === 'up'
+        cityssm.postJSON(`${Attend.urlPrefix}/admin/${buttonElement.dataset.direction === 'up'
             ? 'doMoveAfterHoursReasonUp'
             : 'doMoveAfterHoursReasonDown'}`, {
             afterHoursReasonId,
@@ -458,7 +458,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const rowElement = clickEvent.currentTarget.closest('tr');
         const afterHoursReasonId = rowElement.dataset.afterHoursReasonId;
         function doDelete() {
-            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doDeleteAfterHoursReason`, {
+            cityssm.postJSON(`${Attend.urlPrefix}/admin/doDeleteAfterHoursReason`, {
                 afterHoursReasonId
             }, (rawResponseJSON) => {
                 var _a;
@@ -562,7 +562,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         let addCloseModalFunction;
         function addAfterHoursReason(formEvent) {
             formEvent.preventDefault();
-            cityssm.postJSON(`${MonTY.urlPrefix}/admin/doAddAfterHoursReason`, formEvent.currentTarget, (rawResponseJSON) => {
+            cityssm.postJSON(`${Attend.urlPrefix}/admin/doAddAfterHoursReason`, formEvent.currentTarget, (rawResponseJSON) => {
                 var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {

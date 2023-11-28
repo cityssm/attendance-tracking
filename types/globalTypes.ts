@@ -1,6 +1,6 @@
 import type { CallOutList } from './recordTypes.js'
 
-export interface MonTY {
+export interface Attend {
   urlPrefix: string
 
   setUnsavedChanges: () => void
@@ -11,10 +11,10 @@ export interface MonTY {
     tabContainerElements: NodeListOf<HTMLElement>
   ) => void
 
-  callOuts?: MonTYCallOuts
+  callOuts?: AttendCallOuts
 }
 
-export interface MonTYCallOuts {
+export interface AttendCallOuts {
   callOutLists: CallOutList[]
   openCallOutList: (
     listId: string,

@@ -1,13 +1,13 @@
 import type { CallOutList } from './recordTypes.js';
-export interface MonTY {
+export interface Attend {
     urlPrefix: string;
     setUnsavedChanges: () => void;
     clearUnsavedChanges: () => void;
     hasUnsavedChanges: () => boolean;
     initializeMenuTabs: (menuTabElements: NodeListOf<HTMLAnchorElement>, tabContainerElements: NodeListOf<HTMLElement>) => void;
-    callOuts?: MonTYCallOuts;
+    callOuts?: AttendCallOuts;
 }
-export interface MonTYCallOuts {
+export interface AttendCallOuts {
     callOutLists: CallOutList[];
     openCallOutList: (listId: string, onUpdateCallbackFunction?: () => void) => void;
 }

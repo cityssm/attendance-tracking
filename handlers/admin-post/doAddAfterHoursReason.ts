@@ -7,7 +7,7 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const afterHoursReasonId = await addAfterHoursReason(request.body, request.session.user as MonTYUser)
+  const afterHoursReasonId = await addAfterHoursReason(request.body, request.session.user as AttendUser)
 
   const afterHoursReasons = await getAfterHoursReasons()
 

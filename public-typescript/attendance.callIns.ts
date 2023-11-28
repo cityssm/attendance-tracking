@@ -8,7 +8,7 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type { MonTY as MonTYGlobal } from '../types/globalTypes.js'
+import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 import type {
   AbsenceRecord,
   AbsenceType,
@@ -22,7 +22,7 @@ declare const cityssm: cityssmGlobal
 
   // eslint-disable-next-line sonarjs/cognitive-complexity
 ;(() => {
-  const MonTY = exports.MonTY as MonTYGlobal
+  const Attend = exports.Attend as AttendGlobal
 
   const absenceTypes = exports.absenceTypes as AbsenceType[]
   const employees = exports.employees as Employee[]
@@ -50,7 +50,7 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/attendance/doDeleteAbsenceRecord`,
+        `${Attend.urlPrefix}/attendance/doDeleteAbsenceRecord`,
         {
           recordId
         },
@@ -187,7 +187,7 @@ declare const cityssm: cityssmGlobal
 
     function doDelete(): void {
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/attendance/doDeleteReturnToWorkRecord`,
+        `${Attend.urlPrefix}/attendance/doDeleteReturnToWorkRecord`,
         {
           recordId
         },
@@ -400,7 +400,7 @@ declare const cityssm: cityssmGlobal
       formEvent.preventDefault()
 
       cityssm.postJSON(
-        `${MonTY.urlPrefix}/attendance/doRecordCallIn`,
+        `${Attend.urlPrefix}/attendance/doRecordCallIn`,
         formEvent.currentTarget,
         (rawResponseJSON) => {
           const responseJSON = rawResponseJSON as

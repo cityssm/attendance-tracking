@@ -25,13 +25,13 @@ export async function handler(
   if (
     callInType === 'absence' &&
     hasPermission(
-      request.session.user as MonTYUser,
+      request.session.user as AttendUser,
       'attendance.absences.canUpdate'
     )
   ) {
     recordId = await addAbsenceRecord(
       request.body,
-      request.session.user as MonTYUser
+      request.session.user as AttendUser
     )
     success = true
     absenceRecords = await getAbsenceRecords(
@@ -39,18 +39,18 @@ export async function handler(
         recentOnly: true,
         todayOnly: false
       },
-      request.session.user as MonTYUser
+      request.session.user as AttendUser
     )
   } else if (
     callInType === 'returnToWork' &&
     hasPermission(
-      request.session.user as MonTYUser,
+      request.session.user as AttendUser,
       'attendance.returnsToWork.canUpdate'
     )
   ) {
     recordId = await addReturnToWorkRecord(
       request.body,
-      request.session.user as MonTYUser
+      request.session.user as AttendUser
     )
     success = true
     returnToWorkRecords = await getReturnToWorkRecords(
@@ -58,7 +58,7 @@ export async function handler(
         recentOnly: true,
         todayOnly: false
       },
-      request.session.user as MonTYUser
+      request.session.user as AttendUser
     )
   }
 

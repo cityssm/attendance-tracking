@@ -1,1 +1,1 @@
-export declare function addUser(userName: string, sessionUser: MonTYUser): Promise<boolean>;
+export declare function addUser(userName: string, sessionUser: AttendUser): Promise<boolean>;

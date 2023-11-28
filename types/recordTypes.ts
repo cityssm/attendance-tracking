@@ -172,7 +172,7 @@ export interface AfterHoursRecord
  */
 
 declare global {
-  interface MonTYUser extends Partial<RecordUserNameDateTime> {
+  interface AttendUser extends Partial<RecordUserNameDateTime> {
     userName: string
     canLogin: boolean
     isAdmin: boolean
@@ -187,6 +187,6 @@ declare global {
 
 declare module 'express-session' {
   interface Session {
-    user?: MonTYUser
+    user?: AttendUser
   }
 }

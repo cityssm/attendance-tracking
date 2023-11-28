@@ -10,7 +10,7 @@ export async function handler(
   const success = await updateUserIsAdmin(
     request.body.userName,
     request.body.isAdmin,
-    request.session.user as MonTYUser
+    request.session.user as AttendUser
   )
 
   const users = await getUsers()

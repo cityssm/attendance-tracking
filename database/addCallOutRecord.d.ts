@@ -8,5 +8,5 @@ interface AddCallOutRecordForm {
     responseTypeId: string;
     recordComment: string;
 }
-export declare function addCallOutRecord(form: AddCallOutRecordForm, sessionUser: MonTYUser): Promise<string>;
+export declare function addCallOutRecord(form: AddCallOutRecordForm, sessionUser: AttendUser): Promise<string>;
 export {};

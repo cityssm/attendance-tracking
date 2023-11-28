@@ -1,1 +1,1 @@
-export declare function deleteCallOutResponseType(responseTypeId: string, sessionUser: MonTYUser): Promise<boolean>;
+export declare function deleteCallOutResponseType(responseTypeId: string, sessionUser: AttendUser): Promise<boolean>;

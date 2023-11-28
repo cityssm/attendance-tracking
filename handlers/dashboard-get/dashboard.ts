@@ -14,7 +14,7 @@ import type {
   ReturnToWorkRecord
 } from '../../types/recordTypes.js'
 
-function isTemporaryAdmin(user: MonTYUser): boolean {
+function isTemporaryAdmin(user: AttendUser): boolean {
   return (
     getConfigProperty('application.allowTesting') &&
     (user.userName.startsWith('~~') ?? false) &&
@@ -22,7 +22,7 @@ function isTemporaryAdmin(user: MonTYUser): boolean {
   )
 }
 
-async function getAbsenceVariables(user: MonTYUser): Promise<{
+async function getAbsenceVariables(user: AttendUser): Promise<{
   absenceRecords: AbsenceRecord[]
 }> {
   let absenceRecords: AbsenceRecord[] = []
@@ -45,7 +45,7 @@ async function getAbsenceVariables(user: MonTYUser): Promise<{
   }
 }
 
-async function getReturnToWorkVariables(user: MonTYUser): Promise<{
+async function getReturnToWorkVariables(user: AttendUser): Promise<{
   returnToWorkRecords: ReturnToWorkRecord[]
 }> {
   let returnToWorkRecords: ReturnToWorkRecord[] = []
@@ -68,7 +68,7 @@ async function getReturnToWorkVariables(user: MonTYUser): Promise<{
   }
 }
 
-async function getCallOutVariables(user: MonTYUser): Promise<{
+async function getCallOutVariables(user: AttendUser): Promise<{
   callOutLists: CallOutList[]
   callOutResponseTypes: CallOutResponseType[]
 }> {
@@ -92,7 +92,7 @@ async function getCallOutVariables(user: MonTYUser): Promise<{
   }
 }
 
-async function getTestingSelfServiceDetails(user: MonTYUser): Promise<{
+async function getTestingSelfServiceDetails(user: AttendUser): Promise<{
   employeeNumber: string
   lastFourDigits: string
   lastFourDigitsBad: string
@@ -154,7 +154,7 @@ export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const authenticatedUser = request.session.user as MonTYUser
+  const authenticatedUser = request.session.user as AttendUser
 
   const { absenceRecords } = await getAbsenceVariables(authenticatedUser)
 
