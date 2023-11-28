@@ -12,7 +12,11 @@ export async function handler(
 ): Promise<void> {
   const reportName: string = request.params.reportName
 
-  const rows = await getReportData(reportName, request.query as ReportParameters)
+  const rows = await getReportData(
+    reportName,
+    request.query as ReportParameters,
+    request.session.user as MonTYUser
+  )
 
   if (rows === undefined) {
     response.status(404).json({

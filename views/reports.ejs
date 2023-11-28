@@ -18,14 +18,16 @@
             <span>Employee Attendance</span>
           </a>
         </li>
-        <li>
-          <a href="#tab--employees">
-            <span class="icon">
-              <i class="fas fa-fw fa-hard-hat" aria-hidden="true"></i>
-            </span>
-            <span>Employees</span>
-          </a>
-        </li>
+        <% if (permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
+          <li>
+            <a href="#tab--employees">
+              <span class="icon">
+                <i class="fas fa-fw fa-hard-hat" aria-hidden="true"></i>
+              </span>
+              <span>Employees</span>
+            </a>
+          </li>
+        <% } %>
       </ul>
     </aside>
   </div>
@@ -277,84 +279,85 @@
           <% } %>
         </div>
       </article>
-      <article class="is-hidden" id="tab--employees">
-        <nav class="breadcrumb">
-          <ul>
-            <li class="is-active">
-              <a href="#" aria-current="page">
-                Report Library
-              </a>
-            </li>
-            <li class="is-active">
-              <a href="#">
-                <span>Employee Reports</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <h1 class="title is-1">Employee Reports</h1>
+      <% if (permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
+        <article class="is-hidden" id="tab--employees">
+          <nav class="breadcrumb">
+            <ul>
+              <li class="is-active">
+                <a href="#" aria-current="page">
+                  Report Library
+                </a>
+              </li>
+              <li class="is-active">
+                <a href="#">
+                  <span>Employee Reports</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <h1 class="title is-1">Employee Reports</h1>
 
-        <div class="columns">
-          <div class="column">
-            <div class="panel">
-              <h2 class="panel-heading">Employee Reports</h2>
-              <a class="panel-block is-block" href="<%= urlPrefix %>/reports/employees-contacts" download>
-                <div class="columns is-mobile is-variable is-2">
-                  <div class="column is-narrow">
-                    <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
-                  </div>
-                  <div class="column">
-                    <strong>Active Employee Contacts</strong><br />
-                    All contact details for all active employees.
-                  </div>
-                </div>
-              </a>
-              <a class="panel-block is-block" href="<%= urlPrefix %>/reports/employees-inactive" download>
-                <div class="columns is-mobile is-variable is-2">
-                  <div class="column is-narrow">
-                    <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
-                  </div>
-                  <div class="column">
-                    <strong>Inactive Employees</strong><br />
-                    Employees marked as inactive, unavailable for new records.
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-          <% if (permissionFunctions.hasPermission(user, 'reports.hasRawExports')) { %>
+          <div class="columns">
             <div class="column">
               <div class="panel">
-                <div class="panel-heading">
-                  <a class="is-flex is-justify-content-space-between is-panel-block-toggle" href="#">
-                    <h2 class="has-text-weight-bold">Raw Data Exports</h2>
-                    <span class="icon"><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
-                  </a>
-                </div>
-                <div class="panel-block is-hidden">
-                  <div class="message is-info is-small">
-                    <p class="message-body">
-                      Note the raw data exports are unfiltered and unformatted.
-                      They may include deleted records that are no longer available through the application.
-                    </p>
-                  </div>
-                </div>
-                <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/employees-all" download>
+                <h2 class="panel-heading">Employee Reports</h2>
+                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/employees-contacts" download>
                   <div class="columns is-mobile is-variable is-2">
                     <div class="column is-narrow">
                       <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
                     </div>
                     <div class="column">
-                      <strong>Employees Table</strong>
+                      <strong>Active Employee Contacts</strong><br />
+                      All contact details for all active employees.
+                    </div>
+                  </div>
+                </a>
+                <a class="panel-block is-block" href="<%= urlPrefix %>/reports/employees-inactive" download>
+                  <div class="columns is-mobile is-variable is-2">
+                    <div class="column is-narrow">
+                      <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                    </div>
+                    <div class="column">
+                      <strong>Inactive Employees</strong><br />
+                      Employees marked as inactive, unavailable for new records.
                     </div>
                   </div>
                 </a>
               </div>
             </div>
-          <% } %>
-        </div>
-        
-      </article>
+            <% if (permissionFunctions.hasPermission(user, 'reports.hasRawExports')) { %>
+              <div class="column">
+                <div class="panel">
+                  <div class="panel-heading">
+                    <a class="is-flex is-justify-content-space-between is-panel-block-toggle" href="#">
+                      <h2 class="has-text-weight-bold">Raw Data Exports</h2>
+                      <span class="icon"><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
+                    </a>
+                  </div>
+                  <div class="panel-block is-hidden">
+                    <div class="message is-info is-small">
+                      <p class="message-body">
+                        Note the raw data exports are unfiltered and unformatted.
+                        They may include deleted records that are no longer available through the application.
+                      </p>
+                    </div>
+                  </div>
+                  <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/employees-all" download>
+                    <div class="columns is-mobile is-variable is-2">
+                      <div class="column is-narrow">
+                        <i class="fas fa-2x fa-file-csv" aria-hidden="true"></i>
+                      </div>
+                      <div class="column">
+                        <strong>Employees Table</strong>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            <% } %>
+          </div>
+        </article>
+      <% } %>
     </div>
   </div>
 </div>
