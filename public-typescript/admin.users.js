@@ -147,7 +147,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             for (const [permissionKey, permissionValues] of Object.entries(availablePermissionValues)) {
                 const tableRowElement = document.createElement('tr');
                 tableRowElement.dataset.permissionKey = permissionKey;
-                let iconClass = 'fa-cog';
+                let iconClass;
                 switch (permissionKey.slice(permissionKey.lastIndexOf('.') + 1)) {
                     case 'canView': {
                         iconClass = 'fa-eye';
@@ -159,6 +159,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     }
                     case 'canManage': {
                         iconClass = 'fa-tools';
+                        break;
+                    }
+                    default: {
+                        iconClass = 'fa-cog';
                         break;
                     }
                 }

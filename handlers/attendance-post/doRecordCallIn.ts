@@ -22,54 +22,44 @@ export async function handler(
   let absenceRecords: AbsenceRecord[] = []
   let returnToWorkRecords: ReturnToWorkRecord[] = []
 
-  switch (callInType) {
-    case 'absence': {
-      if (
-        hasPermission(
-          request.session.user as MonTYUser,
-          'attendance.absences.canUpdate'
-        )
-      ) {
-        recordId = await addAbsenceRecord(
-          request.body,
-          request.session.user as MonTYUser
-        )
-        success = true
-        absenceRecords = await getAbsenceRecords(
-          {
-            recentOnly: true,
-            todayOnly: false
-          },
-          request.session.user as MonTYUser
-        )
-      }
-
-      break
-    }
-
-    case 'returnToWork': {
-      if (
-        hasPermission(
-          request.session.user as MonTYUser,
-          'attendance.returnsToWork.canUpdate'
-        )
-      ) {
-        recordId = await addReturnToWorkRecord(
-          request.body,
-          request.session.user as MonTYUser
-        )
-        success = true
-        returnToWorkRecords = await getReturnToWorkRecords(
-          {
-            recentOnly: true,
-            todayOnly: false
-          },
-          request.session.user as MonTYUser
-        )
-      }
-
-      break
-    }
+  if (
+    callInType === 'absence' &&
+    hasPermission(
+      request.session.user as MonTYUser,
+      'attendance.absences.canUpdate'
+    )
+  ) {
+    recordId = await addAbsenceRecord(
+      request.body,
+      request.session.user as MonTYUser
+    )
+    success = true
+    absenceRecords = await getAbsenceRecords(
+      {
+        recentOnly: true,
+        todayOnly: false
+      },
+      request.session.user as MonTYUser
+    )
+  } else if (
+    callInType === 'returnToWork' &&
+    hasPermission(
+      request.session.user as MonTYUser,
+      'attendance.returnsToWork.canUpdate'
+    )
+  ) {
+    recordId = await addReturnToWorkRecord(
+      request.body,
+      request.session.user as MonTYUser
+    )
+    success = true
+    returnToWorkRecords = await getReturnToWorkRecords(
+      {
+        recentOnly: true,
+        todayOnly: false
+      },
+      request.session.user as MonTYUser
+    )
   }
 
   response.json({

@@ -16,10 +16,12 @@ import {
 
 export const config: Config = {
   application: {
-    applicationName: 'MonTY Call Outs and Attendance'
+    applicationName: 'Call Out and Attendance Tracking',
+    bigLogoURL: '/images-custom/ssm.svg',
+    smallLogoURL: '/images-custom/ssm.svg'
   },
   reverseProxy: {
-    urlPrefix: '/monty'
+    urlPrefix: '/attendance'
   },
   session: {},
   aliases: {},
@@ -33,7 +35,8 @@ export const config: Config = {
     employees: {
       avantiSync: true
     },
-    selfService: true
+    selfService: false,
+    help: false
   },
   settings: {
     printPdf: {

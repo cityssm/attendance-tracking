@@ -108,6 +108,10 @@ export function clearCacheByTableName(
       employeeProperties = []
       break
     }
+    default: {
+      debug(`Unknown table name: ${tableName as string}`)
+      break
+    }
   }
 
   try {

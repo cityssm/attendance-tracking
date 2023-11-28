@@ -154,47 +154,51 @@
       </div>
     </div>
   </div>
-  <div class="column">
-    <div class="box">
-      <div class="media">
-        <div class="media-left">
-          <i class="fas fa-4x fa-fw fa-question-circle" aria-hidden="true"></i>
-        </div>
-        <a class="media-content" href="https://cityssm.github.io/MonTY/docs" target="_blank" rel="noopener noreferrer">
-          <h2 class="title is-4 is-marginless has-text-link">
-            Help
-          </h2>
-          <p>
-            Instructions on how to use this application.
-          </p>
-        </a>
-      </div>
-      <% if (configFunctions.getConfigProperty('features.selfService')) { %>
-        <div class="media mt-4">
-          <div class="media-left">
-            <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
-              <i class="fas fa-hard-hat"></i>
-              <i class="fas fa-exchange-alt" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
-            </span>
+  <% if (configFunctions.getConfigProperty('features.help') || configFunctions.getConfigProperty('features.selfService')) { %>
+    <div class="column">
+      <div class="box">
+        <% if (configFunctions.getConfigProperty('features.help')) { %>
+          <div class="media mb-4">
+            <div class="media-left">
+              <i class="fas fa-4x fa-fw fa-question-circle" aria-hidden="true"></i>
+            </div>
+            <a class="media-content" href="https://cityssm.github.io/MonTY/docs" target="_blank" rel="noopener noreferrer">
+              <h2 class="title is-4 is-marginless has-text-link">
+                Help
+              </h2>
+              <p>
+                Instructions on how to use this application.
+              </p>
+            </a>
           </div>
-          <a class="media-content"
-            <% if (employeeNumber !== '') { %>
-            data-employee-number="<%= employeeNumber %>"
-            data-last-four-digits="<%= lastFourDigits %>"
-            data-last-four-digits-bad="<%= lastFourDigitsBad %>"
-            <% } %>
-            href="<%= urlPrefix + configFunctions.getConfigProperty('settings.selfService.path') %>"
-            target="_blank"
-            rel="noopener noreferrer">
-            <h2 class="title is-4 is-marginless has-text-link">
-              Employee Self Service
-            </h2>
-            <p>The interface for employees to manage aspects of their employee records.</p>
-          </a>
-        </div>
-      <% } %>
+        <% } %>
+        <% if (configFunctions.getConfigProperty('features.selfService')) { %>
+          <div class="media">
+            <div class="media-left">
+              <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
+                <i class="fas fa-hard-hat"></i>
+                <i class="fas fa-exchange-alt" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+              </span>
+            </div>
+            <a class="media-content"
+              <% if (employeeNumber !== '') { %>
+              data-employee-number="<%= employeeNumber %>"
+              data-last-four-digits="<%= lastFourDigits %>"
+              data-last-four-digits-bad="<%= lastFourDigitsBad %>"
+              <% } %>
+              href="<%= urlPrefix + configFunctions.getConfigProperty('settings.selfService.path') %>"
+              target="_blank"
+              rel="noopener noreferrer">
+              <h2 class="title is-4 is-marginless has-text-link">
+                Employee Self Service
+              </h2>
+              <p>The interface for employees to manage aspects of their employee records.</p>
+            </a>
+          </div>
+        <% } %>
+      </div>
     </div>
-  </div>
+  <% } %>
 </div>
 
 <% if (user.isAdmin) { %>

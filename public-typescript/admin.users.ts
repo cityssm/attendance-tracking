@@ -246,7 +246,7 @@ declare const cityssm: cityssmGlobal
         const tableRowElement = document.createElement('tr')
         tableRowElement.dataset.permissionKey = permissionKey
 
-        let iconClass = 'fa-cog'
+        let iconClass: string
 
         switch (permissionKey.slice(permissionKey.lastIndexOf('.') + 1)) {
           case 'canView': {
@@ -259,6 +259,10 @@ declare const cityssm: cityssmGlobal
           }
           case 'canManage': {
             iconClass = 'fa-tools'
+            break
+          }
+          default: {
+            iconClass = 'fa-cog'
             break
           }
         }

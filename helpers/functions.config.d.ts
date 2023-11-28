@@ -4,7 +4,7 @@ import type { config as MSSQLConfig } from 'mssql';
 import type { ConfigActiveDirectory, ConfigEmployeeEligibilityFunction, ConfigEmployeeSortKeyFunction, ConfigTemporaryUserCredentials } from '../types/configTypes.js';
 export declare function getConfigProperty(propertyName: 'application.applicationName' | 'application.backgroundURL' | 'application.bigLogoURL' | 'application.smallLogoURL' | 'application.userDomain' | 'reverseProxy.urlPrefix' | 'session.cookieName' | 'session.secret'): string;
 export declare function getConfigProperty(propertyName: 'application.httpPort' | 'application.maximumProcesses' | 'session.maxAgeMillis' | 'settings.recentDays' | 'settings.updateDays'): number;
-export declare function getConfigProperty(propertyName: 'application.allowTesting' | 'reverseProxy.disableCompression' | 'reverseProxy.disableEtag' | 'session.doKeepAlive' | 'features.attendance.absences' | 'features.attendance.callOuts' | 'features.attendance.returnsToWork' | 'features.attendance.afterHours' | 'features.employees.avantiSync' | 'features.selfService'): boolean;
+export declare function getConfigProperty(propertyName: 'application.allowTesting' | 'reverseProxy.disableCompression' | 'reverseProxy.disableEtag' | 'session.doKeepAlive' | 'features.attendance.absences' | 'features.attendance.callOuts' | 'features.attendance.returnsToWork' | 'features.attendance.afterHours' | 'features.employees.avantiSync' | 'features.selfService' | 'features.help'): boolean;
 export declare function getConfigProperty(propertyName: 'tempUsers'): ConfigTemporaryUserCredentials[];
 export declare function getConfigProperty(propertyName: 'activeDirectory'): ConfigActiveDirectory | undefined;
 export declare function getConfigProperty(propertyName: 'adWebAuthConfig'): ADWebAuthConfig | undefined;
@@ -16,6 +16,7 @@ export declare function getConfigProperty(propertyName: 'settings.employeeEligib
 export declare function getConfigProperty(propertyName: 'settings.employeeSortKeyFunctions'): ConfigEmployeeSortKeyFunction[];
 export declare function getConfigProperty(propertyName: 'settings.employeeNumberRegularExpression'): RegExp | undefined;
 export declare function getConfigProperty(propertyName: 'settings.selfService.path'): `/${string}`;
+export declare const isLogoOverwritten: boolean;
 export declare function includeAttendance(): boolean;
 export declare const historicalDays: number;
 export declare const deleteDays: number;
@@ -23,6 +24,7 @@ export declare const keepAliveMillis: number;
 declare const _default: {
     getConfigProperty: typeof getConfigProperty;
     includeAttendance: typeof includeAttendance;
+    isLogoOverwritten: boolean;
     historicalDays: number;
     deleteDays: number;
     keepAliveMillis: number;

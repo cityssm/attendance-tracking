@@ -2,10 +2,12 @@ import { eligibility_hasProperty, sortKey_alphabetical, sortKey_propertyValue, s
 import { eligibility_operator, eligibility_operatorJC6, eligibility_operatorJC7, eligibility_operatorJC8, eligibility_unionized } from './functions.ssm.js';
 export const config = {
     application: {
-        applicationName: 'MonTY Call Outs and Attendance'
+        applicationName: 'Call Out and Attendance Tracking',
+        bigLogoURL: '/images-custom/ssm.svg',
+        smallLogoURL: '/images-custom/ssm.svg'
     },
     reverseProxy: {
-        urlPrefix: '/monty'
+        urlPrefix: '/attendance'
     },
     session: {},
     aliases: {},
@@ -19,7 +21,8 @@ export const config = {
         employees: {
             avantiSync: true
         },
-        selfService: true
+        selfService: false,
+        help: false
     },
     settings: {
         printPdf: {

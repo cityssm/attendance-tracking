@@ -52,6 +52,7 @@ configFallbackValues.set('features.attendance.afterHours', true)
 
 configFallbackValues.set('features.employees.avantiSync', false)
 configFallbackValues.set('features.selfService', false)
+configFallbackValues.set('features.help', true)
 
 configFallbackValues.set('settings.avantiSync.locationCodes', [])
 
@@ -102,6 +103,7 @@ export function getConfigProperty(
     | 'features.attendance.afterHours'
     | 'features.employees.avantiSync'
     | 'features.selfService'
+    | 'features.help'
 ): boolean
 
 export function getConfigProperty(
@@ -162,6 +164,12 @@ export function getConfigProperty(propertyName: string): unknown {
   return currentObject
 }
 
+export const isLogoOverwritten =
+  getConfigProperty('application.bigLogoURL') !==
+    configFallbackValues.get('application.bigLogoURL') ||
+  getConfigProperty('application.smallLogoURL') !==
+    configFallbackValues.get('application.smallLogoURL')
+
 export function includeAttendance(): boolean {
   return (
     getConfigProperty('features.attendance.absences') ||
@@ -183,6 +191,7 @@ export const keepAliveMillis = getConfigProperty('session.doKeepAlive')
 export default {
   getConfigProperty,
   includeAttendance,
+  isLogoOverwritten,
   historicalDays,
   deleteDays,
   keepAliveMillis

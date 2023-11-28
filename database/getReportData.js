@@ -1,5 +1,6 @@
 import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
+import { hasPermission } from '../helpers/functions.permissions.js';
 const recentDays = getConfigProperty('settings.recentDays');
 const absenceRecordsRecentSQL = `select r.recordId,
   r.employeeNumber, r.employeeName,
@@ -42,200 +43,273 @@ const afterHoursRecordsRecentSQL = `select r.recordId,
   left join MonTY.AfterHoursReasons t on r.afterHoursReasonId = t.afterHoursReasonId
   where r.recordDelete_datetime is null
   and datediff(day, r.attendanceDateTime, getdate()) <= @recentDays`;
-export async function getReportData(reportName, reportParameters = {}) {
+export async function getReportData(reportName, reportParameters = {}, user) {
     const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let request = pool.request();
     let sql = '';
     switch (reportName) {
         case 'employees-all': {
-            sql = 'select * from MonTY.Employees';
+            if (hasPermission(user, 'reports.hasRawExports') &&
+                hasPermission(user, 'attendance.callOuts.canView')) {
+                sql = 'select * from MonTY.Employees';
+            }
             break;
         }
         case 'employees-contacts': {
-            sql = `select
-        employeeNumber, employeeSurname, employeeGivenName,
-        jobTitle, department,
-        workContact1, workContact2, homeContact1, homeContact2
-        from MonTY.Employees
-        where isActive = 1
-        and recordDelete_dateTime is null
-        order by employeeSurname, employeeGivenName, employeeNumber`;
+            if (hasPermission(user, 'attendance.callOuts.canView')) {
+                sql = `select
+          employeeNumber, employeeSurname, employeeGivenName,
+          jobTitle, department,
+          workContact1, workContact2, homeContact1, homeContact2
+          from MonTY.Employees
+          where isActive = 1
+          and recordDelete_dateTime is null
+          order by employeeSurname, employeeGivenName, employeeNumber`;
+            }
             break;
         }
         case 'employees-inactive': {
-            sql = `select
-        employeeNumber, employeeSurname, employeeGivenName,
-        jobTitle, department
-        from MonTY.Employees
-        where isActive = 0
-        and recordDelete_dateTime is null
-        order by employeeSurname, employeeGivenName, employeeNumber`;
+            if (hasPermission(user, 'attendance.callOuts.canView')) {
+                sql = `select
+          employeeNumber, employeeSurname, employeeGivenName,
+          jobTitle, department
+          from MonTY.Employees
+          where isActive = 0
+          and recordDelete_dateTime is null
+          order by employeeSurname, employeeGivenName, employeeNumber`;
+            }
             break;
         }
         case 'absenceRecords-all': {
-            sql = 'select * from MonTY.AbsenceRecords';
+            if (hasPermission(user, 'reports.hasRawExports') &&
+                hasPermission(user, 'attendance.absences.canView')) {
+                sql = 'select * from MonTY.AbsenceRecords';
+            }
             break;
         }
         case 'absenceRecords-recent': {
-            sql = `${absenceRecordsRecentSQL} order by r.absenceDateTime, r.recordId`;
-            request = request.input('recentDays', recentDays);
+            if (hasPermission(user, 'attendance.absences.canView')) {
+                sql = `${absenceRecordsRecentSQL} order by r.absenceDateTime, r.recordId`;
+                request = request.input('recentDays', recentDays);
+            }
             break;
         }
         case 'absenceRecords-recent-byEmployeeNumber': {
-            sql = `${absenceRecordsRecentSQL}
-        and r.employeeNumber = @employeeNumber
-        order by r.absenceDateTime, r.recordId`;
-            request = request
-                .input('recentDays', recentDays)
-                .input('employeeNumber', reportParameters.employeeNumber);
+            if (hasPermission(user, 'attendance.absences.canView')) {
+                sql = `${absenceRecordsRecentSQL}
+          and r.employeeNumber = @employeeNumber
+          order by r.absenceDateTime, r.recordId`;
+                request = request
+                    .input('recentDays', recentDays)
+                    .input('employeeNumber', reportParameters.employeeNumber);
+            }
             break;
         }
         case 'historicalAbsenceRecords-all': {
-            sql = 'select * from MonTY.HistoricalAbsenceRecords';
+            if (hasPermission(user, 'reports.hasRawExports') &&
+                hasPermission(user, 'attendance.absences.canView')) {
+                sql = 'select * from MonTY.HistoricalAbsenceRecords';
+            }
             break;
         }
         case 'absenceTypes-all': {
-            sql = 'select * from MonTY.AbsenceTypes';
+            if (hasPermission(user, 'reports.hasRawExports') &&
+                hasPermission(user, 'attendance.absences.canView')) {
+                sql = 'select * from MonTY.AbsenceTypes';
+            }
             break;
         }
         case 'absenceTypes-active': {
-            sql = `select absenceTypeKey, absenceType, orderNumber,
-        recordUpdate_userName, recordUpdate_dateTime
-        from MonTY.AbsenceTypes
-        where recordDelete_dateTime is null
-        order by orderNumber, absenceType`;
+            if (hasPermission(user, 'attendance.absences.canView')) {
+                sql = `select absenceTypeKey, absenceType, orderNumber,
+          recordUpdate_userName, recordUpdate_dateTime
+          from MonTY.AbsenceTypes
+          where recordDelete_dateTime is null
+          order by orderNumber, absenceType`;
+            }
             break;
         }
         case 'returnToWorkRecords-all': {
-            sql = 'select * from MonTY.ReturnToWorkRecords';
+            if (hasPermission(user, 'reports.hasRawExports') &&
+                hasPermission(user, 'attendance.returnsToWork.canView')) {
+                sql = 'select * from MonTY.ReturnToWorkRecords';
+            }
             break;
         }
         case 'returnToWorkRecords-recent': {
-            sql = `${returnToWorkRecordsRecentSQL} order by r.returnDateTime, r.recordId`;
-            request = request.input('recentDays', recentDays);
+            if (hasPermission(user, 'attendance.returnsToWork.canView')) {
+                sql = `${returnToWorkRecordsRecentSQL} order by r.returnDateTime, r.recordId`;
+                request = request.input('recentDays', recentDays);
+            }
             break;
         }
         case 'returnToWorkRecords-recent-byEmployeeNumber': {
-            sql = `${returnToWorkRecordsRecentSQL}
+            if (hasPermission(user, 'attendance.returnsToWork.canView')) {
+                sql = `${returnToWorkRecordsRecentSQL}
         and r.employeeNumber = @employeeNumber
         order by r.returnDateTime, r.recordId`;
-            request = request
-                .input('recentDays', recentDays)
-                .input('employeeNumber', reportParameters.employeeNumber);
+                request = request
+                    .input('recentDays', recentDays)
+                    .input('employeeNumber', reportParameters.employeeNumber);
+            }
             break;
         }
         case 'historicalReturnToWorkRecords-all': {
-            sql = 'select * from MonTY.HistoricalReturnToWorkRecords';
+            if (hasPermission(user, 'reports.hasRawExports') &&
+                hasPermission(user, 'attendance.returnsToWork.canView')) {
+                sql = 'select * from MonTY.HistoricalReturnToWorkRecords';
+            }
             break;
         }
         case 'callOutListMembers-formatted': {
-            sql = `select m.listId, l.listName,
-        m.employeeNumber, e.employeeSurname, e.employeeGivenName,
-        e.homeContact1, e.homeContact2, e.workContact1, e.workContact2,
-        m.sortKey
-        from MonTY.CallOutListMembers m
-        left join MonTY.CallOutLists l on m.listId = l.listId
-        left join MonTY.Employees e on m.employeeNumber = e.employeeNumber
-        where m.recordDelete_datetime is null
-        order by m.listId, m.sortKey, m.employeeNumber`;
+            if (hasPermission(user, 'attendance.callOuts.canView')) {
+                sql = `select m.listId, l.listName,
+          m.employeeNumber, e.employeeSurname, e.employeeGivenName,
+          e.homeContact1, e.homeContact2, e.workContact1, e.workContact2,
+          m.sortKey
+          from MonTY.CallOutListMembers m
+          left join MonTY.CallOutLists l on m.listId = l.listId
+          left join MonTY.Employees e on m.employeeNumber = e.employeeNumber
+          where m.recordDelete_datetime is null
+          order by m.listId, m.sortKey, m.employeeNumber`;
+            }
             break;
         }
         case 'callOutListMembers-formatted-byListId': {
-            sql = `select m.listId, l.listName,
-        m.employeeNumber, e.employeeSurname, e.employeeGivenName,
-        e.homeContact1, e.homeContact2, e.workContact1, e.workContact2,
-        m.sortKey
-        from MonTY.CallOutListMembers m
-        left join MonTY.CallOutLists l on m.listId = l.listId
-        left join MonTY.Employees e on m.employeeNumber = e.employeeNumber
-        where m.recordDelete_datetime is null
-        and m.listId = @listId
-        order by m.listId, m.sortKey, m.employeeNumber`;
-            request = request.input('listId', reportParameters.listId);
+            if (hasPermission(user, 'attendance.callOuts.canView')) {
+                sql = `select m.listId, l.listName,
+          m.employeeNumber, e.employeeSurname, e.employeeGivenName,
+          e.homeContact1, e.homeContact2, e.workContact1, e.workContact2,
+          m.sortKey
+          from MonTY.CallOutListMembers m
+          left join MonTY.CallOutLists l on m.listId = l.listId
+          left join MonTY.Employees e on m.employeeNumber = e.employeeNumber
+          where m.recordDelete_datetime is null
+          and m.listId = @listId
+          order by m.listId, m.sortKey, m.employeeNumber`;
+                request = request.input('listId', reportParameters.listId);
+            }
             break;
         }
         case 'callOutRecords-all': {
-            sql = 'select * from MonTY.CallOutRecords';
+            if (hasPermission(user, 'reports.hasRawExports') &&
+                hasPermission(user, 'attendance.callOuts.canView')) {
+                sql = 'select * from MonTY.CallOutRecords';
+            }
             break;
         }
         case 'callOutRecords-recent': {
-            sql = `${callOutRecordsRecentSQL} order by r.callOutDateTime, r.recordId`;
-            request = request.input('recentDays', recentDays);
+            if (hasPermission(user, 'attendance.callOuts.canView')) {
+                sql = `${callOutRecordsRecentSQL} order by r.callOutDateTime, r.recordId`;
+                request = request.input('recentDays', recentDays);
+            }
             break;
         }
         case 'callOutRecords-recent-byListId': {
-            sql = `${callOutRecordsRecentSQL}
-        and r.listId = @listId
-        order by r.callOutDateTime, r.recordId`;
-            request = request
-                .input('recentDays', recentDays)
-                .input('listId', reportParameters.listId);
+            if (hasPermission(user, 'attendance.callOuts.canView')) {
+                sql = `${callOutRecordsRecentSQL}
+          and r.listId = @listId
+          order by r.callOutDateTime, r.recordId`;
+                request = request
+                    .input('recentDays', recentDays)
+                    .input('listId', reportParameters.listId);
+            }
             break;
         }
         case 'callOutRecords-recent-byEmployeeNumber': {
-            sql = `${callOutRecordsRecentSQL}
-        and r.employeeNumber = @employeeNumber
-        order by r.callOutDateTime, r.recordId`;
-            request = request
-                .input('recentDays', recentDays)
-                .input('employeeNumber', reportParameters.employeeNumber);
+            if (hasPermission(user, 'attendance.callOuts.canView')) {
+                sql = `${callOutRecordsRecentSQL}
+          and r.employeeNumber = @employeeNumber
+          order by r.callOutDateTime, r.recordId`;
+                request = request
+                    .input('recentDays', recentDays)
+                    .input('employeeNumber', reportParameters.employeeNumber);
+            }
             break;
         }
         case 'historicalCallOutRecords-all': {
-            sql = 'select * from MonTY.HistoricalCallOutRecords';
+            if (hasPermission(user, 'reports.hasRawExports') &&
+                hasPermission(user, 'attendance.callOuts.canView')) {
+                sql = 'select * from MonTY.HistoricalCallOutRecords';
+            }
             break;
         }
         case 'callOutResponseTypes-all': {
-            sql = 'select * from MonTY.CallOutResponseTypes';
+            if (hasPermission(user, 'reports.hasRawExports') &&
+                hasPermission(user, 'attendance.callOuts.canView')) {
+                sql = 'select * from MonTY.CallOutResponseTypes';
+            }
             break;
         }
         case 'callOutResponseTypes-active': {
-            sql = `select responseTypeId, responseType, isSuccessful, orderNumber,
-        recordUpdate_userName, recordUpdate_dateTime
-        from MonTY.CallOutResponseTypes
-        where recordDelete_dateTime is null
-        order by orderNumber, responseType`;
+            if (hasPermission(user, 'attendance.callOuts.canView')) {
+                sql = `select responseTypeId, responseType, isSuccessful, orderNumber,
+          recordUpdate_userName, recordUpdate_dateTime
+          from MonTY.CallOutResponseTypes
+          where recordDelete_dateTime is null
+          order by orderNumber, responseType`;
+            }
             break;
         }
         case 'afterHoursRecords-all': {
-            sql = 'select * from MonTY.AfterHoursRecords';
+            if (hasPermission(user, 'reports.hasRawExports') &&
+                hasPermission(user, 'attendance.afterHours.canView')) {
+                sql = 'select * from MonTY.AfterHoursRecords';
+            }
             break;
         }
         case 'afterHoursRecords-recent': {
-            sql = `${afterHoursRecordsRecentSQL} order by r.attendanceDateTime, r.recordId`;
-            request = request.input('recentDays', recentDays);
+            if (hasPermission(user, 'attendance.afterHours.canView')) {
+                sql = `${afterHoursRecordsRecentSQL} order by r.attendanceDateTime, r.recordId`;
+                request = request.input('recentDays', recentDays);
+            }
             break;
         }
         case 'afterHoursRecords-recent-byEmployeeNumber': {
-            sql = `${afterHoursRecordsRecentSQL}
+            if (hasPermission(user, 'attendance.afterHours.canView')) {
+                sql = `${afterHoursRecordsRecentSQL}
           and r.employeeNumber = @employeeNumber
           order by r.attendanceDateTime, r.recordId`;
-            request = request
-                .input('recentDays', recentDays)
-                .input('employeeNumber', reportParameters.employeeNumber);
+                request = request
+                    .input('recentDays', recentDays)
+                    .input('employeeNumber', reportParameters.employeeNumber);
+            }
             break;
         }
         case 'historicalAfterHoursRecords-all': {
-            sql = 'select * from MonTY.HistoricalAfterHoursRecords';
+            if (hasPermission(user, 'reports.hasRawExports') &&
+                hasPermission(user, 'attendance.afterHours.canView')) {
+                sql = 'select * from MonTY.HistoricalAfterHoursRecords';
+            }
             break;
         }
         case 'afterHoursReasons-all': {
-            sql = 'select * from MonTY.AfterHoursReasons';
+            if (hasPermission(user, 'reports.hasRawExports') &&
+                hasPermission(user, 'attendance.afterHours.canView')) {
+                sql = 'select * from MonTY.AfterHoursReasons';
+            }
             break;
         }
         case 'afterHoursReasons-active': {
-            sql = `select afterHoursReasonId, afterHoursReason, orderNumber,
-        recordUpdate_userName, recordUpdate_dateTime
-        from MonTY.AfterHoursReasons
-        where recordDelete_dateTime is null
-        order by orderNumber, afterHoursReason`;
+            if (hasPermission(user, 'attendance.afterHours.canView')) {
+                sql = `select afterHoursReasonId, afterHoursReason, orderNumber,
+          recordUpdate_userName, recordUpdate_dateTime
+          from MonTY.AfterHoursReasons
+          where recordDelete_dateTime is null
+          order by orderNumber, afterHoursReason`;
+            }
             break;
         }
         default: {
             return undefined;
         }
     }
-    const result = await request.query(sql);
-    return result.recordset;
+    if (sql === '') {
+        return undefined;
+    }
+    else {
+        const result = await request.query(sql);
+        return result.recordset;
+    }
 }
 export default getReportData;

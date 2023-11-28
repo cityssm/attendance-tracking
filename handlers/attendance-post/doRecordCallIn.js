@@ -9,29 +9,23 @@ export async function handler(request, response) {
     let recordId = '';
     let absenceRecords = [];
     let returnToWorkRecords = [];
-    switch (callInType) {
-        case 'absence': {
-            if (hasPermission(request.session.user, 'attendance.absences.canUpdate')) {
-                recordId = await addAbsenceRecord(request.body, request.session.user);
-                success = true;
-                absenceRecords = await getAbsenceRecords({
-                    recentOnly: true,
-                    todayOnly: false
-                }, request.session.user);
-            }
-            break;
-        }
-        case 'returnToWork': {
-            if (hasPermission(request.session.user, 'attendance.returnsToWork.canUpdate')) {
-                recordId = await addReturnToWorkRecord(request.body, request.session.user);
-                success = true;
-                returnToWorkRecords = await getReturnToWorkRecords({
-                    recentOnly: true,
-                    todayOnly: false
-                }, request.session.user);
-            }
-            break;
-        }
+    if (callInType === 'absence' &&
+        hasPermission(request.session.user, 'attendance.absences.canUpdate')) {
+        recordId = await addAbsenceRecord(request.body, request.session.user);
+        success = true;
+        absenceRecords = await getAbsenceRecords({
+            recentOnly: true,
+            todayOnly: false
+        }, request.session.user);
+    }
+    else if (callInType === 'returnToWork' &&
+        hasPermission(request.session.user, 'attendance.returnsToWork.canUpdate')) {
+        recordId = await addReturnToWorkRecord(request.body, request.session.user);
+        success = true;
+        returnToWorkRecords = await getReturnToWorkRecords({
+            recentOnly: true,
+            todayOnly: false
+        }, request.session.user);
     }
     response.json({
         success,

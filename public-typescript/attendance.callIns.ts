@@ -403,28 +403,27 @@ declare const cityssm: cityssmGlobal
         `${MonTY.urlPrefix}/attendance/doRecordCallIn`,
         formEvent.currentTarget,
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as {
-            success: boolean
-            callInType: 'absence' | 'returnToWork'
-            recordId: string
-            absenceRecords?: AbsenceRecord[]
-            returnToWorkRecords?: ReturnToWorkRecord[]
-          }
+          const responseJSON = rawResponseJSON as
+            | {
+                success: true
+                callInType: 'absence' | 'returnToWork'
+                recordId: string
+                absenceRecords: AbsenceRecord[] | []
+                returnToWorkRecords: ReturnToWorkRecord[] | []
+              }
+            | {
+                success: false
+              }
 
           if (responseJSON.success) {
             callInCloseModalFunction()
 
-            switch (responseJSON.callInType) {
-              case 'absence': {
-                absenceRecords = responseJSON.absenceRecords ?? []
-                renderAbsenceRecords()
-                break
-              }
-              case 'returnToWork': {
-                returnToWorkRecords = responseJSON.returnToWorkRecords ?? []
-                renderReturnToWorkRecords()
-                break
-              }
+            if (responseJSON.callInType === 'absence') {
+              absenceRecords = responseJSON.absenceRecords
+              renderAbsenceRecords()
+            } else if (responseJSON.callInType === 'returnToWork') {
+              returnToWorkRecords = responseJSON.returnToWorkRecords
+              renderReturnToWorkRecords()
             }
           }
         }
