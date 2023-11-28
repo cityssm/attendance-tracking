@@ -22,6 +22,7 @@ configFallbackValues.set('features.attendance.returnsToWork', true);
 configFallbackValues.set('features.attendance.afterHours', true);
 configFallbackValues.set('features.employees.avantiSync', false);
 configFallbackValues.set('features.selfService', false);
+configFallbackValues.set('features.help', true);
 configFallbackValues.set('settings.avantiSync.locationCodes', []);
 configFallbackValues.set('settings.employeeEligibilityFunctions', []);
 configFallbackValues.set('settings.employeeSortKeyFunctions', []);
@@ -41,6 +42,10 @@ export function getConfigProperty(propertyName) {
     }
     return currentObject;
 }
+export const isLogoOverwritten = getConfigProperty('application.bigLogoURL') !==
+    configFallbackValues.get('application.bigLogoURL') ||
+    getConfigProperty('application.smallLogoURL') !==
+        configFallbackValues.get('application.smallLogoURL');
 export function includeAttendance() {
     return (getConfigProperty('features.attendance.absences') ||
         getConfigProperty('features.attendance.callOuts') ||
@@ -54,6 +59,7 @@ export const keepAliveMillis = getConfigProperty('session.doKeepAlive')
 export default {
     getConfigProperty,
     includeAttendance,
+    isLogoOverwritten,
     historicalDays,
     deleteDays,
     keepAliveMillis

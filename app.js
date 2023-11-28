@@ -57,8 +57,10 @@ if (urlPrefix !== '') {
     debug(`urlPrefix = ${urlPrefix}`);
 }
 app.use(urlPrefix, express.static(path.join('public')));
-app.use('/favicon.ico', express.static(path.join('public', 'images', 'favicon', 'favicon.ico')));
-app.use(`${urlPrefix}/favicon.ico`, express.static(path.join('public', 'images', 'favicon', 'favicon.ico')));
+if (!configFunctions.isLogoOverwritten) {
+    app.use('/favicon.ico', express.static(path.join('public', 'images', 'favicon', 'favicon.ico')));
+    app.use(`${urlPrefix}/favicon.ico`, express.static(path.join('public', 'images', 'favicon', 'favicon.ico')));
+}
 app.use(`${urlPrefix}/lib/cityssm-bulma-js/bulma-js.js`, express.static(path.join('node_modules', '@cityssm', 'bulma-js', 'dist', 'bulma-js.js')));
 app.use(`${urlPrefix}/lib/cityssm-bulma-webapp-js`, express.static(path.join('node_modules', '@cityssm', 'bulma-webapp-js', 'dist')));
 app.use(`${urlPrefix}/lib/fa`, express.static(path.join('node_modules', '@fortawesome', 'fontawesome-free')));

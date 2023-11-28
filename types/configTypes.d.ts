@@ -41,6 +41,7 @@ export interface Config {
             avantiSync?: boolean;
         };
         selfService?: boolean;
+        help?: boolean;
     };
     settings: {
         printPdf?: {
