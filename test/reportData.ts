@@ -112,12 +112,26 @@ const reports: ReportData[] = [
   }
 ]
 
+const testUser: MonTYUser = {
+  userName: '~~testUser',
+  canLogin: true,
+  isAdmin: false,
+  permissions: {
+    'reports.hasRawExports': 'true',
+    'attendance.absences.canView': 'true',
+    'attendance.afterHours.canView': 'true',
+    'attendance.callOuts.canView': 'true',
+    'attendance.returnsToWork.canView': 'true'
+  }
+}
+
 describe('database/getReportData.js', () => {
   for (const report of reports) {
     it(`Exports "${report.reportName}"`, async () => {
       const data = await getReportData(
         report.reportName,
-        report.reportParameters ?? {}
+        report.reportParameters ?? {},
+        testUser
       )
 
       assert.ok(data)
@@ -126,7 +140,9 @@ describe('database/getReportData.js', () => {
 
   it('Fails gracefully when missing parameter object', async () => {
     const data = (await getReportData(
-      'absenceRecords-recent-byEmployeeNumber'
+      'absenceRecords-recent-byEmployeeNumber',
+      undefined,
+      testUser
     )) as unknown[]
     assert.strictEqual(data.length, 0)
   })
@@ -134,13 +150,14 @@ describe('database/getReportData.js', () => {
   it('Fails gracefully when missing parameter', async () => {
     const data = (await getReportData(
       'absenceRecords-recent-byEmployeeNumber',
-      {}
+      {},
+      testUser
     )) as unknown[]
     assert.strictEqual(data.length, 0)
   })
 
   it('Returns undefined on unknown reports', async () => {
-    const data = await getReportData('qwertyuiop')
+    const data = await getReportData('qwertyuiop', {}, testUser)
     assert.strictEqual(data, undefined)
   })
 })
