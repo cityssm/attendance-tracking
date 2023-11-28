@@ -1,5 +1,6 @@
 import assert from 'node:assert'
 
+import { manageUser } from '../data/temporaryUsers.js'
 import { getReportData } from '../database/getReportData.js'
 
 interface ReportData {
@@ -112,26 +113,13 @@ const reports: ReportData[] = [
   }
 ]
 
-const testUser: MonTYUser = {
-  userName: '~~testUser',
-  canLogin: true,
-  isAdmin: false,
-  permissions: {
-    'reports.hasRawExports': 'true',
-    'attendance.absences.canView': 'true',
-    'attendance.afterHours.canView': 'true',
-    'attendance.callOuts.canView': 'true',
-    'attendance.returnsToWork.canView': 'true'
-  }
-}
-
 describe('database/getReportData.js', () => {
   for (const report of reports) {
     it(`Exports "${report.reportName}"`, async () => {
       const data = await getReportData(
         report.reportName,
         report.reportParameters ?? {},
-        testUser
+        manageUser
       )
 
       assert.ok(data)
@@ -142,7 +130,7 @@ describe('database/getReportData.js', () => {
     const data = (await getReportData(
       'absenceRecords-recent-byEmployeeNumber',
       undefined,
-      testUser
+      manageUser
     )) as unknown[]
     assert.strictEqual(data.length, 0)
   })
@@ -151,13 +139,13 @@ describe('database/getReportData.js', () => {
     const data = (await getReportData(
       'absenceRecords-recent-byEmployeeNumber',
       {},
-      testUser
+      manageUser
     )) as unknown[]
     assert.strictEqual(data.length, 0)
   })
 
   it('Returns undefined on unknown reports', async () => {
-    const data = await getReportData('qwertyuiop', {}, testUser)
+    const data = await getReportData('qwertyuiop', {}, manageUser)
     assert.strictEqual(data, undefined)
   })
 })

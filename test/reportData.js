@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+import { manageUser } from '../data/temporaryUsers.js';
 import { getReportData } from '../database/getReportData.js';
 const reports = [
     {
@@ -104,35 +105,23 @@ const reports = [
         reportName: 'afterHoursReasons-active'
     }
 ];
-const testUser = {
-    userName: '~~testUser',
-    canLogin: true,
-    isAdmin: false,
-    permissions: {
-        'reports.hasRawExports': 'true',
-        'attendance.absences.canView': 'true',
-        'attendance.afterHours.canView': 'true',
-        'attendance.callOuts.canView': 'true',
-        'attendance.returnsToWork.canView': 'true'
-    }
-};
 describe('database/getReportData.js', () => {
     for (const report of reports) {
         it(`Exports "${report.reportName}"`, async () => {
-            const data = await getReportData(report.reportName, report.reportParameters ?? {}, testUser);
+            const data = await getReportData(report.reportName, report.reportParameters ?? {}, manageUser);
             assert.ok(data);
         });
     }
     it('Fails gracefully when missing parameter object', async () => {
-        const data = (await getReportData('absenceRecords-recent-byEmployeeNumber', undefined, testUser));
+        const data = (await getReportData('absenceRecords-recent-byEmployeeNumber', undefined, manageUser));
         assert.strictEqual(data.length, 0);
     });
     it('Fails gracefully when missing parameter', async () => {
-        const data = (await getReportData('absenceRecords-recent-byEmployeeNumber', {}, testUser));
+        const data = (await getReportData('absenceRecords-recent-byEmployeeNumber', {}, manageUser));
         assert.strictEqual(data.length, 0);
     });
     it('Returns undefined on unknown reports', async () => {
-        const data = await getReportData('qwertyuiop', {}, testUser);
+        const data = await getReportData('qwertyuiop', {}, manageUser);
         assert.strictEqual(data, undefined);
     });
 });
