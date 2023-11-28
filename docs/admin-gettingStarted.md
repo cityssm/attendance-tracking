@@ -1,4 +1,4 @@
-[Help Home](https://cityssm.github.io/MonTY/docs/)
+[Help Home](https://cityssm.github.io/attendance-tracking/docs/)
 
 # Admin - Getting Started
 
@@ -22,11 +22,11 @@ Node.js and npm are also available in most package managers.
 
 ## Step 2: Install git
 
-*Alternatively, [releases are available on GitHub](https://github.com/cityssm/monty/releases).*
+*Alternatively, [releases are available on GitHub](https://github.com/cityssm/attendance-tracking/releases).*
 *Git is not required when using releases.*
 
 [Git](https://git-scm.com/) is the version control system that manages the
-code for MonTY.
+code for Attendance Tracking.
 
 Git can run on Windows, Mac, and Linux.
 You can install it using an install on the [Git website](https://git-scm.com/),
@@ -34,25 +34,25 @@ or from most package managers.
 
     > sudo apt install git
 
-## Step 3: Clone the `monty` repository using git
+## Step 3: Clone the `attendance-tracking` repository using git
 
 Open a command line, and navigate to the folder where the application will reside.
 
-    > git clone https://github.com/cityssm/monty
+    > git clone https://github.com/cityssm/attendance-tracking
 
 ## Step 4: Install the dependencies
 
-    > cd monty
+    > cd attendance-tracking
     > npm install
 
 ## Step 5: Initialize the SQL Server tables
 
-Although MonTY prefers its own database,
-all tables are declared in the `MonTY` schema,
+Although Attendance Tracking prefers its own database,
+all tables are declared in the `AttendanceTracking` schema,
 making it possible to share a database with another application with little possibility of colliding.
 
-    > sqlcmd -S localhost -U saUser -P saP@ss -Q 'create database MonTY'
-    > sqlcmd -S localhost -U saUser -P saP@ss -d MonTY -i database/scripts/createTables.sql -I
+    > sqlcmd -S localhost -U saUser -P saP@ss -Q 'create database AttendanceTracking'
+    > sqlcmd -S localhost -U saUser -P saP@ss -d AttendanceTracking -i database/scripts/createTables.sql -I
 
 ## Step 6: Create a `config.js` file
 
@@ -64,7 +64,7 @@ See the [config.js documentation](admin-configJS.md) for help customizing
 your configuration.
 
 It is important that the config file includes Active Directory credentials for logging in,
-and database credentials with read/write permission to the MonTY tables.
+and database credentials with read/write permission to the AttendanceTracking tables.
 
 ## Step 7: Start the application
 

@@ -21,7 +21,7 @@ import routerPrint from './routes/print.js';
 import routerReports from './routes/reports.js';
 import routerSelfService from './routes/selfService.js';
 import { version } from './version.js';
-const debug = Debug(`monty:app:${process.pid}`);
+const debug = Debug(`attendance-tracking:app:${process.pid}`);
 if (getConfigProperty('tempUsers').length > 0) {
     debug('Temporary user accounts currently active!');
 }
@@ -69,7 +69,7 @@ const FileStoreSession = FileStore(session);
 app.use(session({
     store: new FileStoreSession({
         path: './data/sessions',
-        logFn: Debug(`monty:session:${process.pid}`),
+        logFn: Debug(`attendance-tracking:session:${process.pid}`),
         retries: 20
     }),
     name: sessionCookieName,

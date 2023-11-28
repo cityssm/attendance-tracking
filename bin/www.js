@@ -5,7 +5,7 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import Debug from 'debug';
 import { getConfigProperty } from '../helpers/functions.config.js';
-const debug = Debug(`monty:www:${process.pid}`);
+const debug = Debug(`attendance-tracking:www:${process.pid}`);
 const directoryName = dirname(fileURLToPath(import.meta.url));
 const processCount = Math.min(getConfigProperty('application.maximumProcesses'), os.cpus().length);
 process.title = `${getConfigProperty('application.applicationName')} (Primary)`;

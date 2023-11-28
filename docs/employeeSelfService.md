@@ -4,7 +4,7 @@
 
 ![Employee Self Service Login](images/selfServiceLogin.png)
 
-MonTY offers limited functionality to employees.
+Attendance Tracking offers limited functionality to employees.
 
 Employees log into the self service portal using their employee numbers
 and the last four digits of their home phone numbers.

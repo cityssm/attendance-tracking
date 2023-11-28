@@ -1,4 +1,4 @@
-[Help Home](https://cityssm.github.io/MonTY/docs/)
+[Help Home](https://cityssm.github.io/attendance-tracking/docs/)
 
 # Admin - Logging Into a New Install
 
@@ -11,7 +11,7 @@ In your `data/config.js` file, set the following property:
 config.tempUsers = [
   {
     {
-      userName: '~~monty',
+      userName: '~~tempAdmin',
       isAdmin: true,
       canLogin: true,
       permissions: {}

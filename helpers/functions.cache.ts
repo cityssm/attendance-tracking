@@ -19,7 +19,7 @@ import type {
   CallOutResponseType
 } from '../types/recordTypes.js'
 
-const debug = Debug(`monty:functions.cache:${process.pid}`)
+const debug = Debug(`attendance-tracking:functions.cache:${process.pid}`)
 
 /*
  * Absence Types

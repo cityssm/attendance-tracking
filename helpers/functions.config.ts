@@ -23,13 +23,13 @@ const property_session_maxAgeMillis = 'session.maxAgeMillis'
 
 const configFallbackValues = new Map<string, unknown>()
 
-configFallbackValues.set('application.applicationName', 'MonTY')
+configFallbackValues.set('application.applicationName', 'Attendance Tracking')
 configFallbackValues.set(
   'application.backgroundURL',
   '/images/truck-background.jpg'
 )
-configFallbackValues.set('application.bigLogoURL', '/images/monty-big.svg')
-configFallbackValues.set('application.smallLogoURL', '/images/monty-small.svg')
+configFallbackValues.set('application.bigLogoURL', '/images/app-big.svg')
+configFallbackValues.set('application.smallLogoURL', '/images/app-small.svg')
 configFallbackValues.set('application.httpPort', 7000)
 configFallbackValues.set('application.maximumProcesses', 4)
 configFallbackValues.set('application.allowTesting', false)
@@ -40,8 +40,8 @@ configFallbackValues.set('reverseProxy.disableCompression', false)
 configFallbackValues.set('reverseProxy.disableEtag', false)
 configFallbackValues.set('reverseProxy.urlPrefix', '')
 
-configFallbackValues.set('session.cookieName', 'monty-user-sid')
-configFallbackValues.set('session.secret', 'cityssm/monty')
+configFallbackValues.set('session.cookieName', 'attendance-tracking-user-sid')
+configFallbackValues.set('session.secret', 'cityssm/attendance-tracking')
 configFallbackValues.set(property_session_maxAgeMillis, 60 * 60 * 1000)
 configFallbackValues.set('session.doKeepAlive', false)
 

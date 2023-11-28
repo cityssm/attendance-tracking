@@ -1,4 +1,4 @@
-[Help Home](https://cityssm.github.io/MonTY/docs/)
+[Help Home](https://cityssm.github.io/attendance-tracking/docs/)
 
 # Administrator Tools - User Management
 

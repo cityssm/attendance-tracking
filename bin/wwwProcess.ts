@@ -9,7 +9,7 @@ import exitHook from 'exit-hook'
 import { app } from '../app.js'
 import { getConfigProperty } from '../helpers/functions.config.js'
 
-const debug = Debug(`monty:wwwProcess:${process.pid}`)
+const debug = Debug(`attendance-tracking:wwwProcess:${process.pid}`)
 
 interface ServerError extends Error {
   syscall: string

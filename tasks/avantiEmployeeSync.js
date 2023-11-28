@@ -9,7 +9,7 @@ import { getEmployee } from '../database/getEmployee.js';
 import { setEmployeeProperty } from '../database/setEmployeeProperty.js';
 import { updateEmployee } from '../database/updateEmployee.js';
 import { getConfigProperty } from '../helpers/functions.config.js';
-const debug = Debug('monty:tasks:avantiEmployeeSync');
+const debug = Debug('attendance-tracking:tasks:avantiEmployeeSync');
 let terminateTask = false;
 const sessionUser = {
     userName: 'sys.employeeSync',

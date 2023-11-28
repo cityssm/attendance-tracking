@@ -3,7 +3,7 @@ import Debug from 'debug';
 import exitHook from 'exit-hook';
 import { app } from '../app.js';
 import { getConfigProperty } from '../helpers/functions.config.js';
-const debug = Debug(`monty:wwwProcess:${process.pid}`);
+const debug = Debug(`attendance-tracking:wwwProcess:${process.pid}`);
 function onError(error) {
     if (error.syscall !== 'listen') {
         throw error;

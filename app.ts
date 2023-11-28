@@ -32,7 +32,7 @@ import routerReports from './routes/reports.js'
 import routerSelfService from './routes/selfService.js'
 import { version } from './version.js'
 
-const debug = Debug(`monty:app:${process.pid}`)
+const debug = Debug(`attendance-tracking:app:${process.pid}`)
 
 /*
  * INITIALIZE APP
@@ -151,7 +151,7 @@ app.use(
   session({
     store: new FileStoreSession({
       path: './data/sessions',
-      logFn: Debug(`monty:session:${process.pid}`),
+      logFn: Debug(`attendance-tracking:session:${process.pid}`),
       retries: 20
     }),
     name: sessionCookieName,

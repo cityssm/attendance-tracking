@@ -31,5 +31,5 @@ assignees: ''
 <!-- The more information you can provide, the better chance the solution will be right the first time! -->
 
 <!--
-  Thanks for helping to make MonTY better!
+  Thanks for helping to make Attendance Tracking better!
 -->

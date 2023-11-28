@@ -10,7 +10,7 @@ import Debug from 'debug'
 import { getConfigProperty } from '../helpers/functions.config.js'
 import type { WorkerMessage } from '../types/applicationTypes.js'
 
-const debug = Debug(`monty:www:${process.pid}`)
+const debug = Debug(`attendance-tracking:www:${process.pid}`)
 
 const directoryName = dirname(fileURLToPath(import.meta.url))
 

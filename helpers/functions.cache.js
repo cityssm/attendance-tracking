@@ -4,7 +4,7 @@ import { getAbsenceTypes as getAbsenceTypesFromDatabase } from '../database/getA
 import { getAfterHoursReasons as getAfterHoursReasonsFromDatabase } from '../database/getAfterHoursReasons.js';
 import { getCallOutResponseTypes as getCallOutResponseTypesFromDatabase } from '../database/getCallOutResponseTypes.js';
 import { getEmployeePropertyNames as getEmployeePropertyNamesFromDatabase } from '../database/getEmployeePropertyNames.js';
-const debug = Debug(`monty:functions.cache:${process.pid}`);
+const debug = Debug(`attendance-tracking:functions.cache:${process.pid}`);
 let absenceTypes = [];
 export async function getAbsenceTypes() {
     if (absenceTypes.length === 0) {

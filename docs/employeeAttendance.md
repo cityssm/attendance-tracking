@@ -1,14 +1,14 @@
-[Help Home](https://cityssm.github.io/MonTY/docs/)
+[Help Home](https://cityssm.github.io/attendance-tracking/docs/)
 
 # Employee Attendance
 
 ![Absence Requests](images/attendanceAbsences.png)
 
-MonTY provides four tools to help track details associated with attendance variances.
+Attendance Tracking provides four tools to help track details associated with attendance variances.
 Each tool can be disabled if it is not needed, and users can have varying permissions
 within each tool.
 
-Note that MonTY isn't meant to replace a payroll system that will ultimately determine
+Note that Attendance Tracking isn't meant to replace a payroll system that will ultimately determine
 how an employee is compensated during an attendance variance.
 It was developed with the following in mind.
 

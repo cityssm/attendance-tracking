@@ -1,4 +1,4 @@
-[Home](https://cityssm.github.io/MonTY/)
+[Home](https://cityssm.github.io/attendance-tracking/)
 
 # Help Documentation
 

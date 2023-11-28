@@ -1,26 +1,26 @@
 {
-  "name": "@cityssm/monty",
+  "name": "@cityssm/attendance-tracking",
   "version": "1.0.0-beta.1",
   "type": "module",
-  "description": "MonTY (MONitor and Track Your...)",
+  "description": "Track Your Employee Absences, Call Outs, and more!",
   "exports": "./app.js",
   "engines": {
     "node": ">=18.0.0"
   },
   "scripts": {
     "start": "cross-env NODE_ENV=production node ./bin/www.js",
-    "dev:live": "cross-env NODE_ENV=dev DEBUG=monty:* nodemon --inspect ./bin/www.js",
-    "dev:test": "cross-env NODE_ENV=dev DEBUG=monty:* TEST_DATABASES=true nodemon --inspect ./bin/www.js",
+    "dev:live": "cross-env NODE_ENV=dev DEBUG=attendance-tracking:* nodemon --inspect ./bin/www.js",
+    "dev:test": "cross-env NODE_ENV=dev DEBUG=attendance-tracking:* TEST_DATABASES=true nodemon --inspect ./bin/www.js",
     "cy:open": "cypress open --config-file cypress.config.js",
     "cy:run": "cypress run --config-file cypress.config.js",
     "cy:run:firefox": "cypress run --config-file cypress.config.js --browser firefox",
-    "test": "cross-env NODE_ENV=dev DEBUG=monty:* TEST_DATABASES=true mocha --timeout 30000 --exit",
-    "test:startup": "cross-env NODE_ENV=dev DEBUG=monty:* STARTUP_TEST=true node ./bin/www.js",
-    "coverage": "cross-env NODE_ENV=dev DEBUG=monty:* TEST_DATABASES=true c8 --reporter=lcov --reporter=text --reporter=text-summary mocha --timeout 30000 --exit"
+    "test": "cross-env NODE_ENV=dev DEBUG=attendance-tracking:* TEST_DATABASES=true mocha --timeout 30000 --exit",
+    "test:startup": "cross-env NODE_ENV=dev DEBUG=attendance-tracking:* STARTUP_TEST=true node ./bin/www.js",
+    "coverage": "cross-env NODE_ENV=dev DEBUG=attendance-tracking:* TEST_DATABASES=true c8 --reporter=lcov --reporter=text --reporter=text-summary mocha --timeout 30000 --exit"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cityssm/monty.git"
+    "url": "git+https://github.com/cityssm/attendance-tracking.git"
   },
   "keywords": [
     "absence-management",
@@ -42,9 +42,9 @@
   "author": "The Corporation of the City of Sault Ste. Marie",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cityssm/monty/issues"
+    "url": "https://github.com/cityssm/attendance-tracking/issues"
   },
-  "homepage": "https://github.com/cityssm/monty#readme",
+  "homepage": "https://github.com/cityssm/attendance-tracking#readme",
   "private": true,
   "dependencies": {
     "@cityssm/ad-web-auth-connector": "^1.0.0",

@@ -42,5 +42,5 @@ assignees: ''
 <!-- Everything helps! -->
 
 <!--
-  Thanks for helping to make MonTY better!**
+  Thanks for helping to make Attendance Tracking better!**
 -->

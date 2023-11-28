@@ -1,4 +1,4 @@
-[Help Home](https://cityssm.github.io/MonTY/docs/)
+[Help Home](https://cityssm.github.io/attendance-tracking/docs/)
 
 # Admin - config.js
 
@@ -7,7 +7,7 @@ On first install, the file does not exist. You can create one from scratch,
 or get started by using the `data/config.sample.js` file as a template.
 
 If you wish to use TypeScript to validate your config.js file,
-see [`types/configTypes.d.ts`](https://github.com/cityssm/monty/blob/main/types/configTypes.d.ts).
+see [`types/configTypes.d.ts`](https://github.com/cityssm/attendance-tracking/blob/main/types/configTypes.d.ts).
 
 ```javascript
 export const config = {}
@@ -23,12 +23,12 @@ export default config
 
 | Property Name      | Type   | Description                                                                                  | Default Value                    |
 | ------------------ | ------ | -------------------------------------------------------------------------------------------- | -------------------------------- |
-| `applicationName`  | string | Make the application your own by changing the name.                                          | `"MonTY"`                        |
+| `applicationName`  | string | Make the application your own by changing the name.                                          | `"Attendance Tracking"`          |
 | `httpPort`         | number | The listening port for HTTP.                                                                 | `7000`                           |
 | `userDomain`       | string | The domain used when authenticating users.                                                   | `null`                           |
 | `backgroundURL`    | string | The path to background used on the login page.                                               | `"/images/truck-background.jpg"` |
-| `bigLogoURL`       | string | The path to a custom logo, displayed on the login page.                                      | `"/images/monty-big.svg"`        |
-| `smallLogoURL`     | string | The path to a custom logo, displayed in the top-left corner. Square-shaped images work best. | `"/images/monty-small.svg"`      |
+| `bigLogoURL`       | string | The path to a custom logo, displayed on the login page.                                      | `"/images/app-big.svg"`        |
+| `smallLogoURL`     | string | The path to a custom logo, displayed in the top-left corner. Square-shaped images work best. | `"/images/app-small.svg"`      |
 | `maximumProcesses` | number | The maximum number of server threads. May be limited by your processor.                      | 4                                |
 
 ---
@@ -54,8 +54,8 @@ Note that before they can be used, passwords must be set.
 
 | Property Name  | Type    | Description                                                                        | Default Value      |
 | -------------- | ------- | ---------------------------------------------------------------------------------- | ------------------ |
-| `cookieName`   | string  | The name of the session cookie.                                                    | `"monty-user-sid"` |
-| `secret`       | string  | The secret used to sign the session cookie.                                        | `"cityssm/month"`  |
+| `cookieName`   | string  | The name of the session cookie.                                                    | `"attendance-tracking-user-sid"` |
+| `secret`       | string  | The secret used to sign the session cookie.                                        | `"cityssm/attendance-tracking"`  |
 | `maxAgeMillis` | number  | The session timeout in milliseconds.                                               | `3600000`          |
 | `doKeepAlive`  | boolean | When `true`, the browser will ping the web application to keep the session active. | `false`            |
 
