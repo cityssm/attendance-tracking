@@ -42,7 +42,7 @@ export async function getAbsenceRecords(
   }
 
   if (filters.todayOnly) {
-    sql += ' and datediff(day, r.absenceDateTime, getdate()) < 1'
+    sql += ' and datediff(hour, r.absenceDateTime, getdate()) < 24'
   } else if (filters.recentOnly) {
     sql += ' and datediff(day, r.absenceDateTime, getdate()) <= @recentDays'
     request = request.input(
