@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     const Attend = exports.Attend;
     let currentListId = '';
     let currentCallOutListMembers = [];
+    let absenceRecords = [];
     /*
      * Data
      */
@@ -40,6 +41,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 return true;
             }
             return false;
+        });
+        const absenceRecord = absenceRecords.find((possibleRecord) => {
+            return employeeNumber === possibleRecord.employeeNumber;
         });
         let callOutMemberModalElement;
         let callOutRecords;
@@ -240,7 +244,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         cityssm.openHtmlModal('callOuts-member', {
             onshow(modalElement) {
-                var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+                var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
                 callOutMemberModalElement = modalElement;
                 const employeeName = `${callOutListMember.employeeSurname}, ${callOutListMember.employeeGivenName}`;
                 modalElement.querySelector('.modal-card-title').textContent = employeeName;
@@ -249,21 +253,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 modalElement.querySelector('#callOutListMember--employeeNumber').textContent = callOutListMember.employeeNumber;
                 modalElement.querySelector('#callOutListMember--sortKey').textContent = (_a = callOutListMember.sortKey) !== null && _a !== void 0 ? _a : '';
                 modalElement.querySelector('#callOutListMember--listPosition').textContent = `${callOutListMemberIndex + 1} / ${currentCallOutListMembers.length}`;
+                if (absenceRecord !== undefined) {
+                    (_b = modalElement
+                        .querySelector('#callOutListMember--absenceRecord')) === null || _b === void 0 ? void 0 : _b.insertAdjacentHTML('afterbegin', `<div class="box mb-3 has-background-warning-light">
+              <div class="columns is-mobile">
+                <div class="column is-narrow" data-tooltip="Absence Record">
+                  <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                </div>
+                <div class="column">
+                  ${new Date(absenceRecord.absenceDateTime).toLocaleDateString()}<br />
+                  ${absenceRecord.absenceType}
+                </div>
+              </div>
+              </div>`);
+                }
                 if (canUpdate) {
                     ;
-                    modalElement.querySelector('#callOutListMember--workContact1').textContent = (_b = callOutListMember.workContact1) !== null && _b !== void 0 ? _b : '';
-                    modalElement.querySelector('#callOutListMember--workContact2').textContent = (_c = callOutListMember.workContact2) !== null && _c !== void 0 ? _c : '';
-                    modalElement.querySelector('#callOutListMember--homeContact1').textContent = (_d = callOutListMember.homeContact1) !== null && _d !== void 0 ? _d : '';
-                    modalElement.querySelector('#callOutListMember--homeContact2').textContent = (_e = callOutListMember.homeContact2) !== null && _e !== void 0 ? _e : '';
+                    modalElement.querySelector('#callOutListMember--workContact1').textContent = (_c = callOutListMember.workContact1) !== null && _c !== void 0 ? _c : '';
+                    modalElement.querySelector('#callOutListMember--workContact2').textContent = (_d = callOutListMember.workContact2) !== null && _d !== void 0 ? _d : '';
+                    modalElement.querySelector('#callOutListMember--homeContact1').textContent = (_e = callOutListMember.homeContact1) !== null && _e !== void 0 ? _e : '';
+                    modalElement.querySelector('#callOutListMember--homeContact2').textContent = (_f = callOutListMember.homeContact2) !== null && _f !== void 0 ? _f : '';
                 }
                 else {
-                    (_g = (_f = modalElement
-                        .querySelector('a[href$="tab--callNow"]')) === null || _f === void 0 ? void 0 : _f.closest('li')) === null || _g === void 0 ? void 0 : _g.remove();
-                    (_h = modalElement.querySelector('#tab--callNow')) === null || _h === void 0 ? void 0 : _h.remove();
-                    (_k = (_j = modalElement
-                        .querySelector('a[href$="tab--recentCalls"]')) === null || _j === void 0 ? void 0 : _j.closest('li')) === null || _k === void 0 ? void 0 : _k.classList.add('is-active');
-                    (_l = modalElement
-                        .querySelector('#tab--recentCalls')) === null || _l === void 0 ? void 0 : _l.classList.remove('is-hidden');
+                    (_h = (_g = modalElement
+                        .querySelector('a[href$="tab--callNow"]')) === null || _g === void 0 ? void 0 : _g.closest('li')) === null || _h === void 0 ? void 0 : _h.remove();
+                    (_j = modalElement.querySelector('#tab--callNow')) === null || _j === void 0 ? void 0 : _j.remove();
+                    (_l = (_k = modalElement
+                        .querySelector('a[href$="tab--recentCalls"]')) === null || _k === void 0 ? void 0 : _k.closest('li')) === null || _l === void 0 ? void 0 : _l.classList.add('is-active');
+                    (_m = modalElement
+                        .querySelector('#tab--recentCalls')) === null || _m === void 0 ? void 0 : _m.classList.remove('is-hidden');
                 }
                 cityssm.postJSON(`${Attend.urlPrefix}/attendance/doGetCallOutRecords`, {
                     listId: callOutList.listId,
@@ -586,6 +604,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 currentPanelElement.className = 'panel';
             }
             for (const member of currentCallOutListMembers) {
+                const absenceRecord = absenceRecords.find((possibleRecord) => {
+                    return member.employeeNumber === possibleRecord.employeeNumber;
+                });
                 // Member List
                 const panelBlockElement = document.createElement('a');
                 panelBlockElement.className = 'panel-block is-block';
@@ -593,7 +614,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 panelBlockElement.dataset.employeeNumber = member.employeeNumber;
                 panelBlockElement.innerHTML = `<div class="columns is-mobile">
           <div class="column is-narrow">
-            <i class="fas fa-hard-hat" aria-hidden="true"></i>
+          ${absenceRecord === undefined
+                    ? '<i class="fas fa-fw fa-hard-hat" aria-hidden="true"></i>'
+                    : '<i class="fas fa-fw fa-sign-out-alt" aria-hidden="true"></i>'}
           </div>
           <div class="column">
             <strong>
@@ -604,10 +627,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
           </div>
           <div class="column">
             <span class="is-size-7 has-tooltip-left" data-tooltip="Sort Key">
-              <i class="fas fa-sort-alpha-down" aria-hidden="true"></i> ${(_a = member.sortKey) !== null && _a !== void 0 ? _a : ''}
+              <i class="fas fa-sort-alpha-down" aria-hidden="true"></i>
+              ${(_a = member.sortKey) !== null && _a !== void 0 ? _a : ''}
             </span><br />
             <span class="is-size-7 has-tooltip-left" data-tooltip="Last Call Out Time">
-              <i class="fas fa-phone-volume" aria-hidden="true"></i> ${member.callOutDateTimeMax === null
+              <i class="fas fa-phone-volume" aria-hidden="true"></i>
+              ${member.callOutDateTimeMax === null
                     ? '(No Recent Call Out)'
                     : new Date(member.callOutDateTimeMax).toLocaleDateString()}
             </span>
@@ -700,6 +725,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     const responseJSON = rawResponseJSON;
                     currentCallOutListMembers = responseJSON.callOutListMembers;
                     availableEmployees = responseJSON.availableEmployees;
+                    absenceRecords = responseJSON.absenceRecords;
                     renderCallOutListMembers();
                     renderAvailableEmployees();
                     (_a = callOutListModalElement

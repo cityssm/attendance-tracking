@@ -16,6 +16,7 @@ import type {
   Attend as AttendGlobal
 } from '../types/globalTypes.js'
 import type {
+  AbsenceRecord,
   CallOutList,
   CallOutListMember,
   CallOutRecord,
@@ -33,6 +34,7 @@ declare const cityssm: cityssmGlobal
 
   let currentListId = ''
   let currentCallOutListMembers: CallOutListMember[] = []
+  let absenceRecords: AbsenceRecord[] = []
 
   /*
    * Data
@@ -89,6 +91,10 @@ declare const cityssm: cityssmGlobal
         return false
       }
     ) as CallOutListMember
+
+    const absenceRecord = absenceRecords.find((possibleRecord) => {
+      return employeeNumber === possibleRecord.employeeNumber
+    })
 
     let callOutMemberModalElement: HTMLElement
 
@@ -455,6 +461,22 @@ declare const cityssm: cityssmGlobal
         ).textContent = `${callOutListMemberIndex + 1} / ${
           currentCallOutListMembers.length
         }`
+
+        if (absenceRecord !== undefined) {
+          modalElement
+            .querySelector('#callOutListMember--absenceRecord')
+            ?.insertAdjacentHTML('afterbegin', `<div class="box mb-3 has-background-warning-light">
+              <div class="columns is-mobile">
+                <div class="column is-narrow" data-tooltip="Absence Record">
+                  <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                </div>
+                <div class="column">
+                  ${new Date(absenceRecord.absenceDateTime).toLocaleDateString()}<br />
+                  ${absenceRecord.absenceType}
+                </div>
+              </div>
+              </div>`)
+        }
 
         if (canUpdate) {
           ;(
@@ -1012,6 +1034,10 @@ declare const cityssm: cityssmGlobal
       }
 
       for (const member of currentCallOutListMembers) {
+        const absenceRecord = absenceRecords.find((possibleRecord) => {
+          return member.employeeNumber === possibleRecord.employeeNumber
+        })
+
         // Member List
 
         const panelBlockElement = document.createElement('a')
@@ -1021,7 +1047,11 @@ declare const cityssm: cityssmGlobal
 
         panelBlockElement.innerHTML = `<div class="columns is-mobile">
           <div class="column is-narrow">
-            <i class="fas fa-hard-hat" aria-hidden="true"></i>
+          ${
+            absenceRecord === undefined
+              ? '<i class="fas fa-fw fa-hard-hat" aria-hidden="true"></i>'
+              : '<i class="fas fa-fw fa-sign-out-alt" aria-hidden="true"></i>'
+          }
           </div>
           <div class="column">
             <strong>
@@ -1032,12 +1062,12 @@ declare const cityssm: cityssmGlobal
           </div>
           <div class="column">
             <span class="is-size-7 has-tooltip-left" data-tooltip="Sort Key">
-              <i class="fas fa-sort-alpha-down" aria-hidden="true"></i> ${
-                member.sortKey ?? ''
-              }
+              <i class="fas fa-sort-alpha-down" aria-hidden="true"></i>
+              ${member.sortKey ?? ''}
             </span><br />
             <span class="is-size-7 has-tooltip-left" data-tooltip="Last Call Out Time">
-              <i class="fas fa-phone-volume" aria-hidden="true"></i> ${
+              <i class="fas fa-phone-volume" aria-hidden="true"></i>
+              ${
                 member.callOutDateTimeMax === null
                   ? '(No Recent Call Out)'
                   : new Date(
@@ -1180,10 +1210,12 @@ declare const cityssm: cityssmGlobal
             const responseJSON = rawResponseJSON as {
               callOutListMembers: CallOutListMember[]
               availableEmployees: Employee[]
+              absenceRecords: AbsenceRecord[]
             }
 
             currentCallOutListMembers = responseJSON.callOutListMembers
             availableEmployees = responseJSON.availableEmployees
+            absenceRecords = responseJSON.absenceRecords
 
             renderCallOutListMembers()
             renderAvailableEmployees()
