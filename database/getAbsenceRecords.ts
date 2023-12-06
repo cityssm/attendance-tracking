@@ -5,6 +5,8 @@ import { getConfigProperty } from '../helpers/functions.config.js'
 import { hasPermission } from '../helpers/functions.permissions.js'
 import type { AbsenceRecord } from '../types/recordTypes.js'
 
+import { getCallOutLists } from './getCallOutLists.js'
+
 interface GetAbsenceRecordsFilters {
   recordId?: string
   employeeNumber?: string
@@ -12,8 +14,13 @@ interface GetAbsenceRecordsFilters {
   todayOnly: boolean
 }
 
+interface GetAbsenceRecordsOptions {
+  includeCallOutListIds?: boolean
+}
+
 export async function getAbsenceRecords(
   filters: GetAbsenceRecordsFilters,
+  options: GetAbsenceRecordsOptions,
   sessionUser: AttendUser
 ): Promise<AbsenceRecord[]> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
@@ -57,14 +64,22 @@ export async function getAbsenceRecords(
 
   const absenceRecords = recordsResult.recordset
 
-  if (hasPermission(sessionUser, 'attendance.absences.canUpdate')) {
-    for (const absenceRecord of absenceRecords) {
-      absenceRecord.canUpdate =
-        hasPermission(sessionUser, 'attendance.absences.canManage') ||
-        (absenceRecord.recordCreate_userName === sessionUser.userName &&
-          Date.now() -
-            (absenceRecord.recordCreate_dateTime as Date).getTime() <=
-            getConfigProperty('settings.updateDays') * 86_400 * 1000)
+  for (const absenceRecord of absenceRecords) {
+    absenceRecord.canUpdate =
+      hasPermission(sessionUser, 'attendance.absences.canManage') ||
+      (hasPermission(sessionUser, 'attendance.absences.canUpdate') &&
+        absenceRecord.recordCreate_userName === sessionUser.userName &&
+        Date.now() - (absenceRecord.recordCreate_dateTime as Date).getTime() <=
+          getConfigProperty('settings.updateDays') * 86_400 * 1000)
+
+    if (options.includeCallOutListIds ?? false) {
+      absenceRecord.callOutLists = await getCallOutLists(
+        {
+          employeeNumber: absenceRecord.employeeNumber,
+          favouriteOnly: false
+        },
+        sessionUser
+      )
     }
   }
 

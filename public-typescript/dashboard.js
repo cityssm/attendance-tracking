@@ -3,9 +3,8 @@
 /* eslint-disable unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
-    var _a;
+    var _a, _b;
     const Attend = exports.Attend;
-    const callOutListContainerElement = document.querySelector('#container--favouriteCallOutLists');
     const callOutLists = ((_a = exports.callOutLists) !== null && _a !== void 0 ? _a : []);
     function openCallOutListByClick(clickEvent) {
         var _a;
@@ -14,18 +13,37 @@ Object.defineProperty(exports, "__esModule", { value: true });
             .listId;
         (_a = Attend.callOuts) === null || _a === void 0 ? void 0 : _a.openCallOutList(listId);
     }
+    const callOutListContainerElement = document.querySelector('#container--favouriteCallOutLists');
     if (callOutListContainerElement !== null) {
+        let hasFavourites = false;
         for (const callOutList of callOutLists) {
+            if (!((_b = callOutList.isFavourite) !== null && _b !== void 0 ? _b : false)) {
+                continue;
+            }
+            hasFavourites = true;
             const panelBlockElement = document.createElement('a');
             panelBlockElement.className = 'panel-block';
             panelBlockElement.dataset.listId = callOutList.listId;
             panelBlockElement.href = '#';
-            panelBlockElement.innerHTML = `<div class="columns is-mobile">
-        <div class="column is-narrow"><i class="fas fa-phone" aria-hidden="true"></i></div>
-        <div class="column">${callOutList.listName}</div>
-        </div>`;
+            panelBlockElement.innerHTML = `<span class="panel-icon"><i class="fas fa-phone" aria-hidden="true"></i></span>
+        ${callOutList.listName}`;
             panelBlockElement.addEventListener('click', openCallOutListByClick);
             callOutListContainerElement.append(panelBlockElement);
         }
+        if (!hasFavourites) {
+            callOutListContainerElement.insertAdjacentHTML('beforeend', `<div class="panel-block is-block">
+          <div class="message is-small is-info">
+            <div class="message-body">
+              <strong>You have no favourite call out lists.</strong><br />
+              Add call out lists to your dashboard for quick access by marking them as favourites.
+            </div>
+          </div>
+        </div>`);
+        }
+    }
+    const absencesCallOutListElements = document.querySelectorAll('#tab--attendance-absences a.is-call-out-list');
+    for (const listElement of absencesCallOutListElements) {
+        ;
+        listElement.addEventListener('click', openCallOutListByClick);
     }
 })();

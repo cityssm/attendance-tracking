@@ -7,6 +7,7 @@ import type { CallOutList } from '../types/recordTypes.js'
 interface GetCallOutListsFilters {
   favouriteOnly: boolean
   allowSelfSignUp?: boolean
+  employeeNumber?: string
 }
 
 export async function getCallOutLists(
@@ -15,7 +16,7 @@ export async function getCallOutLists(
 ): Promise<CallOutList[]> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
-  const request = pool.request()
+  let request = pool.request()
 
   let sql = `select l.listId, l.listName, l.listDescription,
     l.allowSelfSignUp, l.selfSignUpKey,
@@ -34,7 +35,13 @@ export async function getCallOutLists(
     where l.recordDelete_dateTime is null`
 
   if (Object.hasOwn(filters, 'allowSelfSignUp')) {
-    sql += ` and allowSelfSignUp = ${filters.allowSelfSignUp! ? '1' : '0'}`
+    sql += ` and allowSelfSignUp = ${filters.allowSelfSignUp ? '1' : '0'}`
+  }
+
+  if (Object.hasOwn(filters, 'employeeNumber')) {
+    sql +=
+      ' and l.listId in (select listId from MonTY.CallOutListMembers where recordDelete_dateTime is null and employeeNumber = @employeeNumber)'
+    request = request.input('employeeNumber', filters.employeeNumber)
   }
 
   sql += ` group by l.listId, l.listName, l.listDescription,

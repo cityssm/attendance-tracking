@@ -1050,7 +1050,7 @@ declare const cityssm: cityssmGlobal
           ${
             absenceRecord === undefined
               ? '<i class="fas fa-fw fa-hard-hat" aria-hidden="true"></i>'
-              : '<i class="fas fa-fw fa-sign-out-alt" aria-hidden="true"></i>'
+              : '<i class="fas fa-fw fa-sign-out-alt has-text-warning-dark" aria-hidden="true"></i>'
           }
           </div>
           <div class="column">

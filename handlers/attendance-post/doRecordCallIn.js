@@ -16,7 +16,7 @@ export async function handler(request, response) {
         absenceRecords = await getAbsenceRecords({
             recentOnly: true,
             todayOnly: false
-        }, request.session.user);
+        }, {}, request.session.user);
     }
     else if (callInType === 'returnToWork' &&
         hasPermission(request.session.user, 'attendance.returnsToWork.canUpdate')) {

@@ -13,7 +13,7 @@ async function populateAbsenceVariables(sessionUser) {
         absenceRecords = await getAbsenceRecords({
             recentOnly: true,
             todayOnly: false
-        }, sessionUser);
+        }, {}, sessionUser);
     }
     if (hasPermission(sessionUser, 'attendance.absences.canUpdate')) {
         absenceTypes = await getAbsenceTypes();

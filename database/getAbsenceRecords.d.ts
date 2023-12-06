@@ -5,5 +5,8 @@ interface GetAbsenceRecordsFilters {
     recentOnly: boolean;
     todayOnly: boolean;
 }
-export declare function getAbsenceRecords(filters: GetAbsenceRecordsFilters, sessionUser: AttendUser): Promise<AbsenceRecord[]>;
+interface GetAbsenceRecordsOptions {
+    includeCallOutListIds?: boolean;
+}
+export declare function getAbsenceRecords(filters: GetAbsenceRecordsFilters, options: GetAbsenceRecordsOptions, sessionUser: AttendUser): Promise<AbsenceRecord[]>;
 export {};

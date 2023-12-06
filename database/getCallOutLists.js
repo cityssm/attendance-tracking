@@ -2,7 +2,7 @@ import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
 export async function getCallOutLists(filters, sessionUser) {
     const pool = await sqlPoolConnect(getConfigProperty('mssql'));
-    const request = pool.request();
+    let request = pool.request();
     let sql = `select l.listId, l.listName, l.listDescription,
     l.allowSelfSignUp, l.selfSignUpKey,
     l.sortKeyFunction, l.eligibilityFunction, l.employeePropertyName,
@@ -18,6 +18,11 @@ export async function getCallOutLists(filters, sessionUser) {
     where l.recordDelete_dateTime is null`;
     if (Object.hasOwn(filters, 'allowSelfSignUp')) {
         sql += ` and allowSelfSignUp = ${filters.allowSelfSignUp ? '1' : '0'}`;
+    }
+    if (Object.hasOwn(filters, 'employeeNumber')) {
+        sql +=
+            ' and l.listId in (select listId from MonTY.CallOutListMembers where recordDelete_dateTime is null and employeeNumber = @employeeNumber)';
+        request = request.input('employeeNumber', filters.employeeNumber);
     }
     sql += ` group by l.listId, l.listName, l.listDescription,
         l.allowSelfSignUp, l.selfSignUpKey,

@@ -11,7 +11,7 @@ export async function handler(request, response) {
             employeeNumber: request.body.employeeNumber,
             recentOnly: true,
             todayOnly: false
-        }, request.session.user);
+        }, {}, request.session.user);
     }
     let returnToWorkRecords = [];
     if (getConfigProperty('features.attendance.returnsToWork') &&

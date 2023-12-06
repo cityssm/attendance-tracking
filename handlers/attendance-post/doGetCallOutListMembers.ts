@@ -53,6 +53,7 @@ export async function handler(
           recentOnly: true,
           todayOnly: true
         },
+        {},
         request.session.user as AttendUser
       )
     }

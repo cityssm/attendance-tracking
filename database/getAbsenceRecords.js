@@ -1,7 +1,8 @@
 import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool';
 import { getConfigProperty } from '../helpers/functions.config.js';
 import { hasPermission } from '../helpers/functions.permissions.js';
-export async function getAbsenceRecords(filters, sessionUser) {
+import { getCallOutLists } from './getCallOutLists.js';
+export async function getAbsenceRecords(filters, options, sessionUser) {
     const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let sql = `select r.recordId,
     r.employeeNumber, r.employeeName,
@@ -32,14 +33,18 @@ export async function getAbsenceRecords(filters, sessionUser) {
     sql += ' order by r.absenceDateTime desc, r.recordId desc';
     const recordsResult = await request.query(sql);
     const absenceRecords = recordsResult.recordset;
-    if (hasPermission(sessionUser, 'attendance.absences.canUpdate')) {
-        for (const absenceRecord of absenceRecords) {
-            absenceRecord.canUpdate =
-                hasPermission(sessionUser, 'attendance.absences.canManage') ||
-                    (absenceRecord.recordCreate_userName === sessionUser.userName &&
-                        Date.now() -
-                            absenceRecord.recordCreate_dateTime.getTime() <=
-                            getConfigProperty('settings.updateDays') * 86400 * 1000);
+    for (const absenceRecord of absenceRecords) {
+        absenceRecord.canUpdate =
+            hasPermission(sessionUser, 'attendance.absences.canManage') ||
+                (hasPermission(sessionUser, 'attendance.absences.canUpdate') &&
+                    absenceRecord.recordCreate_userName === sessionUser.userName &&
+                    Date.now() - absenceRecord.recordCreate_dateTime.getTime() <=
+                        getConfigProperty('settings.updateDays') * 86400 * 1000);
+        if (options.includeCallOutListIds ?? false) {
+            absenceRecord.callOutLists = await getCallOutLists({
+                employeeNumber: absenceRecord.employeeNumber,
+                favouriteOnly: false
+            }, sessionUser);
         }
     }
     return absenceRecords;

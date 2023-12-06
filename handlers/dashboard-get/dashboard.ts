@@ -36,6 +36,12 @@ async function getAbsenceVariables(user: AttendUser): Promise<{
         recentOnly: true,
         todayOnly: true
       },
+      {
+        includeCallOutListIds: hasPermission(
+          user,
+          'attendance.callOuts.canUpdate'
+        )
+      },
       user
     )
   }
@@ -79,7 +85,11 @@ async function getCallOutVariables(user: AttendUser): Promise<{
     getConfigProperty('features.attendance.callOuts') &&
     hasPermission(user, 'attendance.callOuts.canView')
   ) {
-    callOutLists = await getCallOutLists({ favouriteOnly: true }, user)
+    const favouriteOnly =
+      !hasPermission(user, 'attendance.absences.canView') ||
+      !hasPermission(user, 'attendance.callOuts.canUpdate')
+
+    callOutLists = await getCallOutLists({ favouriteOnly }, user)
 
     if (hasPermission(user, 'attendance.callOuts.canUpdate')) {
       callOutResponseTypes = await getCallOutResponseTypes()

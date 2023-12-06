@@ -47,6 +47,7 @@ export interface AbsenceRecord extends Partial<AbsenceType>, Partial<RecordUserN
     recordCreate_userName: string;
     recordCreate_dateTime: Date | string;
     canUpdate?: boolean;
+    callOutLists?: CallOutList[];
 }
 export interface ReturnToWorkRecord extends Partial<RecordUserNameDateTime> {
     recordId: string;

@@ -4,7 +4,7 @@ export async function getAbsenceRecord(recordId, sessionUser) {
         recordId,
         recentOnly: false,
         todayOnly: false
-    }, sessionUser);
+    }, {}, sessionUser);
     if (absenceRecords.length > 0) {
         return absenceRecords[0];
     }

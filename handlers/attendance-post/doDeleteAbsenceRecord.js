@@ -22,7 +22,7 @@ export async function handler(request, response) {
     const absenceRecords = await getAbsenceRecords({
         recentOnly: true,
         todayOnly: false
-    }, request.session.user);
+    }, {}, request.session.user);
     response.json({
         success,
         absenceRecords

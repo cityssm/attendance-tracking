@@ -68,6 +68,8 @@ export interface AbsenceRecord
   recordCreate_userName: string
   recordCreate_dateTime: Date | string
   canUpdate?: boolean
+
+  callOutLists?: CallOutList[]
 }
 
 /*

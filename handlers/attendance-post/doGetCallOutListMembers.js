@@ -26,7 +26,7 @@ export async function handler(request, response) {
             absenceRecords = await getAbsenceRecords({
                 recentOnly: true,
                 todayOnly: true
-            }, request.session.user);
+            }, {}, request.session.user);
         }
     }
     response.json({

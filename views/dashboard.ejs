@@ -10,48 +10,54 @@
   const includeCallOuts = configFunctions.getConfigProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')
   const includeAfterHours = configFunctions.getConfigProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')
 %>
-<% if (configFunctions.includeAttendance() && permissionFunctions.hasAttendance(user)) { %>
-  <div class="card mb-4">
-    <div class="card-content">
-      <div class="columns is-desktop">
-        <div class="column">
-          <div class="media">
-            <div class="media-left">
-              <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
-                <i class="fas fa-hard-hat"></i>
-                <i class="fas fa-check" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
-              </span>
+<div class="columns">
+  <% if (configFunctions.includeAttendance() && permissionFunctions.hasAttendance(user)) { %>
+    <div class="column">
+      <div class="box">
+        <div class="media">
+          <div class="media-left">
+            <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
+              <i class="fas fa-hard-hat"></i>
+              <i class="fas fa-check" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+            </span>
+          </div>
+          <a class="media-content" href="<%= urlPrefix %>/attendance">
+            <h2 class="title is-4 is-marginless has-text-link">
+              Employee Attendance
+            </h2>
+            <p>
+              <% if (includeAbsences) { %>
+                Track absence requests.
+              <% } %>
+              <% if (includeReturnsToWork) { %>
+                Record return to work notices.
+              <% } %>
+              <% if (includeCallOuts) { %>
+                Manage employee call outs.
+              <% } %>
+              <% if (includeAfterHours) { %>
+                Track after hours attendance.
+              <% } %>
+            </p>
+          </a>
+        </div>
+      </div>
+      <% if (includeCallOuts) { %>
+        <div class="panel" id="container--favouriteCallOutLists">
+          <div class="panel-heading">
+            <div class="is-flex is-justify-content-space-between">
+              <h2 class="has-text-weight-bold">Favourite Call Out Lists</h2>
+              <span class="icon"><i class="fas fa-star" aria-hidden="true"></i></span>
             </div>
-            <a class="media-content" href="<%= urlPrefix %>/attendance">
-              <h2 class="title is-4 is-marginless has-text-link">
-                Employee Attendance
-              </h2>
-              <p>
-                <% if (includeAbsences) { %>
-                  Track absence requests.
-                <% } %>
-                <% if (includeReturnsToWork) { %>
-                  Record return to work notices.
-                <% } %>
-                <% if (includeCallOuts) { %>
-                  Manage employee call outs.
-                <% } %>
-                <% if (includeAfterHours) { %>
-                  Track after hours attendance.
-                <% } %>
-              </p>
-            </a>
           </div>
         </div>
-        <% if (includeCallOuts && callOutLists.length > 0) { %>
-          <div class="column">
-            <h2 class="title is-5">Favourite Call Out Lists</h2>
-            <div id="container--favouriteCallOutLists" class="panel"></div>
-          </div>
-        <% } %>
-        <% if (includeAbsences || includeReturnsToWork) { %>
-          <div class="column">
-            <div class="tabs is-boxed is-size-7 is-size-6-widescreen">
+      <% } %>
+
+      <% if (includeAbsences || includeReturnsToWork) { %>
+        <div class="panel">
+          <h2 class="panel-heading">Today's Incoming Calls</h2>
+          <div class="panel-block is-block">
+            <div class="tabs is-boxed">
               <ul role="presentation">
                 <% if (includeAbsences) { %>
                   <li class="is-active">
@@ -81,10 +87,13 @@
                       </p>
                     </div>
                   <% } else { %>
-                    <div class="panel" style="overflow:auto;min-height:68px;max-height:min(300px,80vh)">
+                    <div class="panel is-shadowless">
                       <% for (const absenceRecord of absenceRecords) {%>
                         <div class="panel-block is-block" tabindex="0">
                           <div class="columns is-mobile">
+                            <div class="column is-narrow">
+                              <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                            </div>
                             <div class="column is-4">
                               <strong data-tooltip="Absence Date">
                                 <%= dateTimeFunctions.dateToString(absenceRecord.absenceDateTime) %>
@@ -94,6 +103,27 @@
                               <strong><%= absenceRecord.employeeName %></strong><br />
                               <span data-tooltip="Absence Type"><%= absenceRecord.absenceType %></span>
                             </div>
+                            <% if ((absenceRecord.callOutLists ?? []).length > 0) { %>
+                              <div class="column is-narrow">
+                                <div class="dropdown is-right">
+                                  <div class="dropdown-trigger">
+                                    <button class="button" aria-haspopup="true">
+                                      <span class="icon"><i class="fas fa-phone" aria-hidden="true"></i></span>
+                                      <span class="icon"><i class="fas fa-caret-down" aria-hidden="true"></i></span>
+                                    </button>
+                                  </div>
+                                  <div class="dropdown-menu">
+                                    <div class="dropdown-content">
+                                      <% for (const callOutList of absenceRecord.callOutLists) { %>
+                                        <a class="dropdown-item is-call-out-list" data-list-id="<%= callOutList.listId %>" href="#">
+                                          <%= callOutList.listName %>
+                                        </a>
+                                      <% } %>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            <% } %>
                           </div>
                         </div>
                       <% } %>
@@ -110,10 +140,13 @@
                       </p>
                     </div>
                   <% } else { %>
-                    <div class="panel" style="overflow:auto;min-height:68px;max-height:min(300px,80vh)">
+                    <div class="panel is-shadowless">
                       <% for (const returnToWorkRecord of returnToWorkRecords) {%>
                         <div class="panel-block is-block" tabindex="0">
                           <div class="columns is-mobile">
+                            <div class="column is-narrow">
+                              <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
+                            </div>
                             <div class="column is-4">
                               <strong data-tooltip="Return Date">
                                 <%= dateTimeFunctions.dateToString(returnToWorkRecord.returnDateTime) %>
@@ -132,13 +165,11 @@
               <% } %>
             </div>
           </div>
-        <% } %>
-      </div>
-    </div>
-  </div>
-<% } %>
+        </div>
+      <% } %>
 
-<div class="columns">
+    </div>
+  <% } %>
   <div class="column">
     <div class="box">
       <div class="media">
@@ -153,12 +184,10 @@
         </a>
       </div>
     </div>
-  </div>
-  <% if (configFunctions.getConfigProperty('features.help') || configFunctions.getConfigProperty('features.selfService')) { %>
-    <div class="column">
-      <div class="box">
-        <% if (configFunctions.getConfigProperty('features.help')) { %>
-          <div class="media mb-4">
+    <% if (configFunctions.getConfigProperty('features.help') || configFunctions.getConfigProperty('features.selfService')) { %>
+      <% if (configFunctions.getConfigProperty('features.help')) { %>
+        <div class="box">
+          <div class="media">
             <div class="media-left">
               <i class="fas fa-4x fa-fw fa-question-circle" aria-hidden="true"></i>
             </div>
@@ -171,8 +200,10 @@
               </p>
             </a>
           </div>
-        <% } %>
-        <% if (configFunctions.getConfigProperty('features.selfService')) { %>
+        </div>
+      <% } %>
+      <% if (configFunctions.getConfigProperty('features.selfService')) { %>
+        <div class="box">
           <div class="media">
             <div class="media-left">
               <span class="fa-layers fa-4x fa-fw" aria-hidden="true">
@@ -195,22 +226,18 @@
               <p>The interface for employees to manage aspects of their employee records.</p>
             </a>
           </div>
-        <% } %>
-      </div>
-    </div>
-  <% } %>
-</div>
+        </div>
+      <% } %>
+    <% } %>
+    <% if (user.isAdmin) { %>
+      <h2 class="title is-3">Administrator Tools</h2>
 
-<% if (user.isAdmin) { %>
-  <h2 class="title is-3">Administrator Tools</h2>
-  <div class="columns">
-    <div class="column">
       <div class="box">
         <div class="media">
           <div class="media-left">
             <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
               <i class="fas fa-hard-hat"></i>
-              <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+              <i class="fas fa-cog has-text-warning-dark" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
             </span>
           </div>
           <a class="media-content" href="<%= urlPrefix %>/admin/employees">
@@ -223,14 +250,13 @@
           </a>
         </div>
       </div>
-    </div>
-    <div class="column">
+
       <div class="box">
         <div class="media">
           <div class="media-left">
             <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
               <i class="fas fa-table"></i>
-              <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+              <i class="fas fa-cog has-text-warning-dark" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
             </span>
           </div>
           <a class="media-content" href="<%= urlPrefix %>/admin/tables">
@@ -243,14 +269,13 @@
           </a>
         </div>
       </div>
-    </div>
-    <div class="column">
+
       <div class="box">
         <div class="media">
           <div class="media-left">
             <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
               <i class="fas fa-users"></i>
-              <i class="fas fa-cog" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+              <i class="fas fa-cog has-text-warning-dark" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
             </span>
           </div>
           <a class="media-content" href="<%= urlPrefix %>/admin/users">
@@ -263,9 +288,14 @@
           </a>
         </div>
       </div>
-    </div>
+
+    <% } %>
   </div>
-<% } %>
+</div>
+
+
+
+
 
 <%- include('_footerA'); -%>
 

@@ -12,6 +12,7 @@ export async function getAbsenceRecord(
       recentOnly: false,
       todayOnly: false
     },
+    {},
     sessionUser
   )
 

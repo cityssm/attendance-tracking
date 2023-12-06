@@ -39,6 +39,7 @@ async function populateAbsenceVariables(sessionUser: AttendUser): Promise<{
         recentOnly: true,
         todayOnly: false
       },
+      {},
       sessionUser
     )
   }

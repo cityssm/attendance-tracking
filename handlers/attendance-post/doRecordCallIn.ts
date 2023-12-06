@@ -39,6 +39,7 @@ export async function handler(
         recentOnly: true,
         todayOnly: false
       },
+      {},
       request.session.user as AttendUser
     )
   } else if (
