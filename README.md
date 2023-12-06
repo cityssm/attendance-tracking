@@ -40,10 +40,10 @@ An application built for Public Works departments to track:
 
 📘 **[User Documentation (In The Works)](https://cityssm.github.io/attendance-tracking/docs/)**
 
-- [Code of Conduct](CODE_OF_CONDUCT.md)
-- [Contributing Guidelines](CONTRIBUTING.md)
-- [Security Policy](SECURITY.md)
-- [MIT Licence](LICENSE.md)
+- 🤗 [Code of Conduct](CODE_OF_CONDUCT.md)
+- 🥰 [Contributing Guidelines](CONTRIBUTING.md)
+- 🛡️ [Security Policy](SECURITY.md)
+- 📃 [MIT Licence](LICENSE.md)
 
 Although the system is quite niche, it's being released in an open source environment in hopes to pool developer resources from other municipalities looking to move away from older, legacy systems.
 
