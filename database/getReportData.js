@@ -43,7 +43,7 @@ const afterHoursRecordsRecentSQL = `select r.recordId,
   left join MonTY.AfterHoursReasons t on r.afterHoursReasonId = t.afterHoursReasonId
   where r.recordDelete_datetime is null
   and datediff(day, r.attendanceDateTime, getdate()) <= @recentDays`;
-export async function getReportData(reportName, reportParameters = {}, user) {
+export async function getReportData(reportName, reportParameters, user) {
     const pool = await sqlPoolConnect(getConfigProperty('mssql'));
     let request = pool.request();
     let sql = '';

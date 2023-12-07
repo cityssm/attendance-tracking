@@ -126,15 +126,6 @@ describe('database/getReportData.js', () => {
     })
   }
 
-  it('Fails gracefully when missing parameter object', async () => {
-    const data = (await getReportData(
-      'absenceRecords-recent-byEmployeeNumber',
-      undefined,
-      manageUser
-    )) as unknown[]
-    assert.strictEqual(data.length, 0)
-  })
-
   it('Fails gracefully when missing parameter', async () => {
     const data = (await getReportData(
       'absenceRecords-recent-byEmployeeNumber',

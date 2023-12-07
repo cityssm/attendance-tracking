@@ -54,7 +54,7 @@ const afterHoursRecordsRecentSQL = `select r.recordId,
 
 export async function getReportData(
   reportName: string,
-  reportParameters: ReportParameters = {},
+  reportParameters: ReportParameters,
   user: AttendUser
 ): Promise<unknown[] | undefined> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
