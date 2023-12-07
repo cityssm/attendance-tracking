@@ -129,7 +129,7 @@ const reports = {
       and r.employeeNumber = @employeeNumber
       order by r.returnDateTime, r.recordId`,
         permissions: ['attendance.returnsToWork.canView'],
-        inputs(reportParameters) {
+        inputs(reportParameters = {}) {
             return {
                 recentDays,
                 employeeNumber: reportParameters.employeeNumber
@@ -164,7 +164,7 @@ const reports = {
       and m.listId = @listId
       order by m.listId, m.sortKey, m.employeeNumber`,
         permissions: ['attendance.callOuts.canView'],
-        inputs(reportParameters) {
+        inputs(reportParameters = {}) {
             return {
                 listId: reportParameters.listId
             };
@@ -188,7 +188,7 @@ const reports = {
       and r.listId = @listId
       order by r.callOutDateTime, r.recordId`,
         permissions: ['attendance.callOuts.canView'],
-        inputs(reportParameters) {
+        inputs(reportParameters = {}) {
             return {
                 recentDays,
                 listId: reportParameters.listId
@@ -241,7 +241,7 @@ const reports = {
       and r.employeeNumber = @employeeNumber
       order by r.attendanceDateTime, r.recordId`,
         permissions: ['attendance.afterHours.canView'],
-        inputs(reportParameters) {
+        inputs(reportParameters = {}) {
             return {
                 recentDays,
                 employeeNumber: reportParameters.employeeNumber
