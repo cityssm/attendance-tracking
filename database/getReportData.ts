@@ -96,7 +96,7 @@ const reports: Record<string, Report> = {
   'absenceRecords-recent': {
     sql: `${absenceRecordsRecentSQL} order by r.absenceDateTime, r.recordId`,
     permissions: ['attendance.absences.canView'],
-    inputs(reportParameters) {
+    inputs() {
       return {
         recentDays
       }
@@ -138,7 +138,7 @@ const reports: Record<string, Report> = {
     sql: `${returnToWorkRecordsRecentSQL}
       order by r.returnDateTime, r.recordId`,
     permissions: ['attendance.returnsToWork.canView'],
-    inputs(reportParameters) {
+    inputs() {
       return {
         recentDays
       }
@@ -197,7 +197,7 @@ const reports: Record<string, Report> = {
   'callOutRecords-recent': {
     sql: `${callOutRecordsRecentSQL} order by r.callOutDateTime, r.recordId`,
     permissions: ['attendance.callOuts.canView'],
-    inputs(reportParameters) {
+    inputs() {
       return {
         recentDays
       }
@@ -250,7 +250,7 @@ const reports: Record<string, Report> = {
   'afterHoursRecords-recent': {
     sql: `${afterHoursRecordsRecentSQL} order by r.attendanceDateTime, r.recordId`,
     permissions: ['attendance.afterHours.canView'],
-    inputs(reportParameters) {
+    inputs() {
       return {
         recentDays
       }
