@@ -24,7 +24,7 @@ function runCypress(browser, done) {
         done();
     });
 }
-describe('MonTY', () => {
+describe('Attendance Tracking', () => {
     const httpServer = http.createServer(app);
     let serverStarted = false;
     before(() => {

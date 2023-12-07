@@ -26,6 +26,7 @@ function runCypress(
     cypressCommand += ` --tag "${browser},${process.version}" --record`
   }
 
+  // eslint-disable-next-line security/detect-child-process
   const childProcess = exec(cypressCommand)
 
   childProcess.stdout?.on('data', (data) => {
@@ -42,7 +43,7 @@ function runCypress(
   })
 }
 
-describe('MonTY', () => {
+describe('Attendance Tracking', () => {
   const httpServer = http.createServer(app)
 
   let serverStarted = false
