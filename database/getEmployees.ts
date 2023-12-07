@@ -1,10 +1,9 @@
 import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 import type { IResult } from 'mssql'
 
+import { getEmployeeProperties } from '../helpers/functions.cache.js'
 import { getConfigProperty } from '../helpers/functions.config.js'
 import type { Employee } from '../types/recordTypes.js'
-
-import { getEmployeeProperties } from './getEmployeeProperties.js'
 
 interface GetEmployeesFilters {
   eligibilityFunction?: {

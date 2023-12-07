@@ -3,6 +3,7 @@ import Debug from 'debug';
 import { getAbsenceTypes as getAbsenceTypesFromDatabase } from '../database/getAbsenceTypes.js';
 import { getAfterHoursReasons as getAfterHoursReasonsFromDatabase } from '../database/getAfterHoursReasons.js';
 import { getCallOutResponseTypes as getCallOutResponseTypesFromDatabase } from '../database/getCallOutResponseTypes.js';
+import { getEmployeeProperties as getEmployeePropertiesFromDatabase } from '../database/getEmployeeProperties.js';
 import { getEmployeePropertyNames as getEmployeePropertyNamesFromDatabase } from '../database/getEmployeePropertyNames.js';
 const debug = Debug(`attendance-tracking:functions.cache:${process.pid}`);
 let absenceTypes = [];
@@ -29,11 +30,21 @@ export async function getCallOutResponseTypes() {
     }
     return callOutResponseTypes;
 }
-let employeeProperties = [];
+let employeePropertyNames = [];
 export async function getEmployeePropertyNames() {
-    if (employeeProperties.length === 0) {
-        debug('Cache miss: EmployeeProperties');
-        employeeProperties = await getEmployeePropertyNamesFromDatabase();
+    if (employeePropertyNames.length === 0) {
+        debug('Cache miss: EmployeePropertyNames');
+        employeePropertyNames = await getEmployeePropertyNamesFromDatabase();
+    }
+    return employeePropertyNames;
+}
+const employeePropertiesByEmployeeNumber = new Map();
+export async function getEmployeeProperties(employeeNumber) {
+    let employeeProperties = employeePropertiesByEmployeeNumber.get(employeeNumber);
+    if (employeeProperties === undefined) {
+        debug(`Cache miss: EmployeeProperties, ${employeeNumber}`);
+        employeeProperties = await getEmployeePropertiesFromDatabase(employeeNumber);
+        employeePropertiesByEmployeeNumber.set(employeeNumber, employeeProperties);
     }
     return employeeProperties;
 }
@@ -52,7 +63,8 @@ export function clearCacheByTableName(tableName, relayMessage = true) {
             break;
         }
         case 'EmployeeProperties': {
-            employeeProperties = [];
+            employeePropertyNames = [];
+            employeePropertiesByEmployeeNumber.clear();
             break;
         }
         default: {

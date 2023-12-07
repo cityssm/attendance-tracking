@@ -8,6 +8,7 @@ import Debug from 'debug'
 import { getAbsenceTypes as getAbsenceTypesFromDatabase } from '../database/getAbsenceTypes.js'
 import { getAfterHoursReasons as getAfterHoursReasonsFromDatabase } from '../database/getAfterHoursReasons.js'
 import { getCallOutResponseTypes as getCallOutResponseTypesFromDatabase } from '../database/getCallOutResponseTypes.js'
+import { getEmployeeProperties as getEmployeePropertiesFromDatabase } from '../database/getEmployeeProperties.js'
 import { getEmployeePropertyNames as getEmployeePropertyNamesFromDatabase } from '../database/getEmployeePropertyNames.js'
 import type {
   ClearCacheWorkerMessage,
@@ -16,7 +17,8 @@ import type {
 import type {
   AbsenceType,
   AfterHoursReason,
-  CallOutResponseType
+  CallOutResponseType,
+  EmployeeProperty
 } from '../types/recordTypes.js'
 
 const debug = Debug(`attendance-tracking:functions.cache:${process.pid}`)
@@ -72,12 +74,29 @@ export async function getCallOutResponseTypes(): Promise<
  * Employee Property Names
  */
 
-let employeeProperties: string[] = []
+let employeePropertyNames: string[] = []
 
 export async function getEmployeePropertyNames(): Promise<string[]> {
-  if (employeeProperties.length === 0) {
-    debug('Cache miss: EmployeeProperties')
-    employeeProperties = await getEmployeePropertyNamesFromDatabase()
+  if (employeePropertyNames.length === 0) {
+    debug('Cache miss: EmployeePropertyNames')
+    employeePropertyNames = await getEmployeePropertyNamesFromDatabase()
+  }
+
+  return employeePropertyNames
+}
+
+const employeePropertiesByEmployeeNumber = new Map<string, EmployeeProperty[]>()
+
+export async function getEmployeeProperties(
+  employeeNumber: string
+): Promise<EmployeeProperty[]> {
+  let employeeProperties =
+    employeePropertiesByEmployeeNumber.get(employeeNumber)
+
+  if (employeeProperties === undefined) {
+    debug(`Cache miss: EmployeeProperties, ${employeeNumber}`)
+    employeeProperties = await getEmployeePropertiesFromDatabase(employeeNumber)
+    employeePropertiesByEmployeeNumber.set(employeeNumber, employeeProperties)
   }
 
   return employeeProperties
@@ -105,7 +124,8 @@ export function clearCacheByTableName(
       break
     }
     case 'EmployeeProperties': {
-      employeeProperties = []
+      employeePropertyNames = []
+      employeePropertiesByEmployeeNumber.clear()
       break
     }
     default: {
