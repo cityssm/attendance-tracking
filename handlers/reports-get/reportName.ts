@@ -2,9 +2,9 @@ import type { Request, Response } from 'express'
 import papaparse from 'papaparse'
 
 import {
-  getReportData,
-  type ReportParameters
+  getReportData
 } from '../../database/getReportData.js'
+import { type ReportParameters } from '../../helpers/functions.reports.js'
 
 export async function handler(
   request: Request,
