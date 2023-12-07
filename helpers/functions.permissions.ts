@@ -20,6 +20,8 @@ export const availablePermissionValues = {
   'reports.hasRawExports': trueFalseStrings
 }
 
+export type availablePermissionKeys = keyof typeof availablePermissionValues
+
 export function hasAttendance(user: AttendUser | undefined): boolean {
   if (user === undefined) {
     return false
@@ -35,7 +37,7 @@ export function hasAttendance(user: AttendUser | undefined): boolean {
 
 export function hasPermission(
   user: AttendUser,
-  permissionKey: keyof typeof availablePermissionValues
+  permissionKey: availablePermissionKeys
 ): boolean {
   return (user.permissions?.[permissionKey] ?? 'false') === 'true'
 }

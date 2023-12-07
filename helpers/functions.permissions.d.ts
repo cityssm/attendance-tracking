@@ -13,8 +13,9 @@ export declare const availablePermissionValues: {
     'attendance.returnsToWork.canManage': string[];
     'reports.hasRawExports': string[];
 };
+export type availablePermissionKeys = keyof typeof availablePermissionValues;
 export declare function hasAttendance(user: AttendUser | undefined): boolean;
-export declare function hasPermission(user: AttendUser, permissionKey: keyof typeof availablePermissionValues): boolean;
+export declare function hasPermission(user: AttendUser, permissionKey: availablePermissionKeys): boolean;
 declare const _default: {
     hasAttendance: typeof hasAttendance;
     hasPermission: typeof hasPermission;
