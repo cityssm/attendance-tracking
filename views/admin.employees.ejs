@@ -77,6 +77,7 @@
 
 <script>
   exports.employees = <%- JSON.stringify(employees) %>;
+  exports.selfService = <%= configFunctions.getConfigProperty('features.selfService') ? 'true' : 'false' %>;
 
   <% if (configFunctions.getConfigProperty('settings.employeeNumberRegularExpression')) { %>
     exports.employeeNumberRegularExpression = <%- configFunctions.getConfigProperty('settings.employeeNumberRegularExpression').toString() %>;

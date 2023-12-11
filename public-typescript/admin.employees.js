@@ -10,6 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     let filteredEmployees = unfilteredEmployees;
     const employeeNumberRegularExpression = exports.employeeNumberRegularExpression;
     // Employee Modal
+    const selfServiceEnabled = exports.selfService;
     function openEmployeeModal(employeeNumber) {
         let employeeModalElement;
         let closeEmployeeModalFunction;
@@ -198,7 +199,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         cityssm.openHtmlModal('employeeAdmin-employee', {
             onshow(modalElement) {
-                var _a, _b, _c, _d, _e, _f, _g, _h;
+                var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 employeeModalElement = modalElement;
                 modalElement.querySelector('.modal-card-title').textContent = `${employee.employeeSurname}, ${employee.employeeGivenName}`;
                 modalElement.querySelector('#employeeEdit--employeeNumber').value = employee.employeeNumber;
@@ -221,8 +222,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 modalElement.querySelector('#employeeEdit--syncContacts').value = employee.syncContacts ? '1' : '0';
                 modalElement.querySelector('#employeeEdit--workContact1').value = (_e = employee.workContact1) !== null && _e !== void 0 ? _e : '';
                 modalElement.querySelector('#employeeEdit--workContact2').value = (_f = employee.workContact2) !== null && _f !== void 0 ? _f : '';
-                modalElement.querySelector('#employeeEdit--homeContact1').value = (_g = employee.homeContact1) !== null && _g !== void 0 ? _g : '';
-                modalElement.querySelector('#employeeEdit--homeContact2').value = (_h = employee.homeContact2) !== null && _h !== void 0 ? _h : '';
+                if (selfServiceEnabled) {
+                    (_g = modalElement
+                        .querySelector('.is-self-service-message')) === null || _g === void 0 ? void 0 : _g.classList.remove('is-hidden');
+                }
+                ;
+                modalElement.querySelector('#employeeEdit--homeContact1').value = (_h = employee.homeContact1) !== null && _h !== void 0 ? _h : '';
+                modalElement.querySelector('#employeeEdit--homeContact2').value = (_j = employee.homeContact2) !== null && _j !== void 0 ? _j : '';
                 modalElement.querySelector('#employeePropertyAdd--employeeNumber').value = employee.employeeNumber;
                 cityssm.postJSON(`${Attend.urlPrefix}/admin/doGetEmployeeProperties`, {
                     employeeNumber

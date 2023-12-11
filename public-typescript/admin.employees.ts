@@ -26,6 +26,8 @@ declare const cityssm: cityssmGlobal
 
   // Employee Modal
 
+  const selfServiceEnabled = exports.selfService as boolean
+
   function openEmployeeModal(employeeNumber: string): void {
     let employeeModalElement: HTMLElement
     let closeEmployeeModalFunction: () => void
@@ -372,6 +374,13 @@ declare const cityssm: cityssmGlobal
             '#employeeEdit--workContact2'
           ) as HTMLInputElement
         ).value = employee.workContact2 ?? ''
+
+        if (selfServiceEnabled) {
+          modalElement
+            .querySelector('.is-self-service-message')
+            ?.classList.remove('is-hidden')
+        }
+
         ;(
           modalElement.querySelector(
             '#employeeEdit--homeContact1'
