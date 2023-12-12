@@ -34,5 +34,5 @@ the selected user name and password set in your `config.js` file.
 It is **not recommended** to use the `config.js` file on an ongoing basis
 for user credentials.
 
-You should visit the [User Management](admin-userManagement.md) area
+You should visit the [User Maintenance](admin-userMaintenance.md) area
 to create a proper admin user.

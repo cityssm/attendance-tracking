@@ -24,5 +24,8 @@ How to use the configuration file to customize the application.
 **[Logging into a New Install](admin-login.md)**<br />
 How to activate the default admin user to access the application for the first time.
 
-**[Administrator Tools - User Management](admin-userManagement.md)**<br />
+**[Administrator Tools - Table Maintenance](admin-tableMaintenance.md)**<br />
+How to add, update, and remove drop list items.
+
+**[Administrator Tools - User Maintenance](admin-userMaintenance.md)**<br />
 How to add, update, and remove user accounts.
