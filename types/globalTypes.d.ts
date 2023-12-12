@@ -5,6 +5,7 @@ export interface Attend {
     clearUnsavedChanges: () => void;
     hasUnsavedChanges: () => boolean;
     initializeMenuTabs: (menuTabElements: NodeListOf<HTMLAnchorElement>, tabContainerElements: NodeListOf<HTMLElement>) => void;
+    togglePanelBlocks: (clickEvent: Event) => void;
     callOuts?: AttendCallOuts;
 }
 export interface AttendCallOuts {

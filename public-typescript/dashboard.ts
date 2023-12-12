@@ -33,7 +33,7 @@ import type { CallOutList } from '../types/recordTypes.js'
 
       const panelBlockElement = document.createElement('a')
 
-      panelBlockElement.className = 'panel-block'
+      panelBlockElement.className = 'panel-block py-3'
       panelBlockElement.dataset.listId = callOutList.listId
       panelBlockElement.href = '#'
 
@@ -70,4 +70,8 @@ import type { CallOutList } from '../types/recordTypes.js'
       openCallOutListByClick
     )
   }
+
+  document
+    .querySelector('.panel a.is-panel-block-toggle')
+    ?.addEventListener('click', Attend.togglePanelBlocks)
 })()

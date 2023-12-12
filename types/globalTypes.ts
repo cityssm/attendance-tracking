@@ -11,6 +11,8 @@ export interface Attend {
     tabContainerElements: NodeListOf<HTMLElement>
   ) => void
 
+  togglePanelBlocks: (clickEvent: Event) => void
+
   callOuts?: AttendCallOuts
 }
 

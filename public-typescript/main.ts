@@ -74,12 +74,29 @@ declare const cityssm: cityssmGlobal
     }
   }
 
+  /*
+   * Panel Block Toggle
+   */
+
+  function togglePanelBlocks(clickEvent: Event): void {
+    clickEvent.preventDefault()
+
+    const panelBlockElements = (
+      (clickEvent.currentTarget as HTMLElement).closest('.panel') as HTMLElement
+    ).querySelectorAll('.panel-block')
+
+    for (const panelBlockElement of panelBlockElements) {
+      panelBlockElement.classList.toggle('is-hidden')
+    }
+  }
+
   const Attend: AttendGlobal = {
     urlPrefix,
     setUnsavedChanges,
     clearUnsavedChanges,
     hasUnsavedChanges,
-    initializeMenuTabs
+    initializeMenuTabs,
+    togglePanelBlocks
   }
 
   // eslint-disable-next-line unicorn/prefer-module

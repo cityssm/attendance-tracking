@@ -1,6 +1,6 @@
 <%- include('_header'); -%>
 
-<h1 class="title is-1">
+<h1 class="title is-1 is-size-4-mobile">
   <%= configFunctions.getConfigProperty("application.applicationName") %>
 </h1>
 
@@ -230,72 +230,71 @@
       <% } %>
     <% } %>
     <% if (user.isAdmin) { %>
-      <h2 class="title is-3">Administrator Tools</h2>
-
-      <div class="box">
-        <div class="media">
-          <div class="media-left">
-            <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
-              <i class="fas fa-hard-hat"></i>
-              <i class="fas fa-cog has-text-warning-dark" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
-            </span>
-          </div>
-          <a class="media-content" href="<%= urlPrefix %>/admin/employees">
-            <h2 class="title is-4 is-marginless has-text-link">
-              Employee Maintenance
-            </h2>
-            <p>
-              Manage employees and their attributes.
-            </p>
+      <div class="panel">
+        <div class="panel-heading">
+          <a class="is-flex is-justify-content-space-between is-panel-block-toggle" href="#">
+            <h2 class="has-text-weight-bold">Administrator Tools</h2>
+            <span class="icon"><i class="fas fa-chevron-down" aria-hidden="true"></i></span>
           </a>
         </div>
-      </div>
-
-      <div class="box">
-        <div class="media">
-          <div class="media-left">
-            <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
-              <i class="fas fa-table"></i>
-              <i class="fas fa-cog has-text-warning-dark" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
-            </span>
+        <div class="panel-block is-block is-hidden">
+          <div class="media py-2">
+            <div class="media-left">
+              <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
+                <i class="fas fa-hard-hat"></i>
+                <i class="fas fa-cog has-text-warning-dark" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+              </span>
+            </div>
+            <a class="media-content" href="<%= urlPrefix %>/admin/employees">
+              <h2 class="title is-4 is-marginless has-text-link">
+                Employee Maintenance
+              </h2>
+              <p>
+                Manage employees and their attributes.
+              </p>
+            </a>
           </div>
-          <a class="media-content" href="<%= urlPrefix %>/admin/tables">
-            <h2 class="title is-4 is-marginless has-text-link">
-              Table Maintenance
-            </h2>
-            <p>
-              Maintain configuration tables.
-            </p>
-          </a>
+        </div>
+        <div class="panel-block is-block is-hidden">
+          <div class="media py-2">
+            <div class="media-left">
+              <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
+                <i class="fas fa-table"></i>
+                <i class="fas fa-cog has-text-warning-dark" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+              </span>
+            </div>
+            <a class="media-content" href="<%= urlPrefix %>/admin/tables">
+              <h2 class="title is-4 is-marginless has-text-link">
+                Table Maintenance
+              </h2>
+              <p>
+                Maintain configuration tables.
+              </p>
+            </a>
+          </div>
+        </div>
+        <div class="panel-block is-block is-hidden">
+          <div class="media py-2">
+            <div class="media-left">
+              <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
+                <i class="fas fa-users"></i>
+                <i class="fas fa-cog has-text-warning-dark" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
+              </span>
+            </div>
+            <a class="media-content" href="<%= urlPrefix %>/admin/users">
+              <h2 class="title is-4 is-marginless has-text-link">
+                User Maintenance
+              </h2>
+              <p>
+                Manage users and permissions.
+              </p>
+            </a>
+          </div>
         </div>
       </div>
-
-      <div class="box">
-        <div class="media">
-          <div class="media-left">
-            <span class="fa-layers fa-3x fa-fw" aria-hidden="true">
-              <i class="fas fa-users"></i>
-              <i class="fas fa-cog has-text-warning-dark" data-fa-transform="shrink-8 right-8 down-5" data-fa-glow="10"></i>
-            </span>
-          </div>
-          <a class="media-content" href="<%= urlPrefix %>/admin/users">
-            <h2 class="title is-4 is-marginless has-text-link">
-              User Maintenance
-            </h2>
-            <p>
-              Manage users and permissions.
-            </p>
-          </a>
-        </div>
-      </div>
-
     <% } %>
   </div>
 </div>
-
-
-
-
 
 <%- include('_footerA'); -%>
 

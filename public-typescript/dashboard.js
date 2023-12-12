@@ -3,7 +3,7 @@
 /* eslint-disable unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
-    var _a, _b;
+    var _a, _b, _c;
     const Attend = exports.Attend;
     const callOutLists = ((_a = exports.callOutLists) !== null && _a !== void 0 ? _a : []);
     function openCallOutListByClick(clickEvent) {
@@ -22,7 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             }
             hasFavourites = true;
             const panelBlockElement = document.createElement('a');
-            panelBlockElement.className = 'panel-block';
+            panelBlockElement.className = 'panel-block py-3';
             panelBlockElement.dataset.listId = callOutList.listId;
             panelBlockElement.href = '#';
             panelBlockElement.innerHTML = `<span class="panel-icon"><i class="fas fa-phone" aria-hidden="true"></i></span>
@@ -46,4 +46,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
         ;
         listElement.addEventListener('click', openCallOutListByClick);
     }
+    (_c = document
+        .querySelector('.panel a.is-panel-block-toggle')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', Attend.togglePanelBlocks);
 })();

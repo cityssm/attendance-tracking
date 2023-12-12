@@ -19,23 +19,11 @@ import type { Attend as AttendGlobal } from '../types/globalTypes.js'
    * Raw Exports Toggle
    */
 
-  function togglePanelBlocks(clickEvent: Event): void {
-    clickEvent.preventDefault()
-
-    const panelBlockElements = (
-      (clickEvent.currentTarget as HTMLElement).closest('.panel') as HTMLElement
-    ).querySelectorAll('.panel-block')
-
-    for (const panelBlockElement of panelBlockElements) {
-      panelBlockElement.classList.toggle('is-hidden')
-    }
-  }
-
   const toggleAnchorElements = document.querySelectorAll(
     '.panel a.is-panel-block-toggle'
   )
 
   for (const toggleAnchorElement of toggleAnchorElements) {
-    toggleAnchorElement.addEventListener('click', togglePanelBlocks)
+    toggleAnchorElement.addEventListener('click', Attend.togglePanelBlocks)
   }
 })()
