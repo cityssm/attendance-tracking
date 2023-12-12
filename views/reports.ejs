@@ -34,7 +34,7 @@
   <div class="column">
     <div class="tabs-container" id="tabs-container--reports">
       <article id="tab--employeeAttendance">
-        <nav class="breadcrumb">
+        <nav class="breadcrumb is-hidden-mobile">
           <ul>
             <li class="is-active">
               <a href="#" aria-current="page">
@@ -48,7 +48,7 @@
             </li>
           </ul>
         </nav>
-        <h1 class="title is-1">Employee Attendance Reports</h1>
+        <h1 class="title is-1 is-size-3-mobile">Employee Attendance Reports</h1>
         
         <div class="columns">
           <div class="column">
@@ -281,7 +281,7 @@
       </article>
       <% if (permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
         <article class="is-hidden" id="tab--employees">
-          <nav class="breadcrumb">
+          <nav class="breadcrumb is-hidden-mobile">
             <ul>
               <li class="is-active">
                 <a href="#" aria-current="page">
@@ -295,7 +295,7 @@
               </li>
             </ul>
           </nav>
-          <h1 class="title is-1">Employee Reports</h1>
+          <h1 class="title is-1 is-size-3-mobile">Employee Reports</h1>
 
           <div class="columns">
             <div class="column">
