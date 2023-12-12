@@ -129,8 +129,12 @@ describe('Admin - Table Maintenance', () => {
     })
 
     it('Exports absence types', () => {
-      cy.get(`${tabSelector} a[download][href*="/reports/"]`).click()
-      cy.wait(1000)
+      cy.get(`${tabSelector} a[download][href*="/reports/"]`).each(
+        ($reportLink) => {
+          cy.wrap($reportLink).click({ force: true })
+          cy.wait(1000)
+        }
+      )
     })
 
     it('Deletes an absence type', () => {
@@ -264,8 +268,12 @@ describe('Admin - Table Maintenance', () => {
     })
 
     it('Exports response types', () => {
-      cy.get(`${tabSelector} a[download][href*="/reports/"]`).click()
-      cy.wait(1000)
+      cy.get(`${tabSelector} a[download][href*="/reports/"]`).each(
+        ($reportLink) => {
+          cy.wrap($reportLink).click({ force: true })
+          cy.wait(1000)
+        }
+      )
     })
 
     it('Deletes a response type', () => {
@@ -399,8 +407,12 @@ describe('Admin - Table Maintenance', () => {
     })
 
     it('Exports reasons', () => {
-      cy.get(`${tabSelector} a[download][href*="/reports/"]`).click()
-      cy.wait(1000)
+      cy.get(`${tabSelector} a[download][href*="/reports/"]`).each(
+        ($reportLink) => {
+          cy.wrap($reportLink).click({ force: true })
+          cy.wait(1000)
+        }
+      )
     })
 
     it('Deletes a reason', () => {
