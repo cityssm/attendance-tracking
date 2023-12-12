@@ -3,7 +3,7 @@
 <div class="columns">
   <div class="column is-3"><%- include('_admin.menu.ejs') %></div>
   <div class="column">
-    <nav class="breadcrumb">
+    <nav class="breadcrumb is-hidden-mobile">
       <ul>
         <li class="is-active">
           <a href="#"> Administration </a>
@@ -17,7 +17,7 @@
     </nav>
     <div class="columns is-vcentered is-mobile">
       <div class="column">
-        <h1 class="title is-1">User Maintenance</h1>
+        <h1 class="title is-1 is-size-3-mobile">User Maintenance</h1>
       </div>
       <div class="column is-narrow">
         <button class="button is-success is-add-user-button" data-cy="add" type="button">
@@ -30,7 +30,7 @@
     </div>
 
     <div class="message is-info">
-      <p class="message-body">
+      <p class="message-body is-size-7-mobile">
         Note that users must log out and log back in to see changes to their
         permissions.
       </p>
