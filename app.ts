@@ -169,7 +169,7 @@ app.use(
 // Clear cookie if no corresponding session
 app.use((request, response, next) => {
   if (
-    Object.hasOwn(request.cookies, sessionCookieName) &&
+    Object.hasOwn(request.cookies as object, sessionCookieName) &&
     !Object.hasOwn(request.session, 'user')
   ) {
     response.clearCookie(sessionCookieName)
@@ -186,7 +186,7 @@ const sessionChecker = (
 ): void => {
   if (
     Object.hasOwn(request.session, 'user') &&
-    Object.hasOwn(request.cookies, sessionCookieName)
+    Object.hasOwn(request.cookies as object, sessionCookieName)
   ) {
     next()
     return
@@ -271,7 +271,7 @@ app.use(`${urlPrefix}/login`, abuseCheckHandler, routerLogin)
 app.get(`${urlPrefix}/logout`, (request, response) => {
   if (
     Object.hasOwn(request.session, 'user') &&
-    Object.hasOwn(request.cookies, sessionCookieName)
+    Object.hasOwn(request.cookies as object, sessionCookieName)
   ) {
     request.session.destroy(() => {
       response.clearCookie(sessionCookieName)
