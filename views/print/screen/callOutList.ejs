@@ -1,31 +1,42 @@
 <%- include('_header-print'); -%>
 
-<h1 class="title is-2">
-  <%= callOutList.listName %>
-</h1>
+<% for (const callOutList of callOutLists) { %>
+  <div style="break-inside: avoid;">
+    <h1 class="title is-3 mb-0">
+      <%= callOutList.listName %>
+    </h1>
 
-<table class="table is-fullwidth">
-  <thead>
-    <tr>
-      <th>Emp No</th>
-      <th>Employee Name</th>
-      <th>Primary Home Contact</th>
-      <th>Secondary Home Contact</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% for (const member of callOutListMembers) { %>
-      <tr>
-        <td><%= member.employeeNumber %></td>
-        <td>
-          <%= member.employeeSurname %>, <%= member.employeeGivenName %>
-        </td>
-        <td><%= member.homeContact1 %></td>
-        <td><%= member.homeContact2 %></td>
-      </tr>
-    <% } %>
-  </tbody>
-</table>
+    <p>
+      <%- (callOutList.listDescription ?? '').replace(/\n/g, '<br />') %>
+    </p>
+
+    <table class="table is-fullwidth is-fixed my-4">
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Home Contact</th>
+          <th>Sort Key</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (const member of callOutList.callOutListMembers) { %>
+          <tr>
+            <td>
+              <%= member.employeeSurname %>, <%= member.employeeGivenName %>
+            </td>
+            <td>
+              <%= member.homeContact1 %><br />
+              <%= member.homeContact2 %>
+            </td>
+            <td>
+              <%= member.sortKey %>
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
 
 <p class="has-text-right is-size-7 is-italic">
   <% const currentDate = new Date() %>

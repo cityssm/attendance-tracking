@@ -61,8 +61,7 @@ declare const cityssm: cityssmGlobal
    * Permissions
    */
 
-  const isAdmin =
-    document.querySelector('main')?.dataset.isAdmin === 'true' ?? false
+  const isAdmin = document.querySelector('main')?.dataset.isAdmin === 'true'
 
   const userName = document.querySelector('main')?.dataset.userName ?? ''
 
@@ -465,17 +464,22 @@ declare const cityssm: cityssmGlobal
         if (absenceRecord !== undefined) {
           modalElement
             .querySelector('#callOutListMember--absenceRecord')
-            ?.insertAdjacentHTML('afterbegin', `<div class="box mb-3 has-background-warning-light">
+            ?.insertAdjacentHTML(
+              'afterbegin',
+              `<div class="box mb-3 has-background-warning-light">
               <div class="columns is-mobile">
                 <div class="column is-narrow" data-tooltip="Absence Record">
                   <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                 </div>
                 <div class="column">
-                  ${new Date(absenceRecord.absenceDateTime).toLocaleDateString()}<br />
+                  ${new Date(
+                    absenceRecord.absenceDateTime
+                  ).toLocaleDateString()}<br />
                   ${absenceRecord.absenceType}
                 </div>
               </div>
-              </div>`)
+              </div>`
+            )
         }
 
         if (canUpdate) {
@@ -1241,7 +1245,7 @@ declare const cityssm: cityssmGlobal
           modalElement.querySelector(
             '#reportingLink--callOutListReport'
           ) as HTMLAnchorElement
-        ).href = `${Attend.urlPrefix}/print/screen/callOutList/?listId=${listId}`
+        ).href = `${Attend.urlPrefix}/print/screen/callOutList/?listIds=${listId}`
         ;(
           modalElement.querySelector(
             '#reportingLink--callOutListMembersCSV'

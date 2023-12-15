@@ -3,7 +3,7 @@
 /* eslint-disable no-extra-semi */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
-    var _a, _b, _c, _d, _e, _f, _g;
+    var _a, _b, _c, _d, _e, _f;
     const Attend = exports.Attend;
     let currentListId = '';
     let currentCallOutListMembers = [];
@@ -24,8 +24,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
     /*
      * Permissions
      */
-    const isAdmin = (_e = ((_d = document.querySelector('main')) === null || _d === void 0 ? void 0 : _d.dataset.isAdmin) === 'true') !== null && _e !== void 0 ? _e : false;
-    const userName = (_g = (_f = document.querySelector('main')) === null || _f === void 0 ? void 0 : _f.dataset.userName) !== null && _g !== void 0 ? _g : '';
+    const isAdmin = ((_d = document.querySelector('main')) === null || _d === void 0 ? void 0 : _d.dataset.isAdmin) === 'true';
+    const userName = (_f = (_e = document.querySelector('main')) === null || _e === void 0 ? void 0 : _e.dataset.userName) !== null && _f !== void 0 ? _f : '';
     const canUpdate = callOutResponseTypes.length === 0
         ? false
         : exports.userPermissions.callOutsCanUpdate;
@@ -737,7 +737,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 bulmaJS.toggleHtmlClipped();
                 bulmaJS.init(modalElement);
                 Attend.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('.tabs-container > article'));
-                modalElement.querySelector('#reportingLink--callOutListReport').href = `${Attend.urlPrefix}/print/screen/callOutList/?listId=${listId}`;
+                modalElement.querySelector('#reportingLink--callOutListReport').href = `${Attend.urlPrefix}/print/screen/callOutList/?listIds=${listId}`;
                 modalElement.querySelector('#reportingLink--callOutListMembersCSV').href = `${Attend.urlPrefix}/reports/callOutListMembers-formatted-byListId/?listId=${listId}`;
                 modalElement.querySelector('#reportingLink--callOutRecordsCSV').href = `${Attend.urlPrefix}/reports/callOutRecords-recent-byListId/?listId=${listId}`;
                 cityssm.enableNavBlocker();
