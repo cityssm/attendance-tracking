@@ -28,6 +28,22 @@ declare const cityssm: cityssmGlobal
 
   const selfServiceEnabled = exports.selfService as boolean
 
+  function swapFields(clickEvent: Event): void {
+    clickEvent.preventDefault()
+
+    const inputElements = (clickEvent.currentTarget as HTMLElement)
+      .closest('.columns')
+      ?.querySelectorAll('input') as NodeListOf<HTMLInputElement>
+
+    if (inputElements.length !== 2) {
+      return
+    }
+
+    const value = inputElements.item(0).value
+    inputElements.item(0).value = inputElements.item(1).value
+    inputElements.item(1).value = value
+  }
+
   function openEmployeeModal(employeeNumber: string): void {
     let employeeModalElement: HTMLElement
     let closeEmployeeModalFunction: () => void
@@ -430,6 +446,13 @@ declare const cityssm: cityssmGlobal
         modalElement
           .querySelector('#form--employeeEdit')
           ?.addEventListener('submit', updateEmployee)
+
+        const swapButtonElements =
+          modalElement.querySelectorAll('.is-swap-button')
+
+        for (const buttonElement of swapButtonElements) {
+          buttonElement.addEventListener('click', swapFields)
+        }
 
         modalElement
           .querySelector('#form--employeePropertyAdd')

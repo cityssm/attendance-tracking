@@ -11,6 +11,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
     const employeeNumberRegularExpression = exports.employeeNumberRegularExpression;
     // Employee Modal
     const selfServiceEnabled = exports.selfService;
+    function swapFields(clickEvent) {
+        var _a;
+        clickEvent.preventDefault();
+        const inputElements = (_a = clickEvent.currentTarget
+            .closest('.columns')) === null || _a === void 0 ? void 0 : _a.querySelectorAll('input');
+        if (inputElements.length !== 2) {
+            return;
+        }
+        const value = inputElements.item(0).value;
+        inputElements.item(0).value = inputElements.item(1).value;
+        inputElements.item(1).value = value;
+    }
     function openEmployeeModal(employeeNumber) {
         let employeeModalElement;
         let closeEmployeeModalFunction;
@@ -245,6 +257,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 Attend.initializeMenuTabs(modalElement.querySelectorAll('.menu a'), modalElement.querySelectorAll('.tabs-container > article'));
                 (_a = modalElement
                     .querySelector('#form--employeeEdit')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', updateEmployee);
+                const swapButtonElements = modalElement.querySelectorAll('.is-swap-button');
+                for (const buttonElement of swapButtonElements) {
+                    buttonElement.addEventListener('click', swapFields);
+                }
                 (_b = modalElement
                     .querySelector('#form--employeePropertyAdd')) === null || _b === void 0 ? void 0 : _b.addEventListener('submit', addEmployeeProperty);
                 (_c = modalElement
