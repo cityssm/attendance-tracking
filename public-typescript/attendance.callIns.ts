@@ -116,9 +116,11 @@ declare const cityssm: cityssmGlobal
     panelElement.className = 'panel'
 
     let todayCount = 0
+    let previousDateString = ''
 
     for (const absenceRecord of absenceRecords) {
       const absenceDate = new Date(absenceRecord.absenceDateTime)
+      const currentDateString = absenceDate.toLocaleDateString()
 
       const panelBlockElement = document.createElement('div')
       panelBlockElement.className = 'panel-block is-block'
@@ -135,8 +137,8 @@ declare const cityssm: cityssmGlobal
           <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
         </div>
         <div class="column is-3">
-          <strong data-tooltip="Absence Date">
-            ${absenceDate.toLocaleDateString()}
+          <strong class="${currentDateString === previousDateString ? 'has-text-grey-light' : ''}" data-tooltip="Absence Date">
+            ${currentDateString}
           </strong>
         </div>
         <div class="column is-4">
@@ -167,6 +169,8 @@ declare const cityssm: cityssmGlobal
       }
 
       panelElement.append(panelBlockElement)
+
+      previousDateString = currentDateString
     }
 
     containerElement.innerHTML = ''
@@ -253,9 +257,11 @@ declare const cityssm: cityssmGlobal
     panelElement.className = 'panel'
 
     let todayCount = 0
+    let previousDateString = ''
 
     for (const returnToWorkRecord of returnToWorkRecords) {
       const returnDate = new Date(returnToWorkRecord.returnDateTime)
+      const currentDateString = returnDate.toLocaleDateString()
 
       const panelBlockElement = document.createElement('div')
       panelBlockElement.className = 'panel-block is-block'
@@ -272,7 +278,9 @@ declare const cityssm: cityssmGlobal
           <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
         </div>
         <div class="column is-3">
-          <strong data-tooltip="Return Date">${returnDate.toLocaleDateString()}</strong>
+          <strong class="${currentDateString === previousDateString ? 'has-text-grey-light' : ''}" data-tooltip="Return Date">
+            ${currentDateString}
+          </strong>
         </div>
         <div class="column is-4">
           <strong>${returnToWorkRecord.employeeName}</strong><br />
@@ -306,6 +314,8 @@ declare const cityssm: cityssmGlobal
       }
 
       panelElement.append(panelBlockElement)
+
+      previousDateString = currentDateString
     }
 
     containerElement.innerHTML = ''

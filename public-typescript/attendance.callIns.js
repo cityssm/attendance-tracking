@@ -64,8 +64,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const panelElement = document.createElement('div');
         panelElement.className = 'panel';
         let todayCount = 0;
+        let previousDateString = '';
         for (const absenceRecord of absenceRecords) {
             const absenceDate = new Date(absenceRecord.absenceDateTime);
+            const currentDateString = absenceDate.toLocaleDateString();
             const panelBlockElement = document.createElement('div');
             panelBlockElement.className = 'panel-block is-block';
             panelBlockElement.dataset.recordId = absenceRecord.recordId;
@@ -79,8 +81,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
           <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
         </div>
         <div class="column is-3">
-          <strong data-tooltip="Absence Date">
-            ${absenceDate.toLocaleDateString()}
+          <strong class="${currentDateString === previousDateString ? 'has-text-grey-light' : ''}" data-tooltip="Absence Date">
+            ${currentDateString}
           </strong>
         </div>
         <div class="column is-4">
@@ -102,6 +104,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     .querySelector('.is-delete-button')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', deleteAbsenceRecord);
             }
             panelElement.append(panelBlockElement);
+            previousDateString = currentDateString;
         }
         containerElement.innerHTML = '';
         containerElement.append(panelElement);
@@ -157,8 +160,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
         const panelElement = document.createElement('div');
         panelElement.className = 'panel';
         let todayCount = 0;
+        let previousDateString = '';
         for (const returnToWorkRecord of returnToWorkRecords) {
             const returnDate = new Date(returnToWorkRecord.returnDateTime);
+            const currentDateString = returnDate.toLocaleDateString();
             const panelBlockElement = document.createElement('div');
             panelBlockElement.className = 'panel-block is-block';
             panelBlockElement.dataset.recordId = returnToWorkRecord.recordId;
@@ -172,7 +177,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
           <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
         </div>
         <div class="column is-3">
-          <strong data-tooltip="Return Date">${returnDate.toLocaleDateString()}</strong>
+          <strong class="${currentDateString === previousDateString ? 'has-text-grey-light' : ''}" data-tooltip="Return Date">
+            ${currentDateString}
+          </strong>
         </div>
         <div class="column is-4">
           <strong>${returnToWorkRecord.employeeName}</strong><br />
@@ -193,6 +200,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     .querySelector('.is-delete-button')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', deleteReturnToWorkRecord);
             }
             panelElement.append(panelBlockElement);
+            previousDateString = currentDateString;
         }
         containerElement.innerHTML = '';
         containerElement.append(panelElement);
