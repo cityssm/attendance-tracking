@@ -2,6 +2,7 @@ import { getAbsenceRecords } from '../../database/getAbsenceRecords.js';
 import { getAfterHoursRecords } from '../../database/getAfterHoursRecords.js';
 import { getCallOutLists } from '../../database/getCallOutLists.js';
 import { getEmployees } from '../../database/getEmployees.js';
+import { getRecentReturnShiftValues } from '../../database/getRecentReturnShiftValues.js';
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js';
 import { getAbsenceTypes, getAfterHoursReasons, getCallOutResponseTypes, getEmployeePropertyNames } from '../../helpers/functions.cache.js';
 import { getConfigProperty } from '../../helpers/functions.config.js';
@@ -25,14 +26,19 @@ async function populateAbsenceVariables(sessionUser) {
 }
 async function populateReturnToWorkVariables(sessionUser) {
     let returnToWorkRecords = [];
+    let returnShifts = [];
     if (hasPermission(sessionUser, 'attendance.returnsToWork.canView')) {
         returnToWorkRecords = await getReturnToWorkRecords({
             recentOnly: true,
             todayOnly: false
         }, sessionUser);
     }
+    if (hasPermission(sessionUser, 'attendance.returnsToWork.canUpdate')) {
+        returnShifts = await getRecentReturnShiftValues();
+    }
     return {
-        returnToWorkRecords
+        returnToWorkRecords,
+        returnShifts
     };
 }
 async function populateCallOutVariables(sessionUser) {
@@ -94,9 +100,11 @@ export async function handler(request, response) {
         absenceTypes = absenceVariables.absenceTypes;
     }
     let returnToWorkRecords = [];
+    let returnShifts = [];
     if (getConfigProperty('features.attendance.returnsToWork')) {
         const returnToWorkVariables = await populateReturnToWorkVariables(request.session.user);
         returnToWorkRecords = returnToWorkVariables.returnToWorkRecords;
+        returnShifts = returnToWorkVariables.returnShifts;
     }
     let callOutLists = [];
     let callOutResponseTypes = [];
@@ -129,6 +137,7 @@ export async function handler(request, response) {
         absenceRecords,
         absenceTypes,
         returnToWorkRecords,
+        returnShifts,
         callOutLists,
         callOutResponseTypes,
         employeeEligibilityFunctionNames,

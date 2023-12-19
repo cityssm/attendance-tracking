@@ -147,6 +147,12 @@
   <% } %>
 </datalist>
 
+<datalist id="datalist--returnShifts">
+  <% for (const returnShift of returnShifts) { %>
+  <option value="<%= returnShift %>" />
+  <% } %>
+</datalist>
+
 <%- include('_footerA'); -%>
 
 <script src="<%= urlPrefix %>/javascripts/attendance.min.js"></script>

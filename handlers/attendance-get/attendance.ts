@@ -7,6 +7,7 @@ import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
 import { getAfterHoursRecords } from '../../database/getAfterHoursRecords.js'
 import { getCallOutLists } from '../../database/getCallOutLists.js'
 import { getEmployees } from '../../database/getEmployees.js'
+import { getRecentReturnShiftValues } from '../../database/getRecentReturnShiftValues.js'
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 import {
   getAbsenceTypes,
@@ -56,8 +57,10 @@ async function populateAbsenceVariables(sessionUser: AttendUser): Promise<{
 
 async function populateReturnToWorkVariables(sessionUser: AttendUser): Promise<{
   returnToWorkRecords: ReturnToWorkRecord[]
+  returnShifts: string[]
 }> {
   let returnToWorkRecords: ReturnToWorkRecord[] = []
+  let returnShifts: string[] = []
 
   if (hasPermission(sessionUser, 'attendance.returnsToWork.canView')) {
     returnToWorkRecords = await getReturnToWorkRecords(
@@ -69,8 +72,13 @@ async function populateReturnToWorkVariables(sessionUser: AttendUser): Promise<{
     )
   }
 
+  if (hasPermission(sessionUser, 'attendance.returnsToWork.canUpdate')) {
+    returnShifts = await getRecentReturnShiftValues()
+  }
+
   return {
-    returnToWorkRecords
+    returnToWorkRecords,
+    returnShifts
   }
 }
 
@@ -180,6 +188,7 @@ export async function handler(
    */
 
   let returnToWorkRecords: ReturnToWorkRecord[] = []
+  let returnShifts: string[] = []
 
   if (getConfigProperty('features.attendance.returnsToWork')) {
     const returnToWorkVariables = await populateReturnToWorkVariables(
@@ -187,6 +196,7 @@ export async function handler(
     )
 
     returnToWorkRecords = returnToWorkVariables.returnToWorkRecords
+    returnShifts = returnToWorkVariables.returnShifts
   }
 
   /*
@@ -248,6 +258,7 @@ export async function handler(
     absenceTypes,
 
     returnToWorkRecords,
+    returnShifts,
 
     callOutLists,
     callOutResponseTypes,
