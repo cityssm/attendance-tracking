@@ -1,4 +1,8 @@
-import { AvantiApi, lookups as avantiLookups, type types as AvantiApiTypes } from '@cityssm/avanti-api'
+import {
+  AvantiApi,
+  lookups as avantiLookups,
+  type types as AvantiApiTypes
+} from '@cityssm/avanti-api'
 import Debug from 'debug'
 import exitHook from 'exit-hook'
 import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async'
@@ -24,7 +28,8 @@ const sessionUser: AttendUser = {
 
 const avantiConfig = getConfigProperty('settings.avantiSync.config')
 
-const avanti = new AvantiApi(avantiConfig)
+const avanti =
+  avantiConfig === undefined ? undefined : new AvantiApi(avantiConfig)
 
 const getEmployeeOptions: AvantiApiTypes.GetEmployeesRequest = {
   skip: 0,
@@ -38,6 +43,10 @@ if (getConfigProperty('settings.avantiSync.locationCodes').length > 0) {
 }
 
 async function doSync(): Promise<void> {
+  if (avanti === undefined) {
+    return
+  }
+
   debug('Requesting employees from API...')
 
   const employees = await avanti.getEmployees(getEmployeeOptions)
@@ -129,11 +138,11 @@ async function doSync(): Promise<void> {
               ].isWork
             ) {
               workContacts.push(
-                avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`]
+                avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`] as string
               )
             } else {
               homeContacts.push(
-                avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`]
+                avantiEmployeePersonal[`phoneNumber${phoneTypeIndex}`] as string
               )
             }
           }

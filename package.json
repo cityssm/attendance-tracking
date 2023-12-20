@@ -51,6 +51,7 @@
     "@cityssm/avanti-api": "^0.6.1",
     "@cityssm/bulma-js": "^0.4.0",
     "@cityssm/bulma-webapp-js": "^1.5.0",
+    "@cityssm/configurator": "^0.1.0",
     "@cityssm/express-abuse-points": "^2.0.0",
     "@cityssm/mssql-multi-pool": "^3.0.0",
     "@cityssm/utils-datetime": "^1.0.0",

@@ -17,7 +17,7 @@ const sessionUser = {
     isAdmin: false
 };
 const avantiConfig = getConfigProperty('settings.avantiSync.config');
-const avanti = new AvantiApi(avantiConfig);
+const avanti = avantiConfig === undefined ? undefined : new AvantiApi(avantiConfig);
 const getEmployeeOptions = {
     skip: 0,
     take: 10000
@@ -26,6 +26,9 @@ if (getConfigProperty('settings.avantiSync.locationCodes').length > 0) {
     getEmployeeOptions.locations = getConfigProperty('settings.avantiSync.locationCodes');
 }
 async function doSync() {
+    if (avanti === undefined) {
+        return;
+    }
     debug('Requesting employees from API...');
     const employees = await avanti.getEmployees(getEmployeeOptions);
     if (!employees.success) {
