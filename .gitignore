@@ -15,16 +15,9 @@ node_modules/
 
 data/*.db
 data/*.db-journal
-data/apiKeys.json
 
 data/config.d.ts
 data/config.js
 data/config.ts
 
 public/images-custom/*
-
-temp/wmf/
-temp/config.*
-temp/*.csv
-
-megalinter-reports/
