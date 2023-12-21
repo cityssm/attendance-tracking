@@ -1,15 +1,15 @@
 import type { Request, Response } from 'express'
 
 import { getUsers } from '../../database/getUsers.js'
-import { updateUserIsAdmin } from '../../database/updateUserIsAdmin.js'
+import { updateUserIsAdmin } from '../../database/updateUser.js'
 
 export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
   const success = await updateUserIsAdmin(
-    request.body.userName,
-    request.body.isAdmin,
+    request.body.userName as string,
+    request.body.isAdmin as '0' | '1',
     request.session.user as AttendUser
   )
 
