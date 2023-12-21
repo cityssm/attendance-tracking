@@ -1,12 +1,12 @@
 import { getCallOutList } from '../database/getCallOutList.js';
 import { getCallOutListMembers } from '../database/getCallOutListMembers.js';
 import { hasPermission } from './functions.permissions.js';
-const screenPrintConfigs = {
+const screenPrintConfigs = Object.freeze({
     callOutList: {
         title: 'Call Out List',
         params: ['listIds']
     }
-};
+});
 export function getScreenPrintConfig(printName) {
     return screenPrintConfigs[printName];
 }

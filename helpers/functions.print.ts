@@ -9,16 +9,17 @@ interface PrintConfig {
   params: string[]
 }
 
-const screenPrintConfigs: Record<string, PrintConfig> = {
+const screenPrintConfigs: Record<string, PrintConfig> = Object.freeze({
   callOutList: {
     title: 'Call Out List',
     params: ['listIds']
   }
-}
+})
 
 export function getScreenPrintConfig(
-  printName: string
+  printName: keyof typeof screenPrintConfigs | string
 ): PrintConfig | undefined {
+  // eslint-disable-next-line security/detect-object-injection
   return screenPrintConfigs[printName]
 }
 

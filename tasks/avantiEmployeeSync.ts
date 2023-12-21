@@ -42,6 +42,7 @@ if (getConfigProperty('settings.avantiSync.locationCodes').length > 0) {
   )
 }
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 async function doSync(): Promise<void> {
   if (avanti === undefined) {
     return
