@@ -1,40 +1,44 @@
 <%- include('_header-print'); -%>
 
-<% for (const callOutList of callOutLists) { %>
-  <div style="break-inside: avoid;">
-    <h1 class="title is-3 mb-0">
-      <%= callOutList.listName %>
-    </h1>
+<% for (const callOutListColumn of callOutLists) { %>
+  <div class="columns">
+  <% for (const callOutList of callOutListColumn) { %>
+    <div class="column" style="break-inside: avoid;">
+      <h1 class="title is-5 mb-0">
+        <%= callOutList.listName %>
+      </h1>
 
-    <p>
-      <%- (callOutList.listDescription ?? '').replace(/\n/g, '<br />') %>
-    </p>
+      <p class="is-size-7">
+        <%- (callOutList.listDescription ?? '').replace(/\n/g, '<br />') %>
+      </p>
 
-    <table class="table is-fullwidth is-fixed my-4">
-      <thead>
-        <tr>
-          <th>Employee</th>
-          <th>Home Contact</th>
-          <th>Sort Key</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% for (const member of callOutList.callOutListMembers) { %>
+      <table class="table is-narrow is-fullwidth is-fixed my-2 is-size-7">
+        <thead>
           <tr>
-            <td>
-              <%= member.employeeSurname %>, <%= member.employeeGivenName %>
-            </td>
-            <td>
-              <%= member.homeContact1 %><br />
-              <%= member.homeContact2 %>
-            </td>
-            <td>
-              <%= member.sortKey %>
-            </td>
+            <th>Employee</th>
+            <th>Home Contact</th>
+            <th>Sort Key</th>
           </tr>
-        <% } %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% for (const member of callOutList.callOutListMembers) { %>
+            <tr>
+              <td>
+                <%= member.employeeSurname %>, <%= member.employeeGivenName %>
+              </td>
+              <td>
+                <%= member.homeContact1 %><br />
+                <%= member.homeContact2 %>
+              </td>
+              <td>
+                <%= member.sortKey %>
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
   </div>
 <% } %>
 

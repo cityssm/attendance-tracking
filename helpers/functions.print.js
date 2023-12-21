@@ -18,17 +18,22 @@ export async function getReportData(printConfig, requestQuery, sessionUser) {
         typeof requestQuery.listIds === 'string' &&
         hasPermission(sessionUser, 'attendance.callOuts.canView')) {
         const callOutLists = [];
-        const callOutListIds = requestQuery.listIds.split(',');
-        for (const listId of callOutListIds) {
-            const callOutList = await getCallOutList(listId);
-            if (callOutList !== undefined) {
-                callOutList.callOutListMembers = await getCallOutListMembers({
-                    listId
-                }, {
-                    includeSortKeyFunction: true
-                });
-                callOutLists.push(callOutList);
+        const callOutListIdsInColumnGroups = requestQuery.listIds.split(',');
+        for (const callOutListIdsColumn of callOutListIdsInColumnGroups) {
+            const callOutListsColumn = [];
+            const callOutListIds = callOutListIdsColumn.split('|');
+            for (const callOutListId of callOutListIds) {
+                const callOutList = await getCallOutList(callOutListId);
+                if (callOutList !== undefined) {
+                    callOutList.callOutListMembers = await getCallOutListMembers({
+                        listId: callOutListId
+                    }, {
+                        includeSortKeyFunction: true
+                    });
+                    callOutListsColumn.push(callOutList);
+                }
             }
+            callOutLists.push(callOutListsColumn);
         }
         reportData.callOutLists = callOutLists;
     }

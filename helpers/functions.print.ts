@@ -36,25 +36,35 @@ export async function getReportData(
     typeof requestQuery.listIds === 'string' &&
     hasPermission(sessionUser, 'attendance.callOuts.canView')
   ) {
-    const callOutLists: CallOutList[] = []
+    const callOutLists: CallOutList[][] = []
 
-    const callOutListIds = requestQuery.listIds.split(',')
+    // listIds = 1|2,3,4,5|6,7,8
 
-    for (const listId of callOutListIds) {
-      const callOutList = await getCallOutList(listId)
+    const callOutListIdsInColumnGroups = requestQuery.listIds.split(',')
 
-      if (callOutList !== undefined) {
-        callOutList.callOutListMembers = await getCallOutListMembers(
-          {
-            listId
-          },
-          {
-            includeSortKeyFunction: true
-          }
-        )
+    for (const callOutListIdsColumn of callOutListIdsInColumnGroups) {
+      const callOutListsColumn: CallOutList[] = []
 
-        callOutLists.push(callOutList)
+      const callOutListIds = callOutListIdsColumn.split('|')
+
+      for (const callOutListId of callOutListIds) {
+        const callOutList = await getCallOutList(callOutListId)
+
+        if (callOutList !== undefined) {
+          callOutList.callOutListMembers = await getCallOutListMembers(
+            {
+              listId: callOutListId
+            },
+            {
+              includeSortKeyFunction: true
+            }
+          )
+
+          callOutListsColumn.push(callOutList)
+        }
       }
+
+      callOutLists.push(callOutListsColumn)
     }
 
     reportData.callOutLists = callOutLists
