@@ -7,14 +7,17 @@ import handler_doAddAbsenceType from '../handlers/admin-post/doAddAbsenceType.js
 import handler_doAddAfterHoursReason from '../handlers/admin-post/doAddAfterHoursReason.js'
 import handler_doAddCallOutResponseType from '../handlers/admin-post/doAddCallOutResponseType.js'
 import handler_doAddEmployee from '../handlers/admin-post/doAddEmployee.js'
-import handler_doAddEmployeeProperty from '../handlers/admin-post/doAddEmployeeProperty.js'
 import handler_doDeleteAbsenceType from '../handlers/admin-post/doDeleteAbsenceType.js'
 import handler_doDeleteAfterHoursReason from '../handlers/admin-post/doDeleteAfterHoursReason.js'
 import handler_doDeleteCallOutResponseType from '../handlers/admin-post/doDeleteCallOutResponseType.js'
 import handler_doDeleteEmployee from '../handlers/admin-post/doDeleteEmployee.js'
-import handler_doDeleteEmployeeProperty from '../handlers/admin-post/doDeleteEmployeeProperty.js'
 import handler_doGetEmployeeProperties from '../handlers/admin-post/doGetEmployeeProperties.js'
 import handler_doGetUserPermissions from '../handlers/admin-post/doGetUserPermissions.js'
+import {
+  doAddEmployeePropertyHandler,
+  doDeleteEmployeePropertyHandler,
+  doUpdateEmployeePropertyHandler
+} from '../handlers/admin-post/doModifyEmployeeProperty.js'
 import {
   doAddUserHandler,
   doDeleteUserHandler,
@@ -38,7 +41,6 @@ import handler_doUpdateAbsenceType from '../handlers/admin-post/doUpdateAbsenceT
 import handler_doUpdateAfterHoursReason from '../handlers/admin-post/doUpdateAfterHoursReason.js'
 import handler_doUpdateCallOutResponseType from '../handlers/admin-post/doUpdateCallOutResponseType.js'
 import handler_doUpdateEmployee from '../handlers/admin-post/doUpdateEmployee.js'
-import handler_doUpdateEmployeeProperty from '../handlers/admin-post/doUpdateEmployeeProperty.js'
 
 export const router = Router()
 
@@ -61,17 +63,17 @@ router.post('/doDeleteEmployee', handler_doDeleteEmployee as RequestHandler)
 
 router.post(
   '/doAddEmployeeProperty',
-  handler_doAddEmployeeProperty as RequestHandler
+  doAddEmployeePropertyHandler as RequestHandler
 )
 
 router.post(
   '/doUpdateEmployeeProperty',
-  handler_doUpdateEmployeeProperty as RequestHandler
+  doUpdateEmployeePropertyHandler as RequestHandler
 )
 
 router.post(
   '/doDeleteEmployeeProperty',
-  handler_doDeleteEmployeeProperty as RequestHandler
+  doDeleteEmployeePropertyHandler as RequestHandler
 )
 
 /*

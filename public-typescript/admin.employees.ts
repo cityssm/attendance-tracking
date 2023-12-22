@@ -9,12 +9,10 @@ import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
 import type { DoAddEmployeeResponse } from '../handlers/admin-post/doAddEmployee.js'
-import type { DoAddEmployeePropertyResponse } from '../handlers/admin-post/doAddEmployeeProperty.js'
 import type { DoDeleteEmployeeResponse } from '../handlers/admin-post/doDeleteEmployee.js'
-import type { DoDeleteEmployeePropertyResponse } from '../handlers/admin-post/doDeleteEmployeeProperty.js'
 import type { DoGetEmployeePropertiesResponse } from '../handlers/admin-post/doGetEmployeeProperties.js'
+import type { DoModifyEmployeePropertyResponse } from '../handlers/admin-post/doModifyEmployeeProperty.js'
 import type { DoUpdateEmployeeResponse } from '../handlers/admin-post/doUpdateEmployee.js'
-import type { DoUpdateEmployeePropertyResponse } from '../handlers/admin-post/doUpdateEmployeeProperty.js'
 import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 import type { Employee, EmployeeProperty } from '../types/recordTypes.js'
 declare const bulmaJS: BulmaJS
@@ -78,7 +76,7 @@ declare const cityssm: cityssmGlobal
         },
         (rawResponseJSON) => {
           const responseJSON =
-            rawResponseJSON as unknown as DoUpdateEmployeePropertyResponse
+            rawResponseJSON as unknown as DoModifyEmployeePropertyResponse
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -110,7 +108,7 @@ declare const cityssm: cityssmGlobal
           },
           (rawResponseJSON) => {
             const responseJSON =
-              rawResponseJSON as unknown as DoDeleteEmployeePropertyResponse
+              rawResponseJSON as unknown as DoModifyEmployeePropertyResponse
 
             if (responseJSON.success) {
               bulmaJS.alert({
@@ -204,7 +202,7 @@ declare const cityssm: cityssmGlobal
         addPropertyFormElement,
         (rawResponseJSON) => {
           const responseJSON =
-            rawResponseJSON as unknown as DoAddEmployeePropertyResponse
+            rawResponseJSON as unknown as DoModifyEmployeePropertyResponse
 
           if (responseJSON.success) {
             bulmaJS.alert({
