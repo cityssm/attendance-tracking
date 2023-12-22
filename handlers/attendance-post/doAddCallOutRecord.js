@@ -7,10 +7,11 @@ export async function handler(request, response) {
         employeeNumber: request.body.employeeNumber,
         recentOnly: true
     });
-    response.json({
+    const responseJson = {
         success: true,
         recordId,
         callOutRecords
-    });
+    };
+    response.json(responseJson);
 }
 export default handler;

@@ -5,13 +5,9 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
+import type { DoGetAttendanceRecordsResponse } from '../handlers/attendance-post/doGetAttendanceRecords.js'
 import type { Attend as AttendGlobal } from '../types/globalTypes.js'
-import type {
-  AbsenceRecord,
-  CallOutRecord,
-  Employee,
-  ReturnToWorkRecord
-} from '../types/recordTypes.js'
+import type { Employee } from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 
@@ -84,11 +80,9 @@ declare const cityssm: cityssmGlobal
       return possibleEmployee.employeeNumber === employeeNumber
     }) as Employee
 
-    function renderAttendanceRecords(records: {
-      absenceRecords: AbsenceRecord[]
-      returnToWorkRecords: ReturnToWorkRecord[]
-      callOutRecords: CallOutRecord[]
-    }): void {
+    function renderAttendanceRecords(
+      records: DoGetAttendanceRecordsResponse
+    ): void {
       const panelElement = document.createElement('div')
       panelElement.className = 'panel'
 
@@ -234,11 +228,7 @@ declare const cityssm: cityssmGlobal
           },
           (rawResponseJSON) => {
             renderAttendanceRecords(
-              rawResponseJSON as {
-                absenceRecords: AbsenceRecord[]
-                returnToWorkRecords: ReturnToWorkRecord[]
-                callOutRecords: CallOutRecord[]
-              }
+              rawResponseJSON as unknown as DoGetAttendanceRecordsResponse
             )
           }
         )

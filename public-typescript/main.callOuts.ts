@@ -1,16 +1,19 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable no-extra-semi */
-
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable @typescript-eslint/indent */
-
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable unicorn/prefer-module */
+/* eslint-disable @typescript-eslint/indent, unicorn/prefer-module */
 
 // eslint-disable-next-line n/no-missing-import
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
+import type { DoAddCallOutListMemberResponse } from '../handlers/attendance-post/doAddCallOutListMember.js'
+import type { DoAddCallOutRecordResponse } from '../handlers/attendance-post/doAddCallOutRecord.js'
+import type { DoDeleteCallOutListResponse } from '../handlers/attendance-post/doDeleteCallOutList.js'
+import type { DoDeleteCallOutListMemberResponse } from '../handlers/attendance-post/doDeleteCallOutListMember.js'
+import type { DoDeleteCallOutRecordResponse } from '../handlers/attendance-post/doDeleteCallOutRecord.js'
+import type { DoGetCallOutListMembersResponse } from '../handlers/attendance-post/doGetCallOutListMembers.js'
+import type { DoGetCallOutRecordsResponse } from '../handlers/attendance-post/doGetCallOutRecords.js'
+import type { DoUpdateCallOutListResponse } from '../handlers/attendance-post/doUpdateCallOutList.js'
+import type { DoUpdateCallOutRecordResponse } from '../handlers/attendance-post/doUpdateCallOutRecord.js'
 import type {
   AttendCallOuts,
   Attend as AttendGlobal
@@ -108,11 +111,8 @@ declare const cityssm: cityssmGlobal
         `${Attend.urlPrefix}/attendance/doAddCallOutRecord`,
         formElement,
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as {
-            success: boolean
-            recordId: string
-            callOutRecords: CallOutRecord[]
-          }
+          const responseJSON =
+            rawResponseJSON as unknown as DoAddCallOutRecordResponse
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -147,10 +147,8 @@ declare const cityssm: cityssmGlobal
             listId: currentListId
           },
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as {
-              success: boolean
-              callOutRecords: CallOutRecord[]
-            }
+            const responseJSON =
+              rawResponseJSON as unknown as DoDeleteCallOutRecordResponse
 
             if (responseJSON.success) {
               bulmaJS.alert({
@@ -194,10 +192,8 @@ declare const cityssm: cityssmGlobal
           `${Attend.urlPrefix}/attendance/doUpdateCallOutRecord`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as {
-              success: boolean
-              callOutRecords: CallOutRecord[]
-            }
+            const responseJSON =
+              rawResponseJSON as unknown as DoUpdateCallOutRecordResponse
 
             if (responseJSON.success) {
               updateCallOutRecordCloseModalFunction()
@@ -527,7 +523,7 @@ declare const cityssm: cityssmGlobal
           },
           (rawResponseJSON) => {
             callOutRecords = (
-              rawResponseJSON as { callOutRecords: CallOutRecord[] }
+              rawResponseJSON as unknown as DoGetCallOutRecordsResponse
             ).callOutRecords
 
             renderCallOutRecords()
@@ -655,16 +651,8 @@ declare const cityssm: cityssmGlobal
         `${Attend.urlPrefix}/attendance/doUpdateCallOutList`,
         formEvent.currentTarget,
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as
-            | {
-                success: true
-                callOutLists: CallOutList[]
-                callOutListMembers: CallOutListMember[]
-                availableEmployees: Employee[]
-              }
-            | {
-                success: false
-              }
+          const responseJSON =
+            rawResponseJSON as unknown as DoUpdateCallOutListResponse
 
           submitButtonElement.disabled = false
           submitButtonElement.classList.remove('is-loading')
@@ -841,14 +829,8 @@ declare const cityssm: cityssmGlobal
           employeeNumber
         },
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as
-            | {
-                success: true
-                callOutListMembers: CallOutListMember[]
-              }
-            | {
-                success: false
-              }
+          const responseJSON =
+            rawResponseJSON as unknown as DoAddCallOutListMemberResponse
 
           if (responseJSON.success) {
             currentCallOutListMembers = responseJSON.callOutListMembers
@@ -887,14 +869,8 @@ declare const cityssm: cityssmGlobal
             employeeNumber
           },
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as
-              | {
-                  success: true
-                  callOutListMembers: CallOutListMember[]
-                }
-              | {
-                  success: false
-                }
+            const responseJSON =
+              rawResponseJSON as unknown as DoDeleteCallOutListMemberResponse
 
             if (responseJSON.success) {
               currentCallOutListMembers = responseJSON.callOutListMembers
@@ -1137,10 +1113,8 @@ declare const cityssm: cityssmGlobal
             listId
           },
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as {
-              success: boolean
-              callOutLists: CallOutList[]
-            }
+            const responseJSON =
+              rawResponseJSON as unknown as DoDeleteCallOutListResponse
 
             if (responseJSON.success) {
               cityssm.disableNavBlocker()
@@ -1211,11 +1185,8 @@ declare const cityssm: cityssmGlobal
             includeAvailableEmployees: canManage
           },
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as {
-              callOutListMembers: CallOutListMember[]
-              availableEmployees: Employee[]
-              absenceRecords: AbsenceRecord[]
-            }
+            const responseJSON =
+              rawResponseJSON as unknown as DoGetCallOutListMembersResponse
 
             currentCallOutListMembers = responseJSON.callOutListMembers
             availableEmployees = responseJSON.availableEmployees

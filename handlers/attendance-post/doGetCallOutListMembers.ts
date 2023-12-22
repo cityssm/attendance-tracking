@@ -5,13 +5,23 @@ import { getCallOutList } from '../../database/getCallOutList.js'
 import { getCallOutListMembers } from '../../database/getCallOutListMembers.js'
 import { getEmployees } from '../../database/getEmployees.js'
 import { hasPermission } from '../../helpers/functions.permissions.js'
-import type { AbsenceRecord, Employee } from '../../types/recordTypes.js'
+import type {
+  AbsenceRecord,
+  CallOutListMember,
+  Employee
+} from '../../types/recordTypes.js'
+
+export interface DoGetCallOutListMembersResponse {
+  callOutListMembers: CallOutListMember[]
+  availableEmployees: Employee[]
+  absenceRecords: AbsenceRecord[]
+}
 
 export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const listId = request.body.listId
+  const listId = request.body.listId as string
 
   const callOutListMembers = await getCallOutListMembers({ listId }, {})
 
@@ -59,11 +69,13 @@ export async function handler(
     }
   }
 
-  response.json({
+  const responseJson: DoGetCallOutListMembersResponse = {
     callOutListMembers,
     availableEmployees,
     absenceRecords
-  })
+  }
+
+  response.json(responseJson)
 }
 
 export default handler

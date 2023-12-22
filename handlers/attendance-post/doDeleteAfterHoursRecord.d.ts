@@ -1,3 +1,11 @@
 import type { Request, Response } from 'express';
-export declare function handler(request: Request, response: Response): Promise<unknown>;
+import type { AfterHoursRecord } from '../../types/recordTypes.js';
+export type DoDeleteAfterHoursRecordResponse = {
+    success: false;
+    errorMessage: string;
+} | {
+    success: boolean;
+    afterHoursRecords: AfterHoursRecord[];
+};
+export declare function handler(request: Request, response: Response): Promise<void>;
 export default handler;

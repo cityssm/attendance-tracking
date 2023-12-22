@@ -16,7 +16,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
             cityssm.postJSON(`${Attend.urlPrefix}/attendance/doDeleteAfterHoursRecord`, {
                 recordId
             }, (rawResponseJSON) => {
-                var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     bulmaJS.alert({
@@ -29,7 +28,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 else {
                     bulmaJS.alert({
                         title: 'Error Deleting Record',
-                        message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                        message: 'Please try again.',
                         contextualColorName: 'danger'
                     });
                 }

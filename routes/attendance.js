@@ -3,7 +3,6 @@ import handler_attendance from '../handlers/attendance-get/attendance.js';
 import handler_doAddAfterHoursRecord from '../handlers/attendance-post/doAddAfterHoursRecord.js';
 import handler_doAddCallOutListMember from '../handlers/attendance-post/doAddCallOutListMember.js';
 import handler_doAddCallOutRecord from '../handlers/attendance-post/doAddCallOutRecord.js';
-import handler_doAddFavouriteCallOutList from '../handlers/attendance-post/doAddFavouriteCallOutList.js';
 import handler_doCreateCallOutList from '../handlers/attendance-post/doCreateCallOutList.js';
 import handler_doDeleteAbsenceRecord from '../handlers/attendance-post/doDeleteAbsenceRecord.js';
 import handler_doDeleteAfterHoursRecord from '../handlers/attendance-post/doDeleteAfterHoursRecord.js';
@@ -15,7 +14,7 @@ import handler_doGetAttendanceRecords from '../handlers/attendance-post/doGetAtt
 import handler_doGetCallOutListMembers from '../handlers/attendance-post/doGetCallOutListMembers.js';
 import handler_doGetCallOutRecords from '../handlers/attendance-post/doGetCallOutRecords.js';
 import handler_doRecordCallIn from '../handlers/attendance-post/doRecordCallIn.js';
-import handler_doRemoveFavouriteCallOutList from '../handlers/attendance-post/doRemoveFavouriteCallOutList.js';
+import { doAddFavouriteCallOutListHandler, doRemoveFavouriteCallOutListHandler } from '../handlers/attendance-post/doToggleFavouriteCallOutList.js';
 import handler_doUpdateCallOutList from '../handlers/attendance-post/doUpdateCallOutList.js';
 import handler_doUpdateCallOutRecord from '../handlers/attendance-post/doUpdateCallOutRecord.js';
 import { forbiddenJSON, forbiddenStatus } from '../handlers/permissions.js';
@@ -58,8 +57,8 @@ if (getConfigProperty('features.attendance.absences') ||
     router.post('/doDeleteReturnToWorkRecord', handler_doDeleteReturnToWorkRecord);
 }
 if (getConfigProperty('features.attendance.callOuts')) {
-    router.post('/doAddFavouriteCallOutList', handler_doAddFavouriteCallOutList);
-    router.post('/doRemoveFavouriteCallOutList', handler_doRemoveFavouriteCallOutList);
+    router.post('/doAddFavouriteCallOutList', doAddFavouriteCallOutListHandler);
+    router.post('/doRemoveFavouriteCallOutList', doRemoveFavouriteCallOutListHandler);
     router.post('/doCreateCallOutList', callOutsManagePostHandler, handler_doCreateCallOutList);
     router.post('/doUpdateCallOutList', callOutsManagePostHandler, handler_doUpdateCallOutList);
     router.post('/doDeleteCallOutList', callOutsManagePostHandler, handler_doDeleteCallOutList);

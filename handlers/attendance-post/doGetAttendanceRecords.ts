@@ -11,6 +11,12 @@ import type {
   ReturnToWorkRecord
 } from '../../types/recordTypes.js'
 
+export interface DoGetAttendanceRecordsResponse {
+  absenceRecords: AbsenceRecord[]
+  returnToWorkRecords: ReturnToWorkRecord[]
+  callOutRecords: CallOutRecord[]
+}
+
 export async function handler(
   request: Request,
   response: Response
@@ -69,11 +75,13 @@ export async function handler(
     })
   }
 
-  response.json({
+  const responseJson: DoGetAttendanceRecordsResponse = {
     absenceRecords,
     returnToWorkRecords,
     callOutRecords
-  })
+  }
+
+  response.json(responseJson)
 }
 
 export default handler

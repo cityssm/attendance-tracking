@@ -4,28 +4,30 @@ import { getAbsenceRecords } from '../../database/getAbsenceRecords.js';
 export async function handler(request, response) {
     const recordId = request.body.recordId;
     const absenceRecord = await getAbsenceRecord(recordId, request.session.user);
+    let responseJson;
     if (absenceRecord === undefined) {
-        response.json({
+        responseJson = {
             success: false,
             errorMessage: 'Absence record not found.'
-        });
-        return;
+        };
     }
-    if (!absenceRecord.canUpdate) {
-        response.json({
+    else if (absenceRecord.canUpdate) {
+        const success = await deleteAbsenceRecord(recordId, request.session.user);
+        const absenceRecords = await getAbsenceRecords({
+            recentOnly: true,
+            todayOnly: false
+        }, {}, request.session.user);
+        responseJson = {
+            success,
+            absenceRecords
+        };
+    }
+    else {
+        responseJson = {
             success: false,
             errorMessage: 'Access denied.'
-        });
-        return;
+        };
     }
-    const success = await deleteAbsenceRecord(recordId, request.session.user);
-    const absenceRecords = await getAbsenceRecords({
-        recentOnly: true,
-        todayOnly: false
-    }, {}, request.session.user);
-    response.json({
-        success,
-        absenceRecords
-    });
+    response.json(responseJson);
 }
 export default handler;

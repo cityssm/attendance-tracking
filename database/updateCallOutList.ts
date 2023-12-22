@@ -6,7 +6,7 @@ import type { CallOutList } from '../types/recordTypes.js'
 
 import { updateCallOutListMemberSortKeys } from './updateCallOutListMemberSortKeys.js'
 
-interface UpdateCallOutListReturn {
+export interface UpdateCallOutListReturn {
   success: boolean
   sortKeyFunctionChanged: boolean
   eligibilityFunctionChanged: boolean

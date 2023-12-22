@@ -5,11 +5,12 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
+import type { DoCreateCallOutListResponse } from '../handlers/attendance-post/doCreateCallOutList.js'
+import type { DoToggleFavouriteCallOutListResponse } from '../handlers/attendance-post/doToggleFavouriteCallOutList.js'
 import type {
   AttendCallOuts as AttendCallOutsGlobal,
   Attend as AttendGlobal
 } from '../types/globalTypes.js'
-import type { CallOutList } from '../types/recordTypes.js'
 
 declare const bulmaJS: BulmaJS
 
@@ -45,10 +46,8 @@ declare const cityssm: cityssmGlobal
       }`,
       { listId },
       (rawResponseJSON) => {
-        const responseJSON = rawResponseJSON as {
-          success: boolean
-          callOutLists: CallOutList[]
-        }
+        const responseJSON =
+          rawResponseJSON as unknown as DoToggleFavouriteCallOutListResponse
 
         if (responseJSON.success) {
           AttendCallOuts.callOutLists = responseJSON.callOutLists
@@ -177,11 +176,8 @@ declare const cityssm: cityssmGlobal
         `${Attend.urlPrefix}/attendance/doCreateCallOutList`,
         formEvent.currentTarget,
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as {
-            success: boolean
-            listId: string
-            callOutLists: CallOutList[]
-          }
+          const responseJSON =
+            rawResponseJSON as unknown as DoCreateCallOutListResponse
 
           AttendCallOuts.callOutLists = responseJSON.callOutLists
           renderCallOutLists()

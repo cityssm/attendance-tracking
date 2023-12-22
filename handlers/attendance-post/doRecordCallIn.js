@@ -27,12 +27,13 @@ export async function handler(request, response) {
             todayOnly: false
         }, request.session.user);
     }
-    response.json({
+    const responseJson = {
         success,
         recordId,
         callInType,
         absenceRecords,
         returnToWorkRecords
-    });
+    };
+    response.json(responseJson);
 }
 export default handler;

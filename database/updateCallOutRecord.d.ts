@@ -1,4 +1,4 @@
-interface EditCallOutRecordForm {
+export interface EditCallOutRecordForm {
     recordId: string;
     employeeNumber: string;
     callOutDateString: string;
@@ -9,4 +9,3 @@ interface EditCallOutRecordForm {
     recordComment: string;
 }
 export declare function updateCallOutRecord(form: EditCallOutRecordForm, sessionUser: AttendUser): Promise<boolean>;
-export {};

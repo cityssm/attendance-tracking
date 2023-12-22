@@ -4,28 +4,30 @@ import { getAfterHoursRecords } from '../../database/getAfterHoursRecords.js';
 export async function handler(request, response) {
     const recordId = request.body.recordId;
     const afterHoursRecord = await getAfterHoursRecord(recordId, request.session.user);
+    let responseJson;
     if (afterHoursRecord === undefined) {
-        response.json({
+        responseJson = {
             success: false,
             errorMessage: 'After hours record not found.'
-        });
-        return;
+        };
     }
-    if (!afterHoursRecord.canUpdate) {
-        response.json({
+    else if (afterHoursRecord.canUpdate) {
+        const success = await deleteAfterHoursRecord(recordId, request.session.user);
+        const afterHoursRecords = await getAfterHoursRecords({
+            recentOnly: true,
+            todayOnly: false
+        }, request.session.user);
+        responseJson = {
+            success,
+            afterHoursRecords
+        };
+    }
+    else {
+        responseJson = {
             success: false,
             errorMessage: 'Access denied.'
-        });
-        return;
+        };
     }
-    const success = await deleteAfterHoursRecord(recordId, request.session.user);
-    const afterHoursRecords = await getAfterHoursRecords({
-        recentOnly: true,
-        todayOnly: false
-    }, request.session.user);
-    response.json({
-        success,
-        afterHoursRecords
-    });
+    response.json(responseJson);
 }
 export default handler;

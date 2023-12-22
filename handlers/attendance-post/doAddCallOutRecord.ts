@@ -5,6 +5,13 @@ import {
   addCallOutRecord
 } from '../../database/addCallOutRecord.js'
 import { getCallOutRecords } from '../../database/getCallOutRecords.js'
+import type { CallOutRecord } from '../../types/recordTypes.js'
+
+export interface DoAddCallOutRecordResponse {
+  success: true
+  recordId: string
+  callOutRecords: CallOutRecord[]
+}
 
 export async function handler(
   request: Request,
@@ -21,11 +28,13 @@ export async function handler(
     recentOnly: true
   })
 
-  response.json({
+  const responseJson: DoAddCallOutRecordResponse = {
     success: true,
     recordId,
     callOutRecords
-  })
+  }
+
+  response.json(responseJson)
 }
 
 export default handler

@@ -3,9 +3,10 @@ import { getCallOutListMembers } from '../../database/getCallOutListMembers.js';
 export async function handler(request, response) {
     const success = await addCallOutListMember(request.body.listId, request.body.employeeNumber, request.session.user);
     const callOutListMembers = await getCallOutListMembers({ listId: request.body.listId }, {});
-    response.json({
+    const responseJson = {
         success,
         callOutListMembers
-    });
+    };
+    response.json(responseJson);
 }
 export default handler;

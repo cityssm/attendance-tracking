@@ -1,7 +1,13 @@
 import type { Request, Response } from 'express'
 
-import { addAbsenceRecord } from '../../database/addAbsenceRecord.js'
-import { addReturnToWorkRecord } from '../../database/addReturnToWorkRecord.js'
+import {
+  type AddAbsenceRecordForm,
+  addAbsenceRecord
+} from '../../database/addAbsenceRecord.js'
+import {
+  type AddReturnToWorkRecordForm,
+  addReturnToWorkRecord
+} from '../../database/addReturnToWorkRecord.js'
 import { getAbsenceRecords } from '../../database/getAbsenceRecords.js'
 import { getReturnToWorkRecords } from '../../database/getReturnToWorkRecords.js'
 import { hasPermission } from '../../helpers/functions.permissions.js'
@@ -9,6 +15,14 @@ import type {
   AbsenceRecord,
   ReturnToWorkRecord
 } from '../../types/recordTypes.js'
+
+export interface DoRecordCallInResponse {
+  success: boolean
+  recordId: string
+  callInType: 'absence' | 'returnToWork'
+  absenceRecords: AbsenceRecord[]
+  returnToWorkRecords: ReturnToWorkRecord[]
+}
 
 export async function handler(
   request: Request,
@@ -30,7 +44,7 @@ export async function handler(
     )
   ) {
     recordId = await addAbsenceRecord(
-      request.body,
+      request.body as AddAbsenceRecordForm,
       request.session.user as AttendUser
     )
     success = true
@@ -50,7 +64,7 @@ export async function handler(
     )
   ) {
     recordId = await addReturnToWorkRecord(
-      request.body,
+      request.body as AddReturnToWorkRecordForm,
       request.session.user as AttendUser
     )
     success = true
@@ -63,13 +77,15 @@ export async function handler(
     )
   }
 
-  response.json({
+  const responseJson: DoRecordCallInResponse = {
     success,
     recordId,
     callInType,
     absenceRecords,
     returnToWorkRecords
-  })
+  }
+
+  response.json(responseJson)
 }
 
 export default handler

@@ -29,10 +29,11 @@ export async function handler(request, response) {
             }, {}, request.session.user);
         }
     }
-    response.json({
+    const responseJson = {
         callOutListMembers,
         availableEmployees,
         absenceRecords
-    });
+    };
+    response.json(responseJson);
 }
 export default handler;

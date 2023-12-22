@@ -1,6 +1,6 @@
 "use strict";
 // eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable @typescript-eslint/indent */
+/* eslint-disable @typescript-eslint/indent, unicorn/prefer-module */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     const Attend = exports.Attend;
@@ -20,7 +20,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
             cityssm.postJSON(`${Attend.urlPrefix}/attendance/doDeleteAbsenceRecord`, {
                 recordId
             }, (rawResponseJSON) => {
-                var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     bulmaJS.alert({
@@ -33,7 +32,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 else {
                     bulmaJS.alert({
                         title: 'Error Deleting Record',
-                        message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                        message: 'Please try again.',
                         contextualColorName: 'danger'
                     });
                 }
@@ -81,7 +80,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
           <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
         </div>
         <div class="column is-3">
-          <strong class="${currentDateString === previousDateString ? 'has-text-grey-light' : ''}" data-tooltip="Absence Date">
+          <strong class="${currentDateString === previousDateString
+                ? 'has-text-grey-light'
+                : ''}" data-tooltip="Absence Date">
             ${currentDateString}
           </strong>
         </div>
@@ -116,7 +117,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
             cityssm.postJSON(`${Attend.urlPrefix}/attendance/doDeleteReturnToWorkRecord`, {
                 recordId
             }, (rawResponseJSON) => {
-                var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     bulmaJS.alert({
@@ -129,7 +129,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 else {
                     bulmaJS.alert({
                         title: 'Error Deleting Record',
-                        message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                        message: 'Please try again.',
                         contextualColorName: 'danger'
                     });
                 }
@@ -177,7 +177,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
           <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
         </div>
         <div class="column is-3">
-          <strong class="${currentDateString === previousDateString ? 'has-text-grey-light' : ''}" data-tooltip="Return Date">
+          <strong class="${currentDateString === previousDateString
+                ? 'has-text-grey-light'
+                : ''}" data-tooltip="Return Date">
             ${currentDateString}
           </strong>
         </div>

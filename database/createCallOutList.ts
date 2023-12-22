@@ -7,10 +7,10 @@ import type { CallOutList } from '../types/recordTypes.js'
 export async function createCallOutList(
   callOutList: CallOutList,
   sessionUser: AttendUser
-): Promise<number> {
+): Promise<string> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
-  const result: IResult<{ listId: number }> = await pool
+  const result: IResult<{ listId: string }> = await pool
     .request()
     .input('listName', callOutList.listName)
     .input('listDescription', callOutList.listDescription)

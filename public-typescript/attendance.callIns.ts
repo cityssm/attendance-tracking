@@ -1,13 +1,13 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable @typescript-eslint/indent */
-
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable unicorn/prefer-module */
+/* eslint-disable @typescript-eslint/indent, unicorn/prefer-module */
 
 // eslint-disable-next-line n/no-missing-import
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
+import type { DoDeleteAbsenceRecordResponse } from '../handlers/attendance-post/doDeleteAbsenceRecord.js'
+import type { DoDeleteReturnToWorkRecordResponse } from '../handlers/attendance-post/doDeleteReturnToWorkRecord.js'
+import type { DoRecordCallInResponse } from '../handlers/attendance-post/doRecordCallIn.js'
 import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 import type {
   AbsenceRecord,
@@ -55,15 +55,8 @@ declare const cityssm: cityssmGlobal
           recordId
         },
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as
-            | {
-                success: true
-                absenceRecords: AbsenceRecord[]
-              }
-            | {
-                success: false
-                errorMessage: string
-              }
+          const responseJSON =
+            rawResponseJSON as unknown as DoDeleteAbsenceRecordResponse
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -76,7 +69,7 @@ declare const cityssm: cityssmGlobal
           } else {
             bulmaJS.alert({
               title: 'Error Deleting Record',
-              message: responseJSON.errorMessage ?? '',
+              message: 'Please try again.',
               contextualColorName: 'danger'
             })
           }
@@ -137,7 +130,11 @@ declare const cityssm: cityssmGlobal
           <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
         </div>
         <div class="column is-3">
-          <strong class="${currentDateString === previousDateString ? 'has-text-grey-light' : ''}" data-tooltip="Absence Date">
+          <strong class="${
+            currentDateString === previousDateString
+              ? 'has-text-grey-light'
+              : ''
+          }" data-tooltip="Absence Date">
             ${currentDateString}
           </strong>
         </div>
@@ -196,15 +193,8 @@ declare const cityssm: cityssmGlobal
           recordId
         },
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as
-            | {
-                success: true
-                returnToWorkRecords: ReturnToWorkRecord[]
-              }
-            | {
-                success: false
-                errorMessage: string
-              }
+          const responseJSON =
+            rawResponseJSON as unknown as DoDeleteReturnToWorkRecordResponse
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -217,7 +207,7 @@ declare const cityssm: cityssmGlobal
           } else {
             bulmaJS.alert({
               title: 'Error Deleting Record',
-              message: responseJSON.errorMessage ?? '',
+              message: 'Please try again.',
               contextualColorName: 'danger'
             })
           }
@@ -278,7 +268,11 @@ declare const cityssm: cityssmGlobal
           <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
         </div>
         <div class="column is-3">
-          <strong class="${currentDateString === previousDateString ? 'has-text-grey-light' : ''}" data-tooltip="Return Date">
+          <strong class="${
+            currentDateString === previousDateString
+              ? 'has-text-grey-light'
+              : ''
+          }" data-tooltip="Return Date">
             ${currentDateString}
           </strong>
         </div>
@@ -413,17 +407,8 @@ declare const cityssm: cityssmGlobal
         `${Attend.urlPrefix}/attendance/doRecordCallIn`,
         formEvent.currentTarget,
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as
-            | {
-                success: true
-                callInType: 'absence' | 'returnToWork'
-                recordId: string
-                absenceRecords: AbsenceRecord[] | []
-                returnToWorkRecords: ReturnToWorkRecord[] | []
-              }
-            | {
-                success: false
-              }
+          const responseJSON =
+            rawResponseJSON as unknown as DoRecordCallInResponse
 
           if (responseJSON.success) {
             callInCloseModalFunction()

@@ -8,6 +8,8 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
+import type { DoAddAfterHoursRecordResponse } from '../handlers/attendance-post/doAddAfterHoursRecord.js'
+import type { DoDeleteAfterHoursRecordResponse } from '../handlers/attendance-post/doDeleteAfterHoursRecord.js'
 import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 import type {
   AfterHoursReason,
@@ -45,15 +47,8 @@ declare const cityssm: cityssmGlobal
           recordId
         },
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as
-            | {
-                success: true
-                afterHoursRecords: AfterHoursRecord[]
-              }
-            | {
-                success: false
-                errorMessage: string
-              }
+          const responseJSON =
+            rawResponseJSON as unknown as DoDeleteAfterHoursRecordResponse
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -66,7 +61,7 @@ declare const cityssm: cityssmGlobal
           } else {
             bulmaJS.alert({
               title: 'Error Deleting Record',
-              message: responseJSON.errorMessage ?? '',
+              message: 'Please try again.',
               contextualColorName: 'danger'
             })
           }
@@ -225,15 +220,8 @@ declare const cityssm: cityssmGlobal
           `${Attend.urlPrefix}/attendance/doAddAfterHoursRecord`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as
-              | {
-                  success: true
-                  recordId: string
-                  afterHoursRecords: AfterHoursRecord[]
-                }
-              | {
-                  success: false
-                }
+            const responseJSON =
+              rawResponseJSON as unknown as DoAddAfterHoursRecordResponse
 
             if (responseJSON.success) {
               afterHoursCloseModalFunction()

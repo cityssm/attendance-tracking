@@ -3,7 +3,7 @@ import type { IResult } from 'mssql'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
 
-interface EditCallOutRecordForm {
+export interface EditCallOutRecordForm {
   recordId: string
   employeeNumber: string
   callOutDateString: string

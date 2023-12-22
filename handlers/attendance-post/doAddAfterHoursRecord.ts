@@ -5,6 +5,13 @@ import {
   addAfterHoursRecord
 } from '../../database/addAfterHoursRecord.js'
 import { getAfterHoursRecords } from '../../database/getAfterHoursRecords.js'
+import type { AfterHoursRecord } from '../../types/recordTypes.js'
+
+export interface DoAddAfterHoursRecordResponse {
+  success: true
+  recordId: string
+  afterHoursRecords: AfterHoursRecord[]
+}
 
 export async function handler(
   request: Request,
@@ -23,11 +30,13 @@ export async function handler(
     request.session.user as AttendUser
   )
 
-  response.json({
+  const responseJson: DoAddAfterHoursRecordResponse = {
     success: true,
     recordId,
     afterHoursRecords
-  })
+  }
+
+  response.json(responseJson)
 }
 
 export default handler

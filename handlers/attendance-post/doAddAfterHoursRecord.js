@@ -6,10 +6,11 @@ export async function handler(request, response) {
         recentOnly: true,
         todayOnly: false
     }, request.session.user);
-    response.json({
+    const responseJson = {
         success: true,
         recordId,
         afterHoursRecords
-    });
+    };
+    response.json(responseJson);
 }
 export default handler;

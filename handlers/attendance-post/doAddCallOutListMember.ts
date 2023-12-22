@@ -2,6 +2,12 @@ import type { Request, Response } from 'express'
 
 import { addCallOutListMember } from '../../database/addCallOutListMember.js'
 import { getCallOutListMembers } from '../../database/getCallOutListMembers.js'
+import type { CallOutListMember } from '../../types/recordTypes.js'
+
+export interface DoAddCallOutListMemberResponse {
+  success: boolean
+  callOutListMembers: CallOutListMember[]
+}
 
 export async function handler(
   request: Request,
@@ -18,10 +24,12 @@ export async function handler(
     {}
   )
 
-  response.json({
+  const responseJson: DoAddCallOutListMemberResponse = {
     success,
     callOutListMembers
-  })
+  }
+
+  response.json(responseJson)
 }
 
 export default handler

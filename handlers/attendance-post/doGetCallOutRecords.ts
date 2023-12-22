@@ -1,6 +1,11 @@
 import type { Request, Response } from 'express'
 
 import { getCallOutRecords } from '../../database/getCallOutRecords.js'
+import type { CallOutRecord } from '../../types/recordTypes.js'
+
+export interface DoGetCallOutRecordsResponse {
+  callOutRecords: CallOutRecord[]
+}
 
 export async function handler(
   request: Request,
@@ -12,9 +17,11 @@ export async function handler(
     recentOnly: true
   })
 
-  response.json({
+  const responseJson: DoGetCallOutRecordsResponse = {
     callOutRecords
-  })
+  }
+
+  response.json(responseJson)
 }
 
 export default handler

@@ -4,12 +4,27 @@ import { getCallOutListMembers } from '../../database/getCallOutListMembers.js'
 import { getCallOutLists } from '../../database/getCallOutLists.js'
 import { getEmployees } from '../../database/getEmployees.js'
 import { updateCallOutList } from '../../database/updateCallOutList.js'
+import type {
+  CallOutList,
+  CallOutListMember,
+  Employee
+} from '../../types/recordTypes.js'
+
+export interface DoUpdateCallOutListResponse {
+  success: boolean
+  callOutLists: CallOutList[]
+  callOutListMembers: CallOutListMember[]
+  availableEmployees: Employee[]
+}
 
 export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const success = await updateCallOutList(request.body, request.session.user as AttendUser)
+  const updateResponse = await updateCallOutList(
+    request.body as CallOutList,
+    request.session.user as AttendUser
+  )
 
   const callOutLists = await getCallOutLists(
     { favouriteOnly: false },
@@ -39,12 +54,14 @@ export async function handler(
     }
   )
 
-  response.json({
-    success,
+  const responseJson: DoUpdateCallOutListResponse = {
+    success: updateResponse.success,
     callOutLists,
     callOutListMembers,
     availableEmployees
-  })
+  }
+
+  response.json(responseJson)
 }
 
 export default handler

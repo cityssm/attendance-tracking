@@ -30,10 +30,11 @@ export async function handler(request, response) {
             recentOnly: true
         });
     }
-    response.json({
+    const responseJson = {
         absenceRecords,
         returnToWorkRecords,
         callOutRecords
-    });
+    };
+    response.json(responseJson);
 }
 export default handler;

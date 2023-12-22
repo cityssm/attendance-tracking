@@ -1,4 +1,4 @@
-interface AddAbsenceRecordForm {
+export interface AddAbsenceRecordForm {
     employeeNumber: string;
     employeeName: string;
     absenceDateString: string;
@@ -7,4 +7,3 @@ interface AddAbsenceRecordForm {
     recordComment: string;
 }
 export declare function addAbsenceRecord(form: AddAbsenceRecordForm, sessionUser: AttendUser): Promise<string>;
-export {};
