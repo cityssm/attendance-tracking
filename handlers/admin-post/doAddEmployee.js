@@ -1,6 +1,7 @@
 import { createEmployee } from '../../database/createEmployee.js';
 import { getEmployees } from '../../database/getEmployees.js';
 export async function handler(request, response) {
+    let responseJson;
     const success = await createEmployee(request.body, request.session.user);
     if (success) {
         const employees = await getEmployees({
@@ -8,16 +9,17 @@ export async function handler(request, response) {
         }, {
             orderBy: 'name'
         });
-        response.json({
+        responseJson = {
             success: true,
             employeeNumber: request.body.employeeNumber,
             employees
-        });
+        };
     }
     else {
-        response.json({
+        responseJson = {
             success: false
-        });
+        };
     }
+    response.json(responseJson);
 }
 export default handler;

@@ -1,8 +1,9 @@
 import { setUserPermission } from '../../database/setUserPermission.js';
 export async function handler(request, response) {
     const success = await setUserPermission(request.body);
-    response.json({
+    const responseJson = {
         success
-    });
+    };
+    response.json(responseJson);
 }
 export default handler;

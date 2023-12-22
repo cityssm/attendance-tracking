@@ -3,9 +3,10 @@ import { getAfterHoursReasons } from '../../helpers/functions.cache.js';
 export async function handler(request, response) {
     const success = await deleteAfterHoursReason(request.body.afterHoursReasonId, request.session.user);
     const afterHoursReasons = await getAfterHoursReasons();
-    response.json({
+    const responseJson = {
         success,
         afterHoursReasons
-    });
+    };
+    response.json(responseJson);
 }
 export default handler;

@@ -7,9 +7,10 @@ export async function handler(request, response) {
     }, {
         orderBy: 'name'
     });
-    response.json({
+    const responseJson = {
         success,
         employees
-    });
+    };
+    response.json(responseJson);
 }
 export default handler;

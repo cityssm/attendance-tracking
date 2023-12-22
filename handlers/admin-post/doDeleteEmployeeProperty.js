@@ -3,9 +3,10 @@ import { getEmployeeProperties } from '../../database/getEmployeeProperties.js';
 export async function handler(request, response) {
     const success = await deleteEmployeeProperty(request.body.employeeNumber, request.body.propertyName, request.session.user);
     const employeeProperties = await getEmployeeProperties(request.body.employeeNumber);
-    response.json({
+    const responseJson = {
         success,
         employeeProperties
-    });
+    };
+    response.json(responseJson);
 }
 export default handler;

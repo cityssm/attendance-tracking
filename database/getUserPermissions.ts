@@ -7,9 +7,13 @@ import type { IResult } from 'mssql'
 import { getConfigProperty } from '../helpers/functions.config.js'
 import type { availablePermissionValues } from '../helpers/functions.permissions.js'
 
+export type GetUserPermissionsReturn = Partial<
+  Record<keyof typeof availablePermissionValues, string>
+>
+
 export async function getUserPermissions(
   userName: string
-): Promise<Partial<Record<keyof typeof availablePermissionValues, string>>> {
+): Promise<GetUserPermissionsReturn> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   const permissionsResult: IResult<{
@@ -20,9 +24,7 @@ export async function getUserPermissions(
       from MonTY.UserPermissions
       where userName = @userName`)
 
-  const permissions: Partial<
-    Record<keyof typeof availablePermissionValues, string>
-  > = {}
+  const permissions: GetUserPermissionsReturn = {}
 
   for (const permission of permissionsResult.recordset) {
     permissions[permission.permissionKey] = permission.permissionValue

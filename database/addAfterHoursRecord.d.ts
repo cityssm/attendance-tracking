@@ -1,4 +1,4 @@
-interface AddAfterHoursRecordForm {
+export interface AddAfterHoursRecordForm {
     employeeNumber: string;
     employeeName: string;
     attendanceDateString?: string;
@@ -7,4 +7,3 @@ interface AddAfterHoursRecordForm {
     recordComment: string;
 }
 export declare function addAfterHoursRecord(form: AddAfterHoursRecordForm, sessionUser: AttendUser): Promise<string>;
-export {};

@@ -6,7 +6,7 @@ import camelCase from 'camelcase'
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import { getConfigProperty } from '../helpers/functions.config.js'
 
-interface AddAbsenceTypeForm {
+export interface AddAbsenceTypeForm {
   absenceType: string
 }
 

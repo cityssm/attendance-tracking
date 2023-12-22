@@ -3,10 +3,11 @@ import { getAbsenceTypes } from '../../helpers/functions.cache.js';
 export async function handler(request, response) {
     const absenceTypeKey = await addAbsenceType(request.body, request.session.user);
     const absenceTypes = await getAbsenceTypes();
-    response.json({
+    const responseJson = {
         success: true,
         absenceTypeKey,
         absenceTypes
-    });
+    };
+    response.json(responseJson);
 }
 export default handler;

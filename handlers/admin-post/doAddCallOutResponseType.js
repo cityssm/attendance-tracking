@@ -3,10 +3,11 @@ import { getCallOutResponseTypes } from '../../helpers/functions.cache.js';
 export async function handler(request, response) {
     const responseTypeId = await addCallOutResponseType(request.body, request.session.user);
     const callOutResponseTypes = await getCallOutResponseTypes();
-    response.json({
+    const responseJson = {
         success: true,
         responseTypeId,
         callOutResponseTypes
-    });
+    };
+    response.json(responseJson);
 }
 export default handler;

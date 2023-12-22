@@ -1,13 +1,32 @@
+// eslint-disable-next-line eslint-comments/disable-enable-pair
+/* eslint-disable @typescript-eslint/indent */
+
 import type { Request, Response } from 'express'
 
 import { createEmployee } from '../../database/createEmployee.js'
 import { getEmployees } from '../../database/getEmployees.js'
+import type { Employee } from '../../types/recordTypes.js'
+
+export type DoAddEmployeeResponse =
+  | {
+      success: false
+    }
+  | {
+      success: true
+      employeeNumber: string
+      employees: Employee[]
+    }
 
 export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const success = await createEmployee(request.body, request.session.user as AttendUser)
+  let responseJson: DoAddEmployeeResponse
+
+  const success = await createEmployee(
+    request.body as Employee,
+    request.session.user as AttendUser
+  )
 
   if (success) {
     const employees = await getEmployees(
@@ -19,16 +38,18 @@ export async function handler(
       }
     )
 
-    response.json({
+    responseJson = {
       success: true,
       employeeNumber: request.body.employeeNumber,
       employees
-    })
+    }
   } else {
-    response.json({
+    responseJson = {
       success: false
-    })
+    }
   }
+
+  response.json(responseJson)
 }
 
 export default handler

@@ -7,9 +7,10 @@ export async function handler(request, response) {
         ? await setEmployeeProperty(request.body, false, request.session.user)
         : false;
     const employeeProperties = await getEmployeeProperties(request.body.employeeNumber);
-    response.json({
+    const responseJson = {
         success,
         employeeProperties
-    });
+    };
+    response.json(responseJson);
 }
 export default handler;

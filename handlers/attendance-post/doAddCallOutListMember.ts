@@ -8,8 +8,8 @@ export async function handler(
   response: Response
 ): Promise<void> {
   const success = await addCallOutListMember(
-    request.body.listId,
-    request.body.employeeNumber,
+    request.body.listId as string,
+    request.body.employeeNumber as string,
     request.session.user as AttendUser
   )
 

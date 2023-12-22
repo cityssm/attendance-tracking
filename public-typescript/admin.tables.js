@@ -14,6 +14,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
         ;
         changeEvent.currentTarget.closest('tr').classList.add('has-background-warning-light');
     }
+    /*
+     * Absence Types
+     */
     let absenceTypes = exports.absenceTypes;
     delete exports.absenceTypes;
     function updateAbsenceType(clickEvent) {
@@ -44,7 +47,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
             absenceTypeKey,
             moveToEnd: clickEvent.shiftKey ? '1' : '0'
         }, (rawResponseJSON) => {
-            var _a;
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
                 absenceTypes = responseJSON.absenceTypes;
@@ -53,7 +55,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             else {
                 bulmaJS.alert({
                     title: 'Error Moving Absence Type',
-                    message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                    message: 'Please try again.',
                     contextualColorName: 'danger'
                 });
             }
@@ -66,7 +68,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
             cityssm.postJSON(`${Attend.urlPrefix}/admin/doDeleteAbsenceType`, {
                 absenceTypeKey
             }, (rawResponseJSON) => {
-                var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     absenceTypes = responseJSON.absenceTypes;
@@ -75,7 +76,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 else {
                     bulmaJS.alert({
                         title: 'Error Deleting Absence Type',
-                        message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                        message: 'Please try again.',
                         contextualColorName: 'danger'
                     });
                 }
@@ -167,7 +168,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
         function addAbsenceType(formEvent) {
             formEvent.preventDefault();
             cityssm.postJSON(`${Attend.urlPrefix}/admin/doAddAbsenceType`, formEvent.currentTarget, (rawResponseJSON) => {
-                var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     addCloseModalFunction();
@@ -181,7 +181,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 else {
                     bulmaJS.alert({
                         title: 'Error Adding Absence Type',
-                        message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                        message: 'Please try again.',
                         contextualColorName: 'danger'
                     });
                 }
@@ -202,6 +202,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
         });
     });
     renderAbsenceTypes();
+    /*
+     * Call Out Response Types
+     */
     let callOutResponseTypes = exports.callOutResponseTypes;
     delete exports.callOutResponseTypes;
     function updateCallOutResponseType(clickEvent) {
@@ -234,7 +237,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
             responseTypeId,
             moveToEnd: clickEvent.shiftKey ? '1' : '0'
         }, (rawResponseJSON) => {
-            var _a;
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
                 callOutResponseTypes = responseJSON.callOutResponseTypes;
@@ -243,7 +245,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             else {
                 bulmaJS.alert({
                     title: 'Error Moving Response Type',
-                    message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                    message: 'Please try again.',
                     contextualColorName: 'danger'
                 });
             }
@@ -256,7 +258,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
             cityssm.postJSON(`${Attend.urlPrefix}/admin/doDeleteCallOutResponseType`, {
                 responseTypeId
             }, (rawResponseJSON) => {
-                var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     callOutResponseTypes = responseJSON.callOutResponseTypes;
@@ -265,7 +266,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 else {
                     bulmaJS.alert({
                         title: 'Error Deleting Response Type',
-                        message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                        message: 'Please try again.',
                         contextualColorName: 'danger'
                     });
                 }
@@ -375,7 +376,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
         function addCallOutResponseType(formEvent) {
             formEvent.preventDefault();
             cityssm.postJSON(`${Attend.urlPrefix}/admin/doAddCallOutResponseType`, formEvent.currentTarget, (rawResponseJSON) => {
-                var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     addCloseModalFunction();
@@ -389,7 +389,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 else {
                     bulmaJS.alert({
                         title: 'Error Adding Response Type',
-                        message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                        message: 'Please try again.',
                         contextualColorName: 'danger'
                     });
                 }
@@ -410,6 +410,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
         });
     });
     renderCallOutResponseTypes();
+    /*
+     * After Hours Reasons
+     */
     let afterHoursReasons = exports.afterHoursReasons;
     delete exports.afterHoursReasons;
     function updateAfterHoursReason(clickEvent) {
@@ -439,7 +442,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
             afterHoursReasonId,
             moveToEnd: clickEvent.shiftKey ? '1' : '0'
         }, (rawResponseJSON) => {
-            var _a;
             const responseJSON = rawResponseJSON;
             if (responseJSON.success) {
                 afterHoursReasons = responseJSON.afterHoursReasons;
@@ -448,7 +450,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             else {
                 bulmaJS.alert({
                     title: 'Error Moving Reason',
-                    message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                    message: 'Please try again.',
                     contextualColorName: 'danger'
                 });
             }
@@ -461,7 +463,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
             cityssm.postJSON(`${Attend.urlPrefix}/admin/doDeleteAfterHoursReason`, {
                 afterHoursReasonId
             }, (rawResponseJSON) => {
-                var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     afterHoursReasons = responseJSON.afterHoursReasons;
@@ -470,7 +471,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 else {
                     bulmaJS.alert({
                         title: 'Error Deleting Reason',
-                        message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                        message: 'Please try again.',
                         contextualColorName: 'danger'
                     });
                 }
@@ -563,7 +564,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
         function addAfterHoursReason(formEvent) {
             formEvent.preventDefault();
             cityssm.postJSON(`${Attend.urlPrefix}/admin/doAddAfterHoursReason`, formEvent.currentTarget, (rawResponseJSON) => {
-                var _a;
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     addCloseModalFunction();
@@ -577,7 +577,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 else {
                     bulmaJS.alert({
                         title: 'Error Adding Reason',
-                        message: (_a = responseJSON.errorMessage) !== null && _a !== void 0 ? _a : '',
+                        message: 'Please try again.',
                         contextualColorName: 'danger'
                     });
                 }

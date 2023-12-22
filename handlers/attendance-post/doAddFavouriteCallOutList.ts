@@ -8,7 +8,7 @@ export async function handler(
   response: Response
 ): Promise<void> {
   const success = await addFavouriteCallOutList(
-    request.body.listId,
+    request.body.listId as string,
     request.session.user as AttendUser
   )
 

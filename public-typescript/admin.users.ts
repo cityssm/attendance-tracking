@@ -8,6 +8,11 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
+import type { DoAddUserResponse } from '../handlers/admin-post/doAddUser.js'
+import type { DoDeleteUserResponse } from '../handlers/admin-post/doDeleteUser.js'
+import type { DoGetUserPermissionsResponse } from '../handlers/admin-post/doGetUserPermissions.js'
+import type { DoSetUserPermissionResponse } from '../handlers/admin-post/doSetUserPermission.js'
+import type { DoUpdateUserResponse } from '../handlers/admin-post/doUpdateUser.js'
 import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 
 declare const bulmaJS: BulmaJS
@@ -45,10 +50,8 @@ declare const cityssm: cityssmGlobal
           userName
         },
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as {
-            success: boolean
-            users: AttendUser[]
-          }
+          const responseJSON =
+            rawResponseJSON as unknown as DoDeleteUserResponse
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -93,10 +96,7 @@ declare const cityssm: cityssmGlobal
         canLogin: canLoginSelectElement.value
       },
       (rawResponseJSON) => {
-        const responseJSON = rawResponseJSON as {
-          success: boolean
-          users: AttendUser[]
-        }
+        const responseJSON = rawResponseJSON as unknown as DoUpdateUserResponse
 
         if (responseJSON.success) {
           // eslint-disable-next-line no-extra-semi
@@ -146,10 +146,7 @@ declare const cityssm: cityssmGlobal
         isAdmin: isAdminSelectElement.value
       },
       (rawResponseJSON) => {
-        const responseJSON = rawResponseJSON as {
-          success: boolean
-          users: AttendUser[]
-        }
+        const responseJSON = rawResponseJSON as unknown as DoUpdateUserResponse
 
         if (responseJSON.success) {
           // eslint-disable-next-line no-extra-semi
@@ -194,9 +191,8 @@ declare const cityssm: cityssmGlobal
       `${Attend.urlPrefix}/admin/doSetUserPermission`,
       formEvent.currentTarget,
       (rawResponseJSON) => {
-        const responseJSON = rawResponseJSON as {
-          success: boolean
-        }
+        const responseJSON =
+          rawResponseJSON as unknown as DoSetUserPermissionResponse
 
         if (responseJSON.success) {
           bulmaJS.alert({
@@ -325,9 +321,8 @@ declare const cityssm: cityssmGlobal
           userName
         },
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as {
-            userPermissions: Record<string, string>
-          }
+          const responseJSON =
+            rawResponseJSON as unknown as DoGetUserPermissionsResponse
 
           let formIndex = 0
 
@@ -522,14 +517,7 @@ declare const cityssm: cityssmGlobal
           `${Attend.urlPrefix}/admin/doAddUser`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as
-              | {
-                  success: true
-                  users: AttendUser[]
-                }
-              | {
-                  success: false
-                }
+            const responseJSON = rawResponseJSON as unknown as DoAddUserResponse
 
             if (responseJSON.success) {
               addCloseModalFunction()

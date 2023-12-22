@@ -17,20 +17,28 @@ import handler_doDeleteEmployeeProperty from '../handlers/admin-post/doDeleteEmp
 import handler_doDeleteUser from '../handlers/admin-post/doDeleteUser.js'
 import handler_doGetEmployeeProperties from '../handlers/admin-post/doGetEmployeeProperties.js'
 import handler_doGetUserPermissions from '../handlers/admin-post/doGetUserPermissions.js'
-import handler_doMoveAbsenceTypeDown from '../handlers/admin-post/doMoveAbsenceTypeDown.js'
-import handler_doMoveAbsenceTypeUp from '../handlers/admin-post/doMoveAbsenceTypeUp.js'
-import handler_doMoveAfterHoursReasonDown from '../handlers/admin-post/doMoveAfterHoursReasonDown.js'
-import handler_doMoveAfterHoursReasonUp from '../handlers/admin-post/doMoveAfterHoursReasonUp.js'
-import handler_doMoveCallOutResponseTypeDown from '../handlers/admin-post/doMoveCallOutResponseTypeDown.js'
-import handler_doMoveCallOutResponseTypeUp from '../handlers/admin-post/doMoveCallOutResponseTypeUp.js'
+import {
+  doMoveAbsenceTypeDownHandler,
+  doMoveAbsenceTypeUpHandler
+} from '../handlers/admin-post/doMoveAbsenceType.js'
+import {
+  doMoveAfterHoursReasonDownHandler,
+  doMoveAfterHoursReasonUpHandler
+} from '../handlers/admin-post/doMoveAfterHoursReason.js'
+import {
+  doMoveCallOutResponseTypeDownHandler,
+  doMoveCallOutResponseTypeUpHandler
+} from '../handlers/admin-post/doMoveCallOutResponseType.js'
 import handler_doSetUserPermission from '../handlers/admin-post/doSetUserPermission.js'
 import handler_doUpdateAbsenceType from '../handlers/admin-post/doUpdateAbsenceType.js'
 import handler_doUpdateAfterHoursReason from '../handlers/admin-post/doUpdateAfterHoursReason.js'
 import handler_doUpdateCallOutResponseType from '../handlers/admin-post/doUpdateCallOutResponseType.js'
 import handler_doUpdateEmployee from '../handlers/admin-post/doUpdateEmployee.js'
 import handler_doUpdateEmployeeProperty from '../handlers/admin-post/doUpdateEmployeeProperty.js'
-import handler_doUpdateUserCanLogin from '../handlers/admin-post/doUpdateUserCanLogin.js'
-import handler_doUpdateUserIsAdmin from '../handlers/admin-post/doUpdateUserIsAdmin.js'
+import {
+  doUpdateUserCanLoginHandler,
+  doUpdateUserIsAdminHandler
+} from '../handlers/admin-post/doUpdateUser.js'
 
 export const router = Router()
 
@@ -83,12 +91,12 @@ router.post(
 
 router.post(
   '/doMoveAbsenceTypeUp',
-  handler_doMoveAbsenceTypeUp as RequestHandler
+  doMoveAbsenceTypeUpHandler as RequestHandler
 )
 
 router.post(
   '/doMoveAbsenceTypeDown',
-  handler_doMoveAbsenceTypeDown as RequestHandler
+  doMoveAbsenceTypeDownHandler as RequestHandler
 )
 
 router.post(
@@ -110,12 +118,12 @@ router.post(
 
 router.post(
   '/doMoveCallOutResponseTypeUp',
-  handler_doMoveCallOutResponseTypeUp as RequestHandler
+  doMoveCallOutResponseTypeUpHandler as RequestHandler
 )
 
 router.post(
   '/doMoveCallOutResponseTypeDown',
-  handler_doMoveCallOutResponseTypeDown as RequestHandler
+  doMoveCallOutResponseTypeDownHandler as RequestHandler
 )
 
 router.post(
@@ -137,12 +145,12 @@ router.post(
 
 router.post(
   '/doMoveAfterHoursReasonUp',
-  handler_doMoveAfterHoursReasonUp as RequestHandler
+  doMoveAfterHoursReasonUpHandler as RequestHandler
 )
 
 router.post(
   '/doMoveAfterHoursReasonDown',
-  handler_doMoveAfterHoursReasonDown as RequestHandler
+  doMoveAfterHoursReasonDownHandler as RequestHandler
 )
 
 router.post(
@@ -158,12 +166,12 @@ router.get('/users', handler_users as RequestHandler)
 
 router.post(
   '/doUpdateUserCanLogin',
-  handler_doUpdateUserCanLogin as RequestHandler
+  doUpdateUserCanLoginHandler as RequestHandler
 )
 
 router.post(
   '/doUpdateUserIsAdmin',
-  handler_doUpdateUserIsAdmin as RequestHandler
+  doUpdateUserIsAdminHandler as RequestHandler
 )
 
 router.post(

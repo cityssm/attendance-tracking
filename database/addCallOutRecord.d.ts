@@ -1,4 +1,4 @@
-interface AddCallOutRecordForm {
+export interface AddCallOutRecordForm {
     listId: string;
     employeeNumber: string;
     callOutDateString?: string;
@@ -9,4 +9,3 @@ interface AddCallOutRecordForm {
     recordComment: string;
 }
 export declare function addCallOutRecord(form: AddCallOutRecordForm, sessionUser: AttendUser): Promise<string>;
-export {};

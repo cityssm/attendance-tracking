@@ -4,7 +4,7 @@ import type { IResult } from 'mssql'
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import { getConfigProperty } from '../helpers/functions.config.js'
 
-interface AddCallOutResponseTypeForm {
+export interface AddCallOutResponseTypeForm {
   responseType: string
   isSuccessful: '0' | '1'
 }

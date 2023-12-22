@@ -2,11 +2,15 @@ import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
 
-export async function setUserPermission(userPermission: {
+export interface SetUserPermissionForm {
   userName: string
   permissionKey: string
   permissionValue: string
-}): Promise<boolean> {
+}
+
+export async function setUserPermission(
+  userPermission: SetUserPermissionForm
+): Promise<boolean> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
   let result = await pool

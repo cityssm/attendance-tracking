@@ -8,6 +8,13 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
+import type { DoAddEmployeeResponse } from '../handlers/admin-post/doAddEmployee.js'
+import type { DoAddEmployeePropertyResponse } from '../handlers/admin-post/doAddEmployeeProperty.js'
+import type { DoDeleteEmployeeResponse } from '../handlers/admin-post/doDeleteEmployee.js'
+import type { DoDeleteEmployeePropertyResponse } from '../handlers/admin-post/doDeleteEmployeeProperty.js'
+import type { DoGetEmployeePropertiesResponse } from '../handlers/admin-post/doGetEmployeeProperties.js'
+import type { DoUpdateEmployeeResponse } from '../handlers/admin-post/doUpdateEmployee.js'
+import type { DoUpdateEmployeePropertyResponse } from '../handlers/admin-post/doUpdateEmployeeProperty.js'
 import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 import type { Employee, EmployeeProperty } from '../types/recordTypes.js'
 declare const bulmaJS: BulmaJS
@@ -70,10 +77,8 @@ declare const cityssm: cityssmGlobal
           isSynced
         },
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as {
-            success: boolean
-            employeeProperties: EmployeeProperty[]
-          }
+          const responseJSON =
+            rawResponseJSON as unknown as DoUpdateEmployeePropertyResponse
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -104,10 +109,8 @@ declare const cityssm: cityssmGlobal
             isSynced
           },
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as {
-              success: boolean
-              employeeProperties: EmployeeProperty[]
-            }
+            const responseJSON =
+              rawResponseJSON as unknown as DoDeleteEmployeePropertyResponse
 
             if (responseJSON.success) {
               bulmaJS.alert({
@@ -200,11 +203,8 @@ declare const cityssm: cityssmGlobal
         `${Attend.urlPrefix}/admin/doAddEmployeeProperty`,
         addPropertyFormElement,
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as {
-            success: boolean
-            errorMessage?: string
-            employeeProperties?: EmployeeProperty[]
-          }
+          const responseJSON =
+            rawResponseJSON as unknown as DoAddEmployeePropertyResponse
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -245,10 +245,8 @@ declare const cityssm: cityssmGlobal
         `${Attend.urlPrefix}/admin/doUpdateEmployee`,
         formEvent.currentTarget,
         (rawResponseJSON) => {
-          const responseJSON = rawResponseJSON as {
-            success: boolean
-            employees: Employee[]
-          }
+          const responseJSON =
+            rawResponseJSON as unknown as DoUpdateEmployeeResponse
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -273,15 +271,8 @@ declare const cityssm: cityssmGlobal
             employeeNumber
           },
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as
-              | {
-                  success: true
-                  employees: Employee[]
-                }
-              | {
-                  success: false
-                }
-
+            const responseJSON =
+              rawResponseJSON as unknown as DoDeleteEmployeeResponse
             if (responseJSON.success) {
               closeEmployeeModalFunction()
 
@@ -422,9 +413,7 @@ declare const cityssm: cityssmGlobal
           },
           (rawResponseJSON) => {
             employeeProperties = (
-              rawResponseJSON as {
-                employeeProperties: EmployeeProperty[]
-              }
+              rawResponseJSON as unknown as DoGetEmployeePropertiesResponse
             ).employeeProperties
 
             renderEmployeeProperties()
@@ -489,15 +478,8 @@ declare const cityssm: cityssmGlobal
           `${Attend.urlPrefix}/admin/doAddEmployee`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as
-              | {
-                  success: true
-                  employeeNumber: string
-                  employees: Employee[]
-                }
-              | {
-                  success: false
-                }
+            const responseJSON =
+              rawResponseJSON as unknown as DoAddEmployeeResponse
 
             if (responseJSON.success) {
               addCloseModalFunction()

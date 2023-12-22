@@ -33,7 +33,7 @@ async function getCurrentOrderNumber(
 
 export async function moveRecordDown(
   recordTable: RecordTable,
-  recordId: number
+  recordId: number | string
 ): Promise<boolean> {
   const currentOrderNumber = await getCurrentOrderNumber(recordTable, recordId)
 
@@ -62,7 +62,7 @@ export async function moveRecordDown(
 
 export async function moveRecordDownToBottom(
   recordTable: RecordTable,
-  recordId: number
+  recordId: number | string
 ): Promise<boolean> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
@@ -99,7 +99,7 @@ export async function moveRecordDownToBottom(
 
 export async function moveRecordUp(
   recordTable: RecordTable,
-  recordId: number
+  recordId: number | string
 ): Promise<boolean> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
@@ -132,7 +132,7 @@ export async function moveRecordUp(
 
 export async function moveRecordUpToTop(
   recordTable: RecordTable,
-  recordId: number
+  recordId: number | string
 ): Promise<boolean> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 

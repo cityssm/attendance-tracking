@@ -3,7 +3,7 @@ import type { IResult } from 'mssql'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
 
-interface AddAfterHoursRecordForm {
+export interface AddAfterHoursRecordForm {
   employeeNumber: string
   employeeName: string
   attendanceDateString?: string

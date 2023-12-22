@@ -4,12 +4,12 @@ import type { IResult } from 'mssql'
 import { clearCacheByTableName } from '../helpers/functions.cache.js'
 import { getConfigProperty } from '../helpers/functions.config.js'
 
-interface AddAfterHGoursReasonForm {
+export interface AddAfterHoursReasonForm {
   afterHoursReason: string
 }
 
 export async function addAfterHoursReason(
-  form: AddAfterHGoursReasonForm,
+  form: AddAfterHoursReasonForm,
   sessionUser: AttendUser
 ): Promise<number> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))

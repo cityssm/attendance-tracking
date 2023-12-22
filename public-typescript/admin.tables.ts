@@ -11,6 +11,18 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
+import type { DoAddAbsenceTypeResponse } from '../handlers/admin-post/doAddAbsenceType.js'
+import type { DoAddAfterHoursReasonResponse } from '../handlers/admin-post/doAddAfterHoursReason.js'
+import type { DoAddCallOutResponseTypeResponse } from '../handlers/admin-post/doAddCallOutResponseType.js'
+import type { DoDeleteAbsenceTypeResponse } from '../handlers/admin-post/doDeleteAbsenceType.js'
+import type { DoDeleteAfterHoursReasonResponse } from '../handlers/admin-post/doDeleteAfterHoursReason.js'
+import type { DoDeleteCallOutResponseTypeResponse } from '../handlers/admin-post/doDeleteCallOutResponseType.js'
+import type { DoMoveAbsenceTypeResponse } from '../handlers/admin-post/doMoveAbsenceType.js'
+import type { DoMoveAfterHoursReasonResponse } from '../handlers/admin-post/doMoveAfterHoursReason.js'
+import type { DoMoveCallOutResponseTypeResponse } from '../handlers/admin-post/doMoveCallOutResponseType.js'
+import type { DoUpdateAbsenceTypeResponse } from '../handlers/admin-post/doUpdateAbsenceType.js'
+import type { DoUpdateAfterHoursReasonResponse } from '../handlers/admin-post/doUpdateAfterHoursReason.js'
+import type { DoUpdateCallOutResponseTypeResponse } from '../handlers/admin-post/doUpdateCallOutResponseType.js'
 import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 import type {
   AbsenceType,
@@ -42,16 +54,6 @@ declare const cityssm: cityssmGlobal
    * Absence Types
    */
 
-  type AbsenceTypesResponseJSON =
-    | {
-        success: true
-        absenceTypes: AbsenceType[]
-      }
-    | {
-        success: false
-        errorMessage: string
-      }
-
   let absenceTypes = exports.absenceTypes as AbsenceType[]
   delete exports.absenceTypes
 
@@ -72,7 +74,7 @@ declare const cityssm: cityssmGlobal
       },
       (rawResponseJSON) => {
         const responseJSON =
-          rawResponseJSON as unknown as AbsenceTypesResponseJSON
+          rawResponseJSON as unknown as DoUpdateAbsenceTypeResponse
 
         if (responseJSON.success) {
           bulmaJS.alert({
@@ -104,7 +106,7 @@ declare const cityssm: cityssmGlobal
       },
       (rawResponseJSON) => {
         const responseJSON =
-          rawResponseJSON as unknown as AbsenceTypesResponseJSON
+          rawResponseJSON as unknown as DoMoveAbsenceTypeResponse
 
         if (responseJSON.success) {
           absenceTypes = responseJSON.absenceTypes
@@ -112,7 +114,7 @@ declare const cityssm: cityssmGlobal
         } else {
           bulmaJS.alert({
             title: 'Error Moving Absence Type',
-            message: responseJSON.errorMessage ?? '',
+            message: 'Please try again.',
             contextualColorName: 'danger'
           })
         }
@@ -135,7 +137,7 @@ declare const cityssm: cityssmGlobal
         },
         (rawResponseJSON) => {
           const responseJSON =
-            rawResponseJSON as unknown as AbsenceTypesResponseJSON
+            rawResponseJSON as unknown as DoDeleteAbsenceTypeResponse
 
           if (responseJSON.success) {
             absenceTypes = responseJSON.absenceTypes
@@ -143,7 +145,7 @@ declare const cityssm: cityssmGlobal
           } else {
             bulmaJS.alert({
               title: 'Error Deleting Absence Type',
-              message: responseJSON.errorMessage ?? '',
+              message: 'Please try again.',
               contextualColorName: 'danger'
             })
           }
@@ -270,7 +272,7 @@ declare const cityssm: cityssmGlobal
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON =
-              rawResponseJSON as unknown as AbsenceTypesResponseJSON
+              rawResponseJSON as unknown as DoAddAbsenceTypeResponse
 
             if (responseJSON.success) {
               addCloseModalFunction()
@@ -285,7 +287,7 @@ declare const cityssm: cityssmGlobal
             } else {
               bulmaJS.alert({
                 title: 'Error Adding Absence Type',
-                message: responseJSON.errorMessage ?? '',
+                message: 'Please try again.',
                 contextualColorName: 'danger'
               })
             }
@@ -316,16 +318,6 @@ declare const cityssm: cityssmGlobal
    * Call Out Response Types
    */
 
-  type CallOutResponseTypesResponseJSON =
-    | {
-        success: true
-        callOutResponseTypes: CallOutResponseType[]
-      }
-    | {
-        success: false
-        errorMessage: string
-      }
-
   let callOutResponseTypes =
     exports.callOutResponseTypes as CallOutResponseType[]
   delete exports.callOutResponseTypes
@@ -353,7 +345,7 @@ declare const cityssm: cityssmGlobal
       },
       (rawResponseJSON) => {
         const responseJSON =
-          rawResponseJSON as unknown as CallOutResponseTypesResponseJSON
+          rawResponseJSON as unknown as DoUpdateCallOutResponseTypeResponse
 
         if (responseJSON.success) {
           bulmaJS.alert({
@@ -385,7 +377,7 @@ declare const cityssm: cityssmGlobal
       },
       (rawResponseJSON) => {
         const responseJSON =
-          rawResponseJSON as unknown as CallOutResponseTypesResponseJSON
+          rawResponseJSON as unknown as DoMoveCallOutResponseTypeResponse
 
         if (responseJSON.success) {
           callOutResponseTypes = responseJSON.callOutResponseTypes
@@ -393,7 +385,7 @@ declare const cityssm: cityssmGlobal
         } else {
           bulmaJS.alert({
             title: 'Error Moving Response Type',
-            message: responseJSON.errorMessage ?? '',
+            message: 'Please try again.',
             contextualColorName: 'danger'
           })
         }
@@ -416,7 +408,7 @@ declare const cityssm: cityssmGlobal
         },
         (rawResponseJSON) => {
           const responseJSON =
-            rawResponseJSON as unknown as CallOutResponseTypesResponseJSON
+            rawResponseJSON as unknown as DoDeleteCallOutResponseTypeResponse
 
           if (responseJSON.success) {
             callOutResponseTypes = responseJSON.callOutResponseTypes
@@ -424,7 +416,7 @@ declare const cityssm: cityssmGlobal
           } else {
             bulmaJS.alert({
               title: 'Error Deleting Response Type',
-              message: responseJSON.errorMessage ?? '',
+              message: 'Please try again.',
               contextualColorName: 'danger'
             })
           }
@@ -570,7 +562,7 @@ declare const cityssm: cityssmGlobal
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON =
-              rawResponseJSON as unknown as CallOutResponseTypesResponseJSON
+              rawResponseJSON as unknown as DoAddCallOutResponseTypeResponse
 
             if (responseJSON.success) {
               addCloseModalFunction()
@@ -585,7 +577,7 @@ declare const cityssm: cityssmGlobal
             } else {
               bulmaJS.alert({
                 title: 'Error Adding Response Type',
-                message: responseJSON.errorMessage ?? '',
+                message: 'Please try again.',
                 contextualColorName: 'danger'
               })
             }
@@ -616,16 +608,6 @@ declare const cityssm: cityssmGlobal
    * After Hours Reasons
    */
 
-  type AfterHoursReasonsResponseJSON =
-    | {
-        success: true
-        afterHoursReasons: AfterHoursReason[]
-      }
-    | {
-        success: false
-        errorMessage: string
-      }
-
   let afterHoursReasons = exports.afterHoursReasons as AfterHoursReason[]
   delete exports.afterHoursReasons
 
@@ -647,7 +629,7 @@ declare const cityssm: cityssmGlobal
       },
       (rawResponseJSON) => {
         const responseJSON =
-          rawResponseJSON as unknown as AfterHoursReasonsResponseJSON
+          rawResponseJSON as unknown as DoUpdateAfterHoursReasonResponse
 
         if (responseJSON.success) {
           bulmaJS.alert({
@@ -679,7 +661,7 @@ declare const cityssm: cityssmGlobal
       },
       (rawResponseJSON) => {
         const responseJSON =
-          rawResponseJSON as unknown as AfterHoursReasonsResponseJSON
+          rawResponseJSON as unknown as DoMoveAfterHoursReasonResponse
 
         if (responseJSON.success) {
           afterHoursReasons = responseJSON.afterHoursReasons
@@ -687,7 +669,7 @@ declare const cityssm: cityssmGlobal
         } else {
           bulmaJS.alert({
             title: 'Error Moving Reason',
-            message: responseJSON.errorMessage ?? '',
+            message: 'Please try again.',
             contextualColorName: 'danger'
           })
         }
@@ -710,7 +692,7 @@ declare const cityssm: cityssmGlobal
         },
         (rawResponseJSON) => {
           const responseJSON =
-            rawResponseJSON as unknown as AfterHoursReasonsResponseJSON
+            rawResponseJSON as unknown as DoDeleteAfterHoursReasonResponse
 
           if (responseJSON.success) {
             afterHoursReasons = responseJSON.afterHoursReasons
@@ -718,7 +700,7 @@ declare const cityssm: cityssmGlobal
           } else {
             bulmaJS.alert({
               title: 'Error Deleting Reason',
-              message: responseJSON.errorMessage ?? '',
+              message: 'Please try again.',
               contextualColorName: 'danger'
             })
           }
@@ -846,7 +828,7 @@ declare const cityssm: cityssmGlobal
           formEvent.currentTarget,
           (rawResponseJSON) => {
             const responseJSON =
-              rawResponseJSON as unknown as AfterHoursReasonsResponseJSON
+              rawResponseJSON as unknown as DoAddAfterHoursReasonResponse
 
             if (responseJSON.success) {
               addCloseModalFunction()
@@ -861,7 +843,7 @@ declare const cityssm: cityssmGlobal
             } else {
               bulmaJS.alert({
                 title: 'Error Adding Reason',
-                message: responseJSON.errorMessage ?? '',
+                message: 'Please try again.',
                 contextualColorName: 'danger'
               })
             }

@@ -1,13 +1,19 @@
 import type { Request, Response } from 'express'
 
-import { addCallOutRecord } from '../../database/addCallOutRecord.js'
+import {
+  type AddCallOutRecordForm,
+  addCallOutRecord
+} from '../../database/addCallOutRecord.js'
 import { getCallOutRecords } from '../../database/getCallOutRecords.js'
 
 export async function handler(
   request: Request,
   response: Response
 ): Promise<void> {
-  const recordId = await addCallOutRecord(request.body, request.session.user as AttendUser)
+  const recordId = await addCallOutRecord(
+    request.body as AddCallOutRecordForm,
+    request.session.user as AttendUser
+  )
 
   const callOutRecords = await getCallOutRecords({
     listId: request.body.listId,

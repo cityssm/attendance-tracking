@@ -1,5 +1,4 @@
-interface AddAfterHGoursReasonForm {
+export interface AddAfterHoursReasonForm {
     afterHoursReason: string;
 }
-export declare function addAfterHoursReason(form: AddAfterHGoursReasonForm, sessionUser: AttendUser): Promise<number>;
-export {};
+export declare function addAfterHoursReason(form: AddAfterHoursReasonForm, sessionUser: AttendUser): Promise<number>;

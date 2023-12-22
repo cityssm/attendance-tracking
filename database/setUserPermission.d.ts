@@ -1,5 +1,6 @@
-export declare function setUserPermission(userPermission: {
+export interface SetUserPermissionForm {
     userName: string;
     permissionKey: string;
     permissionValue: string;
-}): Promise<boolean>;
+}
+export declare function setUserPermission(userPermission: SetUserPermissionForm): Promise<boolean>;
