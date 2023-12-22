@@ -8,11 +8,9 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
-import type { DoAddUserResponse } from '../handlers/admin-post/doAddUser.js'
-import type { DoDeleteUserResponse } from '../handlers/admin-post/doDeleteUser.js'
 import type { DoGetUserPermissionsResponse } from '../handlers/admin-post/doGetUserPermissions.js'
+import type { DoModifyUserResponse } from '../handlers/admin-post/doModifyUser.js'
 import type { DoSetUserPermissionResponse } from '../handlers/admin-post/doSetUserPermission.js'
-import type { DoUpdateUserResponse } from '../handlers/admin-post/doUpdateUser.js'
 import type { Attend as AttendGlobal } from '../types/globalTypes.js'
 
 declare const bulmaJS: BulmaJS
@@ -51,7 +49,7 @@ declare const cityssm: cityssmGlobal
         },
         (rawResponseJSON) => {
           const responseJSON =
-            rawResponseJSON as unknown as DoDeleteUserResponse
+            rawResponseJSON as unknown as DoModifyUserResponse
 
           if (responseJSON.success) {
             bulmaJS.alert({
@@ -96,7 +94,7 @@ declare const cityssm: cityssmGlobal
         canLogin: canLoginSelectElement.value
       },
       (rawResponseJSON) => {
-        const responseJSON = rawResponseJSON as unknown as DoUpdateUserResponse
+        const responseJSON = rawResponseJSON as unknown as DoModifyUserResponse
 
         if (responseJSON.success) {
           // eslint-disable-next-line no-extra-semi
@@ -146,7 +144,7 @@ declare const cityssm: cityssmGlobal
         isAdmin: isAdminSelectElement.value
       },
       (rawResponseJSON) => {
-        const responseJSON = rawResponseJSON as unknown as DoUpdateUserResponse
+        const responseJSON = rawResponseJSON as unknown as DoModifyUserResponse
 
         if (responseJSON.success) {
           // eslint-disable-next-line no-extra-semi
@@ -517,7 +515,8 @@ declare const cityssm: cityssmGlobal
           `${Attend.urlPrefix}/admin/doAddUser`,
           formEvent.currentTarget,
           (rawResponseJSON) => {
-            const responseJSON = rawResponseJSON as unknown as DoAddUserResponse
+            const responseJSON =
+              rawResponseJSON as unknown as DoModifyUserResponse
 
             if (responseJSON.success) {
               addCloseModalFunction()
