@@ -2,7 +2,7 @@ import { eligibility_hasProperty, sortKey_alphabetical, sortKey_propertyValue, s
 import { eligibility_operator, eligibility_operatorJC6, eligibility_operatorJC7, eligibility_operatorJC8, eligibility_unionized } from './functions.ssm.js';
 export const config = {
     application: {
-        applicationName: 'Call Out and Attendance Tracking',
+        applicationName: 'Call Out Tracking',
         bigLogoURL: '/images-custom/ssm.svg',
         smallLogoURL: '/images-custom/ssm.svg'
     },
@@ -13,10 +13,10 @@ export const config = {
     aliases: {},
     features: {
         attendance: {
-            absences: true,
-            afterHours: true,
+            absences: false,
+            afterHours: false,
             callOuts: true,
-            returnsToWork: true
+            returnsToWork: false
         },
         employees: {
             avantiSync: true

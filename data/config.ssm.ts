@@ -16,7 +16,7 @@ import {
 
 export const config: Config = {
   application: {
-    applicationName: 'Call Out and Attendance Tracking',
+    applicationName: 'Call Out Tracking',
     bigLogoURL: '/images-custom/ssm.svg',
     smallLogoURL: '/images-custom/ssm.svg'
   },
@@ -27,10 +27,10 @@ export const config: Config = {
   aliases: {},
   features: {
     attendance: {
-      absences: true,
-      afterHours: true,
+      absences: false,
+      afterHours: false,
       callOuts: true,
-      returnsToWork: true
+      returnsToWork: false
     },
     employees: {
       avantiSync: true
