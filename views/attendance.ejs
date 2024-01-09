@@ -1,5 +1,7 @@
 <%- include('_header'); -%>
 
+<% let activeTab = '' %>
+
 <div class="columns">
   <div class="column is-3">
     <aside class="menu" id="menu--attendance" style="position:sticky;top:60px">
@@ -9,8 +11,9 @@
         </h2>
         <ul class="menu-list">
           <% if (configFunctions.getConfigProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
+            <% activeTab = 'absences' %>
             <li>
-              <a class="is-active is-block" href="#tab--absences">
+              <a class="is-block is-active" href="#tab--absences">
                 <div class="columns is-gapless is-mobile">
                   <div class="column is-narrow">
                     <span class="icon">
@@ -28,8 +31,9 @@
             </li>
           <% } %>
           <% if (configFunctions.getConfigProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
+            <% activeTab = activeTab === '' ? 'returnsToWork' : activeTab %>
             <li>
-              <a class="is-block" href="#tab--returnsToWork">
+              <a class="is-block <%= activeTab === 'returnsToWork' ? 'is-active' : '' %>" href="#tab--returnsToWork">
                 <div class="columns is-gapless is-mobile">
                   <div class="column is-narrow">
                     <span class="icon">
@@ -53,8 +57,9 @@
           Outgoing Calls
         </h2>
         <ul class="menu-list">
+          <% activeTab = activeTab === '' ? 'callOuts' : activeTab %>
           <li>
-            <a href="#tab--callOuts">
+            <a class="<%= activeTab === 'callOuts' ? 'is-active' : '' %>" href="#tab--callOuts">
               <span class="icon">
                 <i class="fas fa-fw fa-phone" aria-hidden="true"></i>
               </span>
@@ -68,8 +73,9 @@
           After Hours
         </h2>
         <ul class="menu-list">
+          <% activeTab = activeTab === '' ? 'afterHours' : activeTab %>
           <li>
-            <a class="is-block" href="#tab--afterHours">
+            <a class="is-block <%= activeTab === 'afterHours' ? 'is-active' : '' %>" href="#tab--afterHours">
               <div class="columns is-gapless is-mobile">
                 <div class="column is-narrow">
                   <span class="icon">
@@ -91,8 +97,9 @@
         Reporting
       </h2>
       <ul class="menu-list">
+        <% activeTab = activeTab === '' ? 'employees' : activeTab %>
         <li>
-          <a href="#tab--employees">
+          <a class="<%= activeTab === 'employees' ? 'is-active' : '' %>" href="#tab--employees">
             <span class="icon">
               <i class="fas fa-fw fa-hard-hat" aria-hidden="true"></i>
             </span>
@@ -115,26 +122,26 @@
   <div class="column">
     <div class="tabs-container" id="tabs-container--attendance">
       <% if (configFunctions.getConfigProperty('features.attendance.absences') && permissionFunctions.hasPermission(user, 'attendance.absences.canView')) { %>
-        <article id="tab--absences">
+        <article class="<%= activeTab === 'absences' ? '' : 'is-hidden' %>" id="tab--absences">
           <%- include('_attendance.absences.ejs'); -%>
         </article>
       <% } %>
       <% if (configFunctions.getConfigProperty('features.attendance.returnsToWork') && permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canView')) { %>
-        <article class="is-hidden" id="tab--returnsToWork">
+        <article class="<%= activeTab === 'returnsToWork' ? '' : 'is-hidden' %>" id="tab--returnsToWork">
           <%- include('_attendance.returnsToWork.ejs'); -%>
         </article>
       <% } %>
       <% if (configFunctions.getConfigProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
-        <article class="is-hidden" id="tab--callOuts">
+        <article class="<%= activeTab === 'callOuts' ? '' : 'is-hidden' %>" id="tab--callOuts">
           <%- include('_attendance.callOuts.ejs'); -%>
         </article>
       <% } %>
       <% if (configFunctions.getConfigProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
-        <article class="is-hidden" id="tab--afterHours">
+        <article class="<%= activeTab === 'afterHours' ? '' : 'is-hidden' %>" id="tab--afterHours">
           <%- include('_attendance.afterHours.ejs'); -%>
         </article>
       <% } %>
-      <article class="is-hidden" id="tab--employees">
+      <article class="<%= activeTab === 'employees' ? '' : 'is-hidden' %>" id="tab--employees">
         <%- include('_attendance.employees.ejs'); -%>
       </article>
     </div>
