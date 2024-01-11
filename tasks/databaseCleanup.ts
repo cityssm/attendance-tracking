@@ -1,6 +1,6 @@
 import Debug from 'debug'
 import exitHook from 'exit-hook'
-import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async'
+import { clearIntervalAsync, setIntervalAsync } from 'set-interval-async'
 
 import { doDatabaseCleanup } from './functions/doDatabaseCleanup.js'
 

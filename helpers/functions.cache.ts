@@ -11,8 +11,8 @@ import { getCallOutResponseTypes as getCallOutResponseTypesFromDatabase } from '
 import { getEmployeeProperties as getEmployeePropertiesFromDatabase } from '../database/getEmployeeProperties.js'
 import { getEmployeePropertyNames as getEmployeePropertyNamesFromDatabase } from '../database/getEmployeePropertyNames.js'
 import type {
-  ClearCacheWorkerMessage,
-  CacheTableName
+  CacheTableName,
+  ClearCacheWorkerMessage
 } from '../types/applicationTypes.js'
 import type {
   AbsenceType,

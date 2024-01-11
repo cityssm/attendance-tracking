@@ -32,14 +32,7 @@ export async function updateUserCanLogin(
   canLogin: BooleanFieldValues,
   sessionUser: AttendUser
 ): Promise<boolean> {
-  const success = await updateUserField(
-    userName,
-    'canLogin',
-    canLogin,
-    sessionUser
-  )
-
-  return success
+  return await updateUserField(userName, 'canLogin', canLogin, sessionUser)
 }
 
 export async function updateUserIsAdmin(
@@ -47,12 +40,5 @@ export async function updateUserIsAdmin(
   isAdmin: BooleanFieldValues,
   sessionUser: AttendUser
 ): Promise<boolean> {
-  const success = await updateUserField(
-    userName,
-    'isAdmin',
-    isAdmin,
-    sessionUser
-  )
-
-  return success
+  return await updateUserField(userName, 'isAdmin', isAdmin, sessionUser)
 }

@@ -1,6 +1,6 @@
 import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
 
-import { getConfigProperty, deleteDays } from '../helpers/functions.config.js'
+import { deleteDays, getConfigProperty } from '../helpers/functions.config.js'
 
 const historicalRecordTables = [
   'HistoricalAbsenceRecords',

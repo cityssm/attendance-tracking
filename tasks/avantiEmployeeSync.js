@@ -1,7 +1,7 @@
 import { AvantiApi, lookups as avantiLookups } from '@cityssm/avanti-api';
 import Debug from 'debug';
 import exitHook from 'exit-hook';
-import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async';
+import { clearIntervalAsync, setIntervalAsync } from 'set-interval-async';
 import { createEmployee } from '../database/createEmployee.js';
 import { deleteEmployeeProperties } from '../database/deleteEmployeeProperties.js';
 import { deleteMissingSyncedEmployees } from '../database/deleteMissingSyncedEmployees.js';

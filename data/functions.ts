@@ -4,8 +4,8 @@
 import { dateToString } from '@cityssm/utils-datetime'
 
 import type {
-  ConfigEmployeeSortKeyFunction,
-  ConfigEmployeeEligibilityFunction
+  ConfigEmployeeEligibilityFunction,
+  ConfigEmployeeSortKeyFunction
 } from '../types/configTypes.js'
 
 /*
