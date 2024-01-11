@@ -48,7 +48,7 @@
   "private": true,
   "dependencies": {
     "@cityssm/ad-web-auth-connector": "^1.1.0",
-    "@cityssm/avanti-api": "^0.6.1",
+    "@cityssm/avanti-api": "^0.6.2",
     "@cityssm/bulma-js": "^0.4.0",
     "@cityssm/bulma-webapp-js": "^1.5.0",
     "@cityssm/configurator": "^0.1.0",
