@@ -60,6 +60,13 @@
             </button>
           </div>
         </div>
+        <% if (!configFunctions.getConfigProperty('features.attendance.absences')) { %>
+          <div class="message is-warning">
+            <p class="message-body">
+              Absence Tracking is currently disabled.
+            </p>
+          </div>
+        <% } %>
         <div id="container--absenceTypes"></div>
         <p class="has-text-centered is-size-7 mt-4">
           <a href="<%= urlPrefix %>/reports/absenceTypes-active" download>
@@ -82,6 +89,13 @@
             </button>
           </div>
         </div>
+        <% if (!configFunctions.getConfigProperty('features.attendance.callOuts')) { %>
+          <div class="message is-warning">
+            <p class="message-body">
+              Call Out Tracking is currently disabled.
+            </p>
+          </div>
+        <% } %>
         <div id="container--callOutResponseTypes"></div>
         <p class="has-text-centered is-size-7 mt-4">
           <a href="<%= urlPrefix %>/reports/callOutResponseTypes-active" download>
@@ -104,6 +118,13 @@
             </button>
           </div>
         </div>
+        <% if (!configFunctions.getConfigProperty('features.attendance.afterHours')) { %>
+          <div class="message is-warning">
+            <p class="message-body">
+              After Hours Tracking is currently disabled.
+            </p>
+          </div>
+        <% } %>
         <div id="container--afterHoursReasons"></div>
         <p class="has-text-centered is-size-7 mt-4">
           <a href="<%= urlPrefix %>/reports/afterHoursReasons-active" download>
