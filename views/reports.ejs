@@ -156,6 +156,13 @@
                     <div class="column">
                       <strong>Absence Records Table</strong>
                     </div>
+                    <% if (!configFunctions.getConfigProperty('features.attendance.absences')) { %>
+                      <div class="column is-narrow">
+                        <span class="tag is-warning">
+                          Disabled
+                        </span>
+                      </div>
+                    <% } %>
                   </div>
                 </a>
                 <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/historicalAbsenceRecords-all" download>
@@ -166,6 +173,13 @@
                     <div class="column">
                       <strong>Historical Absence Records Table</strong>
                     </div>
+                    <% if (!configFunctions.getConfigProperty('features.attendance.absences')) { %>
+                      <div class="column is-narrow">
+                        <span class="tag is-warning">
+                          Disabled
+                        </span>
+                      </div>
+                    <% } %>
                   </div>
                 </a>
                 <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/returnToWorkRecords-all" download>
@@ -176,6 +190,13 @@
                     <div class="column">
                       <strong>Return to Work Records Table</strong>
                     </div>
+                    <% if (!configFunctions.getConfigProperty('features.attendance.returnsToWork')) { %>
+                      <div class="column is-narrow">
+                        <span class="tag is-warning">
+                          Disabled
+                        </span>
+                      </div>
+                    <% } %>
                   </div>
                 </a>
                 <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/historicalReturnToWorkRecords-all" download>
@@ -186,6 +207,13 @@
                     <div class="column">
                       <strong>Historical Return to Work Records Table</strong>
                     </div>
+                    <% if (!configFunctions.getConfigProperty('features.attendance.returnsToWork')) { %>
+                      <div class="column is-narrow">
+                        <span class="tag is-warning">
+                          Disabled
+                        </span>
+                      </div>
+                    <% } %>
                   </div>
                 </a>
                 <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/callOutRecords-all" download>
@@ -196,6 +224,13 @@
                     <div class="column">
                       <strong>Call Out Records Table</strong>
                     </div>
+                    <% if (!configFunctions.getConfigProperty('features.attendance.callOuts')) { %>
+                      <div class="column is-narrow">
+                        <span class="tag is-warning">
+                          Disabled
+                        </span>
+                      </div>
+                    <% } %>
                   </div>
                 </a>
                 <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/historicalCallOutRecords-all" download>
@@ -206,6 +241,13 @@
                     <div class="column">
                       <strong>Historical Call Out Records Table</strong>
                     </div>
+                    <% if (!configFunctions.getConfigProperty('features.attendance.callOuts')) { %>
+                      <div class="column is-narrow">
+                        <span class="tag is-warning">
+                          Disabled
+                        </span>
+                      </div>
+                    <% } %>
                   </div>
                 </a>
                 <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/afterHoursRecords-all" download>
@@ -216,6 +258,13 @@
                     <div class="column">
                       <strong>After Hours Records Table</strong>
                     </div>
+                    <% if (!configFunctions.getConfigProperty('features.attendance.afterHours')) { %>
+                      <div class="column is-narrow">
+                        <span class="tag is-warning">
+                          Disabled
+                        </span>
+                      </div>
+                    <% } %>
                   </div>
                 </a>
                 <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/historicalAfterHoursRecords-all" download>
@@ -226,6 +275,13 @@
                     <div class="column">
                       <strong>Historical After Hours Records Table</strong>
                     </div>
+                    <% if (!configFunctions.getConfigProperty('features.attendance.afterHours')) { %>
+                      <div class="column is-narrow">
+                        <span class="tag is-warning">
+                          Disabled
+                        </span>
+                      </div>
+                    <% } %>
                   </div>
                 </a>
               </div>
@@ -252,6 +308,13 @@
                     <div class="column">
                       <strong>Absence Types Table</strong>
                     </div>
+                    <% if (!configFunctions.getConfigProperty('features.attendance.absences')) { %>
+                      <div class="column is-narrow">
+                        <span class="tag is-warning">
+                          Disabled
+                        </span>
+                      </div>
+                    <% } %>
                   </div>
                 </a>
                 <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/callOutResponseTypes-all" download>
@@ -262,6 +325,13 @@
                     <div class="column">
                       <strong>Call Out Response Types Table</strong>
                     </div>
+                    <% if (!configFunctions.getConfigProperty('features.attendance.callOuts')) { %>
+                      <div class="column is-narrow">
+                        <span class="tag is-warning">
+                          Disabled
+                        </span>
+                      </div>
+                    <% } %>
                   </div>
                 </a>
                 <a class="panel-block is-block is-hidden" href="<%= urlPrefix %>/reports/afterHoursReasons-all" download>
@@ -272,6 +342,13 @@
                     <div class="column">
                       <strong>After Hours Reasons Table</strong>
                     </div>
+                    <% if (!configFunctions.getConfigProperty('features.attendance.afterHours')) { %>
+                      <div class="column is-narrow">
+                        <span class="tag is-warning">
+                          Disabled
+                        </span>
+                      </div>
+                    <% } %>
                   </div>
                 </a>
               </div>
