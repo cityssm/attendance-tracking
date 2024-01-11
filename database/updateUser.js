@@ -16,8 +16,10 @@ async function updateUserField(userName, userField, fieldValue, sessionUser) {
     return result.rowsAffected[0] > 0;
 }
 export async function updateUserCanLogin(userName, canLogin, sessionUser) {
-    return await updateUserField(userName, 'canLogin', canLogin, sessionUser);
+    const success = await updateUserField(userName, 'canLogin', canLogin, sessionUser);
+    return success;
 }
 export async function updateUserIsAdmin(userName, isAdmin, sessionUser) {
-    return await updateUserField(userName, 'isAdmin', isAdmin, sessionUser);
+    const success = await updateUserField(userName, 'isAdmin', isAdmin, sessionUser);
+    return success;
 }
