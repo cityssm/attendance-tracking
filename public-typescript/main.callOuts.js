@@ -166,7 +166,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
         }
         function renderCallOutRecords() {
             // Tag Count
-            var _a, _b, _c, _d, _e;
+            var _a, _b, _c, _d, _e, _f;
             ;
             callOutMemberModalElement.querySelector('#tag--recentCalls').textContent = callOutRecords.length.toString();
             // Data
@@ -205,13 +205,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
             ${callOutDateTime.toLocaleDateString()} ${callOutDateTime.toLocaleTimeString()}<br />
             <span class="is-size-7">
               <strong>${(_a = record.responseType) !== null && _a !== void 0 ? _a : '(No Response)'}</strong><br />
+              <span class="has-tooltip-right" data-tooltip="Call Out List">
+                <i class="fas fa-fw fa-list" aria-hidden="true"></i>
+                ${cityssm.escapeHTML((_b = record.listName) !== null && _b !== void 0 ? _b : '')}
+              </span><br />
               <span class="has-tooltip-right" data-tooltip="Nature of Call Out">
                 <i class="fas fa-fw fa-info-circle" aria-hidden="true"></i>
-                ${(_b = record.natureOfCallOut) !== null && _b !== void 0 ? _b : ''}
+                ${cityssm.escapeHTML((_c = record.natureOfCallOut) !== null && _c !== void 0 ? _c : '')}
               </span><br />
               <span class="has-tooltip-right" data-tooltip="Comment">
                 <i class="fas fa-fw fa-comment" aria-hidden="true"></i>
-                ${(_c = record.recordComment) !== null && _c !== void 0 ? _c : ''}
+                ${cityssm.escapeHTML((_d = record.recordComment) !== null && _d !== void 0 ? _d : '')}
               </span>
             </span>
           </div>
@@ -233,10 +237,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     : ''}
           </div>
           </div>`;
-                (_d = panelBlockElement
-                    .querySelector('.is-update-button')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', openUpdateCallOutRecordModal);
                 (_e = panelBlockElement
-                    .querySelector('.is-delete-button')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', deleteCallOutRecord);
+                    .querySelector('.is-update-button')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', openUpdateCallOutRecordModal);
+                (_f = panelBlockElement
+                    .querySelector('.is-delete-button')) === null || _f === void 0 ? void 0 : _f.addEventListener('click', deleteCallOutRecord);
                 panelElement.append(panelBlockElement);
             }
             callOutRecordsContainerElement.innerHTML = '';

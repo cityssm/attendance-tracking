@@ -15,13 +15,16 @@ export async function getCallOutRecords(
 ): Promise<CallOutRecord[]> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
-  let sql = `select r.recordId, r.listId, r.employeeNumber,
+  let sql = `select r.recordId,
+    r.listId, l.listName,
+    r.employeeNumber,
     r.callOutDateTime, r.callOutHours, r.natureOfCallOut,
     r.responseTypeId, t.responseType, t.isSuccessful,
     coalesce(r.recordComment, '') as recordComment,
     r.recordCreate_userName, r.recordCreate_dateTime
     from MonTY.CallOutRecords r
     left join MonTY.CallOutResponseTypes t on r.responseTypeId = t.responseTypeId
+    left join MonTY.CallOutLists l on r.listId = l.listId
     where r.recordDelete_dateTime is null`
 
   let request = pool.request()

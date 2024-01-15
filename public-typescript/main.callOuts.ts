@@ -374,13 +374,17 @@ declare const cityssm: cityssmGlobal
             ${callOutDateTime.toLocaleDateString()} ${callOutDateTime.toLocaleTimeString()}<br />
             <span class="is-size-7">
               <strong>${record.responseType ?? '(No Response)'}</strong><br />
+              <span class="has-tooltip-right" data-tooltip="Call Out List">
+                <i class="fas fa-fw fa-list" aria-hidden="true"></i>
+                ${cityssm.escapeHTML(record.listName ?? '')}
+              </span><br />
               <span class="has-tooltip-right" data-tooltip="Nature of Call Out">
                 <i class="fas fa-fw fa-info-circle" aria-hidden="true"></i>
-                ${record.natureOfCallOut ?? ''}
+                ${cityssm.escapeHTML(record.natureOfCallOut ?? '')}
               </span><br />
               <span class="has-tooltip-right" data-tooltip="Comment">
                 <i class="fas fa-fw fa-comment" aria-hidden="true"></i>
-                ${record.recordComment ?? ''}
+                ${cityssm.escapeHTML(record.recordComment ?? '')}
               </span>
             </span>
           </div>

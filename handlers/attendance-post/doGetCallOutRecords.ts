@@ -12,7 +12,7 @@ export async function handler(
   response: Response
 ): Promise<void> {
   const callOutRecords = await getCallOutRecords({
-    listId: request.body.listId,
+    // listId: request.body.listId,
     employeeNumber: request.body.employeeNumber,
     recentOnly: true
   })
