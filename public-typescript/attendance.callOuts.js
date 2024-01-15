@@ -51,7 +51,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             panelBlockElement.dataset.listId = callOutList.listId.toString();
             // eslint-disable-next-line unicorn/prefer-string-replace-all
             const listDescriptionHTML = ((_b = callOutList.listDescription) !== null && _b !== void 0 ? _b : '').replace(/\n/g, '<br />');
-            panelBlockElement.innerHTML = `<div class="columns is-mobile">
+            panelBlockElement.innerHTML = `<div class="columns is-mobile is-variable is-1">
         <div class="column is-narrow">
           <button class="button is-white" data-is-favourite="${callOutList.isFavourite ? '1' : '0'}" data-tooltip="Toggle Favourite" type="button" aria-label="Toggle Favourite">
             ${callOutList.isFavourite

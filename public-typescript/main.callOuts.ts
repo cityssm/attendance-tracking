@@ -1029,7 +1029,7 @@ declare const cityssm: cityssmGlobal
         panelBlockElement.href = '#'
         panelBlockElement.dataset.employeeNumber = member.employeeNumber
 
-        panelBlockElement.innerHTML = `<div class="columns is-mobile">
+        panelBlockElement.innerHTML = `<div class="columns is-mobile is-variable is-1">
           <div class="column is-narrow">
           ${
             absenceRecord === undefined

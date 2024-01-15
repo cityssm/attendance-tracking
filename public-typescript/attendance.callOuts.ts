@@ -96,7 +96,7 @@ declare const cityssm: cityssmGlobal
         '<br />'
       )
 
-      panelBlockElement.innerHTML = `<div class="columns is-mobile">
+      panelBlockElement.innerHTML = `<div class="columns is-mobile is-variable is-1">
         <div class="column is-narrow">
           <button class="button is-white" data-is-favourite="${
             (callOutList.isFavourite as boolean) ? '1' : '0'

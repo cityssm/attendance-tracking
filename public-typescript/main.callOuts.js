@@ -616,7 +616,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 panelBlockElement.className = 'panel-block is-block';
                 panelBlockElement.href = '#';
                 panelBlockElement.dataset.employeeNumber = member.employeeNumber;
-                panelBlockElement.innerHTML = `<div class="columns is-mobile">
+                panelBlockElement.innerHTML = `<div class="columns is-mobile is-variable is-1">
           <div class="column is-narrow">
           ${absenceRecord === undefined
                     ? '<i class="fas fa-fw fa-hard-hat" aria-hidden="true"></i>'

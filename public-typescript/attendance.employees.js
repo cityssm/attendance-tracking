@@ -233,7 +233,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             panelBlockElement.className = 'panel-block is-block';
             panelBlockElement.dataset.employeeNumber = employee.employeeNumber;
             panelBlockElement.href = '#';
-            panelBlockElement.innerHTML = `<div class="columns is-mobile">
+            panelBlockElement.innerHTML = `<div class="columns is-mobile is-variable is-1">
         <div class="column is-narrow">
           <i class="fas fa-hard-hat" aria-hidden="true"></i>
         </div>
