@@ -1,6 +1,6 @@
 {
   "name": "@cityssm/attendance-tracking",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.5",
   "type": "module",
   "description": "Track Your Employee Absences, Call Outs, and more!",
   "exports": "./app.js",
