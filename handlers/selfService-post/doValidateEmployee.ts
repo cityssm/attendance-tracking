@@ -1,4 +1,4 @@
-import { recordAbuse, isAbuser } from '@cityssm/express-abuse-points'
+import { isAbuser, recordAbuse } from '@cityssm/express-abuse-points'
 import type { Request, Response } from 'express'
 
 import { validateEmployeeFields } from '../../helpers/functions.selfService.js'
