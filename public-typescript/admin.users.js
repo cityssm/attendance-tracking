@@ -3,10 +3,11 @@
 /* eslint-disable @typescript-eslint/indent */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
-    var _a;
+    var _a, _b;
     const Attend = exports.Attend;
     let users = exports.users;
     delete exports.users;
+    const userDomain = ((_a = exports.userDomain) !== null && _a !== void 0 ? _a : '');
     const availablePermissionValues = exports.availablePermissionValues;
     delete exports.availablePermissionValues;
     const usersTableBodyElement = document.querySelector('#tbody--users');
@@ -343,8 +344,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
             usersTableBodyElement.append(tableRowElement);
         }
     }
-    (_a = document
-        .querySelector('.is-add-user-button')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
+    (_b = document
+        .querySelector('.is-add-user-button')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', () => {
         let addCloseModalFunction;
         function doAddUser(formEvent) {
             formEvent.preventDefault();
@@ -369,6 +370,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
             });
         }
         cityssm.openHtmlModal('userAdmin-addUser', {
+            onshow(modalElement) {
+                ;
+                modalElement.querySelector('#userAdd--userDomain').textContent = `${userDomain}\\`;
+            },
             onshown(modalElement, closeModalFunction) {
                 var _a;
                 addCloseModalFunction = closeModalFunction;

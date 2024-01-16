@@ -22,6 +22,8 @@ declare const cityssm: cityssmGlobal
   let users = exports.users as AttendUser[]
   delete exports.users
 
+  const userDomain = (exports.userDomain ?? '') as string
+
   const availablePermissionValues = exports.availablePermissionValues as Record<
     string,
     string[]
@@ -541,6 +543,11 @@ declare const cityssm: cityssmGlobal
       }
 
       cityssm.openHtmlModal('userAdmin-addUser', {
+        onshow(modalElement) {
+          ;(
+            modalElement.querySelector('#userAdd--userDomain') as HTMLElement
+          ).textContent = `${userDomain}\\`
+        },
         onshown(modalElement, closeModalFunction) {
           addCloseModalFunction = closeModalFunction
 

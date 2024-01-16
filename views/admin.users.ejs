@@ -101,6 +101,7 @@
 
 <script>
   exports.users = <%- JSON.stringify(users) %>;
+  exports.userDomain = "<%= configFunctions.getConfigProperty('application.userDomain') %>";
   exports.availablePermissionValues = <%- JSON.stringify(availablePermissionValues) %>;
 </script>
 
