@@ -128,6 +128,11 @@ declare const cityssm: cityssmGlobal
             <span>${callOutList.callOutListMembersCount ?? ''}</span>
           </span>
         </div>
+        <div class="column is-narrow">
+          <a class="button is-small" data-tooltip="Print List" href="${Attend.urlPrefix}/print/screen/callOutList/?listIds=${callOutList.listId}" target="_blank">
+            <i class="fas fa-print" aria-hidden="true"></i>
+          </a>
+        </div>
         </div>`
 
       panelBlockElement

@@ -77,6 +77,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
             <span>${(_d = callOutList.callOutListMembersCount) !== null && _d !== void 0 ? _d : ''}</span>
           </span>
         </div>
+        <div class="column is-narrow">
+          <a class="button is-small" data-tooltip="Print List" href="${Attend.urlPrefix}/print/screen/callOutList/?listIds=${callOutList.listId}" target="_blank">
+            <i class="fas fa-print" aria-hidden="true"></i>
+          </a>
+        </div>
         </div>`;
             (_e = panelBlockElement
                 .querySelector('button')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', toggleCallOutListFavourite);
