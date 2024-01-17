@@ -1,11 +1,11 @@
 export const adminUser = {
-    userName: '~~monty.admin',
+    userName: '~~attend.admin',
     isAdmin: true,
     canLogin: true,
     permissions: {}
 };
 export const manageUser = {
-    userName: '~~monty.manage',
+    userName: '~~attend.manage',
     isAdmin: false,
     canLogin: true,
     permissions: {
@@ -25,7 +25,7 @@ export const manageUser = {
     }
 };
 export const readOnlyUser = {
-    userName: '~~monty.read',
+    userName: '~~attend.read',
     isAdmin: false,
     canLogin: true,
     permissions: {

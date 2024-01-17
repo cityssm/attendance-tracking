@@ -5,14 +5,14 @@ import type { ConfigTemporaryUser } from '../types/configTypes.js'
  */
 
 export const adminUser: ConfigTemporaryUser = {
-  userName: '~~monty.admin',
+  userName: '~~attend.admin',
   isAdmin: true,
   canLogin: true,
   permissions: {}
 }
 
 export const manageUser: ConfigTemporaryUser = {
-  userName: '~~monty.manage',
+  userName: '~~attend.manage',
   isAdmin: false,
   canLogin: true,
   permissions: {
@@ -37,7 +37,7 @@ export const manageUser: ConfigTemporaryUser = {
 }
 
 export const readOnlyUser: ConfigTemporaryUser = {
-  userName: '~~monty.read',
+  userName: '~~attend.read',
   isAdmin: false,
   canLogin: true,
   permissions: {

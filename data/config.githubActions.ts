@@ -20,7 +20,7 @@ export const config: Config = {
     server: 'localhost',
     user: 'sa',
     password: 'dbatools.I0',
-    database: 'MonTY',
+    database: 'Attend',
     options: {
       encrypt: false
     }
