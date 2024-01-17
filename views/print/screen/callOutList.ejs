@@ -5,8 +5,14 @@
     <div class="panel-heading">Report Options</div>
     <div class="panel-block has-background-white">
       <label class="checkbox">
+        <input id="option--showRowNumber" type="checkbox" />
+        Include Row Numbers
+      </label>
+    </div>
+    <div class="panel-block has-background-white">
+      <label class="checkbox">
         <input id="option--showSortKey" type="checkbox" checked />
-        Show Sort Key Column
+        Include Sort Key Column
       </label>
     </div>
   </div>
@@ -26,17 +32,23 @@
         <%- (callOutList.listDescription ?? '').replace(/\n/g, '<br />') %>
       </p>
 
+      <%
+        const rowNumberColumnWidth = Math.max(callOutList.callOutListMembers.length + 1, 1).toString().length
+      %>
+
       <table class="table is-narrow is-fullwidth is-fixed my-2 is-size-7">
         <thead>
           <tr>
+            <th class="column--rowNumber has-text-right is-hidden" style="width: <%= rowNumberColumnWidth %>em;">#</th>
             <th>Employee</th>
             <th>Home Contact</th>
             <th class="column--sortKey">Sort Key</th>
           </tr>
         </thead>
         <tbody>
-          <% for (const member of callOutList.callOutListMembers) { %>
+          <% for (const [rowNumber, member] of callOutList.callOutListMembers.entries()) { %>
             <tr>
+              <td class="column--rowNumber has-text-right is-hidden" style="width: <%= rowNumberColumnWidth %>em;"><%= rowNumber + 1 %></td>
               <td>
                 <%= member.employeeSurname %>, <%= member.employeeGivenName %>
               </td>
