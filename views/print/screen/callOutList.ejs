@@ -1,5 +1,19 @@
 <%- include('_header-print'); -%>
 
+<div class="column is-3 is-hidden-print">
+  <div class="panel m-2">
+    <div class="panel-heading">Report Options</div>
+    <div class="panel-block has-background-white">
+      <label class="checkbox">
+        <input id="option--showSortKey" type="checkbox" checked />
+        Show Sort Key Column
+      </label>
+    </div>
+  </div>
+</div>
+
+<%- include('_middle-print'); -%>
+
 <% for (const callOutListColumn of callOutLists) { %>
   <div class="columns">
   <% for (const callOutList of callOutListColumn) { %>
@@ -17,7 +31,7 @@
           <tr>
             <th>Employee</th>
             <th>Home Contact</th>
-            <th>Sort Key</th>
+            <th class="column--sortKey">Sort Key</th>
           </tr>
         </thead>
         <tbody>
@@ -30,7 +44,7 @@
                 <%= member.homeContact1 %><br />
                 <%= member.homeContact2 %>
               </td>
-              <td>
+              <td class="column--sortKey">
                 <%= member.sortKey %>
               </td>
             </tr>
@@ -46,5 +60,7 @@
   <% const currentDate = new Date() %>
   Printed <%= currentDate.toLocaleDateString() %> at <%= currentDate.toLocaleTimeString() %>
 </p>
+
+<script src="<%= urlPrefix %>/javascripts/print.callOutList.min.js"></script>
 
 <%- include('_footer-print'); -%>

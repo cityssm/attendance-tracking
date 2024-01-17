@@ -23,6 +23,7 @@
     "public-typescript/attendance.callIns.ts",
     "public-typescript/attendance.callOuts.ts",
     "public-typescript/attendance.employees.ts",
+    "public-typescript/print.callOutList.ts",
     "public-typescript/reports.ts",
     "public-typescript/selfService.ts"
   ],
