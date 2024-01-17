@@ -1,10 +1,11 @@
 import { testAdmin } from '../../../test/_globals.js';
-import { logout, login } from '../../support/index.js';
+import { login, logout } from '../../support/index.js';
 describe('Admin - User Maintenance', () => {
     beforeEach(() => {
         logout();
         login(testAdmin);
         cy.visit('/admin/users');
+        cy.get('#filter--canLogin').uncheck();
     });
     afterEach(logout);
     it('Has no detectable accessibility issues', () => {
