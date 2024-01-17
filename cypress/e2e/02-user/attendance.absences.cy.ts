@@ -3,7 +3,7 @@
 
 import { testUser } from '../../../test/_globals.js'
 import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes.js'
-import { logout, login } from '../../support/index.js'
+import { login, logout } from '../../support/index.js'
 
 describe('Attendance - Absences', () => {
   beforeEach(() => {
@@ -37,7 +37,7 @@ describe('Attendance - Absences', () => {
     cy.get('#container--employees a[data-employee-number]')
       .first()
       .then(($element) => {
-        const employeeNumber = $element.data('employee-number')
+        const employeeNumber = $element.data('employee-number') as string
 
         cy.get('.modal input[name="employeeNumber"]')
           .should('have.focus')

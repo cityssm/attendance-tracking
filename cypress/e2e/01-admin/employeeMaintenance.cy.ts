@@ -4,7 +4,7 @@
 import { testAdmin } from '../../../test/_globals.js'
 import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes.js'
 import type { Employee } from '../../../types/recordTypes.js'
-import { logout, login } from '../../support/index.js'
+import { login, logout } from '../../support/index.js'
 
 function addEmployee(): void {
   cy.location('pathname').should('equal', '/admin/employees')

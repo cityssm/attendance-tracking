@@ -1,5 +1,5 @@
 import { testUser } from '../../../test/_globals.js';
-import { logout, login, ajaxDelayMillis } from '../../support/index.js';
+import { ajaxDelayMillis, login, logout } from '../../support/index.js';
 describe('Reports', () => {
     beforeEach(() => {
         logout();

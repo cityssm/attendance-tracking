@@ -1,5 +1,5 @@
 import { testUser } from '../../../test/_globals.js';
-import { logout, login } from '../../support/index.js';
+import { login, logout } from '../../support/index.js';
 const newCallOutListName = `Test Call Out List - ${Date.now().toString()}`;
 describe('Attendance - Call Out Lists', () => {
     beforeEach(() => {
