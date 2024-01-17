@@ -1216,11 +1216,19 @@ declare const cityssm: cityssmGlobal
           modalElement.querySelectorAll('.menu a'),
           modalElement.querySelectorAll('.tabs-container > article')
         )
+
+        const callOutListReportLink = `${Attend.urlPrefix}/print/screen/callOutList/?listIds=${listId}`
+
         ;(
           modalElement.querySelector(
             '#reportingLink--callOutListReport'
           ) as HTMLAnchorElement
-        ).href = `${Attend.urlPrefix}/print/screen/callOutList/?listIds=${listId}`
+        ).href = callOutListReportLink
+        ;(
+          modalElement.querySelector(
+            '#reportingLink--callOutListReport2'
+          ) as HTMLAnchorElement
+        ).href = callOutListReportLink
         ;(
           modalElement.querySelector(
             '#reportingLink--callOutListMembersCSV'
