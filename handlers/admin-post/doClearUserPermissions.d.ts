@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-export interface DoSetUserPermissionResponse {
+export interface DoClearUserPermissionsResponse {
     success: boolean;
     users: AttendUser[];
 }

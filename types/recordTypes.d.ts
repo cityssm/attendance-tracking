@@ -124,6 +124,7 @@ declare global {
         employeeSurname?: string;
         employeeGivenName?: string;
         permissions?: Partial<Record<keyof typeof availablePermissionValues, string>>;
+        permissionCount?: number;
     }
 }
 declare module 'express-session' {

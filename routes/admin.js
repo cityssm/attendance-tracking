@@ -6,6 +6,7 @@ import handler_doAddAbsenceType from '../handlers/admin-post/doAddAbsenceType.js
 import handler_doAddAfterHoursReason from '../handlers/admin-post/doAddAfterHoursReason.js';
 import handler_doAddCallOutResponseType from '../handlers/admin-post/doAddCallOutResponseType.js';
 import handler_doAddEmployee from '../handlers/admin-post/doAddEmployee.js';
+import handler_doClearUserPermissions from '../handlers/admin-post/doClearUserPermissions.js';
 import handler_doDeleteAbsenceType from '../handlers/admin-post/doDeleteAbsenceType.js';
 import handler_doDeleteAfterHoursReason from '../handlers/admin-post/doDeleteAfterHoursReason.js';
 import handler_doDeleteCallOutResponseType from '../handlers/admin-post/doDeleteCallOutResponseType.js';
@@ -52,6 +53,7 @@ router.post('/doUpdateUserCanLogin', doUpdateUserCanLoginHandler);
 router.post('/doUpdateUserIsAdmin', doUpdateUserIsAdminHandler);
 router.post('/doGetUserPermissions', handler_doGetUserPermissions);
 router.post('/doSetUserPermission', handler_doSetUserPermission);
+router.post('/doClearUserPermissions', handler_doClearUserPermissions);
 router.post('/doAddUser', doAddUserHandler);
 router.post('/doDeleteUser', doDeleteUserHandler);
 export default router;

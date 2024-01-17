@@ -184,6 +184,7 @@ declare global {
     permissions?: Partial<
       Record<keyof typeof availablePermissionValues, string>
     >
+    permissionCount?: number
   }
 }
 

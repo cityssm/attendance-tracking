@@ -1,4 +1,4 @@
-import { Router, type RequestHandler } from 'express'
+import { type RequestHandler, Router } from 'express'
 
 import handler_employees from '../handlers/admin-get/employees.js'
 import handler_tables from '../handlers/admin-get/tables.js'
@@ -7,6 +7,7 @@ import handler_doAddAbsenceType from '../handlers/admin-post/doAddAbsenceType.js
 import handler_doAddAfterHoursReason from '../handlers/admin-post/doAddAfterHoursReason.js'
 import handler_doAddCallOutResponseType from '../handlers/admin-post/doAddCallOutResponseType.js'
 import handler_doAddEmployee from '../handlers/admin-post/doAddEmployee.js'
+import handler_doClearUserPermissions from '../handlers/admin-post/doClearUserPermissions.js'
 import handler_doDeleteAbsenceType from '../handlers/admin-post/doDeleteAbsenceType.js'
 import handler_doDeleteAfterHoursReason from '../handlers/admin-post/doDeleteAfterHoursReason.js'
 import handler_doDeleteCallOutResponseType from '../handlers/admin-post/doDeleteCallOutResponseType.js'
@@ -184,6 +185,11 @@ router.post(
 router.post(
   '/doSetUserPermission',
   handler_doSetUserPermission as RequestHandler
+)
+
+router.post(
+  '/doClearUserPermissions',
+  handler_doClearUserPermissions as RequestHandler
 )
 
 router.post('/doAddUser', doAddUserHandler as RequestHandler)

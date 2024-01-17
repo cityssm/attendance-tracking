@@ -8,6 +8,7 @@
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
+import type { DoClearUserPermissionsResponse } from '../handlers/admin-post/doClearUserPermissions.js'
 import type { DoGetUserPermissionsResponse } from '../handlers/admin-post/doGetUserPermissions.js'
 import type { DoModifyUserResponse } from '../handlers/admin-post/doModifyUser.js'
 import type { DoSetUserPermissionResponse } from '../handlers/admin-post/doSetUserPermission.js'
@@ -33,6 +34,10 @@ declare const cityssm: cityssmGlobal
   const usersTableBodyElement = document.querySelector(
     '#tbody--users'
   ) as HTMLTableSectionElement
+
+  const canLoginFilterElement = document.querySelector(
+    '#filter--canLogin'
+  ) as HTMLInputElement
 
   function deleteUser(clickEvent: Event): void {
     clickEvent.preventDefault()
@@ -207,6 +212,9 @@ declare const cityssm: cityssmGlobal
             contextualColorName: 'danger'
           })
         }
+
+        users = responseJSON.users
+        renderUsers()
       }
     )
   }
@@ -222,12 +230,58 @@ declare const cityssm: cityssmGlobal
     clickEvent.preventDefault()
 
     let permissionsModalElement: HTMLElement
+    let permissionsModalCloseFunction: () => void
 
     const buttonElement = clickEvent.currentTarget as HTMLButtonElement
 
     const userName =
       (buttonElement.closest('tr') as HTMLTableRowElement).dataset.userName ??
       ''
+
+    function clearPermissions(clickEvent: Event): void {
+      clickEvent.preventDefault()
+
+      function doClear(): void {
+        cityssm.postJSON(
+          `${Attend.urlPrefix}/admin/doClearUserPermissions`,
+          {
+            userName
+          },
+          (rawResponseJSON) => {
+            const responseJSON =
+              rawResponseJSON as unknown as DoClearUserPermissionsResponse
+
+            if (responseJSON.success) {
+              bulmaJS.alert({
+                message: 'Permissions cleared successfully.',
+                contextualColorName: 'info'
+              })
+
+              permissionsModalCloseFunction()
+            } else {
+              bulmaJS.alert({
+                title: 'Error Clearing Permissions',
+                message: 'Please try again.',
+                contextualColorName: 'danger'
+              })
+            }
+
+            users = responseJSON.users
+            renderUsers()
+          }
+        )
+      }
+
+      bulmaJS.confirm({
+        title: 'Clear All Permissions',
+        message: `Are you sure you want to clear all of the permissions associated with "${userName}"?`,
+        contextualColorName: 'warning',
+        okButton: {
+          text: 'Yes, Clear All Permissions',
+          callbackFunction: doClear
+        }
+      })
+    }
 
     function populatePermissionsTable(): void {
       const tableBodyElement = permissionsModalElement.querySelector(
@@ -403,9 +457,17 @@ declare const cityssm: cityssmGlobal
 
         populatePermissionsTable()
       },
-      onshown() {
+      onshown(modalElement, closeModalFunction) {
+        permissionsModalCloseFunction = closeModalFunction
+
+        bulmaJS.init(modalElement)
+
         buttonElement.blur()
         bulmaJS.toggleHtmlClipped()
+
+        modalElement
+          .querySelector('.is-clear-permissions-button')
+          ?.addEventListener('click', clearPermissions)
       },
       onremoved() {
         bulmaJS.toggleHtmlClipped()
@@ -419,6 +481,10 @@ declare const cityssm: cityssmGlobal
     usersTableBodyElement.innerHTML = ''
 
     for (const user of users) {
+      if (canLoginFilterElement.checked && !user.canLogin) {
+        continue
+      }
+
       const tableRowElement = document.createElement('tr')
       tableRowElement.dataset.userName = user.userName
 
@@ -475,13 +541,22 @@ declare const cityssm: cityssmGlobal
         </td>
         <td class="has-width-1 has-text-centered">
           <button class="button is-user-permissions-button" data-cy="permissions" type="button">
-            <span class="icon is-small"><i class="fas fa-th-list" aria-hidden="true"></i></span>
+            <span class="icon is-small">
+              <span class="fa-layers fa-fw">
+                <i class="fas fa-th-list" aria-hidden="true"></i>
+                ${
+                  (user.permissionCount ?? 0) > 0
+                    ? `<span class="fa-layers-counter has-background-info">${user.permissionCount}</span>`
+                    : ''
+                }
+              </span>
+            </span>
             <span>Permissions</span>
           </button>
         </td>
         <td class="has-width-1">
           <button class="button is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete">
-            <span class="icon is-small"><i class="fas fa-trash" aria-hidden="true"></i></span>
+            <i class="fas fa-trash" aria-hidden="true"></i>
           </button>
         </td>`
 
@@ -504,6 +579,8 @@ declare const cityssm: cityssmGlobal
       usersTableBodyElement.append(tableRowElement)
     }
   }
+
+  canLoginFilterElement.addEventListener('click', renderUsers)
 
   document
     .querySelector('.is-add-user-button')

@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
     const availablePermissionValues = exports.availablePermissionValues;
     delete exports.availablePermissionValues;
     const usersTableBodyElement = document.querySelector('#tbody--users');
+    const canLoginFilterElement = document.querySelector('#filter--canLogin');
     function deleteUser(clickEvent) {
         var _a;
         clickEvent.preventDefault();
@@ -126,6 +127,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     contextualColorName: 'danger'
                 });
             }
+            users = responseJSON.users;
+            renderUsers();
         });
     }
     function highlightRow(changeEvent) {
@@ -139,8 +142,44 @@ Object.defineProperty(exports, "__esModule", { value: true });
         var _a;
         clickEvent.preventDefault();
         let permissionsModalElement;
+        let permissionsModalCloseFunction;
         const buttonElement = clickEvent.currentTarget;
         const userName = (_a = buttonElement.closest('tr').dataset.userName) !== null && _a !== void 0 ? _a : '';
+        function clearPermissions(clickEvent) {
+            clickEvent.preventDefault();
+            function doClear() {
+                cityssm.postJSON(`${Attend.urlPrefix}/admin/doClearUserPermissions`, {
+                    userName
+                }, (rawResponseJSON) => {
+                    const responseJSON = rawResponseJSON;
+                    if (responseJSON.success) {
+                        bulmaJS.alert({
+                            message: 'Permissions cleared successfully.',
+                            contextualColorName: 'info'
+                        });
+                        permissionsModalCloseFunction();
+                    }
+                    else {
+                        bulmaJS.alert({
+                            title: 'Error Clearing Permissions',
+                            message: 'Please try again.',
+                            contextualColorName: 'danger'
+                        });
+                    }
+                    users = responseJSON.users;
+                    renderUsers();
+                });
+            }
+            bulmaJS.confirm({
+                title: 'Clear All Permissions',
+                message: `Are you sure you want to clear all of the permissions associated with "${userName}"?`,
+                contextualColorName: 'warning',
+                okButton: {
+                    text: 'Yes, Clear All Permissions',
+                    callbackFunction: doClear
+                }
+            });
+        }
         function populatePermissionsTable() {
             var _a;
             const tableBodyElement = permissionsModalElement.querySelector('tbody');
@@ -262,9 +301,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 modalElement.querySelector('.modal-card-title').textContent = userName;
                 populatePermissionsTable();
             },
-            onshown() {
+            onshown(modalElement, closeModalFunction) {
+                var _a;
+                permissionsModalCloseFunction = closeModalFunction;
+                bulmaJS.init(modalElement);
                 buttonElement.blur();
                 bulmaJS.toggleHtmlClipped();
+                (_a = modalElement
+                    .querySelector('.is-clear-permissions-button')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', clearPermissions);
             },
             onremoved() {
                 bulmaJS.toggleHtmlClipped();
@@ -274,9 +318,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
         });
     }
     function renderUsers() {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         usersTableBodyElement.innerHTML = '';
         for (const user of users) {
+            if (canLoginFilterElement.checked && !user.canLogin) {
+                continue;
+            }
             const tableRowElement = document.createElement('tr');
             tableRowElement.dataset.userName = user.userName;
             tableRowElement.innerHTML = `<td class="is-vcentered">
@@ -324,26 +371,34 @@ Object.defineProperty(exports, "__esModule", { value: true });
         </td>
         <td class="has-width-1 has-text-centered">
           <button class="button is-user-permissions-button" data-cy="permissions" type="button">
-            <span class="icon is-small"><i class="fas fa-th-list" aria-hidden="true"></i></span>
+            <span class="icon is-small">
+              <span class="fa-layers fa-fw">
+                <i class="fas fa-th-list" aria-hidden="true"></i>
+                ${((_d = user.permissionCount) !== null && _d !== void 0 ? _d : 0) > 0
+                ? `<span class="fa-layers-counter has-background-info">${user.permissionCount}</span>`
+                : ''}
+              </span>
+            </span>
             <span>Permissions</span>
           </button>
         </td>
         <td class="has-width-1">
           <button class="button is-danger is-delete-button" data-cy="delete" type="button" aria-label="Delete">
-            <span class="icon is-small"><i class="fas fa-trash" aria-hidden="true"></i></span>
+            <i class="fas fa-trash" aria-hidden="true"></i>
           </button>
         </td>`;
-            (_d = tableRowElement
-                .querySelector('select[data-field="canLogin"]')) === null || _d === void 0 ? void 0 : _d.addEventListener('change', toggleCanLogin);
             (_e = tableRowElement
-                .querySelector('select[data-field="isAdmin"]')) === null || _e === void 0 ? void 0 : _e.addEventListener('change', toggleIsAdmin);
+                .querySelector('select[data-field="canLogin"]')) === null || _e === void 0 ? void 0 : _e.addEventListener('change', toggleCanLogin);
             (_f = tableRowElement
-                .querySelector('.is-user-permissions-button')) === null || _f === void 0 ? void 0 : _f.addEventListener('click', openUserPermissionsModal);
+                .querySelector('select[data-field="isAdmin"]')) === null || _f === void 0 ? void 0 : _f.addEventListener('change', toggleIsAdmin);
             (_g = tableRowElement
-                .querySelector('.is-delete-button')) === null || _g === void 0 ? void 0 : _g.addEventListener('click', deleteUser);
+                .querySelector('.is-user-permissions-button')) === null || _g === void 0 ? void 0 : _g.addEventListener('click', openUserPermissionsModal);
+            (_h = tableRowElement
+                .querySelector('.is-delete-button')) === null || _h === void 0 ? void 0 : _h.addEventListener('click', deleteUser);
             usersTableBodyElement.append(tableRowElement);
         }
     }
+    canLoginFilterElement.addEventListener('click', renderUsers);
     (_b = document
         .querySelector('.is-add-user-button')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', () => {
         let addCloseModalFunction;
