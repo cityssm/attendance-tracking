@@ -6,8 +6,6 @@
 [![attendance-tracking](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/szu5cb/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/szu5cb/runs)
 [![codecov](https://codecov.io/gh/cityssm/attendance-tracking/graph/badge.svg?token=21LFC3U1Q2)](https://codecov.io/gh/cityssm/attendance-tracking)
 
-## ⭐ UNDER DEVELOPMENT ⭐
-
 An application built for Public Works departments to track:
 
 - Employee absences.
