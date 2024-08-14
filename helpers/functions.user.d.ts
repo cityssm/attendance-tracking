@@ -1,3 +1,4 @@
+/// <reference types="cookie-parser" />
 import type { Request } from 'express';
 export interface APIRequest {
     params?: {

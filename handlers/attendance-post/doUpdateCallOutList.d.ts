@@ -1,3 +1,4 @@
+/// <reference types="cookie-parser" />
 import type { Request, Response } from 'express';
 import type { CallOutList, CallOutListMember, Employee } from '../../types/recordTypes.js';
 export interface DoUpdateCallOutListResponse {

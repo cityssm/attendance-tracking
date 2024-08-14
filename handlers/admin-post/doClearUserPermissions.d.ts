@@ -1,3 +1,4 @@
+/// <reference types="cookie-parser" />
 import type { Request, Response } from 'express';
 export interface DoClearUserPermissionsResponse {
     success: boolean;
