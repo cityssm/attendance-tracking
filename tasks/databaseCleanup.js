@@ -6,7 +6,7 @@ const debug = Debug('attendance-tracking:tasks:databaseCleanup');
 await doDatabaseCleanup().catch(() => {
     debug('Error running task.');
 });
-const intervalID = setIntervalAsync(doDatabaseCleanup, 3 * 86400 * 1000);
+const intervalID = setIntervalAsync(doDatabaseCleanup, 3 * 86_400 * 1000);
 exitHook(() => {
     try {
         void clearIntervalAsync(intervalID);

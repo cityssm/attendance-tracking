@@ -36,7 +36,7 @@ export async function getReturnToWorkRecords(filters, sessionUser) {
                     (returnToWorkRecord.recordCreate_userName === sessionUser.userName &&
                         Date.now() -
                             returnToWorkRecord.recordCreate_dateTime.getTime() <=
-                            getConfigProperty('settings.updateDays') * 86400 * 1000);
+                            getConfigProperty('settings.updateDays') * 86_400 * 1000);
         }
     }
     return returnToWorkRecords;

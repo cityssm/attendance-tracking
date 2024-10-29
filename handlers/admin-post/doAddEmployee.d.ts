@@ -1,4 +1,3 @@
-/// <reference types="cookie-parser" />
 import type { Request, Response } from 'express';
 import type { Employee } from '../../types/recordTypes.js';
 export type DoAddEmployeeResponse = {

@@ -1,4 +1,3 @@
-/// <reference types="cookie-parser" />
 import type { Request, Response } from 'express';
 import type { AfterHoursReason } from '../../types/recordTypes.js';
 export interface DoAddAfterHoursReasonResponse {

@@ -39,7 +39,7 @@ export async function getAfterHoursRecords(filters, sessionUser) {
                     (afterHoursRecord.recordCreate_userName === sessionUser.userName &&
                         Date.now() -
                             afterHoursRecord.recordCreate_dateTime.getTime() <=
-                            getConfigProperty('settings.updateDays') * 86400 * 1000);
+                            getConfigProperty('settings.updateDays') * 86_400 * 1000);
         }
     }
     return afterHoursRecords;

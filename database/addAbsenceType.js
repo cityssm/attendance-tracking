@@ -26,7 +26,7 @@ export async function addAbsenceType(form, sessionUser) {
 async function getAvailableAbsenceTypeKey(absenceType) {
     const absenceTypeKeyRoot = camelCase(absenceType).slice(0, 10);
     const pool = await sqlPoolConnect(getConfigProperty('mssql'));
-    for (let index = 0; index <= 9999999999; index += 1) {
+    for (let index = 0; index <= 9_999_999_999; index += 1) {
         const indexString = index.toString();
         const absenceTypeKey = index === 0
             ? absenceTypeKeyRoot

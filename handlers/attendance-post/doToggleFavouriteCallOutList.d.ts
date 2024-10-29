@@ -1,4 +1,3 @@
-/// <reference types="cookie-parser" />
 import type { Request, Response } from 'express';
 import type { CallOutList } from '../../types/recordTypes.js';
 export interface DoToggleFavouriteCallOutListResponse {

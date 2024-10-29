@@ -1,4 +1,3 @@
-/// <reference types="cookie-parser" />
 import type { Request } from 'express';
 type EmployeeValidation = {
     success: true;

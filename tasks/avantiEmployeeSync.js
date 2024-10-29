@@ -20,7 +20,7 @@ const avantiConfig = getConfigProperty('settings.avantiSync.config');
 const avanti = avantiConfig === undefined ? undefined : new AvantiApi(avantiConfig);
 const getEmployeeOptions = {
     skip: 0,
-    take: 10000
+    take: 10_000
 };
 if (getConfigProperty('settings.avantiSync.locationCodes').length > 0) {
     getEmployeeOptions.locations = getConfigProperty('settings.avantiSync.locationCodes');

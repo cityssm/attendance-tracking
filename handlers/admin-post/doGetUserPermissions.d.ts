@@ -1,4 +1,3 @@
-/// <reference types="cookie-parser" />
 import type { Request, Response } from 'express';
 import { type GetUserPermissionsReturn } from '../../database/getUserPermissions.js';
 export interface DoGetUserPermissionsResponse {

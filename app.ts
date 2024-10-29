@@ -1,6 +1,3 @@
-/* eslint-disable eslint-comments/disable-enable-pair */
-/* eslint-disable import/no-named-as-default-member */
-
 import path from 'node:path'
 
 import { abuseCheck } from '@cityssm/express-abuse-points'

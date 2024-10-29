@@ -39,7 +39,7 @@ export async function getAbsenceRecords(filters, options, sessionUser) {
                 (hasPermission(sessionUser, 'attendance.absences.canUpdate') &&
                     absenceRecord.recordCreate_userName === sessionUser.userName &&
                     Date.now() - absenceRecord.recordCreate_dateTime.getTime() <=
-                        getConfigProperty('settings.updateDays') * 86400 * 1000);
+                        getConfigProperty('settings.updateDays') * 86_400 * 1000);
         if (options.includeCallOutListIds ?? false) {
             absenceRecord.callOutLists = await getCallOutLists({
                 employeeNumber: absenceRecord.employeeNumber,

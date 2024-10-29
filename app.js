@@ -48,7 +48,7 @@ app.use(csurf({
     cookie: true
 }));
 app.use(rateLimit({
-    windowMs: 10000,
+    windowMs: 10_000,
     max: 200
 }));
 const abuseCheckHandler = abuseCheck();
