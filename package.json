@@ -117,6 +117,6 @@
     "prettier-config-cityssm": "^1.0.0",
     "sass": "^1.80.4",
     "uuid": "^11.0.2",
-    "webpack": "^5.95.0"
+    "webpack": "^5.97.1"
   }
 }
