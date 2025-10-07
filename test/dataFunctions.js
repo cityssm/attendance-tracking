@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+import { describe, it } from 'node:test';
 import { eligibility_hasProperty, sortKey_alphabetical, sortKey_propertyValue } from '../data/functions.js';
 const employeeWithProperties = {
     employeeNumber: '12345',
@@ -21,16 +22,16 @@ const employeeWithProperties = {
         }
     ]
 };
-describe('data/functions.js', () => {
-    describe('eligibility_hasProperty()', () => {
-        it('Returns true when property is found', () => {
+await describe('data/functions.js', async () => {
+    await describe('eligibility_hasProperty()', async () => {
+        await it('Returns true when property is found', () => {
             assert.ok(eligibility_hasProperty.eligibilityFunction(employeeWithProperties, 'testProperty'));
         });
-        it('Returns false when property is not found', () => {
+        await it('Returns false when property is not found', () => {
             assert.ok(!eligibility_hasProperty.eligibilityFunction(employeeWithProperties, 'missingProperty'));
         });
     });
-    describe('sortKey_alphabetical()', () => {
+    await describe('sortKey_alphabetical()', async () => {
         const employeeA = {
             employeeNumber: '2',
             employeeGivenName: 'Amanda',
@@ -61,17 +62,17 @@ describe('data/functions.js', () => {
             isSynced: false,
             isActive: true
         };
-        it('Sorts employees alphabetically', () => {
+        await it('Sorts employees alphabetically', () => {
             const sortKeyA = sortKey_alphabetical.sortKeyFunction(employeeA);
             const sortKeyB = sortKey_alphabetical.sortKeyFunction(employeeB);
             assert.ok(sortKeyA < sortKeyB);
         });
     });
-    describe('sortKey_propertyValue()', () => {
-        it('Returns value when property is found', () => {
+    await describe('sortKey_propertyValue()', async () => {
+        await it('Returns value when property is found', () => {
             assert.strictEqual(sortKey_propertyValue.sortKeyFunction(employeeWithProperties, 'testProperty'), 'testValue');
         });
-        it('Returns "" when property is not found', () => {
+        await it('Returns "" when property is not found', () => {
             assert.strictEqual(sortKey_propertyValue.sortKeyFunction(employeeWithProperties, 'missingProperty'), '');
         });
     });

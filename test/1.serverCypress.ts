@@ -1,6 +1,10 @@
+// eslint-disable-next-line @eslint-community/eslint-comments/disable-enable-pair
+/* eslint-disable no-console */
+
 import assert from 'node:assert'
 import { exec } from 'node:child_process'
 import http from 'node:http'
+import { after, before, describe, it } from 'node:test'
 
 import { app } from '../app.js'
 
@@ -9,7 +13,7 @@ import { portNumber } from './_globals.js'
 const cypressTimeoutMillis = 30 * 60 * 60 * 1000
 
 function runCypress(
-  browser: 'chrome' | 'chrome-mobile' | 'firefox',
+  browser: 'chrome-mobile' | 'chrome' | 'firefox',
   done: () => void
 ): void {
   let cypressCommand = `cypress run --config-file ${
@@ -26,7 +30,7 @@ function runCypress(
     cypressCommand += ` --tag "${browser},${process.version}" --record`
   }
 
-  // eslint-disable-next-line security/detect-child-process
+  // eslint-disable-next-line security/detect-child-process, sonarjs/os-command
   const childProcess = exec(cypressCommand)
 
   childProcess.stdout?.on('data', (data) => {
@@ -43,7 +47,7 @@ function runCypress(
   })
 }
 
-describe('Attendance Tracking', () => {
+await describe('Attendance Tracking', async () => {
   const httpServer = http.createServer(app)
 
   let serverStarted = false
@@ -64,21 +68,39 @@ describe('Attendance Tracking', () => {
     }
   })
 
-  it(`Ensure server starts on port ${portNumber.toString()}`, () => {
+  await it(`Ensure server starts on port ${portNumber.toString()}`, () => {
     assert.ok(serverStarted)
   })
 
-  describe('Cypress tests', () => {
-    it('Should run Cypress tests in Chrome', (done) => {
-      runCypress('chrome', done)
-    }).timeout(cypressTimeoutMillis)
+  await describe('Cypress tests', async () => {
+    await it(
+      'Should run Cypress tests in Chrome',
+      {
+        timeout: cypressTimeoutMillis
+      },
+      (_context, done) => {
+        runCypress('chrome', done)
+      }
+    )
 
-    it('Should run Cypress tests in Firefox', (done) => {
-      runCypress('firefox', done)
-    }).timeout(cypressTimeoutMillis)
+    await it(
+      'Should run Cypress tests in Firefox',
+      {
+        timeout: cypressTimeoutMillis
+      },
+      (_context, done) => {
+        runCypress('firefox', done)
+      }
+    )
 
-    it('Should run Cypress tests in Chrome Mobile', (done) => {
-      runCypress('chrome-mobile', done)
-    }).timeout(cypressTimeoutMillis)
+    await it(
+      'Should run Cypress tests in Chrome Mobile',
+      {
+        timeout: cypressTimeoutMillis
+      },
+      (_context, done) => {
+        runCypress('chrome-mobile', done)
+      }
+    )
   })
 })

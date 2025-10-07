@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+import { describe, it } from 'node:test';
 import { manageUser } from '../data/temporaryUsers.js';
 import { getReportData } from '../database/getReportData.js';
 const reports = [
@@ -105,18 +106,18 @@ const reports = [
         reportName: 'afterHoursReasons-active'
     }
 ];
-describe('database/getReportData.js', () => {
+await describe('database/getReportData.js', async () => {
     for (const report of reports) {
-        it(`Exports "${report.reportName}"`, async () => {
+        await it(`Exports "${report.reportName}"`, async () => {
             const data = await getReportData(report.reportName, report.reportParameters ?? {}, manageUser);
             assert.ok(data);
         });
     }
-    it('Fails gracefully when missing parameter', async () => {
+    await it('Fails gracefully when missing parameter', async () => {
         const data = (await getReportData('absenceRecords-recent-byEmployeeNumber', {}, manageUser));
         assert.strictEqual(data.length, 0);
     });
-    it('Returns undefined on unknown reports', async () => {
+    await it('Returns undefined on unknown reports', async () => {
         const data = await getReportData('qwertyuiop', {}, manageUser);
         assert.strictEqual(data, undefined);
     });

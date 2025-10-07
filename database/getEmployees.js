@@ -36,12 +36,10 @@ export async function getEmployees(filters, options) {
             employee.employeeProperties = await getEmployeeProperties(employee.employeeNumber);
         }
         if ((filters.eligibilityFunction?.functionName ?? '') !== '') {
-            const eligibilityFunction = getConfigProperty('settings.employeeEligibilityFunctions').find((possibleFunction) => {
-                return (possibleFunction.functionName ===
-                    filters.eligibilityFunction?.functionName);
-            });
+            const eligibilityFunction = getConfigProperty('settings.employeeEligibilityFunctions').find((possibleFunction) => (possibleFunction.functionName ===
+                filters.eligibilityFunction?.functionName));
             if (eligibilityFunction !== undefined) {
-                employees = employees.filter((possibleEmployee) => eligibilityFunction?.eligibilityFunction(possibleEmployee, filters.eligibilityFunction?.employeePropertyName));
+                employees = employees.filter((possibleEmployee) => eligibilityFunction.eligibilityFunction(possibleEmployee, filters.eligibilityFunction?.employeePropertyName));
             }
         }
     }

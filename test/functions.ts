@@ -1,4 +1,5 @@
 import assert from 'node:assert'
+import { before, describe, it } from 'node:test'
 
 import type { Request } from 'express'
 import { v4 } from 'uuid'
@@ -63,14 +64,14 @@ async function getSelfServiceUser(): Promise<TestSelfServiceUser> {
   }
 }
 
-describe('helpers/functions.selfService.js', () => {
+await describe('helpers/functions.selfService.js', async () => {
   let testSelfService: TestSelfServiceUser
 
   before(async () => {
     testSelfService = await getSelfServiceUser()
   })
 
-  it('validates employee', async () => {
+  await it('validates employee', async () => {
     const validation = await validateEmployeeFields({
       body: {
         employeeNumber: testSelfService.employeeNumber,
@@ -82,7 +83,7 @@ describe('helpers/functions.selfService.js', () => {
     assert.ok(validation.success)
   })
 
-  it('blocks employee with invalid employee number', async () => {
+  await it('blocks employee with invalid employee number', async () => {
     const validation = await validateEmployeeFields({
       body: {
         employeeNumber: v4(),
@@ -94,7 +95,7 @@ describe('helpers/functions.selfService.js', () => {
     assert.ok(!validation.success)
   })
 
-  it('blocks employee with invalid four digits', async () => {
+  await it('blocks employee with invalid four digits', async () => {
     const validation = await validateEmployeeFields({
       body: {
         employeeNumber: testSelfService.employeeNumber,
@@ -106,7 +107,7 @@ describe('helpers/functions.selfService.js', () => {
     assert.ok(!validation.success)
   })
 
-  it('blocks employee with missing employee number', async () => {
+  await it('blocks employee with missing employee number', async () => {
     const validation = await validateEmployeeFields({
       body: {
         employeeNumber: '',
@@ -118,7 +119,7 @@ describe('helpers/functions.selfService.js', () => {
     assert.ok(!validation.success)
   })
 
-  it('blocks employee with missing four digits', async () => {
+  await it('blocks employee with missing four digits', async () => {
     const validation = await validateEmployeeFields({
       body: {
         employeeNumber: testSelfService.employeeNumber,
@@ -130,18 +131,18 @@ describe('helpers/functions.selfService.js', () => {
   })
 })
 
-describe('helpers/functions.user.js', () => {
-  describe('unauthenticated, no user in session', () => {
+await describe('helpers/functions.user.js', async () => {
+  await describe('unauthenticated, no user in session', async () => {
     const noUserRequest = {
       session: {}
     }
 
-    it('is not admin', () => {
+    await it('is not admin', () => {
       assert.strictEqual(userIsAdmin(noUserRequest as Request), false)
     })
   })
 
-  describe('user, no admin', () => {
+  await describe('user, no admin', async () => {
     const readOnlyRequest = {
       session: {
         user: {
@@ -152,12 +153,12 @@ describe('helpers/functions.user.js', () => {
       }
     }
 
-    it('is not admin', () => {
+    await it('is not admin', () => {
       assert.strictEqual(userIsAdmin(readOnlyRequest as Request), false)
     })
   })
 
-  describe('admin user', () => {
+  await describe('admin user', async () => {
     const adminOnlyRequest = {
       session: {
         user: {
@@ -168,7 +169,7 @@ describe('helpers/functions.user.js', () => {
       }
     }
 
-    it('is admin', () => {
+    await it('is admin', () => {
       assert.strictEqual(userIsAdmin(adminOnlyRequest as Request), true)
     })
   })

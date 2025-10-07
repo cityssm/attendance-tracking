@@ -1,11 +1,12 @@
 import assert from 'node:assert'
+import { describe, it } from 'node:test'
 
 import { manageUser } from '../data/temporaryUsers.js'
 import { getReportData } from '../database/getReportData.js'
 
 interface ReportData {
   reportName: string
-  reportParameters?: Record<string, string | number>
+  reportParameters?: Record<string, number | string>
 }
 
 const reports: ReportData[] = [
@@ -113,9 +114,9 @@ const reports: ReportData[] = [
   }
 ]
 
-describe('database/getReportData.js', () => {
+await describe('database/getReportData.js', async () => {
   for (const report of reports) {
-    it(`Exports "${report.reportName}"`, async () => {
+    await it(`Exports "${report.reportName}"`, async () => {
       const data = await getReportData(
         report.reportName,
         report.reportParameters ?? {},
@@ -126,7 +127,7 @@ describe('database/getReportData.js', () => {
     })
   }
 
-  it('Fails gracefully when missing parameter', async () => {
+  await it('Fails gracefully when missing parameter', async () => {
     const data = (await getReportData(
       'absenceRecords-recent-byEmployeeNumber',
       {},
@@ -135,7 +136,7 @@ describe('database/getReportData.js', () => {
     assert.strictEqual(data.length, 0)
   })
 
-  it('Returns undefined on unknown reports', async () => {
+  await it('Returns undefined on unknown reports', async () => {
     const data = await getReportData('qwertyuiop', {}, manageUser)
     assert.strictEqual(data, undefined)
   })

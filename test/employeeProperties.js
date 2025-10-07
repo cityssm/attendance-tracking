@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+import { after, before, describe, it } from 'node:test';
 import { createEmployee } from '../database/createEmployee.js';
 import { deleteEmployee } from '../database/deleteEmployee.js';
 import { deleteEmployeeProperty } from '../database/deleteEmployeeProperty.js';
@@ -8,7 +9,7 @@ import { getEmployeePropertyValue } from '../database/getEmployeePropertyValue.j
 import { getEmployees } from '../database/getEmployees.js';
 import { setEmployeeProperty } from '../database/setEmployeeProperty.js';
 import { testAdmin } from './_globals.js';
-describe('database/employeeProperties.js', () => {
+await describe('database/employeeProperties.js', async () => {
     let employee;
     let purgeEmployee = false;
     const propertyName = `testProperty.${Date.now().toString()}`;
@@ -55,7 +56,7 @@ describe('database/employeeProperties.js', () => {
             await deleteEmployee(employee.employeeNumber, user);
         }
     });
-    it('Sets a new property', async () => {
+    await it('Sets a new property', async () => {
         const success = await setEmployeeProperty({
             employeeNumber: employee.employeeNumber,
             propertyName,
@@ -65,7 +66,7 @@ describe('database/employeeProperties.js', () => {
         const savedValue = await getEmployeePropertyValue(employee.employeeNumber, propertyName);
         assert.strictEqual(propertyValue, savedValue);
     });
-    it('Updates the property', async () => {
+    await it('Updates the property', async () => {
         const success = await setEmployeeProperty({
             employeeNumber: employee.employeeNumber,
             propertyName,
@@ -75,11 +76,11 @@ describe('database/employeeProperties.js', () => {
         const savedValue = await getEmployeePropertyValue(employee.employeeNumber, propertyName);
         assert.strictEqual(updatedPropertyValue, savedValue);
     });
-    it('Includes the property name in the property names list', async () => {
+    await it('Includes the property name in the property names list', async () => {
         const propertyNames = await getEmployeePropertyNames();
         assert.ok(propertyNames.includes(propertyName));
     });
-    it('Deletes the property', async () => {
+    await it('Deletes the property', async () => {
         const success = await deleteEmployeeProperty(employee.employeeNumber, propertyName, user);
         assert.ok(success);
         const employeePropertyValue = await getEmployeePropertyValue(employee.employeeNumber, propertyValue);

@@ -88,7 +88,6 @@
     "@types/gulp": "^4.0.17",
     "@types/gulp-sass": "^5.0.4",
     "@types/http-errors": "^2.0.5",
-    "@types/mocha": "^10.0.10",
     "@types/mssql": "^9.1.8",
     "@types/node-windows": "^0.1.6",
     "@types/papaparse": "^5.3.16",

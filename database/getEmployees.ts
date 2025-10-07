@@ -1,5 +1,4 @@
 import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
-import type { IResult } from 'mssql'
 
 import { getEmployeeProperties } from '../helpers/functions.cache.js'
 import { getConfigProperty } from '../helpers/functions.config.js'
@@ -55,7 +54,7 @@ export async function getEmployees(
       ? ' order by employeeSurname, employeeGivenName, employeeNumber'
       : ' order by employeeNumber'
 
-  const result: IResult<Employee> = await request.query(sql)
+  const result = await request.query(sql)
 
   let employees = result.recordset as Employee[]
 
@@ -72,16 +71,14 @@ export async function getEmployees(
     if ((filters.eligibilityFunction?.functionName ?? '') !== '') {
       const eligibilityFunction = getConfigProperty(
         'settings.employeeEligibilityFunctions'
-      ).find((possibleFunction) => {
-        return (
+      ).find((possibleFunction) => (
           possibleFunction.functionName ===
           filters.eligibilityFunction?.functionName
-        )
-      })
+        ))
 
       if (eligibilityFunction !== undefined) {
         employees = employees.filter((possibleEmployee) =>
-          eligibilityFunction?.eligibilityFunction(
+          eligibilityFunction.eligibilityFunction(
             possibleEmployee,
             filters.eligibilityFunction?.employeePropertyName
           )

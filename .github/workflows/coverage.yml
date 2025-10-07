@@ -38,7 +38,7 @@ jobs:
       - name: Install Package
         run: |
           npm ci
-          npm install -g mocha c8 cypress@13
+          npm install -g c8 cypress@15
 
       - name: Copy Test Config
         run: cp ./data/config.githubActions.js ./data/config.js
