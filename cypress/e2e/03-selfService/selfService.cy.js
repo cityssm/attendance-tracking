@@ -67,6 +67,7 @@ describe('Self Service', () => {
         cy.get(select_employeeTab).should('have.class', 'is-hidden');
         cy.get(select_employeeOptionsTab).should('not.have.class', 'is-hidden');
         cy.log('Waiting two minutes...');
+        console.log('Waiting two minutes...');
         cy.wait(2 * 60 * 1000 + 1000);
         cy.get(select_employeeOptionsTab).should('have.class', 'is-hidden');
         cy.get(select_employeeTab).should('not.have.class', 'is-hidden');

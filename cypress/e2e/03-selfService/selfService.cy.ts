@@ -104,6 +104,10 @@ describe('Self Service', () => {
     cy.get(select_employeeOptionsTab).should('not.have.class', 'is-hidden')
 
     cy.log('Waiting two minutes...')
+    
+    // eslint-disable-next-line no-console
+    console.log('Waiting two minutes...')
+    
     cy.wait(2 * 60 * 1000 + 1000) // Wait two minutes, plus a second
 
     cy.get(select_employeeOptionsTab).should('have.class', 'is-hidden')
