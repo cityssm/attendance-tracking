@@ -32,8 +32,8 @@ jobs:
 
       - name: Create Database
         run: |
-          sqlcmd -S localhost -U sa -P dbatools.I0 -d tempdb -Q "create database Attend"
-          sqlcmd -S localhost -U sa -P dbatools.I0 -d Attend -i database/scripts/createTables.sql -I
+          sqlcmd -S localhost -U sa -P dbatools.I0 -d tempdb -Q "create database Attend" -C
+          sqlcmd -S localhost -U sa -P dbatools.I0 -d Attend -i database/scripts/createTables.sql -C
 
       - name: Install Package
         run: |
