@@ -28,10 +28,11 @@ function runCypress(browser, done) {
 await describe('Attendance Tracking', async () => {
     const httpServer = http.createServer(app);
     let serverStarted = false;
-    before(() => {
+    before((_context, done) => {
         httpServer.listen(portNumber);
         httpServer.on('listening', () => {
             serverStarted = true;
+            done();
         });
     });
     after(() => {

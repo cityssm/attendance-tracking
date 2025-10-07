@@ -1,6 +1,3 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable promise/always-return, promise/catch-or-return */
-
 import { testAdmin } from '../../../test/_globals.js'
 import type { ConfigTemporaryUserCredentials } from '../../../types/configTypes.js'
 import type { Employee } from '../../../types/recordTypes.js'

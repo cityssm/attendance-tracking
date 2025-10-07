@@ -52,11 +52,12 @@ await describe('Attendance Tracking', async () => {
 
   let serverStarted = false
 
-  before(() => {
+  before((_context, done) => {
     httpServer.listen(portNumber)
 
     httpServer.on('listening', () => {
       serverStarted = true
+      done()
     })
   })
 
