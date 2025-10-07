@@ -12,7 +12,6 @@ jobs:
       matrix:
         node: [ 18, 20, 21 ]
     env:
-      CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
       DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
@@ -43,14 +42,7 @@ jobs:
 
       - name: Copy Test Config
         run: cp ./data/config.githubActions.js ./data/config.js
-        
-      - name: Code Climate (Before)
-        if: ${{ github.event_name != 'pull_request' && env.CC_TEST_REPORTER_ID != '' && matrix.node == 20 }}
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./codeclimate-test-reporter
-          chmod +x codeclimate-test-reporter
-          ./codeclimate-test-reporter before-build
-      
+
       - name: Verify Cypress
         run: cypress verify
         env:
@@ -58,11 +50,6 @@ jobs:
 
       - name: Run Coverage Testing
         run: c8 --reporter=lcov --reporter=text --reporter=text-summary mocha --timeout 30000 --exit
-
-      - name: Code Climate (After)
-        if: ${{ github.event_name != 'pull_request' && env.CC_TEST_REPORTER_ID != '' && matrix.node == 20 }}
-        run: |
-          ./codeclimate-test-reporter after-build -t lcov --exit-code $?
 
       - name: Codecov
         if: ${{ github.event_name != 'pull_request' && env.CODECOV_TOKEN != '' && matrix.node == 20 }}

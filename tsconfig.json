@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "es2022",
+    "lib": ["ES2022", "DOM"],
     "module": "Node16",
     "moduleResolution": "Node16",
     "isolatedModules": false,
@@ -16,5 +17,5 @@
   },
   "compileOnSave": true,
   "buildOnSave": true,
-  "exclude": ["node_modules/*", "public-typescript/*"]
+  "exclude": ["node_modules/*", "public/javascripts/*"]
 }

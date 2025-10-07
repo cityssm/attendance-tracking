@@ -1,12 +1,11 @@
 import { connect as sqlPoolConnect } from '@cityssm/mssql-multi-pool'
-import type { IResult } from 'mssql'
 
 import { getConfigProperty } from '../helpers/functions.config.js'
 
 export async function getUsers(): Promise<AttendUser[]> {
   const pool = await sqlPoolConnect(getConfigProperty('mssql'))
 
-  const userResult: IResult<AttendUser> = await pool.request().query(`select
+  const userResult = await pool.request().query(`select
       u.userName, u.canLogin, u.isAdmin,
       e.employeeNumber, e.employeeSurname, e.employeeGivenName,
       count(p.permissionKey) as permissionCount

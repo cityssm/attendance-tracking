@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "lib": ["ES2021", "DOM"],
+    "module": "CommonJS",
+    "isolatedModules": false,
+    "declaration": true,
+    "noImplicitAny": false,
+    "removeComments": false,
+    "allowUnreachableCode": false,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true
+  },
+  "compileOnSave": true,
+  "buildOnSave": true,
+  "include": ["./*"]
+}

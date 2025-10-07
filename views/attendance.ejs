@@ -162,7 +162,7 @@
 
 <%- include('_footerA'); -%>
 
-<script src="<%= urlPrefix %>/javascripts/attendance.min.js"></script>
+<script src="<%= urlPrefix %>/javascripts/attendance.js"></script>
 
 <script>
   exports.employees = <%- JSON.stringify(employees) %>;
@@ -190,7 +190,7 @@
     exports.returnsToWorkCanUpdate = <%= permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canUpdate') ? 'true' : 'false' %>;
     exports.returnsToWorkCanManage = <%= permissionFunctions.hasPermission(user, 'attendance.returnsToWork.canManage') ? 'true' : 'false' %>;
   </script>
-  <script src="<%= urlPrefix %>/javascripts/attendance.callIns.min.js"></script>
+  <script src="<%= urlPrefix %>/javascripts/attendance.callIns.js"></script>
 <% } %>
 
 <% if (configFunctions.getConfigProperty('features.attendance.callOuts') && permissionFunctions.hasPermission(user, 'attendance.callOuts.canView')) { %>
@@ -200,8 +200,8 @@
     exports.employeeEligibilityFunctionNames = <%- JSON.stringify(employeeEligibilityFunctionNames) %>;
     exports.employeeSortKeyFunctionNames = <%- JSON.stringify(employeeSortKeyFunctionNames) %>;
  </script>
-  <script src="<%= urlPrefix %>/javascripts/main.callOuts.min.js"></script>
-  <script src="<%= urlPrefix %>/javascripts/attendance.callOuts.min.js"></script>
+  <script src="<%= urlPrefix %>/javascripts/main.callOuts.js"></script>
+  <script src="<%= urlPrefix %>/javascripts/attendance.callOuts.js"></script>
 <% } %>
 
 <% if (configFunctions.getConfigProperty('features.attendance.afterHours') && permissionFunctions.hasPermission(user, 'attendance.afterHours.canView')) { %>
@@ -211,9 +211,9 @@
 
     exports.afterHoursCanUpdate = <%= permissionFunctions.hasPermission(user, 'attendance.afterHours.canUpdate') ? 'true' : 'false' %>;
   </script>
-  <script src="<%= urlPrefix %>/javascripts/attendance.afterHours.min.js"></script>
+  <script src="<%= urlPrefix %>/javascripts/attendance.afterHours.js"></script>
 <% } %>
 
-<script src="<%= urlPrefix %>/javascripts/attendance.employees.min.js"></script>
+<script src="<%= urlPrefix %>/javascripts/attendance.employees.js"></script>
 
 <%- include('_footerB'); -%>

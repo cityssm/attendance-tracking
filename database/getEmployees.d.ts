@@ -4,11 +4,11 @@ interface GetEmployeesFilters {
         functionName: string;
         employeePropertyName: string;
     };
-    isActive?: boolean | 'all';
+    isActive?: 'all' | boolean;
 }
 interface GetEmployeesOptions {
     includeProperties?: boolean;
-    orderBy?: 'name' | 'employeeNumber';
+    orderBy?: 'employeeNumber' | 'name';
 }
 export declare function getEmployees(filters: GetEmployeesFilters, options: GetEmployeesOptions): Promise<Employee[]>;
 export {};
