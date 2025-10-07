@@ -156,3 +156,4 @@ app.use((request, _response, next) => {
     next(createError(404, `File not found: ${request.url}`));
 });
 export default app;
+export { shutdown as shutdownAbuseCheck } from '@cityssm/express-abuse-points';

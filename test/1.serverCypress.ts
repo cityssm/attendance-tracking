@@ -6,7 +6,7 @@ import { exec } from 'node:child_process'
 import http from 'node:http'
 import { after, before, describe, it } from 'node:test'
 
-import { app } from '../app.js'
+import { app, shutdownAbuseCheck } from '../app.js'
 
 import { portNumber } from './_globals.js'
 
@@ -64,7 +64,13 @@ await describe('Attendance Tracking', async () => {
     try {
       httpServer.close()
     } catch {
-      console.warn('Error closing HTTP server.')
+      // Ignore
+    }
+    
+    try {
+      shutdownAbuseCheck()
+    } catch {
+      // Ignore
     }
   })
 

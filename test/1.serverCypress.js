@@ -2,7 +2,7 @@ import assert from 'node:assert';
 import { exec } from 'node:child_process';
 import http from 'node:http';
 import { after, before, describe, it } from 'node:test';
-import { app } from '../app.js';
+import { app, shutdownAbuseCheck } from '../app.js';
 import { portNumber } from './_globals.js';
 const cypressTimeoutMillis = 30 * 60 * 60 * 1000;
 function runCypress(browser, done) {
@@ -39,7 +39,11 @@ await describe('Attendance Tracking', async () => {
             httpServer.close();
         }
         catch {
-            console.warn('Error closing HTTP server.');
+        }
+        try {
+            shutdownAbuseCheck();
+        }
+        catch {
         }
     });
     await it(`Ensure server starts on port ${portNumber.toString()}`, () => {
