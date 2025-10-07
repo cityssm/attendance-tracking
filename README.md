@@ -1,7 +1,6 @@
 # Attendance Tracking
 
 [![DeepSource](https://app.deepsource.com/gh/cityssm/attendance-tracking.svg/?label=active+issues&show_trend=true&token=B8_UOorajlN2gsVC1faqAEAT)](https://app.deepsource.com/gh/cityssm/attendance-tracking/?ref=repository-badge)
-[![Maintainability](https://api.codeclimate.com/v1/badges/83bb46a6bf1bde5460c6/maintainability)](https://codeclimate.com/github/cityssm/attendance-tracking/maintainability)
 [![Coverage Testing](https://github.com/cityssm/attendance-tracking/actions/workflows/coverage.yml/badge.svg)](https://github.com/cityssm/attendance-tracking/actions/workflows/coverage.yml)
 [![attendance-tracking](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/szu5cb/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/szu5cb/runs)
 [![codecov](https://codecov.io/gh/cityssm/attendance-tracking/graph/badge.svg?token=21LFC3U1Q2)](https://codecov.io/gh/cityssm/attendance-tracking)

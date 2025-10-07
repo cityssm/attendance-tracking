@@ -1,6 +1,6 @@
 {
   "name": "@cityssm/attendance-tracking",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Track Your Employee Absences, Call Outs, and more!",
   "keywords": [
