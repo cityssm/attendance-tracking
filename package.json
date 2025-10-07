@@ -33,14 +33,14 @@
   "type": "module",
   "exports": "./app.js",
   "scripts": {
-    "coverage": "cross-env NODE_ENV=dev DEBUG=attendance-tracking:* TEST_DATABASES=true c8 --reporter=lcov --reporter=text --reporter=text-summary mocha --timeout 30000 --exit",
+    "coverage": "cross-env NODE_ENV=dev DEBUG=attendance-tracking:* TEST_DATABASES=true c8 --reporter=lcov --reporter=text --reporter=text-summary node --test --test-concurrency 1",
     "cy:open": "cypress open --config-file cypress.config.js",
     "cy:run": "cypress run --config-file cypress.config.js",
     "cy:run:firefox": "cypress run --config-file cypress.config.js --browser firefox",
     "dev:live": "cross-env NODE_ENV=dev DEBUG=attendance-tracking:* nodemon --inspect ./bin/www.js",
     "dev:test": "cross-env NODE_ENV=dev DEBUG=attendance-tracking:*,avanti-api TEST_DATABASES=true nodemon --inspect ./bin/www.js",
     "start": "cross-env NODE_ENV=production node ./bin/www.js",
-    "test": "cross-env NODE_ENV=dev DEBUG=attendance-tracking:* TEST_DATABASES=true mocha --timeout 30000 --exit",
+    "test": "cross-env NODE_ENV=dev DEBUG=attendance-tracking:* TEST_DATABASES=true node --test --test-concurrency 1",
     "test:startup": "cross-env NODE_ENV=dev DEBUG=attendance-tracking:* STARTUP_TEST=true node ./bin/www.js"
   },
   "dependencies": {
