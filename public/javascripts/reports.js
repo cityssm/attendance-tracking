@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
-    // eslint-disable-next-line unicorn/prefer-module
     const Attend = exports.Attend;
     /*
      * Menu Tabs

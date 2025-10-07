@@ -1,9 +1,18 @@
+import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
+
 import type { Attend as AttendGlobal } from '../../types/globalTypes.js'
 import type { CallOutList } from '../../types/recordTypes.js'
-;(() => {
-  const Attend = exports.Attend as AttendGlobal
 
-  const callOutLists = (exports.callOutLists ?? []) as CallOutList[]
+declare const cityssm: cityssmGlobal
+
+declare const exports: {
+  Attend: AttendGlobal
+  callOutLists?: CallOutList[]
+}
+;(() => {
+  const Attend = exports.Attend
+
+  const callOutLists = exports.callOutLists ?? []
 
   function openCallOutListByClick(clickEvent: MouseEvent): void {
     clickEvent.preventDefault()
@@ -35,7 +44,7 @@ import type { CallOutList } from '../../types/recordTypes.js'
       panelBlockElement.href = '#'
 
       panelBlockElement.innerHTML = `<span class="panel-icon"><i class="fas fa-phone" aria-hidden="true"></i></span>
-        ${callOutList.listName}`
+        ${cityssm.escapeHTML(callOutList.listName)}`
 
       panelBlockElement.addEventListener('click', openCallOutListByClick)
 

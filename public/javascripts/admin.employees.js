@@ -5,7 +5,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     const Attend = exports.Attend;
     let unfilteredEmployees = exports.employees;
-    delete exports.employees;
     let filteredEmployees = unfilteredEmployees;
     const employeeNumberRegularExpression = exports.employeeNumberRegularExpression;
     // Employee Modal
@@ -41,8 +40,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     bulmaJS.alert({
+                        contextualColorName: 'success',
                         message: 'Property updated successfully.',
-                        contextualColorName: 'success'
                     });
                     employeeProperties = responseJSON.employeeProperties;
                 }
@@ -63,8 +62,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     const responseJSON = rawResponseJSON;
                     if (responseJSON.success) {
                         bulmaJS.alert({
+                            contextualColorName: 'success',
                             message: 'Property deleted successfully.',
-                            contextualColorName: 'success'
                         });
                         employeeProperties = responseJSON.employeeProperties;
                         rowElement?.remove();
@@ -72,12 +71,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 });
             }
             bulmaJS.confirm({
+                contextualColorName: 'warning',
                 title: 'Delete Employee Property',
                 message: 'Are you sure you want to remove this employee property?',
-                contextualColorName: 'warning',
                 okButton: {
+                    callbackFunction: doDelete,
                     text: 'Delete Property',
-                    callbackFunction: doDelete
                 }
             });
         }
@@ -139,8 +138,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     bulmaJS.alert({
-                        message: 'Property added successfully.',
                         contextualColorName: 'success',
+                        message: 'Property added successfully.',
                         okButton: {
                             callbackFunction() {
                                 ;
@@ -185,8 +184,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     if (responseJSON.success) {
                         closeEmployeeModalFunction();
                         bulmaJS.alert({
+                            contextualColorName: 'info',
                             message: 'Employee deleted successfully',
-                            contextualColorName: 'info'
                         });
                         unfilteredEmployees = responseJSON.employees;
                         refreshFilteredEmployees();
@@ -300,9 +299,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 }
                 else {
                     bulmaJS.alert({
+                        contextualColorName: 'danger',
                         title: 'Error Adding Employee',
                         message: 'Please check to make sure that an employee does not already exist with the same employee number.',
-                        contextualColorName: 'danger'
                     });
                 }
             });
@@ -382,7 +381,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
       </button>
       </div>`;
         if (offset === 0) {
-            // eslint-disable-next-line no-extra-semi
             ;
             pagerElement.querySelector('.is-previous-button').disabled = true;
         }

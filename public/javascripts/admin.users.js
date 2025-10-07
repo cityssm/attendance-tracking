@@ -1,12 +1,12 @@
 "use strict";
+// eslint-disable-next-line @eslint-community/eslint-comments/disable-enable-pair
+/* eslint-disable @typescript-eslint/no-unsafe-type-assertion, max-lines */
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     const Attend = exports.Attend;
     let users = exports.users;
-    delete exports.users;
     const userDomain = (exports.userDomain ?? '');
     const availablePermissionValues = exports.availablePermissionValues;
-    delete exports.availablePermissionValues;
     const usersTableBodyElement = document.querySelector('#tbody--users');
     const canLoginFilterElement = document.querySelector('#filter--canLogin');
     function deleteUser(clickEvent) {
@@ -20,8 +20,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 const responseJSON = rawResponseJSON;
                 if (responseJSON.success) {
                     bulmaJS.alert({
+                        contextualColorName: 'success',
                         message: 'User deleted successfully.',
-                        contextualColorName: 'success'
                     });
                     tableRowElement.remove();
                 }
@@ -29,14 +29,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
             });
         }
         bulmaJS.confirm({
+            contextualColorName: 'warning',
             title: 'Delete User',
             message: `Are you sure you want to delete ${userName}?<br />
         Note that if this is temporary, revoking log in permissions would be easier to restore.`,
             messageIsHtml: true,
-            contextualColorName: 'warning',
             okButton: {
+                callbackFunction: doDelete,
                 text: 'Yes, Delete User',
-                callbackFunction: doDelete
             }
         });
     }
@@ -157,9 +157,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     }
                     else {
                         bulmaJS.alert({
+                            contextualColorName: 'danger',
                             title: 'Error Clearing Permissions',
                             message: 'Please try again.',
-                            contextualColorName: 'danger'
                         });
                     }
                     users = responseJSON.users;
@@ -167,12 +167,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 });
             }
             bulmaJS.confirm({
+                contextualColorName: 'warning',
                 title: 'Clear All Permissions',
                 message: `Are you sure you want to clear all of the permissions associated with "${userName}"?`,
-                contextualColorName: 'warning',
                 okButton: {
+                    callbackFunction: doClear,
                     text: 'Yes, Clear All Permissions',
-                    callbackFunction: doClear
                 }
             });
         }
@@ -184,16 +184,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
                 tableRowElement.dataset.permissionKey = permissionKey;
                 let iconClass;
                 switch (permissionKey.slice(permissionKey.lastIndexOf('.') + 1)) {
-                    case 'canView': {
-                        iconClass = 'fa-eye';
+                    case 'canManage': {
+                        iconClass = 'fa-tools';
                         break;
                     }
                     case 'canUpdate': {
                         iconClass = 'fa-pencil-alt';
                         break;
                     }
-                    case 'canManage': {
-                        iconClass = 'fa-tools';
+                    case 'canView': {
+                        iconClass = 'fa-eye';
                         break;
                     }
                     default: {

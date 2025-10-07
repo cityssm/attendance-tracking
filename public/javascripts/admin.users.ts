@@ -1,3 +1,6 @@
+// eslint-disable-next-line @eslint-community/eslint-comments/disable-enable-pair
+/* eslint-disable @typescript-eslint/no-unsafe-type-assertion, max-lines */
+
 import type { BulmaJS } from '@cityssm/bulma-js/types.js'
 import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 
@@ -10,19 +13,22 @@ import type { Attend as AttendGlobal } from '../../types/globalTypes.js'
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
+
+declare const exports: {
+  Attend: AttendGlobal
+  users: AttendUser[]
+  userDomain: string | undefined
+  availablePermissionValues: Record<string, string[]> | undefined
+}
+
 ;(() => {
-  const Attend = exports.Attend as AttendGlobal
+  const Attend = exports.Attend
 
-  let users = exports.users as AttendUser[]
-  delete exports.users
+  let users = exports.users
 
-  const userDomain = (exports.userDomain ?? '') as string
+  const userDomain = (exports.userDomain ?? '')
 
-  const availablePermissionValues = exports.availablePermissionValues as Record<
-    string,
-    string[]
-  >
-  delete exports.availablePermissionValues
+  const availablePermissionValues = exports.availablePermissionValues
 
   const usersTableBodyElement = document.querySelector(
     '#tbody--users'
@@ -53,8 +59,8 @@ declare const cityssm: cityssmGlobal
 
           if (responseJSON.success) {
             bulmaJS.alert({
+              contextualColorName: 'success',
               message: 'User deleted successfully.',
-              contextualColorName: 'success'
             })
 
             tableRowElement.remove()
@@ -66,14 +72,15 @@ declare const cityssm: cityssmGlobal
     }
 
     bulmaJS.confirm({
+      contextualColorName: 'warning',
       title: 'Delete User',
+
       message: `Are you sure you want to delete ${userName}?<br />
         Note that if this is temporary, revoking log in permissions would be easier to restore.`,
       messageIsHtml: true,
-      contextualColorName: 'warning',
       okButton: {
+        callbackFunction: doDelete,
         text: 'Yes, Delete User',
-        callbackFunction: doDelete
       }
     })
   }
@@ -251,9 +258,10 @@ declare const cityssm: cityssmGlobal
               permissionsModalCloseFunction()
             } else {
               bulmaJS.alert({
+                contextualColorName: 'danger',
                 title: 'Error Clearing Permissions',
+
                 message: 'Please try again.',
-                contextualColorName: 'danger'
               })
             }
 
@@ -264,12 +272,13 @@ declare const cityssm: cityssmGlobal
       }
 
       bulmaJS.confirm({
-        title: 'Clear All Permissions',
-        message: `Are you sure you want to clear all of the permissions associated with "${userName}"?`,
         contextualColorName: 'warning',
+        title: 'Clear All Permissions',
+
+        message: `Are you sure you want to clear all of the permissions associated with "${userName}"?`,
         okButton: {
+          callbackFunction: doClear,
           text: 'Yes, Clear All Permissions',
-          callbackFunction: doClear
         }
       })
     }
@@ -290,16 +299,16 @@ declare const cityssm: cityssmGlobal
         let iconClass: string
 
         switch (permissionKey.slice(permissionKey.lastIndexOf('.') + 1)) {
-          case 'canView': {
-            iconClass = 'fa-eye'
+          case 'canManage': {
+            iconClass = 'fa-tools'
             break
           }
           case 'canUpdate': {
             iconClass = 'fa-pencil-alt'
             break
           }
-          case 'canManage': {
-            iconClass = 'fa-tools'
+          case 'canView': {
+            iconClass = 'fa-eye'
             break
           }
           default: {

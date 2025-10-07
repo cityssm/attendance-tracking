@@ -67,12 +67,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
     }
     const Attend = {
         urlPrefix,
-        setUnsavedChanges,
         clearUnsavedChanges,
         hasUnsavedChanges,
+        setUnsavedChanges,
         initializeMenuTabs,
         togglePanelBlocks
     };
-    // eslint-disable-next-line unicorn/prefer-module
     exports.Attend = Attend;
 })();

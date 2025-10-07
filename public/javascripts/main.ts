@@ -3,6 +3,10 @@ import type { cityssmGlobal } from '@cityssm/bulma-webapp-js/src/types.js'
 import type { Attend as AttendGlobal } from '../../types/globalTypes.js'
 
 declare const cityssm: cityssmGlobal
+
+declare const exports: {
+  Attend: AttendGlobal
+}
 ;(() => {
   const urlPrefix = document.querySelector('main')?.dataset.urlPrefix as string
 
@@ -92,13 +96,14 @@ declare const cityssm: cityssmGlobal
 
   const Attend: AttendGlobal = {
     urlPrefix,
-    setUnsavedChanges,
+
     clearUnsavedChanges,
     hasUnsavedChanges,
+    setUnsavedChanges,
+
     initializeMenuTabs,
     togglePanelBlocks
   }
 
-  // eslint-disable-next-line unicorn/prefer-module
   exports.Attend = Attend
 })()

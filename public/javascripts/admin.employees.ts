@@ -14,20 +14,27 @@ import type { Employee, EmployeeProperty } from '../../types/recordTypes.js'
 declare const bulmaJS: BulmaJS
 
 declare const cityssm: cityssmGlobal
-;(() => {
-  const Attend = exports.Attend as AttendGlobal
 
-  let unfilteredEmployees = exports.employees as Employee[]
-  delete exports.employees
+declare const exports: {
+  Attend: AttendGlobal
+  employees: Employee[]
+  employeeNumberRegularExpression?: RegExp
+  selfService: boolean
+}
+
+;(() => {
+  const Attend = exports.Attend
+
+  let unfilteredEmployees = exports.employees
 
   let filteredEmployees = unfilteredEmployees
 
   const employeeNumberRegularExpression =
-    exports.employeeNumberRegularExpression as RegExp | undefined
+    exports.employeeNumberRegularExpression
 
   // Employee Modal
 
-  const selfServiceEnabled = exports.selfService as boolean
+  const selfServiceEnabled = exports.selfService
 
   function swapFields(clickEvent: Event): void {
     clickEvent.preventDefault()
@@ -76,8 +83,8 @@ declare const cityssm: cityssmGlobal
 
           if (responseJSON.success) {
             bulmaJS.alert({
+              contextualColorName: 'success',
               message: 'Property updated successfully.',
-              contextualColorName: 'success'
             })
 
             employeeProperties = responseJSON.employeeProperties
@@ -108,8 +115,8 @@ declare const cityssm: cityssmGlobal
 
             if (responseJSON.success) {
               bulmaJS.alert({
+                contextualColorName: 'success',
                 message: 'Property deleted successfully.',
-                contextualColorName: 'success'
               })
 
               employeeProperties = responseJSON.employeeProperties
@@ -120,12 +127,13 @@ declare const cityssm: cityssmGlobal
       }
 
       bulmaJS.confirm({
-        title: 'Delete Employee Property',
-        message: 'Are you sure you want to remove this employee property?',
         contextualColorName: 'warning',
+        title: 'Delete Employee Property',
+
+        message: 'Are you sure you want to remove this employee property?',
         okButton: {
+          callbackFunction: doDelete,
           text: 'Delete Property',
-          callbackFunction: doDelete
         }
       })
     }
@@ -204,8 +212,8 @@ declare const cityssm: cityssmGlobal
 
           if (responseJSON.success) {
             bulmaJS.alert({
-              message: 'Property added successfully.',
               contextualColorName: 'success',
+              message: 'Property added successfully.',
               okButton: {
                 callbackFunction() {
                   ;(
@@ -273,8 +281,8 @@ declare const cityssm: cityssmGlobal
               closeEmployeeModalFunction()
 
               bulmaJS.alert({
+                contextualColorName: 'info',
                 message: 'Employee deleted successfully',
-                contextualColorName: 'info'
               })
 
               unfilteredEmployees = responseJSON.employees
@@ -448,6 +456,7 @@ declare const cityssm: cityssmGlobal
           .querySelector('.is-delete-employee')
           ?.addEventListener('click', deleteEmployee)
       },
+
       onremoved() {
         bulmaJS.toggleHtmlClipped()
       }
@@ -494,10 +503,11 @@ declare const cityssm: cityssmGlobal
               refreshFilteredEmployees()
             } else {
               bulmaJS.alert({
+                contextualColorName: 'danger',
                 title: 'Error Adding Employee',
+
                 message:
                   'Please check to make sure that an employee does not already exist with the same employee number.',
-                contextualColorName: 'danger'
               })
             }
           }
@@ -525,6 +535,7 @@ declare const cityssm: cityssmGlobal
             .querySelector('form')
             ?.addEventListener('submit', addEmployee)
         },
+
         onremoved() {
           bulmaJS.toggleHtmlClipped()
         }
@@ -618,7 +629,6 @@ declare const cityssm: cityssmGlobal
       </div>`
 
     if (offset === 0) {
-      // eslint-disable-next-line no-extra-semi
       ;(
         pagerElement.querySelector('.is-previous-button') as HTMLButtonElement
       ).disabled = true

@@ -1,7 +1,10 @@
 import type { Attend as AttendGlobal } from '../../types/globalTypes.js'
+
+declare const exports: {
+  Attend: AttendGlobal
+}
 ;(() => {
-  // eslint-disable-next-line unicorn/prefer-module
-  const Attend = exports.Attend as AttendGlobal
+  const Attend = exports.Attend
 
   /*
    * Menu Tabs

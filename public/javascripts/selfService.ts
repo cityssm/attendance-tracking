@@ -153,14 +153,14 @@ declare const cityssm: cityssmGlobal
   }
 
   function monitorInactivity(): void {
-    let time: number
+    let time: NodeJS.Timeout
     window.addEventListener('load', resetTimer)
     document.addEventListener('mousemove', resetTimer)
     document.addEventListener('keydown', resetTimer)
 
     function resetTimer(): void {
-      window.clearTimeout(time)
-      time = window.setTimeout(signOut, 2 * 60 * 1000) // 2 minutes
+      globalThis.clearTimeout(time)
+      time = globalThis.setTimeout(signOut, 2 * 60 * 1000) // 2 minutes
     }
   }
 
@@ -336,13 +336,12 @@ declare const cityssm: cityssmGlobal
           panelBlockElement.dataset.listId = callOutList.listId
 
           panelBlockElement.innerHTML = `<div>
-            <strong>${callOutList.listName}</strong><br />
-            ${callOutList.listDescription ?? ''}
+            <strong>${cityssm.escapeHTML(callOutList.listName)}</strong><br />
+            ${cityssm.escapeHTML(callOutList.listDescription ?? '')}
             </div>
             <div class="is-add-button-container"></div>`
 
           if (callOutList.hasSelfSignUpKey ?? true) {
-            // eslint-disable-next-line no-extra-semi
             ;(
               panelBlockElement.querySelector(
                 '.is-add-button-container'
@@ -369,7 +368,6 @@ declare const cityssm: cityssmGlobal
                 </div>
               </div>`
           } else {
-            // eslint-disable-next-line no-extra-semi
             ;(
               panelBlockElement.querySelector(
                 '.is-add-button-container'

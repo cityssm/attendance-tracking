@@ -100,8 +100,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
         document.addEventListener('mousemove', resetTimer);
         document.addEventListener('keydown', resetTimer);
         function resetTimer() {
-            window.clearTimeout(time);
-            time = window.setTimeout(signOut, 2 * 60 * 1000); // 2 minutes
+            globalThis.clearTimeout(time);
+            time = globalThis.setTimeout(signOut, 2 * 60 * 1000); // 2 minutes
         }
     }
     window.addEventListener('load', monitorInactivity);
@@ -215,12 +215,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
                     'panel-block is-justify-content-space-between';
                 panelBlockElement.dataset.listId = callOutList.listId;
                 panelBlockElement.innerHTML = `<div>
-            <strong>${callOutList.listName}</strong><br />
-            ${callOutList.listDescription ?? ''}
+            <strong>${cityssm.escapeHTML(callOutList.listName)}</strong><br />
+            ${cityssm.escapeHTML(callOutList.listDescription ?? '')}
             </div>
             <div class="is-add-button-container"></div>`;
                 if (callOutList.hasSelfSignUpKey ?? true) {
-                    // eslint-disable-next-line no-extra-semi
                     ;
                     panelBlockElement.querySelector('.is-add-button-container').innerHTML = `<div class="field has-addons">
                 <div class="control has-icons-left">
@@ -245,7 +244,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
               </div>`;
                 }
                 else {
-                    // eslint-disable-next-line no-extra-semi
                     ;
                     panelBlockElement.querySelector('.is-add-button-container').innerHTML = `<button class="button is-success is-add-button" type="button">
                 <span class="icon"><i class="fas fa-plus" aria-hidden="true"></i></span>

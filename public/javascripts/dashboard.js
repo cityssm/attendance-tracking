@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 (() => {
     const Attend = exports.Attend;
-    const callOutLists = (exports.callOutLists ?? []);
+    const callOutLists = exports.callOutLists ?? [];
     function openCallOutListByClick(clickEvent) {
         clickEvent.preventDefault();
         const listId = clickEvent.currentTarget.dataset
@@ -22,7 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
             panelBlockElement.dataset.listId = callOutList.listId;
             panelBlockElement.href = '#';
             panelBlockElement.innerHTML = `<span class="panel-icon"><i class="fas fa-phone" aria-hidden="true"></i></span>
-        ${callOutList.listName}`;
+        ${cityssm.escapeHTML(callOutList.listName)}`;
             panelBlockElement.addEventListener('click', openCallOutListByClick);
             callOutListContainerElement.append(panelBlockElement);
         }
